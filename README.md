@@ -1,6 +1,6 @@
 # Laboratório de Computadores (LC) - Year 2, Semester 2 (Y2S2)
 
-This repository contains all the exercises and assessments of the UC Laboratório de Computadores, taught by []() and [Ademar Aguiar](https://sigarra.up.pt/feup/pt/func_geral.formview?p_codigo=231081) at [Integrated Master in Informatics and Computing Engineering](https://sigarra.up.pt/feup/pt/cur_geral.cur_view?pv_curso_id=742) [MIEIC] at the [Faculty of Engineering of the University of Porto](https://sigarra.up.pt/feup/pt/web_page.Inicial) [FEUP]. <br> <br>
+This repository contains all the exercises and assessments of the UC Laboratório de Computadores, taught by []() and []() at [Integrated Master in Informatics and Computing Engineering](https://sigarra.up.pt/feup/pt/cur_geral.cur_view?pv_curso_id=742) [MIEIC] at the [Faculty of Engineering of the University of Porto](https://sigarra.up.pt/feup/pt/web_page.Inicial) [FEUP]. <br> <br>
 
 <h2 align = "center" >Final Grade: __ /20</h2>
 <p align = "center" >
@@ -26,7 +26,6 @@ Varied exercises of easy, medium and difficult level, about the subject taught i
 
 With:
 - [x] Fábio Sá, up202007658 
-- [x] Gabriel Coelho, up201902223 
 - [x] Inês Gaspar, up202007210 
 - [x] Lourenço Gonçalves, up202004816 
 - [x] Marcos Pinto, up201800177
