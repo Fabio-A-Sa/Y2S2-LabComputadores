@@ -96,7 +96,7 @@ int main () {
 int mode |= BIT(SQR_WAVE_BIT1) | BIT(SQR_WAVE_BIT0); // ativa os dois bits menos significativos
 ```
 
-2. Antes de uma operação aritmética, converter tudo para inteiro usando um `cast`. Assim não há overflow. Lembrando que para n bits, o valor a representar está compreendido entre [-2^n, 2^n - 1].
+2. Antes de uma operação aritmética, converter tudo para inteiro usando um `cast`. Assim não há overflow. Lembrando que para n bits, o valor a representar está compreendido entre [-2^n, 2^n - 1]. <br>
 
 ```c
 void showErrors() {
@@ -117,3 +117,17 @@ void showErrors() {
     uchar result_8 = (uint8_t) ( ~port ) >> 4;
 }
 ```
+
+3. A biblioteca <stdint.h> vai ser usada e possui vários tipos extra de inteiros para manipular:
+
+- uint8_t
+- int8_t
+- uint16_t
+- int16_t
+- uint32_t
+- int32_t
+- uint64_t
+- int64_t
+
+## C Pointers
+
