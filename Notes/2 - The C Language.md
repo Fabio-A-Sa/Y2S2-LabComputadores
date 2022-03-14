@@ -45,7 +45,7 @@ int main () {
 }
 ```
 
-## Bitwise Operations
+## Bitwise Operators
 
 - AND (&)
 
@@ -71,3 +71,33 @@ int main () {
 ~010011 = 101100                        -- 0 passa a 1 e 1 passa a 0
 ```
 
+## Shift Operators
+
+- Right Shift ( >> )
+
+```note
+00010011 >> 4 = 00000001                -- Adiciona zeros atrás do número, dividindo-o por 2^n
+```
+
+- Left Shift ( << )
+
+```note
+00010011 << 3 = 10011000                -- Adiciona zeros à frente do número, multiplicando-o por 2^n
+```
+
+## Para evitar erros:
+
+1. Usar mask e macros na definição dos programas:
+
+```c
+#define BIT(n) (0x1 << (n))
+#define SQR_WAVE_BIT0 1
+#define SQR_WAVE_BIT1 2
+int mode |= BIT(SQR_WAVE_BIT1) | BIT(SQR_WAVE_BIT0); // ativa os dois bits menos significativos
+```
+
+2. Antes de uma operação aritmética, converter tudo para inteiro usando um `cast`. Assim não há overflow. Lembrando que para n bits, o valor a representar está compreendido entre [-2^n, 2^n - 1].
+
+```c
+
+```
