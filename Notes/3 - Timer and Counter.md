@@ -12,4 +12,9 @@ Cada computador tem a funcionalidade de medir um tempo preciso, por exemplo, um 
 
 ## Registo de Controlo (0x43)
 
-
+<p align = "center" >
+<img    align = "center"
+        src = "..//Images//ControlWord.png"
+        alt = "memory parts"
+        title = "memory parts"
+/> </p>
