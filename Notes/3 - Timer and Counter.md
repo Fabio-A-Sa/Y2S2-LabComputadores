@@ -19,6 +19,7 @@ Cada computador tem a funcionalidade de medir um tempo preciso, por exemplo, um 
         title = "memory parts"
 /> </p>
 <p align = "center">Tabela de construção do control register em 0x43</p>
+<br>
 
 - bit `0`: 0 para contagem binária, 1 para contagem BCD;
 - bit `1, 2, 3`: para decisão do modo de contagem. Para a cadeira, modo 3 = 011;
