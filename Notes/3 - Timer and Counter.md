@@ -12,6 +12,7 @@ Cada computador tem a funcionalidade de medir um tempo preciso, por exemplo, um 
 
 ## Registo de Controlo (0x43)
 
+<br>
 <p align = "center" >
 <img    align = "center"
         src = "..//Images//ControlWord.png"
