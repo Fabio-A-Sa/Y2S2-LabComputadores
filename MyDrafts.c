@@ -47,3 +47,17 @@ void showErrors() {
     cresult = ( (int) c1 * c2 ) / c3;
     uchar result_8 = (uint8_t) ( ~port ) >> 4;
 }
+
+void funWithPointers() {
+
+    int *p;             // variable pointer
+    int n = 123;        // a simple value
+    p = &n;             // p contains the memory address of variable n
+    *p = 10             // n = 10
+
+    // pode ser também usados para finais de strings, pois 0x00 é sempre o final destas
+    char *string = "Hello World!";
+    for ( len = 0 ; *string != 0 ; len++, p++) {
+        printf("*(string + len)");
+    }
+}
