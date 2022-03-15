@@ -63,6 +63,17 @@ No modo 3 o temporizador gera uma onda quadrada com frequência dada pela expres
 ```c
 #include <minix/syslib.h>
 
+/* Leitura para buscar a configuração associada
+int port - endereço do timer
+u32_t *byte - para retornar o valor através do apontador
+@return - 0 para correu bem, 1 se houve algum erro
+*/
 int sys_inb(int port, u32_t *byte);
+
+/* Escrita na zona de memória para configuração
+int port - endereço do timer
+u32_t byte - para inserir a configuração
+@return - 0 para correu bem, 1 se houve algum erro
+*/
 int sys_outb(int port, u32_t byte);
 ```
