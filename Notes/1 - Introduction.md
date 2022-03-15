@@ -23,7 +23,7 @@ A memória é usada em diversas partes para assegurar o bom funcionamento dos pr
 
 1. args - argumentos passados pela linha de comando e variáveis de ambiente;
 2. stack - registos de ativação para funções invocadas;
-3. heap - região alocada dinamicamente usando `malloc`em C;
+3. heap - região alocada dinamicamente usando `malloc` em C;
 4. data - região de memória alocada estaticamente pelo compilador, por exemplo com strings, variáveis e afins presentes no código;
 5. text - instruções do programa;
 
@@ -33,3 +33,8 @@ A memória é usada em diversas partes para assegurar o bom funcionamento dos pr
 - Sistema operativo;
 - Hardware;
 
+O Kernel implementa as chamadas ao sistema e manipula o hardware. É diferente de sistema operativo, pois este último ainda engloba as livrarias, as aplicações e programas de sistema.
+
+## I/O Devices
+
+Providenciam uma ligação / interface entre o CPU e o mundo externo (o hardware, por exemplo). 
