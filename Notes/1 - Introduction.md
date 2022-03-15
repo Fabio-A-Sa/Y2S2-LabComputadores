@@ -14,7 +14,7 @@ Abstração do sistema operativo de um programa em execução
 
 A memória é usada em diversas partes para assegurar o bom funcionamento dos programas. Há 5 partes principais:
 
-<img    center
+<img    align = "center"
         src = "..//Images//MemoryParts.png"
         alt = "memory parts"
         title = "memory parts"
