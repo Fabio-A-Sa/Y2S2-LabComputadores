@@ -20,7 +20,27 @@ int main () {
 #include <stdio.h>
 
 int main () {
-    printf("Hello World!\n");
+    
+    // variables
+    char letter = 'F';
+    unsigned int unsigned_value = 0x68;
+    int value = 120;
+    unsigned int unsigned_value = 34324;
+    long long_value = -28347;
+    unsigned long int unsigned_long_int_value = 2453;
+    char string[] = "Hello\n";
+    int* pointer = &unsigned_value;
+
+    // output using printf() method
+    printf("");
+    printf("");
+    printf("");
+    printf("");
+    printf("");
+    printf("");
+    printf("");
+    printf("");
+
     return 0;
 }
 ```
