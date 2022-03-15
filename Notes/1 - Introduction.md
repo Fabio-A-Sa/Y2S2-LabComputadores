@@ -37,4 +37,9 @@ O Kernel implementa as chamadas ao sistema e manipula o hardware. É diferente d
 
 ## I/O Devices
 
-Providenciam uma ligação / interface entre o CPU e o mundo externo (o hardware, por exemplo). 
+Providenciam uma ligação / interface entre o CPU e o mundo externo (o hardware, por exemplo). São controlados por um controlador ou adaptador, que pode ser manipulado usando linguagens como Assembly ou por mapeamento de registos de memória. <br>
+Têm a seguinte estrutura:
+
+1. Control - pede operações de input ou output;
+2. Status - o estado do dispositivo pendente ou operações pendentes;
+3. Data - que vai ser transferida e/ou obtida pelo dispositivo;
