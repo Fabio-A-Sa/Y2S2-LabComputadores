@@ -131,3 +131,13 @@ void showErrors() {
 
 ## C Pointers
 
+Um tipo de dados cujo valor é um endereço de memória. Todas as variáveis de programa são colocadas na memória. Funcionamento:
+
+```c
+void funWithPointers() {
+
+    int *p;             // variable pointer
+    int n = 123;        // a simple value
+    p = &n;             // p contains the memory address of variable n
+}
+```
