@@ -62,7 +62,7 @@ int main () {
 - XOR (^)
 
 ```note
-010011 ^ 011001 = 010001                -- 1 para diferentes, 0 para iguais
+010011 ^ 011001 = 001010                -- 1 para diferentes, 0 para iguais
 ```
 
 - One's Compement (~)
