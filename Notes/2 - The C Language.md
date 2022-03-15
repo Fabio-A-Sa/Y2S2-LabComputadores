@@ -99,5 +99,21 @@ int mode |= BIT(SQR_WAVE_BIT1) | BIT(SQR_WAVE_BIT0); // ativa os dois bits menos
 2. Antes de uma operação aritmética, converter tudo para inteiro usando um `cast`. Assim não há overflow. Lembrando que para n bits, o valor a representar está compreendido entre [-2^n, 2^n - 1].
 
 ```c
+void showErrors() {
 
+    // erro comum 1
+    signed char cresult, c1, c2, c3;
+    c1 = 100;
+    c2 = 3;
+    c3 = 4;
+    cresult = c1 * c2 / c3; // overflow pois um char não consegue conter 400
+
+    // erro comum 2
+    uchar port = 0x54;
+    uchar result_8 = ( ~port ) >> 4; // se tiver 32 bits e não 8 aparecerá FFs em vez de 00s
+
+    // solução -> um cast antes do resultado
+    cresult = ( (int) c1 * c2 ) / c3;
+    uchar result_8 = (uint8_t) ( ~port ) >> 4;
+}
 ```
