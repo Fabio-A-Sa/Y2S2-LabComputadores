@@ -35,10 +35,16 @@ Cada computador tem a funcionalidade de medir um tempo preciso, por exemplo, um 
 <br>
 <p align = "center" >
 <img    align = "center"
-        src = "..//Images//ControlWord.png"
+        src = "..//Images//ControlWord2.png"
         alt = "control word"
         title = "control word"
 /> </p>
 <p align = "center">Tabela de construção do control register em 0x43</p>
 <br>
+
+- bit `0`: 0 para contagem binária, 1 para contagem BCD;
+- bit `1, 2, 3`: para escolher qual ou quais timers a consultar. Para cada 1, 1 bit é necessário;
+- bit `4`: 0 se for para ler o estado, 1 caso contrário. Nesta cadeira é importante;
+- bit `5`: 0 se for para ler a contagem atual, 1 caso contrário. Nesta cadeira não é tão importante;
+- bit `6, 7`: 11 obrigatório se for para leitura da configuração atual do Timer;
 
