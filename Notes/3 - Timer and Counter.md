@@ -11,6 +11,10 @@ Cada computador tem a funcionalidade de medir um tempo preciso, por exemplo, um 
 - tem um registo de controlo na porta `0x43`;
 - MSB e LSB servem para guardar o número a inicializar no contador;
 
+#### Nota:
+
+No modo 3 o temporizador gera uma onda quadrada com frequência dada pela expressão clock / div, onde clock é a frequência da entrada clock e div é o valor carregado inicialmente.
+
 ## Registo de Controlo (0x43)
 
 ### Para configuração de um Timer
