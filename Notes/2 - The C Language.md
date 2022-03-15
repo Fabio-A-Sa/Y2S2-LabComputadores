@@ -50,24 +50,24 @@ int main () {
 - AND (&)
 
 ```note
-010011 & 011001 = 010001
+010011 & 011001 = 010001                -- Só é 1 quando encontra dois 1s
 ```
 
-- OR (|)
+- OR ( | )
 
 ```note
-010011 | 011001 = 011011
+010011 | 011001 = 011011                -- Só é 0 quando encontra dois 0s
 ```
 
 - XOR (^)
 
 ```note
-010011 ^ 011001 = 010001
+010011 ^ 011001 = 010001                -- 1 para diferentes, 0 para iguais
 ```
 
 - One's Compement (~)
 
 ```note
-~010011 = 101100
+~010011 = 101100                        -- 0 passa a 1 e 1 passa a 0
 ```
 
