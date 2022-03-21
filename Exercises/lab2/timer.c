@@ -32,10 +32,17 @@ void (timer_int_handler)() {
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  
+  uint8_t controlWord = 0xC0; // 11000000 inicialmente {read-back command, ler a contagem e ler o status}
+  if (timer >= 0 && timer < 3) {
+      controlWord |= BIT(timer+1); // ativa o bit select do timer a buscar
+      int ret = sys_outb(TIMER_CTRL, controlWord); // system call para injetar a control word
 
-  return 1;
+      // ler para st o estado do timer
+
+
+      
+  } else return 1; // número de timer inválido
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
