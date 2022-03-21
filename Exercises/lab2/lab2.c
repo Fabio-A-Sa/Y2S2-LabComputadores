@@ -39,9 +39,8 @@ int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
 }
 
 int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
-
-  return 1;
-}
+    return (timer >= 0 && timer < 3) ? timer_set_frequency(timer, freq) : 1;    // retorna o valor da função de time
+}                                                                               // só se timer tiver valor válido, senão != 0
 
 int(timer_test_int)(uint8_t time) {
 
