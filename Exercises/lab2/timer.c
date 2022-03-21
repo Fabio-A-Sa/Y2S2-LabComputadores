@@ -44,6 +44,41 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
 
 int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
 
-  
-  return 1;
+  union timer_status_field_val data;                        // variável que vai ficar com o valor pedido em 'field'
+
+  switch (field) {
+
+    case tsf_all: data.byte = st; break;                    // configuração toda
+    case tsf_initial:                                       // modo de inicialização {none, LSB, MSB, MSB & LSB}
+
+      if ((st & TIMER_LSB) == 0 && (st & TIMER_MSB) == 0): data.in_mode = INVAL_val;          // none
+      if ((st & TIMER_LSB) != 0 && (st & TIMER_MSB) != 0): data.in_mode = MSB_after_LSB;      // MSB & LSB
+      if ((st & TIMER_LSB) != 0 && (st & TIMER_MSB) == 0): data.in_mode = LSB_only;           // LSB
+      if ((st & TIMER_LSB) == 0 && (st & TIMER_MSB) != 0): data.in_mode = MSB_only;           // MSB
+
+      break;
+
+    case tsf_mode:                                          // modo de contagem
+
+      uint8_t mode = ((st >> 1) & 0x7);                     // ficar com os 3 bits que indicam o modo da contagem
+                                                            // (st >> 1) & 00000111
+      switch (mode) {
+        case 0: data.count_mode = 0; break;                 // 000
+        case 1: data.count_mode = 1; break;                 // 001
+        case 2: case 6: data.count_mode = 2; break;         // X10
+        case 3: case 7: data.count_mode = 3; break;         // X11
+        case 4: data.count_mode = 4; break;                 // 100
+        case 5: data.count_mode = 5; break;                 // 101
+        default: return 1;                                  // valor inválido, aborta logo a missão
+      }
+
+      break;
+    
+    case tsf_base: data.bcd = st & TIMER_BCD; break;        // modo de escrita
+
+    default: return 1;                                      // field inválido, aborta logo a missão
+  }
+
+  return timer_print_config(timer, st, data);               // printa a informação usando a função dos professores.
+                                                            // retorna a existência de um erro ou não
 }
