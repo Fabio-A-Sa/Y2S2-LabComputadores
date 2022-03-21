@@ -42,9 +42,9 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
       if (ret != 0) return ret                              // se ocorreu um erro na leitura, aborta a missão logo
       
       switch (timer) {
-        case 0: ret = util_sys_inb(TIMER_0, &st); break;    // 'st' fica com a configuração de timer 0
-        case 1: ret = util_sys_inb(TIMER_1, &st); break;    // 'st' fica com a configuração de timer 1
-        case 2: ret = util_sys_inb(TIMER_2, &st); break;    // 'st' fica com a configuração de timer 2
+        case 0: ret = util_sys_inb(TIMER_0, st); break;    // 'st' fica com a configuração de timer 0
+        case 1: ret = util_sys_inb(TIMER_1, st); break;    // 'st' fica com a configuração de timer 1
+        case 2: ret = util_sys_inb(TIMER_2, st); break;    // 'st' fica com a configuração de timer 2
       }
       
       return ret;                                           // retorna a existência de um erro na leitura ou não
@@ -54,6 +54,6 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
 
 int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
 
-  
+
   return 1;
 }
