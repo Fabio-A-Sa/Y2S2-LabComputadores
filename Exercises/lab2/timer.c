@@ -33,22 +33,27 @@ void (timer_int_handler)() {
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   
-  uint8_t controlWord = 0xC0; // 11000000 inicialmente {read-back command, ler a contagem e ler o status}
-  if (timer >= 0 && timer < 3) {
-      controlWord |= BIT(timer+1); // ativa o bit select do timer a buscar
-      int ret = sys_outb(TIMER_CTRL, controlWord); // system call para injetar a control word
+  uint8_t controlWord = 0xC0;                               // 11000000 inicialmente {read-back command (11), ler a contagem atual (0) e ler o status (0)}
+  if (timer >= 0 && timer < 3) {                            // se for um timer válido, {0..2}
+  
+      controlWord |= BIT(timer+1);                          // ativa o bit correspondente ao timer a buscar
+      int ret = sys_outb(TIMER_CTRL, controlWord);          // system call para injetar a control word
 
-      // ler para st o estado do timer
-
-
+      if (ret != 0) return ret                              // se ocorreu um erro na leitura, aborta a missão logo
       
-  } else return 1; // número de timer inválido
+      switch (timer) {
+        case 0: ret = util_sys_inb(TIMER_0, &st); break;    // 'st' fica com a configuração de timer 0
+        case 1: ret = util_sys_inb(TIMER_1, &st); break;    // 'st' fica com a configuração de timer 1
+        case 2: ret = util_sys_inb(TIMER_2, &st); break;    // 'st' fica com a configuração de timer 2
+      }
+      
+      return ret;                                           // retorna a existência de um erro na leitura ou não
+
+  } else return 1;                                          // número de timer inválido, aborta a missão logo
 }
 
-int (timer_display_conf)(uint8_t timer, uint8_t st,
-                        enum timer_status_field field) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
 
+  
   return 1;
 }
