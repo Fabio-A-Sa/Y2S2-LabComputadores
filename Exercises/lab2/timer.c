@@ -27,8 +27,8 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   uint8_t selectedTimer;                                                // vai conter a porta do timer selecionado
   switch (timer) {  
     case 0: controlWord |= TIMER_SEL0; selectedTimer = TIMER_0; break;  // controlWord fica com o bit do timer 0 ativado
-    case 1: controlWord |= TIMER_SEL1; selectedTimer = TIMER_1; break;  // controlWord fica com o bit do timer 0 ativado
-    case 2: controlWord |= TIMER_SEL2; selectedTimer = TIMER_2; break;  // controlWord fica com o bit do timer 0 ativado
+    case 1: controlWord |= TIMER_SEL1; selectedTimer = TIMER_1; break;  // controlWord fica com o bit do timer 1 ativado
+    case 2: controlWord |= TIMER_SEL2; selectedTimer = TIMER_2; break;  // controlWord fica com o bit do timer 2 ativado
   }
 
   // modifica o valor inicial do contador ao mesmo tempo que indica se houve complicações em qualquer um destes passos
