@@ -10,3 +10,9 @@ Todas as interrupções são processadas usando o PIC (*Priority Interrupt Contr
 <img src = "../Images/i8259.png">
 </p>
 
+O PIC envia então ao processador um vector, de valores de oito bits, que correspondem a uma posição de uma tabela de memória onde estão os endereços para cada subrotina a executar de I/O do dispositivo em questão. 
+
+| PIC | Controller Register | Interrupt Mask Register |
+| :--- | :----: | ---: |
+| PIC1 | 0x20 | 0x21 |
+| PIC2 | 0xA0 | 0xA1 |
