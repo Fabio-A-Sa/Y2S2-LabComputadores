@@ -6,7 +6,33 @@
 #include "i8254.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
-  return 1;
+
+  uint8_t initialConfiguration;                                       // variável que vai conter a configuração do timer
+  if (timer_get_conf(timer, &initialConfiguration) != 0) return 1;    // se houve erro, abortar logo a missão
+
+  uint8_t controlWord = initialConfiguration | TIMER_LSB_MSB;         // construção da control word com base na configuração atual
+
+  /*
+  * freq        -> frequência pedida
+  * TIMER_FREQ  -> frequência no OUT do timer
+  * value       -> valor carregado inicialmente com MSB e LSB
+  * freq = TIMER_FREQ / value <=> value = TIMER_FREQ / freq
+  */
+
+  uint32_t initialValue = TIMER_FREQ / freq;                            // cálculo do valor inicial do timer
+  uint8_t MSB, LSB;                                                     // variáveis que vão conter os valores de MSB e LSB
+  util_get_MSB(initialValue, &MSB);                                     // MSB <- 8 bits mais significativos
+  util_get_LSB(initialValue, &LSB);                                     // LSB <- 8 bits menos significativos
+
+  uint8_t selectedTimer;                                                // vai conter a porta do timer selecionado
+  switch (timer) {  
+    case 0: controlWord |= TIMER_SEL0; selectedTimer = TIMER_0; break;  // controlWord fica com o bit do timer 0 ativado
+    case 1: controlWord |= TIMER_SEL1; selectedTimer = TIMER_1; break;  // controlWord fica com o bit do timer 0 ativado
+    case 2: controlWord |= TIMER_SEL2; selectedTimer = TIMER_2; break;  // controlWord fica com o bit do timer 0 ativado
+  }
+
+  // modifica o valor inicial do contador ao mesmo tempo que indica se houve complicações em qualquer um destes passos
+  return sys_outb(TIMER_CTRL, controlWord) | sys_outb(selectedTimer, LSB) | sys_outb(selectedTimer, MSB);
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
@@ -60,7 +86,7 @@ int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field fiel
 
     case tsf_mode:                                          // modo de contagem
 
-      uint8_t mode = ((st >> 1) & 0x7);                     // ficar com os 3 bits que indicam o modo da contagem
+      uint8_t mode = ((st >> 1) & 0x07);                     // ficar com os 3 bits que indicam o modo da contagem
                                                             // (st >> 1) & 00000111
       switch (mode) {
         case 0: data.count_mode = 0; break;                 // 000
