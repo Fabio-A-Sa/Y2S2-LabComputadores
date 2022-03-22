@@ -43,6 +43,10 @@ int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
 }                                                                               // só se timer tiver valor válido, senão != 0
 
 int(timer_test_int)(uint8_t time) {
+  
+  if (timer_set_frequency(0, 60) != 0) return 1;            // inicializa o timer 0 a 60 Hz
+
+  
 
   return 1;
 }
