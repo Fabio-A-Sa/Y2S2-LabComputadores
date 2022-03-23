@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+uint16_t hook_id; // global variable
+
 #include "i8254.h"
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
@@ -36,6 +38,10 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
+
+  uint8_t hook_id;
+  sys_inqsetpolicy(TIMER0_IRQ, , &hook_id);
+
   return 1;
 }
 
@@ -55,7 +61,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
       controlWord |= BIT(timer+1);                          // ativa o bit correspondente ao timer a buscar
       int ret = sys_outb(TIMER_CTRL, controlWord);          // system call para injetar a control word
 
-      if (ret != 0) return ret                              // se ocorreu um erro na leitura, aborta a missão logo
+      if (ret != 0) return ret;                             // se ocorreu um erro na leitura, aborta a missão logo
       
       switch (timer) {
         case 0: ret = util_sys_inb(TIMER_0, st); break;    // 'st' fica com a configuração de timer 0
@@ -86,7 +92,7 @@ int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field fiel
 
     case tsf_mode:                                          // modo de contagem
 
-      uint8_t mode = ((st >> 1) & 0x07);                     // ficar com os 3 bits que indicam o modo da contagem
+      uint8_t mode = ((st >> 1) & 0x07);                    // ficar com os 3 bits que indicam o modo da contagem
                                                             // (st >> 1) & 00000111
       switch (mode) {
         case 0: data.count_mode = 0; break;                 // 000

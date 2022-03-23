@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+extern uint16_t hook_id;
+
 int main(int argc, char *argv[]) {
 
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -32,7 +34,7 @@ int main(int argc, char *argv[]) {
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
 
   uint8_t configuration;                                    // variável que vai conter a configuração do timer
-  int ret = timer_get_config(timer, &configuration);q       // chamar a função que preenche a configuração
+  int ret = timer_get_config(timer, &configuration);        // chamar a função que preenche a configuração
   if (ret != 0) return ret;                                 // se houve erro, abortar logo a missão
 
   return timer_display_conf(timer, configuration, field);   // display das cofigurações segundo o field
