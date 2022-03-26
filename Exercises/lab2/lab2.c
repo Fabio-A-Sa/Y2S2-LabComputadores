@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern uint16_t hook_id;
+extern int counter;
 
 int main(int argc, char *argv[]) {
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[]) {
 int(timer_test_read_config)(uint8_t timer, enum timer_status_field field) {
 
   uint8_t configuration;                                    // variável que vai conter a configuração do timer
-  int ret = timer_get_config(timer, &configuration);        // chamar a função que preenche a configuração
+  int ret = timer_get_conf(timer, &configuration);       // chamar a função que preenche a configuração
   if (ret != 0) return ret;                                 // se houve erro, abortar logo a missão
 
   return timer_display_conf(timer, configuration, field);   // display das cofigurações segundo o field
@@ -46,9 +46,39 @@ int(timer_test_time_base)(uint8_t timer, uint32_t freq) {
 
 int(timer_test_int)(uint8_t time) {
   
-  if (timer_set_frequency(0, 60) != 0) return 1;            // inicializa o timer 0 a 60 Hz
+  int ipc_status, r;
+  uint8_t irq_set;
+  message msg;
 
+  if(timer_subscribe_int(&irq_set) != 0)
+    return 1;
   
+  while(time > 0) { /* time  */
+     /* Get a request message. */
+     if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+         printf("driver_receive failed with: %d", r);
+         continue;
+     }
+     if (is_ipc_notify(ipc_status)) { /* received notification */
+         switch (_ENDPOINT_P(msg.m_source)) {
+            case HARDWARE: /* hardware interrupt notification */                
+                if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
+                   timer_int_handler();    /* process it */
+                   if(counter%60==0){
+                      timer_print_elapsed_time();
+                      time--;
+                   }
+                }
+              break;
+            default:
+              break; /* no other notifications expected: do nothing */    
+         }
+     } else { /* received a standard message, not a notification */
+         /* no standard messages expected: do nothing */
+     }
+  }
 
-  return 1;
+  if(timer_unsubscribe_int() != 0)
+    return 1;
+  return 0;
 }
