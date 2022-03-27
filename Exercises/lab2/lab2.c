@@ -78,7 +78,7 @@ int(timer_test_int)(uint8_t time) {
      }
   }
 
-  if(timer_unsubscribe_int() != 0)
+  if(timer_unsubscribe_int() != 0)  
     return 1;
   return 0;
 }
