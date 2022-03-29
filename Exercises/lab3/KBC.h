@@ -1,8 +1,6 @@
 #ifndef KBC_H
 #define KBC_H
 
-#include <lcom/lcf.h>
-
 /**
  * @brief waits for the next try
  */

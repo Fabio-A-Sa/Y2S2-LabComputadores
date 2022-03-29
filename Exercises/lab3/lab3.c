@@ -5,7 +5,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern int counter; // KBC.h counter
+extern int counter;         // KBC.h counter
+extern uint8_t scancode;    // KBC.c scancode -> é atualizado por cada chamada de kcb_in() se o buffer de output estiver cheio
 
 int main(int argc, char *argv[]) {
 
@@ -34,39 +35,45 @@ int main(int argc, char *argv[]) {
 
 int(kbd_test_scan)() {
 
-    if (subscribe_KBC_interrupts() != 0) return 1;
-
+    int index = 0;
     uint8_t scancode;
+    uint8_t irq_set;
+    int ipc_status;
+    message msg;
+    uint8_t content[MAX_BYTES];
+
+    if (subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
     while(scancode != ESC) { /* Run while ESC key isn't pressed */
 
         /* Get a request message */
-        if (driver_receive(ANY, &msg, &ipc_status) != 0 ) {
-        printf("driver_receive failed with: %d", r);
-        continue;
-        }
+        if (driver_receive(ANY, &msg, &ipc_status) != 0 ) continue;
 
-        if (is_ipc_notify(ipc_status)) { /* received notification */
+        /* Tratamento do interrupt caso seja uma notificação */
+        if (is_ipc_notify(ipc_status)) {
             switch (_ENDPOINT_P(msg.m_source)) {
-                case HARDWARE: /* hardware interrupt notification */
-                if (msg.m_notify.interrupts &irq_set) { /* subscribed interrupt */
-                    kbc_ih();
-                    if(scancode == KBC_2BYTE_CODE){
-                    bytes[i] = scancode;
-                    i++;
-                    continue;
-                    }
-                    bytes[i] = scancode;
-                    kbd_print_scancode(!(scancode & KBC_MSB_SCNCD),i+1,bytes);
-                    i=0;
-                }
-                break;
+
+                case HARDWARE: 
+                    if (msg.m_notify.interrupts & irq_set) { /* subscribed keyboard interrupt */
+
+                        kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
+
+                        if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
+                            content[index] = scancode;      // lê o LSB e deixa espaço para o MSB, por ordem
+                            index++;
+                        } else {
+                            
+                        }
+
+                        content[index] = scancode;
+                        kbd_print_scancode(!(scancode & KBC_MSB_SCNCD),i+1,bytes);
+                        index = 0; // início do array
+
+                    } break;
+
                 default:
-                break; /* no other notifications expected: do nothing */
+                    break; /* no other notifications expected */
             }
-        } else { /* received a standard message, not a notification */
-        /* no standard messages expected: do nothing */
-        }
 
     if (unsubscribe_KBC_interrupts() != 0) return 1;
 
