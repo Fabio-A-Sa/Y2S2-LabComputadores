@@ -72,6 +72,7 @@ int(kbd_test_scan)() {
                     break; /* no other notifications expected */
             }
         }
+        sleep();
     }
 
     if (unsubscribe_KBC_interrupts() != 0) return 1;
@@ -87,16 +88,16 @@ int(kbd_test_poll)() {
 
     while(scancode != ESC) { /* Run while ESC key isn't pressed */
 
-        kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
+        if (readFromKBC() != 0) sleep();    // atualiza 
 
-                        if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
-                            content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
-                            index++;                        // aponta para MSB
-                        }
+        if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
+            content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
+            index++;                        // aponta para MSB
+        }
 
-                        content[index] = scancode;                                      // coloca o restante, se necessário
-                        kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
-                        index = 0;     
+        content[index] = scancode;                                      // coloca o restante, se necessário
+        kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
+        index = 0;     
     }
 
     /* Incompleto: falta assegurar a manutenção das interrupções do Minix */
