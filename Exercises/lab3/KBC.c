@@ -40,7 +40,7 @@ void kbc_ih() {
     if (status & BIT(0)) { // o buffer de output está cheio
 
         // verifica a paridade correcta ou se houve timeout
-        uint8_t someError = status & BIT(7) | status & BIT(6);
+        uint8_t someError = (status & BIT(7)) | (status & BIT(6));
 
         if (readFromKBC() | someError) printf("Error in kbc_ih()\n");
     }

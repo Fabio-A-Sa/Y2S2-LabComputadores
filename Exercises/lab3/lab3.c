@@ -47,7 +47,7 @@ int(kbd_test_scan)() {
     while(scancode != ESC) { /* Run while ESC key isn't pressed */
 
         /* Get a request message */
-        if (driver_receive(ANY, &msg, &ipc_status) != 0 ) continue;
+        if (driver_receive(ANY, &msg, &ipc_status) != 0) continue;
 
         /* Tratamento do interrupt caso seja uma notificação */
         if (is_ipc_notify(ipc_status)) {
@@ -59,35 +59,72 @@ int(kbd_test_scan)() {
                         kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
 
                         if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
-                            content[index] = scancode;      // lê o LSB e deixa espaço para o MSB, por ordem
-                            index++;
-                        } else {
-                            
+                            content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
+                            index++;                        // aponta para MSB
                         }
 
-                        content[index] = scancode;
-                        kbd_print_scancode(!(scancode & KBC_MSB_SCNCD),i+1,bytes);
-                        index = 0; // início do array
+                        content[index] = scancode;                                      // coloca o restante, se necessário
+                        kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
+                        index = 0;                                                      // volta ao início do array
 
                     } break;
 
                 default:
                     break; /* no other notifications expected */
             }
+        }
+    }
 
     if (unsubscribe_KBC_interrupts() != 0) return 1;
+    if (kbd_print_no_sysinb(counter) != 0) return 1;
 
     return 0;
 }
 
 int(kbd_test_poll)() {
 
-    if (subscribe_KBC_interrupts() != 0) return 1;
+int index = 0;
+    uint8_t scancode;
+    uint8_t irq_set;
+    int ipc_status;
+    message msg;
+    uint8_t content[MAX_BYTES];
 
+    if (subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
+    while(scancode != ESC) { /* Run while ESC key isn't pressed */
 
+        /* Get a request message */
+        if (driver_receive(ANY, &msg, &ipc_status) != 0) continue;
+
+        /* Tratamento do interrupt caso seja uma notificação */
+        if (is_ipc_notify(ipc_status)) {
+            switch (_ENDPOINT_P(msg.m_source)) {
+
+                case HARDWARE: 
+                    if (msg.m_notify.interrupts & irq_set) { /* subscribed keyboard interrupt */
+
+                        kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
+
+                        if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
+                            content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
+                            index++;                        // aponta para MSB
+                        }
+
+                        content[index] = scancode;                                      // coloca o restante, se necessário
+                        kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
+                        index = 0;                                                      // volta ao início do array
+
+                    } break;
+
+                default:
+                    break; /* no other notifications expected */
+            }
+        }
+    }
 
     if (unsubscribe_KBC_interrupts() != 0) return 1;
+    if (kbd_print_no_sysinb(counter) != 0) return 1;
 
     return 0;
 }
