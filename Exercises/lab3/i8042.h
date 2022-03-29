@@ -13,7 +13,7 @@
 #define KBC_ST_REG      0x64
 #define KBC_CMD_REG     0x64
 #define KBC_OUT_BUF     0x60
-#define KBC_IN_BUF     0x60
+#define KBC_IN_BUF      0x60
 
 #define TWO_BYTES 		0xE0
 

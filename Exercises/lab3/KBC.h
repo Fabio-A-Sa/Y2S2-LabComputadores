@@ -2,11 +2,6 @@
 #define KBC_H
 
 /**
- * @brief waits for the next try
- */
-void (sleep)();
-
-/**
  * @brief subscribe KCB interrupts
  * @return if the system call is successful or not
  */
@@ -28,6 +23,6 @@ int (readFromKBC)();
 /**
  * @brief handles keyboard interrupts
  */
-void (kbc_in)();
+void (kbc_ih)();
 
 #endif /* KBC_H */

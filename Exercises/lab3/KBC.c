@@ -6,12 +6,8 @@
 #include "KBC.h"
 #include "utils.c"
 
-uint8_t scancode = 0x00;
+uint8_t scancode = 0;
 uint8_t hook_id = 1;
-
-void (sleep)() {
-    tickdelay(micros_to_ticks(WAIT_KBC));
-}
 
 int (subscribe_KBC_interrupts)(uint8_t *bit_no) {
 
@@ -33,11 +29,9 @@ void (kbc_ih)() {
     if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
 
     if (status & BIT(0)) { // o buffer de output está cheio
-
-        if (readFromKCB() != 0) sleep();
         
         // verifica a paridade correcta ou se houve timeout
         uint8_t someError = (status & BIT(7)) | (status & BIT(6));
-        if (someError) printf("Error in kbc_ih()\n");
+        if (someError | readFromKBC()) printf("Error in kbc_ih()\n");
     }
 }

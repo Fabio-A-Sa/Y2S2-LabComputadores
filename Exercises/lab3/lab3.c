@@ -43,7 +43,7 @@ int(kbd_test_scan)() {
 
     if (subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
-    while(scancode != ESC) { /* Run while ESC key isn't pressed */
+    while (scancode != ESC) { /* Run while ESC key isn't pressed */
 
         /* Get a request message */
         if (driver_receive(ANY, &msg, &ipc_status) != 0) continue;
@@ -56,6 +56,8 @@ int(kbd_test_scan)() {
                     if (msg.m_notify.interrupts & irq_set) { /* subscribed keyboard interrupt */
 
                         kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
+
+                        tickdelay(micros_to_ticks(WAIT_KBC)); // esperar
 
                         if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
                             content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
