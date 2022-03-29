@@ -3,7 +3,7 @@
 
 #define BIT(n)          (0x01 << (n))
 
-#define IRQ_KBD         1
+#define IRQ_KBC         1
 
 #define ESC		        0x81
 
