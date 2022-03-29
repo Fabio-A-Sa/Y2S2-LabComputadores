@@ -36,7 +36,6 @@ int main(int argc, char *argv[]) {
 int(kbd_test_scan)() {
 
     int index = 0;
-    uint8_t scancode;
     uint8_t irq_set;
     int ipc_status;
     message msg;
@@ -83,28 +82,12 @@ int(kbd_test_scan)() {
 
 int(kbd_test_poll)() {
 
-int index = 0;
-    uint8_t scancode;
-    uint8_t irq_set;
-    int ipc_status;
-    message msg;
+    int index = 0;
     uint8_t content[MAX_BYTES];
-
-    if (subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
     while(scancode != ESC) { /* Run while ESC key isn't pressed */
 
-        /* Get a request message */
-        if (driver_receive(ANY, &msg, &ipc_status) != 0) continue;
-
-        /* Tratamento do interrupt caso seja uma notificação */
-        if (is_ipc_notify(ipc_status)) {
-            switch (_ENDPOINT_P(msg.m_source)) {
-
-                case HARDWARE: 
-                    if (msg.m_notify.interrupts & irq_set) { /* subscribed keyboard interrupt */
-
-                        kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
+        kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
 
                         if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
                             content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
@@ -113,17 +96,10 @@ int index = 0;
 
                         content[index] = scancode;                                      // coloca o restante, se necessário
                         kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
-                        index = 0;                                                      // volta ao início do array
-
-                    } break;
-
-                default:
-                    break; /* no other notifications expected */
-            }
-        }
+                        index = 0;     
     }
 
-    if (unsubscribe_KBC_interrupts() != 0) return 1;
+    /* Incompleto: falta assegurar a manutenção das interrupções do Minix */
     if (kbd_print_no_sysinb(counter) != 0) return 1;
 
     return 0;
@@ -131,6 +107,6 @@ int index = 0;
 
 int(kbd_test_timed_scan)(uint8_t n) {
 
-
+    /* Next week */
     return 1;
 }

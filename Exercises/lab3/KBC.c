@@ -27,11 +27,6 @@ int readFromKBC() {
     return util_sys_inb(KBC_OUT_BUF, &scancode);
 }
 
-int writeToKBC() {
-
-    return 1;
-}
-
 void kbc_ih() {
 
     uint8_t status;
