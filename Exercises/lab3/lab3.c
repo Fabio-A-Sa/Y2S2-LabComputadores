@@ -57,8 +57,6 @@ int(kbd_test_scan)() {
 
                         kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
 
-                        tickdelay(micros_to_ticks(WAIT_KBC)); // esperar
-
                         if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
                             content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
                             index++;                        // aponta para MSB
@@ -74,7 +72,6 @@ int(kbd_test_scan)() {
                     break; /* no other notifications expected */
             }
         }
-        sleep();
     }
 
     if (unsubscribe_KBC_interrupts() != 0) return 1;
@@ -88,21 +85,25 @@ int(kbd_test_poll)() {
     int index = 0;
     uint8_t content[MAX_BYTES];
 
-    while(scancode != ESC) { /* Run while ESC key isn't pressed */
+    while (scancode != ESC) { /* Run while ESC key isn't pressed */
 
-        if (readFromKBC() != 0) sleep();    // atualiza 
+        if (readFromKBC() == 0) {
 
-        if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
-            content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
-            index++;                        // aponta para MSB
-        }
+            if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
+                content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
+                index++;                        // aponta para MSB
+            }
 
-        content[index] = scancode;                                      // coloca o restante, se necessário
-        kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
-        index = 0;     
+            content[index] = scancode;                                      // coloca o restante, se necessário
+            kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
+            index = 0;  
+            continue;
+        }   
+        tickdelay(micros_to_ticks(DELAY_US));
     }
 
     /* Incompleto: falta assegurar a manutenção das interrupções do Minix */
+
     if (kbd_print_no_sysinb(counter) != 0) return 1;
 
     return 0;
