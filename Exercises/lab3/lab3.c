@@ -1,15 +1,18 @@
 #include <lcom/lcf.h>
-
 #include <lcom/lab3.h>
 
 #include <stdbool.h>
 #include <stdint.h>
 
-extern int counter;         // KBC.h counter
-extern uint8_t scancode;    // KBC.c scancode -> é atualizado por cada chamada de kcb_in() se o buffer de output estiver cheio
+#include "i8042.h"
+#include "KBC.h"
+
+extern uint32_t counter;
+extern uint8_t scancode;
+
+#define MAX_ATTEMPS 10
 
 int main(int argc, char *argv[]) {
-
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
 
@@ -33,84 +36,67 @@ int main(int argc, char *argv[]) {
   return 0;
 }
 
+
 int(kbd_test_scan)() {
 
-    int index = 0;
-    uint8_t irq_set;
     int ipc_status;
+    uint8_t irq_set;
     message msg;
-    uint8_t content[MAX_BYTES];
 
-    if (subscribe_KBC_interrupts(&irq_set) != 0) return 1;
+    if(subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
-    while (scancode != ESC) { /* Run while ESC key isn't pressed */
+    while( scancode != BREAK_ESC){
 
-        /* Get a request message */
-        if (driver_receive(ANY, &msg, &ipc_status) != 0) continue;
+        if( driver_receive(ANY, &msg, &ipc_status) != 0 ){
+            printf("Error");
+            continue;
+        }
 
-        /* Tratamento do interrupt caso seja uma notificação */
-        if (is_ipc_notify(ipc_status)) {
-            switch (_ENDPOINT_P(msg.m_source)) {
-
-                case HARDWARE: 
-                    if (msg.m_notify.interrupts & irq_set) { /* subscribed keyboard interrupt */
-
-                        kbc_ih(); /* handler keyboard interrupts -> read data e atualiza scancode */
-
-                        if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
-                            content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
-                            index++;                        // aponta para MSB
-                        }
-
-                        content[index] = scancode;                                      // coloca o restante, se necessário
-                        kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
-                        index = 0;                                                      // volta ao início do array
-
-                    } break;
-
-                default:
-                    break; /* no other notifications expected */
+        if(is_ipc_notify(ipc_status)) {
+            switch(_ENDPOINT_P(msg.m_source)){
+                 case HARDWARE:
+                    if (msg.m_notify.interrupts & irq_set) {
+                        kbc_ih();
+                        kbd_print_scancode(!(scancode & MAKE_CODE), scancode == TWO_BYTES ? 2 : 1, &scancode);
+                    }
             }
         }
     }
 
-    if (unsubscribe_KBC_interrupts() != 0) return 1;
-    if (kbd_print_no_sysinb(counter) != 0) return 1;
+  if (unsubscribe_KBC_interrupts() != 0) return 1;
+  if (kbd_print_no_sysinb(counter) != 0) return 1;
 
-    return 0;
+  return 0;
 }
 
 int(kbd_test_poll)() {
 
-    int index = 0;
-    uint8_t content[MAX_BYTES];
+    uint8_t commandByte;
 
-    while (scancode != ESC) { /* Run while ESC key isn't pressed */
+    while (scancode != BREAK_ESC) { // Run while ESC key isn't pressed
 
-        if (readFromKBC() == 0) {
-
-            if (scancode == TWO_BYTES) {        // se for para ler 2 bytes
-                content[index] = scancode;      // coloca o LSB e deixa espaço para o MSB, por ordem
-                index++;                        // aponta para MSB
-            }
-
-            content[index] = scancode;                                      // coloca o restante, se necessário
-            kbd_print_scancode(!(scancode & BIT(7)), index+1, content);     // chama a função dos profs para printar o conteúdo
-            index = 0;  
-            continue;
+        if (read_KBC_output(KBC_OUT_CMD, &scancode) == 0) {
+            kbd_print_scancode(!(scancode & MAKE_CODE), scancode == TWO_BYTES ? 2 : 1, &scancode);
         }   
-        tickdelay(micros_to_ticks(DELAY_US));
     }
 
-    /* Incompleto: falta assegurar a manutenção das interrupções do Minix */
+  // Restore interrupts
+  
+  if (write_KBC_command(KBC_IN_CMD, KBC_READ_CMD) != 0) return 1;          
+  if (read_KBC_output(KBC_OUT_CMD, &commandByte) != 0) return 1; 
 
-    if (kbd_print_no_sysinb(counter) != 0) return 1;
+  commandByte |= ENABLE_INT;  
 
-    return 0;
+  if (write_KBC_command(KBC_IN_CMD, KBC_WRITE_CMD) != 0) return 1;    
+  if (write_KBC_command(KBC_WRITE_CMD, commandByte) != 0) return 1;
+
+  if (kbd_print_no_sysinb(counter) != 0) return 1;
+
+  return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
 
-    /* Next week */
-    return 1;
+
+  return 1;
 }
