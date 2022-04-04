@@ -4,13 +4,14 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "i8254.h"
 #include "i8042.h"
 #include "KBC.h"
+#include "timer.c"
 
-extern uint32_t counter;
+extern uint32_t counter_KBC;
+extern int counter_TIMER;
 extern uint8_t scancode;
-
-#define MAX_ATTEMPS 10
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -64,7 +65,7 @@ int(kbd_test_scan)() {
     }
 
   if (unsubscribe_KBC_interrupts() != 0) return 1;
-  if (kbd_print_no_sysinb(counter) != 0) return 1;
+  if (kbd_print_no_sysinb(counter_KBC) != 0) return 1;
 
   return 0;
 }
@@ -90,13 +91,48 @@ int(kbd_test_poll)() {
   if (write_KBC_command(KBC_IN_CMD, KBC_WRITE_CMD) != 0) return 1;    
   if (write_KBC_command(KBC_WRITE_CMD, commandByte) != 0) return 1;
 
-  if (kbd_print_no_sysinb(counter) != 0) return 1;
+  if (kbd_print_no_sysinb(counter_KBC) != 0) return 1;
 
   return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
 
+    int ipc_status;
+    uint8_t irq_set_TIMER, irq_set_KBC;
+    message msg;
 
-  return 1;
+    int seconds = 0;  // timer seconds
+
+    if (timer_subscribe_int(&irq_set_TIMER) != 0) return 1;
+    if (subscribe_KBC_interrupts(&irq_set_KBC) != 0) return 1;
+
+    while (scancode != BREAK_ESC && seconds < n){
+
+        if( driver_receive(ANY, &msg, &ipc_status) != 0 ){
+            printf("Error");
+            continue;
+        }
+
+        if(is_ipc_notify(ipc_status)) {
+            switch(_ENDPOINT_P(msg.m_source)){
+                 case HARDWARE:
+                    if (msg.m_notify.interrupts & irq_set_TIMER) {
+                        timer_int_handler();
+                        if (counter_TIMER % 60 == 0) seconds++;
+                    }
+                    if (msg.m_notify.interrupts & irq_set_KBC) {
+                        kbc_ih();
+                        kbd_print_scancode(!(scancode & MAKE_CODE), scancode == TWO_BYTES ? 2 : 1, &scancode);
+                        seconds = 0;
+                    }
+            }
+        }
+    }
+
+  if (timer_unsubscribe_int() != 0) return 1;
+  if (unsubscribe_KBC_interrupts() != 0) return 1;
+  if (kbd_print_no_sysinb(counter_KBC) != 0) return 1;
+
+  return 0;
 }

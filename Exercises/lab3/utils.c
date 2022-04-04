@@ -3,7 +3,7 @@
 #include <stdint.h>
 
 #ifdef LAB3
-uint32_t counter = 0;
+uint32_t counter_KBC = 0;
 #endif
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
@@ -31,7 +31,7 @@ int (util_sys_inb)(int port, uint8_t *value) {
   *value = 0xFF & val;
 
     #ifdef LAB3
-        counter++;
+        counter_KBC++;
     #endif
 
   return ret;

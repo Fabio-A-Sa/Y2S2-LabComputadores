@@ -1,16 +1,16 @@
 #include "KBC.h"
 
 uint8_t scancode = 0;
-int hook_id = 1;
+int hook_id_KBC = 1;
 
 int (subscribe_KBC_interrupts)(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
-    *bit_no = BIT(hook_id);
-    return sys_irqsetpolicy(IRQ_KBC, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id);
+    *bit_no = BIT(hook_id_KBC);
+    return sys_irqsetpolicy(IRQ_KBC, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_KBC);
 }
 
 int (unsubscribe_KBC_interrupts)() {
-    return sys_irqrmpolicy(&hook_id);
+    return sys_irqrmpolicy(&hook_id_KBC);
 }
 
 int (read_KBC_status)(uint8_t* status) {
