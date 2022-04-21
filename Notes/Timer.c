@@ -33,5 +33,34 @@ int unsubscribe_timer() {
 
 void cicle() {
 
-    
+    int ipc_status, r;
+    uint8_t irq_set;
+    message msg;
+
+    if (subscribe_timer(&irq_set) != 0) return 1;
+  
+    while(something) {
+
+        if ( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+            printf("driver_receive failed with: %d", r);
+            continue;
+        }
+
+        if (is_ipc_notify(ipc_status)) { 
+            switch (_ENDPOINT_P(msg.m_source)) {
+                case HARDWARE:              
+                    if (msg.m_notify.interrupts & irq_set) {
+                        // DO SOMETHING
+                    }
+                    break;
+                default:
+                    break;    
+            }
+    }
+
+    return unsubscribe_timer();
 }
+
+/* Get configuration */
+
+/* Set Frequency */
