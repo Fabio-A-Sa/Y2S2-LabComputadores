@@ -44,7 +44,7 @@ int writeKBC(uint8_t controlWord) {
 
         uint8_t status;
         getStatus(&status);
-        if (status & INPUT_BUFFER_FULL) {
+        if ((status & INPUT_BUFFER_FULL) == 0) {
             if (sys_outb(PORT, controlWord) != 0) return 1; 
             return 0;
         }
@@ -57,6 +57,9 @@ int writeKBC(uint8_t controlWord) {
 /* Restore Interrupts */
 
 int restoreInterrupts() {
-
-    
+    writeKBC(PORT, queroLer);
+    getStatus(KBC_STATUS_REGISTER, &result);
+    result |= ENABLE_INTERRUPTS;
+    writeKBC(PORT, queroEscrever);
+    writeKBC(PORT, result);
 }
