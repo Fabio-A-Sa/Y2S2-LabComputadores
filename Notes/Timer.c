@@ -63,4 +63,27 @@ void cicle() {
 
 /* Get configuration */
 
+int getConfig(int t, uint8_t *result) {
+
+    uint8_t controlWord;                                // a dizer que quer ler do timer t
+    uint32_t definition;
+    if (sys_outb(0x43, controlWord) != 0) return 1;
+    if (sys_inb(0x40, &definition) != 0) return 1;      // admitindo que t tem registo 0x40
+    *result = definition & 0xFF;                        // corta os primeiros 8 bits
+    return 0;
+} 
+
 /* Set Frequency */
+
+int setFreq(int newFreq, int timer) {
+
+    uint8_t controlWord;                                // a dizer que quer escrever MSB e LSB do timer t
+    if (sys_outb(0x43, controlWord) != 0) return 1;     // injecta assim a control word
+    uint16_t toWrite = MAX_FREQ / newFreq;              // escreve o valor interno máximo
+    uint8_t MSB, LSB;
+    getMSB(toWrite, &MSB);                              // separa o valor em duas partes
+    getLSB(toWrite, &LSB);                              // a mais significativa e a menos significativa
+    if (sys_outb(0x40, LSB) != 0) return 1;             // admitindo t = 0
+    if (sys_outb(0x40, MSB) != 0) return 1;             // admitindo t = 0
+    return 0;
+}
