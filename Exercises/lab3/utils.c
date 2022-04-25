@@ -1,8 +1,9 @@
 #include <lcom/lcf.h>
+
 #include <stdint.h>
 
 #ifdef LAB3
-int counter = 0;
+uint32_t counter_KBC = 0;
 #endif
 
 int(util_get_LSB)(uint16_t val, uint8_t *lsb) {
@@ -27,11 +28,11 @@ int (util_sys_inb)(int port, uint8_t *value) {
 
   uint32_t val;
   int ret = sys_inb(port, &val);
-
-  #ifdef LAB3
-  counter++;
-  #endif
-
   *value = 0xFF & val;
+
+    #ifdef LAB3
+        counter_KBC++;
+    #endif
+
   return ret;
 }

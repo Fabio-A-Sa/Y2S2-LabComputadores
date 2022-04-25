@@ -1,37 +1,88 @@
-#include <lcom/lcf.h>
-
-#include <stdint.h>
-
-#include "i8042.h"
 #include "KBC.h"
-#include "utils.c"
 
 uint8_t scancode = 0;
-uint8_t hook_id = 1;
+int hook_id_KBC = 1;
 
 int (subscribe_KBC_interrupts)(uint8_t *bit_no) {
-
-    *bit_no = BIT(hook_id);
-    return sys_irqsetpolicy(IRQ_KBC, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id);
+    if (bit_no == NULL) return 1;
+    *bit_no = BIT(hook_id_KBC);
+    return sys_irqsetpolicy(IRQ_KBC, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_KBC);
 }
 
 int (unsubscribe_KBC_interrupts)() {
-    return sys_irqrmpolicy(&hook_id);
+    return sys_irqrmpolicy(&hook_id_KBC);
 }
 
-int (readFromKBC)() {
-    return util_sys_inb(KBC_OUT_BUF, &scancode);
+int (read_KBC_status)(uint8_t* status) {
+    return util_sys_inb(KBC_STATUS_REG, status);
+}
+
+int (read_KBC_output)(uint8_t port, uint8_t *output) {
+
+    uint8_t status;
+    uint8_t attemps = MAX_ATTEMPS;
+    
+    while (attemps) {
+
+        if (read_KBC_status(&status) != 0) {
+            printf("Error: Status not available!\n");
+            return 1;
+        }
+
+        if ((status & FULL_OUT_BUFFER) != 0) {
+
+            if(util_sys_inb(port, output) != 0){
+                printf("Error: Full buffer!\n");
+                return 1;
+            }
+
+            if((status & PARITY_ERROR) != 0){
+                printf("Error: Parity error!\n");
+                return 1;
+            }
+
+            if((status & TIMEOUT_ERROR) != 0){
+                printf("Error: Timeout error!\n");
+                return 1;
+            }
+
+            return 0;
+        }
+        tickdelay(micros_to_ticks(WAIT_KBC));
+        attemps--;
+    }
+
+    return 1;
+}
+
+int (write_KBC_command)(uint8_t port, uint8_t commandByte) {
+
+    uint8_t status;
+    uint8_t attemps = MAX_ATTEMPS;
+
+    while (attemps) {
+
+        if (read_KBC_status(&status) != 0){
+            printf("Error: Status not available!\n");
+            return 1;
+        }
+
+        if ((status & FULL_IN_BUFFER) == 0){
+
+            if(sys_outb(port, commandByte) != 0){
+                printf("Error: Could not write commandByte!\n");
+                return 1;
+            }
+
+            return 0;
+        }
+        tickdelay(micros_to_ticks(WAIT_KBC));
+        attemps--;
+    }
+    
+    return 1;
 }
 
 void (kbc_ih)() {
-
-    uint8_t status;
-    if (util_sys_inb(KBC_ST_REG, &status) != 0) return 1;
-
-    if (status & BIT(0)) { // o buffer de output está cheio
-        
-        // verifica a paridade correcta ou se houve timeout
-        uint8_t someError = (status & BIT(7)) | (status & BIT(6));
-        if (someError | readFromKBC()) printf("Error in kbc_ih()\n");
-    }
+    if (read_KBC_output(KBC_OUT_CMD, &scancode) != 0) printf("Error: Could not read scancode!\n");
 }
