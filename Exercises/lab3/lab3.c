@@ -102,7 +102,7 @@ int(kbd_test_poll)() {
         tickdelay(micros_to_ticks(DELAY_US));
     }
 
-    /* Incompleto: falta assegurar a manutenção das interrupções do Minix */
+    /* Falta assegurar a manutenção das interrupções do Minix */
 
     if (kbd_print_no_sysinb(counter) != 0) return 1;
 
