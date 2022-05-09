@@ -1,5 +1,5 @@
 /* 
-* Timer
+* KBC
 * Preparação para o Teste 
 * @author: Fábio Araújo de Sá
 */
