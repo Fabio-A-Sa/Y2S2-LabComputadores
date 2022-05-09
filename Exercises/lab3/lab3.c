@@ -114,6 +114,9 @@ int(kbd_test_timed_scan)(uint8_t n) {
             continue;
         }
 
+<<<<<<< HEAD
+    /* Falta assegurar a manutenção das interrupções do Minix */
+=======
         if(is_ipc_notify(ipc_status)) {
             switch(_ENDPOINT_P(msg.m_source)){
                  case HARDWARE:
@@ -129,6 +132,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
             }
         }
     }
+>>>>>>> 465a8a9f15c832cf9fb9c897482c632d03498c78
 
   if (timer_unsubscribe_int() != 0) return 1;
   if (unsubscribe_KBC_interrupts() != 0) return 1;
