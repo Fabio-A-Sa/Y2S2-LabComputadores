@@ -1,9 +1,24 @@
 
-int hook_id_mouse = 4;
-uint8_t mouseBytes[3];
-int counter = 0;
-uint32_t byte;
-struct packet mouseP;
+/* Variáveis úteis e globais */
+
+#define BIT(n) (1 << (n))
+int hook_id_mouse = 4;  // pode ser um número qualquer, desde que não seja igual a outro dispositivo a ser usado
+uint8_t mouseBytes[3];  // vai conter os raw bytes
+int counter = 0;        // o counter pertence a {0..3} e é inicializado a zero
+uint32_t byte;          // o byte a ser lido na iteração corrente
+struct packet mouseP;   // declarada no lab4 como extern packet mouseP
+
+int (mouse_subscribe)(uint8_t *bit_no){
+  if(bit_no == NULL) return 1;
+  *bit_no = BIT(hook_id_mouse);                     // ativar o bit correspondente
+  if(sys_irqsetpolicy(IRQ_MOUSE, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_mouse)) return 1;
+  return 0;
+}
+
+int (mouse_unsubscribe)(){
+  if(sys_irqrmpolicy(&hook_id_mouse)) return 1;
+  return 0;
+}
 
 int (mouse_config)(uint8_t controlWord){
 
@@ -66,18 +81,6 @@ int (KBCRead)(uint8_t port, uint32_t *output){
   }
 
   return 1;
-}
-
-int (mouse_subscribe)(uint8_t *bit_no){
-  if(bit_no == NULL) return 1;
-  *bit_no = BIT(hook_id_mouse);
-  if(sys_irqsetpolicy(IRQ_MOUSE, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_mouse)) return 1;
-  return 0;
-}
-
-int (mouse_unsubscribe)(){
-  if(sys_irqrmpolicy(&hook_id_mouse)) return 1;
-  return 0;
 }
 
 void (mouse_ih)(){
