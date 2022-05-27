@@ -69,7 +69,7 @@ int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     for (int h = 0 ; h < img.height ; h++) {              
         for (int w = 0 ; w < img.width ; w++) {
         if (vg_draw_pixel(x + w, y + h, *colors) != 0) return 1; // draw do pixel, passando a cor correspondente
-        colors++; // next color                                  // passar para a cor seguinte do vector
+        colors++;                                                // passar para a cor seguinte do vector
         }
     }
 
