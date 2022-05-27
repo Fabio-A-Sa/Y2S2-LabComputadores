@@ -29,7 +29,7 @@ int (mouse_config)(uint8_t controlWord){
     if(KBCWrite(0x60,controlWord)) return 1;        // escrever a control word para 0x60
     sleep(20000);                                   // esperar pela resposta do rato
     if(sys_inb(0x60, &mouseResponse)) return 1;     // ler imediatamente de 0x60 a mensagem de retorno do rato
-  }while(mouseResponse != 0xfa);                    // até que o mouse receba o pedido e diga tudo OK (A)
+  }while(mouseResponse != 0xfa);                    // até que o mouse receba o pedido e diga tudo OK (ACK)
 
   return 0;
 }
@@ -39,14 +39,12 @@ int (KBCWrite)(uint8_t port, uint8_t controlWord){
   uint32_t status;
   int tries = 20;
 
-  while(tries){                                     // tentar algumas vezes e talvez sleep(20000) entre as tentativas
+  while(tries){                                     // tentar algumas vezes e sleep(20000) entre as tentativas
     tries--;
-    if(sys_inb(0x64, &status)) continue;            // 
-
-    while((status & BIT(1))) {};
-    if(sys_outb(port, controlWord)) continue; //escerver para o status
-
-    if( status & ( BIT(6) | BIT(7))) return 1;
+    if(sys_inb(0x64, &status)) continue;            // Ler o status
+    while(status & BIT(1)) {};                      // Esperar até que o status tenha o bit para o mouse
+    if( status & ( BIT(6) | BIT(7))) return 1;      // Esperar até que o status tenha o bit para o mouse    
+    if(sys_outb(port, controlWord)) continue;       // Escerver para a porta a controlWord desejada
     return 0;
   }
 
