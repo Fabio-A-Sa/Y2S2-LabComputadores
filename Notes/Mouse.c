@@ -41,9 +41,9 @@ int (KBCWrite)(uint8_t port, uint8_t controlWord){
 
   while(tries){                                     // tentar algumas vezes e sleep(20000) entre as tentativas
     tries--;
-    if(sys_inb(0x64, &status)) continue;            // Ler o status
+    if(sys_inb(0x64, &status)) continue;            // Ler o status do registo 0x64
     while(status & BIT(1)) {};                      // Esperar até que o status tenha o bit para o mouse
-    if( status & ( BIT(6) | BIT(7))) return 1;      // Esperar até que o status tenha o bit para o mouse    
+    if( status & ( BIT(6) | BIT(7))) return 1;      // Se não houver erros de paridade nem de timeout   
     if(sys_outb(port, controlWord)) continue;       // Escerver para a porta a controlWord desejada
     return 0;
   }
@@ -56,16 +56,11 @@ int (KBCRead)(uint8_t port, uint32_t *output){
   uint32_t status;
   int tries = 20;
 
-  while(tries){
-
-    if(sys_inb(0x64,&status)) return 1;
-
-    if( (status & BIT(0)) ){
-
-      if( status & (BIT(6) | BIT(7)) ) return 1;
-
-      if(sys_inb(port, output)) return 1;
-
+  while(tries){                                     // tentar algumas vezes e sleep(20000) entre as tentativas
+    if(sys_inb(0x64,&status)) return 1;             // lê o status
+    if( (status & BIT(0)) ){                        // se a informação for do rato
+      if( status & (BIT(6) | BIT(7)) ) return 1;    // e se não houver erros de timehout nem de paridade
+      if(sys_inb(port, output)) return 1;           // então coloca no output o valor lido da porta pretendida
       return 0;
     }
     tickdelay(micros_to_ticks(20000));
@@ -76,12 +71,12 @@ int (KBCRead)(uint8_t port, uint32_t *output){
 }
 
 void (mouse_ih)(){
-  if(KBCRead(0x60, &byte)) printf("ERROR");
+  if(KBCRead(0x60, &byte)) printf("ERROR");         // a cada iteração lê um byte da porta 60
 }
 
 int (mouseSync)(){
 
-  if(counter == 0 && ( byte & BIT(3)) ){
+  if(counter == 0 && ( byte & BIT(3)) ){            // se for o primeiro byte do pacote, sincronizar
     mouseBytes[0]= byte;
     counter++;
   }
@@ -93,7 +88,7 @@ int (mouseSync)(){
   return 0;
 }
 
-int (mousePacket)(){
+int (mousePacket)(){                                // colocar a informação na struct facultada pelos professores
   for (int i = 0 ; i < 3 ; i++) {
     mouseP.bytes[i] = mouseBytes[i];
   }
@@ -107,4 +102,18 @@ int (mousePacket)(){
   mouseP.delta_y = (mouseBytes[0] & BIT(5)) ? (0xff00 | mouseBytes[2]) : mouseBytes[2];
 
   return 0;
+}
+
+int (mouse_test_packet)(uint32_t cnt) {
+
+    if(mouse_config(0xEA)) return 1;                // configura para o modo de stream
+    if(mouse_config(0xF4)) return 1;                // Faz enable do mouse reporting
+    if (mouse_subscribe(&irq_set) != 0) return 1;   // Subscreve as interrupções do mouse
+
+    // TODO
+
+    if (mouse_unsubscribe()) return 1;              // Deixa de subscrever as interrupções do mouse
+    if(mouse_config(0xF5)) return 1;                // Faz disable ao data reporting
+
+    return 0;
 }
