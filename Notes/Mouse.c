@@ -11,31 +11,25 @@ struct packet mouseP;   // declarada no lab4 como extern packet mouseP
 int (mouse_subscribe)(uint8_t *bit_no){
   if(bit_no == NULL) return 1;
   *bit_no = BIT(hook_id_mouse);                     // ativar o bit correspondente
-  if(sys_irqsetpolicy(IRQ_MOUSE, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_mouse)) return 1;
+  if(sys_irqsetpolicy(IRQ_MOUSE, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_mouse)) return 1; // modificar a política e ativar as interrupções
   return 0;
 }
 
 int (mouse_unsubscribe)(){
-  if(sys_irqrmpolicy(&hook_id_mouse)) return 1;
+  if(sys_irqrmpolicy(&hook_id_mouse)) return 1;     // des-subscrever as interrupções para aquele hook_id específico
   return 0;
 }
 
 int (mouse_config)(uint8_t controlWord){
 
-  uint32_t mouseResponse;
-
+  uint32_t mouseResponse;                           // a resposta do Mouse para a escrita pode ser ACK, NACK e ERROR
+                                                    // se for ACK (0xFA) tudo OK, se for NACK (0xFE), tentar denovo
   do{
-    // dizer à data port (0x60) que queremos escrever
-    if(KBCWrite(0x64,0xD4)) return 1;
-
-    // escrever a control word na porta Write (0x64)
-    if(KBCWrite(0x60,controlWord)) return 1;
-    tickdelay(micros_to_ticks(20000));
-    // verificar config foi bem sucedida
-    if(sys_inb(0x60, &mouseResponse)) return 1;
-
-    //if(mouseResponse != 0xfa) return 1;
-  }while(mouseResponse != 0xfa);
+    if(KBCWrite(0x64,0xD4)) return 1;               // dizer a 0x64 que queremos escrever
+    if(KBCWrite(0x60,controlWord)) return 1;        // escrever a control word para 0x60
+    sleep(20000);                                   // esperar pela resposta do rato
+    if(sys_inb(0x60, &mouseResponse)) return 1;     // ler imediatamente de 0x60 a mensagem de retorno do rato
+  }while(mouseResponse != 0xfa);                    // até que o mouse receba o pedido e diga tudo OK (A)
 
   return 0;
 }
@@ -45,9 +39,9 @@ int (KBCWrite)(uint8_t port, uint8_t controlWord){
   uint32_t status;
   int tries = 20;
 
-  while(tries){
+  while(tries){                                     // tentar algumas vezes e talvez sleep(20000) entre as tentativas
     tries--;
-    if(sys_inb(0x64, &status)) continue;
+    if(sys_inb(0x64, &status)) continue;            // 
 
     while((status & BIT(1))) {};
     if(sys_outb(port, controlWord)) continue; //escerver para o status
