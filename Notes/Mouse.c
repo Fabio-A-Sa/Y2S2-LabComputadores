@@ -110,7 +110,32 @@ int (mouse_test_packet)(uint32_t cnt) {
     if(mouse_config(0xF4)) return 1;                // Faz enable do mouse reporting
     if (mouse_subscribe(&irq_set) != 0) return 1;   // Subscreve as interrupções do mouse
 
-    // TODO
+    while(cnt) {
+
+      if( driver_receive(ANY, &msg, &ipc_status) != 0 ){
+          printf("Error");
+          continue;
+      }
+
+      if(is_ipc_notify(ipc_status)) {
+          switch(_ENDPOINT_P(msg.m_source)){
+                case HARDWARE:
+                  if (msg.m_notify.interrupts & irq_set) {
+
+                    
+                      mouse_ih();                           // lê mais um byte da porta 0x60
+                      mouseSync();                          // sincroniza a raw data e aumenta o contador interno
+                      if(counter == 3){                     // se o counter está a 3, então o packet está completo
+                        mousePacket();                      // trata da raw data
+                        mouse_print_packet(&mouseP);        // printa a informação
+                        counter = 0;                        // começa a contar os bytes denovo  
+                        cnt--;                              // o número de pacotes restantes a ler diminui
+                      }
+
+                  }
+            }
+        }
+    }
 
     if (mouse_unsubscribe()) return 1;              // Deixa de subscrever as interrupções do mouse
     if(mouse_config(0xF5)) return 1;                // Faz disable ao data reporting
