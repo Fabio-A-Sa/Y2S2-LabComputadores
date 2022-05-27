@@ -53,15 +53,25 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
                           uint16_t width, uint16_t height, uint32_t color) {
 
-  if(videoMemInitialize(mode)) return 1;                // inicializa a memória
-  if(videoInitialize(mode)) return 1;                   // inicializa o tipo de vídeo
+  if(videoMemInitialize(mode)) return 1;                        // inicializa a memória
+  if(videoInitialize(mode)) return 1;                           // inicializa o tipo de vídeo
   if(drawRectangle(x, y, width, height, color)) return 1;       // desenha o rectangulo com aquelas características
-  sleep(10);                                            // espera o tempo definido
-  if(vg_exit()) return 1;                               // volta ao modo de texto de default do minix
+  sleep(10);                                                    // espera o tempo definido
+  if(vg_exit()) return 1;                                       // volta ao modo de texto de default do minix
   return 0;
 }
 
 int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
     
-  return 1;
+    xpm_image_t img;                                            // declarar este tipo de struct
+    uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);         // em modo indexado -> cada cor tem 1 byte
+
+    for (int h = 0 ; h < img.height ; h++) {              
+        for (int w = 0 ; w < img.width ; w++) {
+        if (vg_draw_pixel(x + w, y + h, *colors) != 0) return 1; // draw do pixel, passando a cor correspondente
+        colors++; // next color                                  // passar para a cor seguinte do vector
+        }
+    }
+
+    return 0;
 }
