@@ -1,0 +1,48 @@
+\hypertarget{serial_port_8h_source}{}\doxysection{serial\+Port.\+h}
+\label{serial_port_8h_source}\index{controllers/serialPort/serialPort.h@{controllers/serialPort/serialPort.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef \_SERIAL\_PORT\_}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define \_SERIAL\_PORT\_}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}queue.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}SP.h"{}}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define SP\_ATTEMPS 5}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{24 \textcolor{keywordtype}{int} sp\_subscribe\_int(uint8\_t* bitno);}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{30 \textcolor{keywordtype}{int} sp\_unsubscribe\_int();}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{37 \textcolor{keywordtype}{int} sp\_get\_status(uint8\_t* status);}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{42 \textcolor{keywordtype}{void} sp\_init();}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{47 \textcolor{keywordtype}{void} sp\_exit();}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{52 \textcolor{keywordtype}{void} sp\_ih();}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 }
+\DoxyCodeLine{60 \textcolor{keywordtype}{int} send\_byte(uint8\_t \textcolor{keywordtype}{byte});}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{66 \textcolor{keywordtype}{int} read\_byte();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{72 \mbox{\hyperlink{struct_queue}{Queue}}* get\_inQueue();}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{78 \textcolor{keywordtype}{int} SP\_clearInterrupts();}
+\DoxyCodeLine{79 }
+\DoxyCodeLine{85 \textcolor{keywordtype}{int} processWaitingDrawSP(uint8\_t val);}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{92 \textcolor{keywordtype}{int} processWaitingGuessSP(uint8\_t val);}
+\DoxyCodeLine{93 }
+\DoxyCodeLine{99 \textcolor{keywordtype}{int} processLoadingGuessSP(uint8\_t val);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{106 \textcolor{keywordtype}{int} processPlayingDrawSP(uint8\_t val);}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{113 \textcolor{keywordtype}{int} processPlayingGuessSP(uint8\_t val);}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// \_SERIAL\_PORT\_}}
+
+\end{DoxyCode}

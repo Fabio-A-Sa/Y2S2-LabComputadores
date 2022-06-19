@@ -1,0 +1,75 @@
+\hypertarget{graphics_8h_source}{}\doxysection{graphics.\+h}
+\label{graphics_8h_source}\index{controllers/video/graphics.h@{controllers/video/graphics.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef GRAPHICS\_H}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define GRAPHICS\_H}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}VBE.h"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}BIOS\_MACROS.h"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}../video/COLORS.h"{}}}
+\DoxyCodeLine{18 }
+\DoxyCodeLine{22 vbe\_mode\_info\_t info;}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{27 uint8\_t* vAddr\_base;}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{36 \textcolor{keywordtype}{int} drawPixel(uint16\_t x, uint16\_t y, uint32\_t color);}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{45 \textcolor{keywordtype}{void} drawXpm(xpm\_map\_t xpm, uint16\_t x, uint16\_t y);}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{52 int (init\_graphics\_mode)(uint16\_t mode);}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{59 int (map\_vmem)(uint16\_t mode);}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{69 int (vg\_draw\_pixel)(uint16\_t x, uint16\_t y, uint32\_t color);}
+\DoxyCodeLine{70 }
+\DoxyCodeLine{79 int (vg\_draw\_hline)(uint16\_t x, uint16\_t y, uint16\_t len, uint32\_t color);}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{90 int (vg\_draw\_rectangle)(uint16\_t x, uint16\_t y, uint16\_t width, uint16\_t height, uint32\_t color);}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{99 int (print\_xpm)(xpm\_map\_t xpm, uint16\_t x, uint16\_t y);}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{106 uint32\_t (R)(uint32\_t color);}
+\DoxyCodeLine{112 uint32\_t (G)(uint32\_t color);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{119 uint32\_t (B)(uint32\_t color);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121 }
+\DoxyCodeLine{131 \textcolor{keywordtype}{int} drawToCanvas(uint16\_t xi, uint16\_t yi, uint16\_t xf, uint16\_t yf, uint32\_t color);}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{141 \textcolor{keywordtype}{int} drawCircle(uint16\_t x, uint16\_t y, uint16\_t radius, uint32\_t color);}
+\DoxyCodeLine{142 }
+\DoxyCodeLine{150 \textcolor{keywordtype}{int} drawPixelCanvas(uint16\_t x, uint16\_t y, uint32\_t color);}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152 \textcolor{comment}{//image buffer}}
+\DoxyCodeLine{153 }
+\DoxyCodeLine{157 \textcolor{keywordtype}{void} allocateImgBuffer();}
+\DoxyCodeLine{158 }
+\DoxyCodeLine{162 \textcolor{keywordtype}{void} copyBufferToVideo();}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{167 \textcolor{keywordtype}{void} clearImgBuffer();}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{172 \textcolor{keywordtype}{void} freeImgBuffer();}
+\DoxyCodeLine{173 }
+\DoxyCodeLine{174 \textcolor{comment}{//draw buffer}}
+\DoxyCodeLine{175 }
+\DoxyCodeLine{179 \textcolor{keywordtype}{void} allocateDrawBuffer();}
+\DoxyCodeLine{180 }
+\DoxyCodeLine{184 \textcolor{keywordtype}{void} copyDrawingToBuffer();}
+\DoxyCodeLine{185 }
+\DoxyCodeLine{189 \textcolor{keywordtype}{void} clearDrawBuffer();}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{194 \textcolor{keywordtype}{void} freeDrawBuffer();}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{199 \textcolor{keywordtype}{void} headerCompose();}
+\DoxyCodeLine{203 \textcolor{keywordtype}{int} footerCompose();}
+\DoxyCodeLine{204 }
+\DoxyCodeLine{214 \textcolor{keywordtype}{void} drawHeaderFooterColor(uint16\_t x, uint16\_t y, uint16\_t width, uint16\_t height, uint32\_t color);}
+\DoxyCodeLine{215 }
+\DoxyCodeLine{223 \textcolor{keywordtype}{void} drawXpmDrawBuffer(xpm\_map\_t xpm, uint16\_t x, uint16\_t y); \textcolor{comment}{//xpm to draw buffer}}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_\_GRAPHICS\_H */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

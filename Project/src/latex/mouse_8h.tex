@@ -1,0 +1,192 @@
+\hypertarget{mouse_8h}{}\doxysection{controllers/keyboard\+Mouse/mouse.h File Reference}
+\label{mouse_8h}\index{controllers/keyboardMouse/mouse.h@{controllers/keyboardMouse/mouse.h}}
+{\ttfamily \#include $<$minix/sysutil.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for mouse.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{mouse_8h_a45583cf8b0bcd43d319ea7696f83757b}{mouse\+\_\+config}} (uint8\+\_\+t control\+Word)
+\begin{DoxyCompactList}\small\item\em this function configures the mouse, verify if there is no error with the read of the port \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8h_a4f5819f1152bee25df178d5bc9f452a0}{KBCWrite}} (uint8\+\_\+t port, uint8\+\_\+t control\+Word)
+\begin{DoxyCompactList}\small\item\em this function writes a specified control\+Word to port defined by the user \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8h_a7d97939d7c298af792ea60f70054f7bd}{KBCRead}} (uint8\+\_\+t port, uint32\+\_\+t $\ast$output)
+\begin{DoxyCompactList}\small\item\em this function reads from a port and put the word read to output \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8h_a56719b09e2356fcd9d79e6fcf59f15fd}{mouse\+\_\+subscribe}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em This function uses irq\+\_\+setpolicy to configure mouse interrupts. \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{mouse_8h_a210374b50462acdedab00df64d5cea3c}{mouse\+\_\+ih}} ()
+\begin{DoxyCompactList}\small\item\em Mouse\textquotesingle{}s input handler. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8h_aab5e1dc43daf2cc458f26d87211b994f}{mouse\+\_\+unsubscribe}} ()
+\begin{DoxyCompactList}\small\item\em This function unsubscribes mouse interrupts. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8h_ac690d3b9ecc319ce972b9d55a7f1d322}{mouse\+Sync}} ()
+\begin{DoxyCompactList}\small\item\em This function verifies the mouse interrupt and appropiately stores it in an array for mouse. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{mouse_8h_a8239df21fb5c176b7d8eb5f8fde70bee}{mouse\+Packet}} ()
+\begin{DoxyCompactList}\small\item\em When mouse packet array has stored all the necessary bytes this functions interprets it and updates mouse information. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{mouse_8h_a3dc118b68fd6b09e1a673f7e273e0dab}{update\+Mouse\+Location}} ()
+\begin{DoxyCompactList}\small\item\em This funtionc uses the information processed by mouse\+Packet to update mouse location thaking into account the size and boundaries of the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mouse_8h_a7d97939d7c298af792ea60f70054f7bd}\label{mouse_8h_a7d97939d7c298af792ea60f70054f7bd}} 
+\index{mouse.h@{mouse.h}!KBCRead@{KBCRead}}
+\index{KBCRead@{KBCRead}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{KBCRead()}{KBCRead()}}
+{\footnotesize\ttfamily int() KBCRead (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{port,  }\item[{uint32\+\_\+t $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+this function reads from a port and put the word read to output 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em port} & Port where the information is goint to be read from \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & variable where the information read is going to be stored \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{mouse_8h_a4f5819f1152bee25df178d5bc9f452a0}\label{mouse_8h_a4f5819f1152bee25df178d5bc9f452a0}} 
+\index{mouse.h@{mouse.h}!KBCWrite@{KBCWrite}}
+\index{KBCWrite@{KBCWrite}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{KBCWrite()}{KBCWrite()}}
+{\footnotesize\ttfamily int() KBCWrite (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{port,  }\item[{uint8\+\_\+t}]{control\+Word }\end{DoxyParamCaption})}
+
+
+
+this function writes a specified control\+Word to port defined by the user 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & Port where the information is goint to be written to \\
+\hline
+{\em control\+Word} & Word (uint8\+\_\+t) to be sent to the port \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{mouse_8h_a45583cf8b0bcd43d319ea7696f83757b}\label{mouse_8h_a45583cf8b0bcd43d319ea7696f83757b}} 
+\index{mouse.h@{mouse.h}!mouse\_config@{mouse\_config}}
+\index{mouse\_config@{mouse\_config}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{mouse\_config()}{mouse\_config()}}
+{\footnotesize\ttfamily int() mouse\+\_\+config (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{control\+Word }\end{DoxyParamCaption})}
+
+
+
+this function configures the mouse, verify if there is no error with the read of the port 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em control\+Word} & Word to be sent to the port \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{mouse_8h_a210374b50462acdedab00df64d5cea3c}\label{mouse_8h_a210374b50462acdedab00df64d5cea3c}} 
+\index{mouse.h@{mouse.h}!mouse\_ih@{mouse\_ih}}
+\index{mouse\_ih@{mouse\_ih}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{mouse\_ih()}{mouse\_ih()}}
+{\footnotesize\ttfamily void() mouse\+\_\+ih (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Mouse\textquotesingle{}s input handler. 
+
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{mouse_8h_a56719b09e2356fcd9d79e6fcf59f15fd}\label{mouse_8h_a56719b09e2356fcd9d79e6fcf59f15fd}} 
+\index{mouse.h@{mouse.h}!mouse\_subscribe@{mouse\_subscribe}}
+\index{mouse\_subscribe@{mouse\_subscribe}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{mouse\_subscribe()}{mouse\_subscribe()}}
+{\footnotesize\ttfamily int() mouse\+\_\+subscribe (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+This function uses irq\+\_\+setpolicy to configure mouse interrupts. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em bit\+\_\+no} & All zeros except for the bit position of the timer\textquotesingle{}s hook id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{mouse_8h_aab5e1dc43daf2cc458f26d87211b994f}\label{mouse_8h_aab5e1dc43daf2cc458f26d87211b994f}} 
+\index{mouse.h@{mouse.h}!mouse\_unsubscribe@{mouse\_unsubscribe}}
+\index{mouse\_unsubscribe@{mouse\_unsubscribe}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{mouse\_unsubscribe()}{mouse\_unsubscribe()}}
+{\footnotesize\ttfamily int() mouse\+\_\+unsubscribe (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function unsubscribes mouse interrupts. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{mouse_8h_a8239df21fb5c176b7d8eb5f8fde70bee}\label{mouse_8h_a8239df21fb5c176b7d8eb5f8fde70bee}} 
+\index{mouse.h@{mouse.h}!mousePacket@{mousePacket}}
+\index{mousePacket@{mousePacket}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{mousePacket()}{mousePacket()}}
+{\footnotesize\ttfamily int() mouse\+Packet (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+When mouse packet array has stored all the necessary bytes this functions interprets it and updates mouse information. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{mouse_8h_ac690d3b9ecc319ce972b9d55a7f1d322}\label{mouse_8h_ac690d3b9ecc319ce972b9d55a7f1d322}} 
+\index{mouse.h@{mouse.h}!mouseSync@{mouseSync}}
+\index{mouseSync@{mouseSync}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{mouseSync()}{mouseSync()}}
+{\footnotesize\ttfamily int() mouse\+Sync (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function verifies the mouse interrupt and appropiately stores it in an array for mouse. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{mouse_8h_a3dc118b68fd6b09e1a673f7e273e0dab}\label{mouse_8h_a3dc118b68fd6b09e1a673f7e273e0dab}} 
+\index{mouse.h@{mouse.h}!updateMouseLocation@{updateMouseLocation}}
+\index{updateMouseLocation@{updateMouseLocation}!mouse.h@{mouse.h}}
+\doxysubsubsection{\texorpdfstring{updateMouseLocation()}{updateMouseLocation()}}
+{\footnotesize\ttfamily void update\+Mouse\+Location (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This funtionc uses the information processed by mouse\+Packet to update mouse location thaking into account the size and boundaries of the screen. 
+
+Here is the caller graph for this function\+:
+% FIG 12

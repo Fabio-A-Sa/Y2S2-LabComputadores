@@ -1,0 +1,53 @@
+\hypertarget{i8254_8h}{}\doxysection{controllers/timer/i8254.h File Reference}
+\label{i8254_8h}\index{controllers/timer/i8254.h@{controllers/timer/i8254.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+Include dependency graph for i8254.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{group__i8254_gacf926951944b6cf370b7229ebd50dd8b}{TIMER\+\_\+\+FREQ}}~1193182
+\begin{DoxyCompactList}\small\item\em clock frequency for timer in PC and AT \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga30bf84c312af248cb81bb224e09f9ba8}{TIMER0\+\_\+\+IRQ}}~0
+\begin{DoxyCompactList}\small\item\em Timer 0 IRQ line. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_gacc9ff9df4a9674a1ce9ba08fc4a4679e}{TIMER\+\_\+0}}~0x40
+\begin{DoxyCompactList}\small\item\em Timer 0 count register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_gac62c99c2a9289891c1b83052242cca49}{TIMER\+\_\+1}}~0x41
+\begin{DoxyCompactList}\small\item\em Timer 1 count register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga1f34f18ad0ab8cace46b615773b48735}{TIMER\+\_\+2}}~0x42
+\begin{DoxyCompactList}\small\item\em Timer 2 count register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga282832448fb0281ef53d243c1cd48491}{TIMER\+\_\+\+CTRL}}~0x43
+\begin{DoxyCompactList}\small\item\em Control register. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga51b3a5e3d4811ca063fe25e35560ab40}{SPEAKER\+\_\+\+CTRL}}~0x61
+\begin{DoxyCompactList}\small\item\em Register for speaker control ~\newline
+ \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga6a4822642d40c248435692324a818010}{TIMER\+\_\+\+SEL0}}~0x00
+\begin{DoxyCompactList}\small\item\em Control Word for Timer 0. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga8349623fd8d99f9cc5d8ae29d78594fc}{TIMER\+\_\+\+SEL1}}~BIT(6)
+\begin{DoxyCompactList}\small\item\em Control Word for Timer 1. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga142a255de0dbc48aeabd45fc10c33672}{TIMER\+\_\+\+SEL2}}~BIT(7)
+\begin{DoxyCompactList}\small\item\em Control Word for Timer 2. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga4c2eecbfb96744a9c2af71dba75ecb18}{TIMER\+\_\+\+RB\+\_\+\+CMD}}~(BIT(7) $\vert$ BIT(6))
+\begin{DoxyCompactList}\small\item\em Read Back Command. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_gac18cb814ebd0d67235392c330e0e3504}{TIMER\+\_\+\+LSB}}~BIT(4)
+\begin{DoxyCompactList}\small\item\em Initialize Counter LSB only. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga2a8a6d363c612d756cd8d78480f7cd04}{TIMER\+\_\+\+MSB}}~BIT(5)
+\begin{DoxyCompactList}\small\item\em Initialize Counter MSB only. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga8c0f1933323274c765e23837e4fbc8c7}{TIMER\+\_\+\+LSB\+\_\+\+MSB}}~(\mbox{\hyperlink{group__i8254_gac18cb814ebd0d67235392c330e0e3504}{TIMER\+\_\+\+LSB}} $\vert$ \mbox{\hyperlink{group__i8254_ga2a8a6d363c612d756cd8d78480f7cd04}{TIMER\+\_\+\+MSB}})
+\begin{DoxyCompactList}\small\item\em Initialize LSB first and MSB afterwards. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga4745cbf21da3d3fea5dbb080b2b73bac}{TIMER\+\_\+\+SQR\+\_\+\+WAVE}}~(BIT(2) $\vert$ BIT(1))
+\begin{DoxyCompactList}\small\item\em Mode 3\+: square wave generator. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga5d4449e0fa1cf4a4d107a48a04a1265f}{TIMER\+\_\+\+RATE\+\_\+\+GEN}}~BIT(2)
+\begin{DoxyCompactList}\small\item\em Mode 2\+: rate generator. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga325b992a371d5d981c4eceff42fa5956}{TIMER\+\_\+\+BCD}}~0x01
+\begin{DoxyCompactList}\small\item\em Count in BCD. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_gad2913dcf2f91453317bd035589ac0a7d}{TIMER\+\_\+\+BIN}}~0x00
+\begin{DoxyCompactList}\small\item\em Count in binary. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{group__i8254_ga6c248216df24b5e9d907d126d80bd195}{TIMER\+\_\+\+RB\+\_\+\+COUNT\+\_\+}}~BIT(5)
+\item 
+\#define \mbox{\hyperlink{group__i8254_ga08b4952bb7058684a3f8f66be04dd45e}{TIMER\+\_\+\+RB\+\_\+\+STATUS\+\_\+}}~BIT(4)
+\item 
+\#define \mbox{\hyperlink{group__i8254_gaf598b17740e07842a0545af512714711}{TIMER\+\_\+\+RB\+\_\+\+SEL}}(n)~BIT((n) + 1)
+\end{DoxyCompactItemize}

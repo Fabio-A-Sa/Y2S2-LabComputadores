@@ -1,0 +1,282 @@
+\hypertarget{_s_p_8h}{}\doxysection{controllers/serial\+Port/\+SP.h File Reference}
+\label{_s_p_8h}\index{controllers/serialPort/SP.h@{controllers/serialPort/SP.h}}
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a047842842ecc9b26f526d098df1e1de1}{COM1\+\_\+\+UART\+\_\+\+BASE}}~0x3\+F8
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a3685c78b9bd6dd0fa3861807e24a4e1b}{COM1\+\_\+\+IRQ}}~4
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_aa6f7e7a9f4551d6151f9d45362118a50}{RBR}}~0x00
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a5e9787adf3c9afcc4b781e85bb545b35}{THR}}~0x00
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a3e27fa35f9febccdc4a0c28a5c8cffbb}{IER}}~0x01
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a67004975983f9c99226d63db17ba74c4}{IIR}}~0x02
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a264b36b13386e3f62fe69e04711bc006}{FCR}}~0x02
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a851cb396b6eaa97346364a772b439f37}{LCR}}~0x03
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a65364db1603cde6f6533cb61bcfcf553}{MCR}}~0x04
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ad51d51aee21f6cc77d4955221aee3dcb}{LSR}}~0x05
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ad4806a0bfd996121bc27d2466393207e}{MSR}}~0x06
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_abaed93a16a0cde13f32bc4dc48b96804}{SR}}~0x07
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a4466639cd64ebf372a621168c5e25964}{DLL}}~0x00
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a3b48b12dc65f62dd40ab1163fe7997fb}{DLM}}~0x01
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ae6e9a941061832e3150804bf169a2e97}{LSR\+\_\+\+DATA\+\_\+\+READY}}~BIT(0)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ae844dd49bb0e0770bcf46ad5bfe20973}{LSR\+\_\+\+OE}}~BIT(1)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a0ee28cdbc0917173f06cc39527452a8f}{LSR\+\_\+\+PE}}~BIT(2)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ae3f9ccc88c615d1257ad400cf27af7eb}{LSR\+\_\+\+FE}}~BIT(3)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a0fa2f414cac085b768774f2881321b60}{LSR\+\_\+\+BI}}~BIT(4)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a8c1a828f5fe296a9c1668cf3e72c00c1}{LSR\+\_\+\+THRE}}~BIT(5)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a96374894dadc495a07b52f843a347f57}{LSR\+\_\+\+TRANS\+\_\+\+EMPTY}}~BIT(6)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a20024c43f977ff2a13f6eddde0607ba1}{LSR\+\_\+\+RCVR\+\_\+\+FIFO\+\_\+\+ERROR}}~BIT(7)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a8c98feb6953fbe0ac5ea029a51ee83dd}{IER\+\_\+\+ERBFI}}~BIT(0)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a1e0a94b0c9c1c1dd9a38a9bbcf34f273}{IER\+\_\+\+ETBEI}}~BIT(1)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_aa57877e202ebf65e9f9b08e14b539fd3}{IER\+\_\+\+ELSI}}~BIT(2)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_aa7fadcbbfdbde55471b8bc82014e54e0}{IER\+\_\+\+EDSSI}}~BIT(3)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a5d4e78266f49b88aa8c4ecc0ad4be3ac}{IIR\+\_\+\+NO\+\_\+\+INT\+\_\+\+PENDING}}~BIT(0)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a165b22b5d644704b505eccfc094e4b1f}{IIR\+\_\+\+ID}}~BIT(1) $\vert$ BIT(2) $\vert$ BIT(3)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ae2bd61e8808ce0b2356f13ecee52a19d}{IIR\+\_\+\+OGN\+\_\+\+LINE\+\_\+\+STATUS}}~BIT(1) $\vert$ BIT(2)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ae2fd463a1a588e786214831f85058264}{IIR\+\_\+\+OGN\+\_\+\+RCVD\+\_\+\+DATA\+\_\+\+AVL}}~BIT(2)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a3cf797e047136414aa37d350a4b0c0d3}{IIR\+\_\+\+FIFO\+\_\+\+CT}}~BIT(3) $\vert$ BIT(2)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a83dfe90e613ccd3e474367ea163a60c3}{IIR\+\_\+\+OGN\+\_\+\+TRANS\+\_\+\+EMPTY}}~BIT(1)
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_ad72e5cb0ce2af1cb513ad717009e3e32}{IIR\+\_\+\+INT\+\_\+\+PENDING}}~0x00
+\item 
+\#define \mbox{\hyperlink{_s_p_8h_a0fb29593ea0594efb9d5d4fe1934ced4}{FCR\+\_\+\+CLEAR}}~BIT(0) $\vert$ BIT(1) $\vert$ BIT(2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{_s_p_8h_a3685c78b9bd6dd0fa3861807e24a4e1b}\label{_s_p_8h_a3685c78b9bd6dd0fa3861807e24a4e1b}} 
+\index{SP.h@{SP.h}!COM1\_IRQ@{COM1\_IRQ}}
+\index{COM1\_IRQ@{COM1\_IRQ}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{COM1\_IRQ}{COM1\_IRQ}}
+{\footnotesize\ttfamily \#define COM1\+\_\+\+IRQ~4}
+
+\mbox{\Hypertarget{_s_p_8h_a047842842ecc9b26f526d098df1e1de1}\label{_s_p_8h_a047842842ecc9b26f526d098df1e1de1}} 
+\index{SP.h@{SP.h}!COM1\_UART\_BASE@{COM1\_UART\_BASE}}
+\index{COM1\_UART\_BASE@{COM1\_UART\_BASE}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{COM1\_UART\_BASE}{COM1\_UART\_BASE}}
+{\footnotesize\ttfamily \#define COM1\+\_\+\+UART\+\_\+\+BASE~0x3\+F8}
+
+\mbox{\Hypertarget{_s_p_8h_a4466639cd64ebf372a621168c5e25964}\label{_s_p_8h_a4466639cd64ebf372a621168c5e25964}} 
+\index{SP.h@{SP.h}!DLL@{DLL}}
+\index{DLL@{DLL}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{DLL}{DLL}}
+{\footnotesize\ttfamily \#define DLL~0x00}
+
+\mbox{\Hypertarget{_s_p_8h_a3b48b12dc65f62dd40ab1163fe7997fb}\label{_s_p_8h_a3b48b12dc65f62dd40ab1163fe7997fb}} 
+\index{SP.h@{SP.h}!DLM@{DLM}}
+\index{DLM@{DLM}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{DLM}{DLM}}
+{\footnotesize\ttfamily \#define DLM~0x01}
+
+\mbox{\Hypertarget{_s_p_8h_a264b36b13386e3f62fe69e04711bc006}\label{_s_p_8h_a264b36b13386e3f62fe69e04711bc006}} 
+\index{SP.h@{SP.h}!FCR@{FCR}}
+\index{FCR@{FCR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{FCR}{FCR}}
+{\footnotesize\ttfamily \#define FCR~0x02}
+
+\mbox{\Hypertarget{_s_p_8h_a0fb29593ea0594efb9d5d4fe1934ced4}\label{_s_p_8h_a0fb29593ea0594efb9d5d4fe1934ced4}} 
+\index{SP.h@{SP.h}!FCR\_CLEAR@{FCR\_CLEAR}}
+\index{FCR\_CLEAR@{FCR\_CLEAR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{FCR\_CLEAR}{FCR\_CLEAR}}
+{\footnotesize\ttfamily \#define FCR\+\_\+\+CLEAR~BIT(0) $\vert$ BIT(1) $\vert$ BIT(2)}
+
+\mbox{\Hypertarget{_s_p_8h_a3e27fa35f9febccdc4a0c28a5c8cffbb}\label{_s_p_8h_a3e27fa35f9febccdc4a0c28a5c8cffbb}} 
+\index{SP.h@{SP.h}!IER@{IER}}
+\index{IER@{IER}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IER}{IER}}
+{\footnotesize\ttfamily \#define IER~0x01}
+
+\mbox{\Hypertarget{_s_p_8h_aa7fadcbbfdbde55471b8bc82014e54e0}\label{_s_p_8h_aa7fadcbbfdbde55471b8bc82014e54e0}} 
+\index{SP.h@{SP.h}!IER\_EDSSI@{IER\_EDSSI}}
+\index{IER\_EDSSI@{IER\_EDSSI}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IER\_EDSSI}{IER\_EDSSI}}
+{\footnotesize\ttfamily \#define IER\+\_\+\+EDSSI~BIT(3)}
+
+\mbox{\Hypertarget{_s_p_8h_aa57877e202ebf65e9f9b08e14b539fd3}\label{_s_p_8h_aa57877e202ebf65e9f9b08e14b539fd3}} 
+\index{SP.h@{SP.h}!IER\_ELSI@{IER\_ELSI}}
+\index{IER\_ELSI@{IER\_ELSI}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IER\_ELSI}{IER\_ELSI}}
+{\footnotesize\ttfamily \#define IER\+\_\+\+ELSI~BIT(2)}
+
+\mbox{\Hypertarget{_s_p_8h_a8c98feb6953fbe0ac5ea029a51ee83dd}\label{_s_p_8h_a8c98feb6953fbe0ac5ea029a51ee83dd}} 
+\index{SP.h@{SP.h}!IER\_ERBFI@{IER\_ERBFI}}
+\index{IER\_ERBFI@{IER\_ERBFI}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IER\_ERBFI}{IER\_ERBFI}}
+{\footnotesize\ttfamily \#define IER\+\_\+\+ERBFI~BIT(0)}
+
+\mbox{\Hypertarget{_s_p_8h_a1e0a94b0c9c1c1dd9a38a9bbcf34f273}\label{_s_p_8h_a1e0a94b0c9c1c1dd9a38a9bbcf34f273}} 
+\index{SP.h@{SP.h}!IER\_ETBEI@{IER\_ETBEI}}
+\index{IER\_ETBEI@{IER\_ETBEI}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IER\_ETBEI}{IER\_ETBEI}}
+{\footnotesize\ttfamily \#define IER\+\_\+\+ETBEI~BIT(1)}
+
+\mbox{\Hypertarget{_s_p_8h_a67004975983f9c99226d63db17ba74c4}\label{_s_p_8h_a67004975983f9c99226d63db17ba74c4}} 
+\index{SP.h@{SP.h}!IIR@{IIR}}
+\index{IIR@{IIR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR}{IIR}}
+{\footnotesize\ttfamily \#define IIR~0x02}
+
+\mbox{\Hypertarget{_s_p_8h_a3cf797e047136414aa37d350a4b0c0d3}\label{_s_p_8h_a3cf797e047136414aa37d350a4b0c0d3}} 
+\index{SP.h@{SP.h}!IIR\_FIFO\_CT@{IIR\_FIFO\_CT}}
+\index{IIR\_FIFO\_CT@{IIR\_FIFO\_CT}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_FIFO\_CT}{IIR\_FIFO\_CT}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+FIFO\+\_\+\+CT~BIT(3) $\vert$ BIT(2)}
+
+\mbox{\Hypertarget{_s_p_8h_a165b22b5d644704b505eccfc094e4b1f}\label{_s_p_8h_a165b22b5d644704b505eccfc094e4b1f}} 
+\index{SP.h@{SP.h}!IIR\_ID@{IIR\_ID}}
+\index{IIR\_ID@{IIR\_ID}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_ID}{IIR\_ID}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+ID~BIT(1) $\vert$ BIT(2) $\vert$ BIT(3)}
+
+\mbox{\Hypertarget{_s_p_8h_ad72e5cb0ce2af1cb513ad717009e3e32}\label{_s_p_8h_ad72e5cb0ce2af1cb513ad717009e3e32}} 
+\index{SP.h@{SP.h}!IIR\_INT\_PENDING@{IIR\_INT\_PENDING}}
+\index{IIR\_INT\_PENDING@{IIR\_INT\_PENDING}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_INT\_PENDING}{IIR\_INT\_PENDING}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+INT\+\_\+\+PENDING~0x00}
+
+\mbox{\Hypertarget{_s_p_8h_a5d4e78266f49b88aa8c4ecc0ad4be3ac}\label{_s_p_8h_a5d4e78266f49b88aa8c4ecc0ad4be3ac}} 
+\index{SP.h@{SP.h}!IIR\_NO\_INT\_PENDING@{IIR\_NO\_INT\_PENDING}}
+\index{IIR\_NO\_INT\_PENDING@{IIR\_NO\_INT\_PENDING}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_NO\_INT\_PENDING}{IIR\_NO\_INT\_PENDING}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+NO\+\_\+\+INT\+\_\+\+PENDING~BIT(0)}
+
+\mbox{\Hypertarget{_s_p_8h_ae2bd61e8808ce0b2356f13ecee52a19d}\label{_s_p_8h_ae2bd61e8808ce0b2356f13ecee52a19d}} 
+\index{SP.h@{SP.h}!IIR\_OGN\_LINE\_STATUS@{IIR\_OGN\_LINE\_STATUS}}
+\index{IIR\_OGN\_LINE\_STATUS@{IIR\_OGN\_LINE\_STATUS}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_OGN\_LINE\_STATUS}{IIR\_OGN\_LINE\_STATUS}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+OGN\+\_\+\+LINE\+\_\+\+STATUS~BIT(1) $\vert$ BIT(2)}
+
+\mbox{\Hypertarget{_s_p_8h_ae2fd463a1a588e786214831f85058264}\label{_s_p_8h_ae2fd463a1a588e786214831f85058264}} 
+\index{SP.h@{SP.h}!IIR\_OGN\_RCVD\_DATA\_AVL@{IIR\_OGN\_RCVD\_DATA\_AVL}}
+\index{IIR\_OGN\_RCVD\_DATA\_AVL@{IIR\_OGN\_RCVD\_DATA\_AVL}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_OGN\_RCVD\_DATA\_AVL}{IIR\_OGN\_RCVD\_DATA\_AVL}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+OGN\+\_\+\+RCVD\+\_\+\+DATA\+\_\+\+AVL~BIT(2)}
+
+\mbox{\Hypertarget{_s_p_8h_a83dfe90e613ccd3e474367ea163a60c3}\label{_s_p_8h_a83dfe90e613ccd3e474367ea163a60c3}} 
+\index{SP.h@{SP.h}!IIR\_OGN\_TRANS\_EMPTY@{IIR\_OGN\_TRANS\_EMPTY}}
+\index{IIR\_OGN\_TRANS\_EMPTY@{IIR\_OGN\_TRANS\_EMPTY}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{IIR\_OGN\_TRANS\_EMPTY}{IIR\_OGN\_TRANS\_EMPTY}}
+{\footnotesize\ttfamily \#define IIR\+\_\+\+OGN\+\_\+\+TRANS\+\_\+\+EMPTY~BIT(1)}
+
+\mbox{\Hypertarget{_s_p_8h_a851cb396b6eaa97346364a772b439f37}\label{_s_p_8h_a851cb396b6eaa97346364a772b439f37}} 
+\index{SP.h@{SP.h}!LCR@{LCR}}
+\index{LCR@{LCR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LCR}{LCR}}
+{\footnotesize\ttfamily \#define LCR~0x03}
+
+\mbox{\Hypertarget{_s_p_8h_ad51d51aee21f6cc77d4955221aee3dcb}\label{_s_p_8h_ad51d51aee21f6cc77d4955221aee3dcb}} 
+\index{SP.h@{SP.h}!LSR@{LSR}}
+\index{LSR@{LSR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR}{LSR}}
+{\footnotesize\ttfamily \#define LSR~0x05}
+
+\mbox{\Hypertarget{_s_p_8h_a0fa2f414cac085b768774f2881321b60}\label{_s_p_8h_a0fa2f414cac085b768774f2881321b60}} 
+\index{SP.h@{SP.h}!LSR\_BI@{LSR\_BI}}
+\index{LSR\_BI@{LSR\_BI}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_BI}{LSR\_BI}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+BI~BIT(4)}
+
+\mbox{\Hypertarget{_s_p_8h_ae6e9a941061832e3150804bf169a2e97}\label{_s_p_8h_ae6e9a941061832e3150804bf169a2e97}} 
+\index{SP.h@{SP.h}!LSR\_DATA\_READY@{LSR\_DATA\_READY}}
+\index{LSR\_DATA\_READY@{LSR\_DATA\_READY}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_DATA\_READY}{LSR\_DATA\_READY}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+DATA\+\_\+\+READY~BIT(0)}
+
+\mbox{\Hypertarget{_s_p_8h_ae3f9ccc88c615d1257ad400cf27af7eb}\label{_s_p_8h_ae3f9ccc88c615d1257ad400cf27af7eb}} 
+\index{SP.h@{SP.h}!LSR\_FE@{LSR\_FE}}
+\index{LSR\_FE@{LSR\_FE}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_FE}{LSR\_FE}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+FE~BIT(3)}
+
+\mbox{\Hypertarget{_s_p_8h_ae844dd49bb0e0770bcf46ad5bfe20973}\label{_s_p_8h_ae844dd49bb0e0770bcf46ad5bfe20973}} 
+\index{SP.h@{SP.h}!LSR\_OE@{LSR\_OE}}
+\index{LSR\_OE@{LSR\_OE}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_OE}{LSR\_OE}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+OE~BIT(1)}
+
+\mbox{\Hypertarget{_s_p_8h_a0ee28cdbc0917173f06cc39527452a8f}\label{_s_p_8h_a0ee28cdbc0917173f06cc39527452a8f}} 
+\index{SP.h@{SP.h}!LSR\_PE@{LSR\_PE}}
+\index{LSR\_PE@{LSR\_PE}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_PE}{LSR\_PE}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+PE~BIT(2)}
+
+\mbox{\Hypertarget{_s_p_8h_a20024c43f977ff2a13f6eddde0607ba1}\label{_s_p_8h_a20024c43f977ff2a13f6eddde0607ba1}} 
+\index{SP.h@{SP.h}!LSR\_RCVR\_FIFO\_ERROR@{LSR\_RCVR\_FIFO\_ERROR}}
+\index{LSR\_RCVR\_FIFO\_ERROR@{LSR\_RCVR\_FIFO\_ERROR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_RCVR\_FIFO\_ERROR}{LSR\_RCVR\_FIFO\_ERROR}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+RCVR\+\_\+\+FIFO\+\_\+\+ERROR~BIT(7)}
+
+\mbox{\Hypertarget{_s_p_8h_a8c1a828f5fe296a9c1668cf3e72c00c1}\label{_s_p_8h_a8c1a828f5fe296a9c1668cf3e72c00c1}} 
+\index{SP.h@{SP.h}!LSR\_THRE@{LSR\_THRE}}
+\index{LSR\_THRE@{LSR\_THRE}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_THRE}{LSR\_THRE}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+THRE~BIT(5)}
+
+\mbox{\Hypertarget{_s_p_8h_a96374894dadc495a07b52f843a347f57}\label{_s_p_8h_a96374894dadc495a07b52f843a347f57}} 
+\index{SP.h@{SP.h}!LSR\_TRANS\_EMPTY@{LSR\_TRANS\_EMPTY}}
+\index{LSR\_TRANS\_EMPTY@{LSR\_TRANS\_EMPTY}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{LSR\_TRANS\_EMPTY}{LSR\_TRANS\_EMPTY}}
+{\footnotesize\ttfamily \#define LSR\+\_\+\+TRANS\+\_\+\+EMPTY~BIT(6)}
+
+\mbox{\Hypertarget{_s_p_8h_a65364db1603cde6f6533cb61bcfcf553}\label{_s_p_8h_a65364db1603cde6f6533cb61bcfcf553}} 
+\index{SP.h@{SP.h}!MCR@{MCR}}
+\index{MCR@{MCR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{MCR}{MCR}}
+{\footnotesize\ttfamily \#define MCR~0x04}
+
+\mbox{\Hypertarget{_s_p_8h_ad4806a0bfd996121bc27d2466393207e}\label{_s_p_8h_ad4806a0bfd996121bc27d2466393207e}} 
+\index{SP.h@{SP.h}!MSR@{MSR}}
+\index{MSR@{MSR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{MSR}{MSR}}
+{\footnotesize\ttfamily \#define MSR~0x06}
+
+\mbox{\Hypertarget{_s_p_8h_aa6f7e7a9f4551d6151f9d45362118a50}\label{_s_p_8h_aa6f7e7a9f4551d6151f9d45362118a50}} 
+\index{SP.h@{SP.h}!RBR@{RBR}}
+\index{RBR@{RBR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{RBR}{RBR}}
+{\footnotesize\ttfamily \#define RBR~0x00}
+
+\mbox{\Hypertarget{_s_p_8h_abaed93a16a0cde13f32bc4dc48b96804}\label{_s_p_8h_abaed93a16a0cde13f32bc4dc48b96804}} 
+\index{SP.h@{SP.h}!SR@{SR}}
+\index{SR@{SR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{SR}{SR}}
+{\footnotesize\ttfamily \#define SR~0x07}
+
+\mbox{\Hypertarget{_s_p_8h_a5e9787adf3c9afcc4b781e85bb545b35}\label{_s_p_8h_a5e9787adf3c9afcc4b781e85bb545b35}} 
+\index{SP.h@{SP.h}!THR@{THR}}
+\index{THR@{THR}!SP.h@{SP.h}}
+\doxysubsubsection{\texorpdfstring{THR}{THR}}
+{\footnotesize\ttfamily \#define THR~0x00}
+

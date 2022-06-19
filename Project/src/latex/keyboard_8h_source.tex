@@ -1,0 +1,29 @@
+\hypertarget{keyboard_8h_source}{}\doxysection{keyboard.\+h}
+\label{keyboard_8h_source}\index{controllers/keyboardMouse/keyboard.h@{controllers/keyboardMouse/keyboard.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef \_LCOM\_KBC\_H\_}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define \_LCOM\_KBC\_H\_}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <minix/sysutil.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}i8042.h"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{22 int (subscribe\_KBC\_interrupts)(uint8\_t *bit\_no);}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{28 int (unsubscribe\_KBC\_interrupts)();}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{35 int (read\_KBC\_status)(uint8\_t* status);}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{43 int (read\_KBC\_output)(uint8\_t port, uint8\_t *output);}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{51 int (write\_KBC\_command)(uint8\_t port, uint8\_t commandByte);}
+\DoxyCodeLine{52 }
+\DoxyCodeLine{56 void (kbc\_ih)();}
+\DoxyCodeLine{57 }
+\DoxyCodeLine{62 int (kbc\_restore)();}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_LCOM\_KBC\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,266 @@
+\hypertarget{menu_8c}{}\doxysection{game/modes/menu.c File Reference}
+\label{menu_8c}\index{game/modes/menu.c@{game/modes/menu.c}}
+{\ttfamily \#include \char`\"{}menu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}lcom/vbe.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../game.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/serial\+Port/serial\+Port.\+h\char`\"{}}\newline
+Include dependency graph for menu.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{menu_8c_a6a4c43846a973f849b2027363176dcb2}{process\+Start\+Draw\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the draw button and if the press if valid. If it is, it starts draw mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8c_aad86b088b468df45161d1bb04697f5fa}{process\+Start\+Guess\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the guess button and if the press if valid. If it is, it starts guess mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8c_ab859ac644122c981608478833cf4b7ee}{process\+Instr\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the instruction button and if the press if valid. If it is, it loads the instruction page. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8c_a5438949090fb276e9fe1bd1c7401490c}{process\+Quit\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the quit button and if the press if valid. If it is, it exits the game. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{menu_8c_a0003deda87fcc4090e53c2775f163144}{KB\+\_\+\+Menu\+Controls}} (uint8\+\_\+t \mbox{\hyperlink{main_8c_aa1de7a5557e9d96b83cf03f73c92163f}{scancode}})
+\begin{DoxyCompactList}\small\item\em This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8c_a252c3e287edc6236251be9dd8517334c}{draw\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em This function loads the differents components of a frame into the secondary buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+struct packet \mbox{\hyperlink{menu_8c_a8d021745a4d490f14cb48d8579413490}{mouseP}}
+\item 
+bool \mbox{\hyperlink{menu_8c_aaa52a27abaaf72231a84c99f2bfa4283}{game\+Running}}
+\item 
+int \mbox{\hyperlink{menu_8c_aa535a3201e6b21c12dc05f4fa9a3e7c2}{game\+Mode}}
+\item 
+int \mbox{\hyperlink{menu_8c_a1e30742bebf19a062d6570158986c241}{gameplay\+Counter}}
+\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{menu_8c_a429bf06d6fb45dafca1d80043b2c9cfc}{img\+Buffer}}
+\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{menu_8c_ac698c016d8b2d080f2d4e3f541828566}{draw\+Buffer}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{menu_8c_a317816591bbfb4a3c2dea70e110f686c}{x\+Res}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{menu_8c_ac15fae4c1d01322f3f56020c549eec6c}{y\+Res}}
+\item 
+unsigned \mbox{\hyperlink{menu_8c_ab6fe70cf55b50ced7fea8ddf93e629e8}{bytes\+Per\+Pixel}}
+\item 
+bool \mbox{\hyperlink{menu_8c_a853ebeee3512ef4b958e7493baf6a5c8}{start\+Draw\+Pressed}} = false
+\item 
+bool \mbox{\hyperlink{menu_8c_a6d019494011af3c1de7a684b7091b2f1}{start\+Guess\+Pressed}} = false
+\item 
+bool \mbox{\hyperlink{menu_8c_ae616681a51f65530be61dc27f6636877}{quit\+Pressed}} = false
+\item 
+bool \mbox{\hyperlink{menu_8c_a03361184500ad16b99ec676d148cb59e}{instr\+Pressed}} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{menu_8c_a252c3e287edc6236251be9dd8517334c}\label{menu_8c_a252c3e287edc6236251be9dd8517334c}} 
+\index{menu.c@{menu.c}!drawMenu@{drawMenu}}
+\index{drawMenu@{drawMenu}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{drawMenu()}{drawMenu()}}
+{\footnotesize\ttfamily int draw\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function loads the differents components of a frame into the secondary buffer. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 1
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{menu_8c_a0003deda87fcc4090e53c2775f163144}\label{menu_8c_a0003deda87fcc4090e53c2775f163144}} 
+\index{menu.c@{menu.c}!KB\_MenuControls@{KB\_MenuControls}}
+\index{KB\_MenuControls@{KB\_MenuControls}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{KB\_MenuControls()}{KB\_MenuControls()}}
+{\footnotesize\ttfamily void KB\+\_\+\+Menu\+Controls (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scancode }\end{DoxyParamCaption})}
+
+
+
+This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & Code representing the key pressed by the player \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{menu_8c_ab859ac644122c981608478833cf4b7ee}\label{menu_8c_ab859ac644122c981608478833cf4b7ee}} 
+\index{menu.c@{menu.c}!processInstrButton@{processInstrButton}}
+\index{processInstrButton@{processInstrButton}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{processInstrButton()}{processInstrButton()}}
+{\footnotesize\ttfamily int process\+Instr\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the instruction button and if the press if valid. If it is, it loads the instruction page. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{menu_8c_a5438949090fb276e9fe1bd1c7401490c}\label{menu_8c_a5438949090fb276e9fe1bd1c7401490c}} 
+\index{menu.c@{menu.c}!processQuitButton@{processQuitButton}}
+\index{processQuitButton@{processQuitButton}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{processQuitButton()}{processQuitButton()}}
+{\footnotesize\ttfamily int process\+Quit\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the quit button and if the press if valid. If it is, it exits the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{menu_8c_a6a4c43846a973f849b2027363176dcb2}\label{menu_8c_a6a4c43846a973f849b2027363176dcb2}} 
+\index{menu.c@{menu.c}!processStartDrawButton@{processStartDrawButton}}
+\index{processStartDrawButton@{processStartDrawButton}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{processStartDrawButton()}{processStartDrawButton()}}
+{\footnotesize\ttfamily int process\+Start\+Draw\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the draw button and if the press if valid. If it is, it starts draw mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{menu_8c_aad86b088b468df45161d1bb04697f5fa}\label{menu_8c_aad86b088b468df45161d1bb04697f5fa}} 
+\index{menu.c@{menu.c}!processStartGuessButton@{processStartGuessButton}}
+\index{processStartGuessButton@{processStartGuessButton}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{processStartGuessButton()}{processStartGuessButton()}}
+{\footnotesize\ttfamily int process\+Start\+Guess\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the guess button and if the press if valid. If it is, it starts guess mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{menu_8c_ab6fe70cf55b50ced7fea8ddf93e629e8}\label{menu_8c_ab6fe70cf55b50ced7fea8ddf93e629e8}} 
+\index{menu.c@{menu.c}!bytesPerPixel@{bytesPerPixel}}
+\index{bytesPerPixel@{bytesPerPixel}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{bytesPerPixel}{bytesPerPixel}}
+{\footnotesize\ttfamily unsigned bytes\+Per\+Pixel\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_ac698c016d8b2d080f2d4e3f541828566}\label{menu_8c_ac698c016d8b2d080f2d4e3f541828566}} 
+\index{menu.c@{menu.c}!drawBuffer@{drawBuffer}}
+\index{drawBuffer@{drawBuffer}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{drawBuffer}{drawBuffer}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ draw\+Buffer\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_aa535a3201e6b21c12dc05f4fa9a3e7c2}\label{menu_8c_aa535a3201e6b21c12dc05f4fa9a3e7c2}} 
+\index{menu.c@{menu.c}!gameMode@{gameMode}}
+\index{gameMode@{gameMode}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{gameMode}{gameMode}}
+{\footnotesize\ttfamily int game\+Mode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a1e30742bebf19a062d6570158986c241}\label{menu_8c_a1e30742bebf19a062d6570158986c241}} 
+\index{menu.c@{menu.c}!gameplayCounter@{gameplayCounter}}
+\index{gameplayCounter@{gameplayCounter}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{gameplayCounter}{gameplayCounter}}
+{\footnotesize\ttfamily int gameplay\+Counter\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_aaa52a27abaaf72231a84c99f2bfa4283}\label{menu_8c_aaa52a27abaaf72231a84c99f2bfa4283}} 
+\index{menu.c@{menu.c}!gameRunning@{gameRunning}}
+\index{gameRunning@{gameRunning}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{gameRunning}{gameRunning}}
+{\footnotesize\ttfamily bool game\+Running\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a429bf06d6fb45dafca1d80043b2c9cfc}\label{menu_8c_a429bf06d6fb45dafca1d80043b2c9cfc}} 
+\index{menu.c@{menu.c}!imgBuffer@{imgBuffer}}
+\index{imgBuffer@{imgBuffer}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{imgBuffer}{imgBuffer}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ img\+Buffer\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_a03361184500ad16b99ec676d148cb59e}\label{menu_8c_a03361184500ad16b99ec676d148cb59e}} 
+\index{menu.c@{menu.c}!instrPressed@{instrPressed}}
+\index{instrPressed@{instrPressed}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{instrPressed}{instrPressed}}
+{\footnotesize\ttfamily bool instr\+Pressed = false}
+
+\mbox{\Hypertarget{menu_8c_a8d021745a4d490f14cb48d8579413490}\label{menu_8c_a8d021745a4d490f14cb48d8579413490}} 
+\index{menu.c@{menu.c}!mouseP@{mouseP}}
+\index{mouseP@{mouseP}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{mouseP}{mouseP}}
+{\footnotesize\ttfamily struct packet mouseP\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_ae616681a51f65530be61dc27f6636877}\label{menu_8c_ae616681a51f65530be61dc27f6636877}} 
+\index{menu.c@{menu.c}!quitPressed@{quitPressed}}
+\index{quitPressed@{quitPressed}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{quitPressed}{quitPressed}}
+{\footnotesize\ttfamily bool quit\+Pressed = false}
+
+\mbox{\Hypertarget{menu_8c_a853ebeee3512ef4b958e7493baf6a5c8}\label{menu_8c_a853ebeee3512ef4b958e7493baf6a5c8}} 
+\index{menu.c@{menu.c}!startDrawPressed@{startDrawPressed}}
+\index{startDrawPressed@{startDrawPressed}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{startDrawPressed}{startDrawPressed}}
+{\footnotesize\ttfamily bool start\+Draw\+Pressed = false}
+
+\mbox{\Hypertarget{menu_8c_a6d019494011af3c1de7a684b7091b2f1}\label{menu_8c_a6d019494011af3c1de7a684b7091b2f1}} 
+\index{menu.c@{menu.c}!startGuessPressed@{startGuessPressed}}
+\index{startGuessPressed@{startGuessPressed}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{startGuessPressed}{startGuessPressed}}
+{\footnotesize\ttfamily bool start\+Guess\+Pressed = false}
+
+\mbox{\Hypertarget{menu_8c_a317816591bbfb4a3c2dea70e110f686c}\label{menu_8c_a317816591bbfb4a3c2dea70e110f686c}} 
+\index{menu.c@{menu.c}!xRes@{xRes}}
+\index{xRes@{xRes}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{xRes}{xRes}}
+{\footnotesize\ttfamily uint16\+\_\+t x\+Res\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{menu_8c_ac15fae4c1d01322f3f56020c549eec6c}\label{menu_8c_ac15fae4c1d01322f3f56020c549eec6c}} 
+\index{menu.c@{menu.c}!yRes@{yRes}}
+\index{yRes@{yRes}!menu.c@{menu.c}}
+\doxysubsubsection{\texorpdfstring{yRes}{yRes}}
+{\footnotesize\ttfamily uint16\+\_\+t y\+Res}
+

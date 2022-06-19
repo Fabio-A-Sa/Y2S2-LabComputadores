@@ -1,0 +1,17 @@
+digraph "processWord"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="processWord",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This funtion process the word selected for the gameplay and displays it to the screen when called."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="KB_MenuControls",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html#a0003deda87fcc4090e53c2775f163144",tooltip="This function process the pressing of jeys by the player and realizes the function correct action for..."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="process_interrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a9c74859d9e32b26fca9274d294eff910",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="processStartDrawButton",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html#a6a4c43846a973f849b2027363176dcb2",tooltip="This function detects it the player is pressing the draw button and if the press if valid...."];
+  Node5 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

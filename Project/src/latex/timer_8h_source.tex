@@ -1,0 +1,23 @@
+\hypertarget{timer_8h_source}{}\doxysection{timer.\+h}
+\label{timer_8h_source}\index{controllers/timer/timer.h@{controllers/timer/timer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <lcom/timer.h>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}i8254.h"{}}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 int (timer\_set\_frequency)(uint8\_t timer, uint32\_t freq);}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{23 int (timer\_subscribe\_int)(uint8\_t *bit\_no);}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{29 int (timer\_unsubscribe\_int)();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{34 void (timer\_int\_handler)();}
+\DoxyCodeLine{35 }
+\DoxyCodeLine{42 int (timer\_get\_conf)(uint8\_t timer, uint8\_t *st);}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{51 int (timer\_display\_conf)(uint8\_t timer, uint8\_t st, \textcolor{keyword}{enum} timer\_status\_field field);}
+
+\end{DoxyCode}

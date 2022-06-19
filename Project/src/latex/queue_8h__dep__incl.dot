@@ -1,0 +1,24 @@
+digraph "controllers/serialPort/queue.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="controllers/serialPort\l/queue.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="controllers/serialPort\l/queue.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8c.html",tooltip=" "];
+  Node1 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="controllers/serialPort\l/serialPort.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8h.html",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="controllers/serialPort\l/serialPort.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html",tooltip=" "];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="game/modes/drawing.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html",tooltip=" "];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="game/modes/guessing.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8c.html",tooltip=" "];
+  Node3 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="game/modes/inst.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$inst_8c.html",tooltip=" "];
+  Node3 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="game/modes/menu.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html",tooltip=" "];
+  Node3 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html",tooltip=" "];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

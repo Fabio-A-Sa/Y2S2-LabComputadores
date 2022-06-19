@@ -1,0 +1,27 @@
+digraph "controllers/serialPort/serialPort.c"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="controllers/serialPort\l/serialPort.c",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="serialPort.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8h.html",tooltip=" "];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="lcom/lcf.h",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
+  Node2 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="queue.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8h.html",tooltip=" "];
+  Node4 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="SP.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_s_p_8h.html",tooltip=" "];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="../video/graphics.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8h.html",tooltip=" "];
+  Node6 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="VBE.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_v_b_e_8h.html",tooltip=" "];
+  Node6 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="BIOS_MACROS.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_b_i_o_s___m_a_c_r_o_s_8h.html",tooltip=" "];
+  Node6 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="../video/COLORS.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$_c_o_l_o_r_s_8h.html",tooltip=" "];
+  Node1 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="../../game/macros.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$macros_8h.html",tooltip=" "];
+}

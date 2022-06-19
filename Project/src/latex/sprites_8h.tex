@@ -1,0 +1,270 @@
+\hypertarget{sprites_8h}{}\doxysection{sprites/sprites.h File Reference}
+\label{sprites_8h}\index{sprites/sprites.h@{sprites/sprites.h}}
+{\ttfamily \#include \char`\"{}../controllers/video/graphics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/title.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/mice/mouse\+Cursor.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/mice/brush\+Cursor.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/mice/hand\+Cursor.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/draw\+Button.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/guess\+Button.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/quit\+Button.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/inst\+Button.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/draw\+Button\+Pressed.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/guess\+Button\+Pressed.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/quit\+Button\+Pressed.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/buttons/inst\+Button\+Pressed.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/inst\+Page.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/brush\+Plus.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/brush\+Minus.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/zero.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/one.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/two.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/three.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/four.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/five.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/six.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/seven.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/eight.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/numbers/nine.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/a.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/b.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/c.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/d.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/e.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/f.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/g.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/h.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/i.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/j.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/k.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/l.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/m.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/n.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/o.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/p.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/q.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/r.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/s.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/t.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/u.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/v.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/w.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/x.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/y.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/letters/z.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/symbols/plus.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../imgs/symbols/minus.\+xpm\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../controllers/video/\+COLORS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../game/\+UTILS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../game/reader.\+h\char`\"{}}\newline
+This graph shows which files directly or indirectly include this file\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_sprite}{Sprite}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_sprite}{Sprite}} stores information about an image that is allocate in memomry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{struct_sprite}{Sprite}} \mbox{\hyperlink{sprites_8h_abb1060e0b7ecf8b4eba2c1bb55cfe5e2}{Sprite}}
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{struct_sprite}{Sprite}} stores information about an image that is allocate in memomry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_aeda9be2eb89b2396626ea995027d94db}{create\+Sprite}} (xpm\+\_\+map\+\_\+t sprite)
+\begin{DoxyCompactList}\small\item\em Create a \mbox{\hyperlink{struct_sprite}{Sprite}} object from a xpm. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{sprites_8h_ab314b25af82bd5f0ef63fd539d9a3419}{draw\+Sprite}} (\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$sp, int \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, int \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em Draws a loaded SPrite onto the screen, The x and y represents the top left corner of the \mbox{\hyperlink{struct_sprite}{Sprite}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sprites_8h_af16c6befaac9ffb673b9e3c798d542ed}{destroy\+\_\+sprite}} (\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$sp)
+\begin{DoxyCompactList}\small\item\em A function that unloaeds and frees the memory the \mbox{\hyperlink{struct_sprite}{Sprite}} was using. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sprites_8h_ab5ff3699eca81ef3a5c415ac2eebac3c}{load\+Sprites}} ()
+\begin{DoxyCompactList}\small\item\em A function that loads all the needed Sprites when te program starts running. allocates memory as needed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{sprites_8h_a63fa6c79e62b0312264aef80de816ebd}{unload\+Sprites}} ()
+\begin{DoxyCompactList}\small\item\em A function that loads all the needed Sprites when te program starts running, it also frees the memory they were using. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_a4fcbb6da63af29c32bf1d8f9dd90406a}{game\+Title}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_af78634ea039226af2e24c8208dc18467}{mouse\+Cursor}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_a826aabe409aefc89a9c43bf11be21dd1}{brush\+Cursor}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_a41d400045eb6b9bcd82b8d0c981c3325}{hand\+Cursor}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_a627b440c23e7f0664e56d4bb87709408}{draw\+Button}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_a3037b2300a5eeff55aef49347c6caab9}{guess\+Button}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_ae32a4889829cce60cde61e39a6e51ae2}{quit\+Button}}
+\item 
+\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ \mbox{\hyperlink{sprites_8h_a2fa0aff8dbdc2ec08a3fd94cc3c1e5f9}{inst\+Button}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{sprites_8h_abb1060e0b7ecf8b4eba2c1bb55cfe5e2}\label{sprites_8h_abb1060e0b7ecf8b4eba2c1bb55cfe5e2}} 
+\index{sprites.h@{sprites.h}!Sprite@{Sprite}}
+\index{Sprite@{Sprite}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{Sprite}{Sprite}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{struct_sprite}{Sprite}} \mbox{\hyperlink{struct_sprite}{Sprite}}}
+
+
+
+\mbox{\hyperlink{struct_sprite}{Sprite}} stores information about an image that is allocate in memomry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em height} & The height on the image in pixels \\
+\hline
+{\em width} & The width of the image in pixels \\
+\hline
+{\em colors} & The array that stores the colors of each pixel in the image \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{sprites_8h_aeda9be2eb89b2396626ea995027d94db}\label{sprites_8h_aeda9be2eb89b2396626ea995027d94db}} 
+\index{sprites.h@{sprites.h}!createSprite@{createSprite}}
+\index{createSprite@{createSprite}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{createSprite()}{createSprite()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$ create\+Sprite (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{sprite }\end{DoxyParamCaption})}
+
+
+
+Create a \mbox{\hyperlink{struct_sprite}{Sprite}} object from a xpm. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sprite} & The xmp to be loaded as an image \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An object of type \mbox{\hyperlink{struct_sprite}{Sprite}} representing the image 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{sprites_8h_af16c6befaac9ffb673b9e3c798d542ed}\label{sprites_8h_af16c6befaac9ffb673b9e3c798d542ed}} 
+\index{sprites.h@{sprites.h}!destroy\_sprite@{destroy\_sprite}}
+\index{destroy\_sprite@{destroy\_sprite}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{destroy\_sprite()}{destroy\_sprite()}}
+{\footnotesize\ttfamily void destroy\+\_\+sprite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$}]{sp }\end{DoxyParamCaption})}
+
+
+
+A function that unloaeds and frees the memory the \mbox{\hyperlink{struct_sprite}{Sprite}} was using. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp} & \mbox{\hyperlink{struct_sprite}{Sprite}} to be unloaded \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{sprites_8h_ab314b25af82bd5f0ef63fd539d9a3419}\label{sprites_8h_ab314b25af82bd5f0ef63fd539d9a3419}} 
+\index{sprites.h@{sprites.h}!drawSprite@{drawSprite}}
+\index{drawSprite@{drawSprite}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{drawSprite()}{drawSprite()}}
+{\footnotesize\ttfamily int draw\+Sprite (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_sprite}{Sprite}} $\ast$}]{sp,  }\item[{int}]{x,  }\item[{int}]{y }\end{DoxyParamCaption})}
+
+
+
+Draws a loaded SPrite onto the screen, The x and y represents the top left corner of the \mbox{\hyperlink{struct_sprite}{Sprite}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sp} & The \mbox{\hyperlink{struct_sprite}{Sprite}} to be drawn of the sreen \\
+\hline
+{\em x} & The first x position to put the \mbox{\hyperlink{struct_sprite}{Sprite}} (left to right) \\
+\hline
+{\em y} & The first y position to put the \mbox{\hyperlink{struct_sprite}{Sprite}} (top to bottom) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{sprites_8h_ab5ff3699eca81ef3a5c415ac2eebac3c}\label{sprites_8h_ab5ff3699eca81ef3a5c415ac2eebac3c}} 
+\index{sprites.h@{sprites.h}!loadSprites@{loadSprites}}
+\index{loadSprites@{loadSprites}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{loadSprites()}{loadSprites()}}
+{\footnotesize\ttfamily void load\+Sprites (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function that loads all the needed Sprites when te program starts running. allocates memory as needed. 
+
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{sprites_8h_a63fa6c79e62b0312264aef80de816ebd}\label{sprites_8h_a63fa6c79e62b0312264aef80de816ebd}} 
+\index{sprites.h@{sprites.h}!unloadSprites@{unloadSprites}}
+\index{unloadSprites@{unloadSprites}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{unloadSprites()}{unloadSprites()}}
+{\footnotesize\ttfamily void unload\+Sprites (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+A function that loads all the needed Sprites when te program starts running, it also frees the memory they were using. 
+
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{sprites_8h_a826aabe409aefc89a9c43bf11be21dd1}\label{sprites_8h_a826aabe409aefc89a9c43bf11be21dd1}} 
+\index{sprites.h@{sprites.h}!brushCursor@{brushCursor}}
+\index{brushCursor@{brushCursor}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{brushCursor}{brushCursor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ brush\+Cursor}
+
+\mbox{\Hypertarget{sprites_8h_a627b440c23e7f0664e56d4bb87709408}\label{sprites_8h_a627b440c23e7f0664e56d4bb87709408}} 
+\index{sprites.h@{sprites.h}!drawButton@{drawButton}}
+\index{drawButton@{drawButton}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{drawButton}{drawButton}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ draw\+Button}
+
+\mbox{\Hypertarget{sprites_8h_a4fcbb6da63af29c32bf1d8f9dd90406a}\label{sprites_8h_a4fcbb6da63af29c32bf1d8f9dd90406a}} 
+\index{sprites.h@{sprites.h}!gameTitle@{gameTitle}}
+\index{gameTitle@{gameTitle}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{gameTitle}{gameTitle}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ game\+Title}
+
+\mbox{\Hypertarget{sprites_8h_a3037b2300a5eeff55aef49347c6caab9}\label{sprites_8h_a3037b2300a5eeff55aef49347c6caab9}} 
+\index{sprites.h@{sprites.h}!guessButton@{guessButton}}
+\index{guessButton@{guessButton}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{guessButton}{guessButton}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ guess\+Button}
+
+\mbox{\Hypertarget{sprites_8h_a41d400045eb6b9bcd82b8d0c981c3325}\label{sprites_8h_a41d400045eb6b9bcd82b8d0c981c3325}} 
+\index{sprites.h@{sprites.h}!handCursor@{handCursor}}
+\index{handCursor@{handCursor}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{handCursor}{handCursor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ hand\+Cursor}
+
+\mbox{\Hypertarget{sprites_8h_a2fa0aff8dbdc2ec08a3fd94cc3c1e5f9}\label{sprites_8h_a2fa0aff8dbdc2ec08a3fd94cc3c1e5f9}} 
+\index{sprites.h@{sprites.h}!instButton@{instButton}}
+\index{instButton@{instButton}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{instButton}{instButton}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ inst\+Button}
+
+\mbox{\Hypertarget{sprites_8h_af78634ea039226af2e24c8208dc18467}\label{sprites_8h_af78634ea039226af2e24c8208dc18467}} 
+\index{sprites.h@{sprites.h}!mouseCursor@{mouseCursor}}
+\index{mouseCursor@{mouseCursor}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{mouseCursor}{mouseCursor}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ mouse\+Cursor}
+
+\mbox{\Hypertarget{sprites_8h_ae32a4889829cce60cde61e39a6e51ae2}\label{sprites_8h_ae32a4889829cce60cde61e39a6e51ae2}} 
+\index{sprites.h@{sprites.h}!quitButton@{quitButton}}
+\index{quitButton@{quitButton}!sprites.h@{sprites.h}}
+\doxysubsubsection{\texorpdfstring{quitButton}{quitButton}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_sprite}{Sprite}}$\ast$ quit\+Button}
+

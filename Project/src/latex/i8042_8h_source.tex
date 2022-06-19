@@ -1,0 +1,96 @@
+\hypertarget{i8042_8h_source}{}\doxysection{i8042.\+h}
+\label{i8042_8h_source}\index{controllers/keyboardMouse/i8042.h@{controllers/keyboardMouse/i8042.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef \_LCOM\_I8042\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define \_LCOM\_I8042\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{comment}{/* IRQ Lines */}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#define IRQ\_KBC         1}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#define IRQ\_MOUSE       12}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{comment}{/* KBC */}}
+\DoxyCodeLine{10 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define MAKE\_CODE       BIT(7)}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define TWO\_BYTES       0xE0}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define TIMEOUT\_ERROR   BIT(6)}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#define PARITY\_ERROR    BIT(7)}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#define FULL\_OUT\_BUFFER BIT(0)}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#define FULL\_IN\_BUFFER  BIT(1)}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define KBC\_STATUS\_REG  0x64}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define KBC\_IN\_CMD      0x64}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#define KBC\_OUT\_CMD     0x60}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#define KBC\_READ\_CMD    0x20}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define KBC\_WRITE\_CMD   0x60}}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \textcolor{comment}{/* Mouse */}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#define ENABLE\_INT      BIT(0)}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#define MOUSE\_TICK      BIT(5)}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define MOUSE\_SYNC      BIT(3)}}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define MOUSE\_IN        0xD4}}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define MOUSE\_ACK       0xFA}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#define MOUSE\_NACK      0xFE}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#define MOUSE\_ERROR     0xFC}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#define MOUSE\_LB        BIT(0)}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#define MOUSE\_RB        BIT(1)}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#define MOUSE\_MB        BIT(2)}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#define MOUSE\_X\_DELTA   BIT(4)}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#define MOUSE\_Y\_DELTA   BIT(5)}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#define MOUSE\_X\_SIGNAL  BIT(6)}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#define MOUSE\_Y\_SIGNAL  BIT(7)}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#define WAIT\_KBC        20000}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define MAX\_ATTEMPS     10}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44 \textcolor{comment}{/* Scancodes */}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#define MAKE\_ESC        0x01 }}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define BREAK\_ESC       0x81}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#define MAKE\_ENTER      0x1C}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#define BREAK\_ENTER     0x9C}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#define MAKE\_MINUS      0x0C}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define MAKE\_PLUS       0x0D}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#define MAKE\_BACKSPACE  0x0E}}
+\DoxyCodeLine{53 }
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#define MAKE\_1          0x02}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#define MAKE\_2          0x03}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#define MAKE\_3          0x04}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#define MAKE\_4          0x05}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#define MAKE\_5          0x06}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#define MAKE\_6          0x07}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#define MAKE\_7          0x08}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#define MAKE\_8          0x09}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#define MAKE\_A          0x1E}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#define MAKE\_B          0x30}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#define MAKE\_C          0x2E    }}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#define MAKE\_D          0x20}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#define MAKE\_E          0x12}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#define MAKE\_F          0x21}}
+\DoxyCodeLine{69 \textcolor{preprocessor}{\#define MAKE\_G          0x22}}
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#define MAKE\_H          0x23}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#define MAKE\_I          0x17}}
+\DoxyCodeLine{72 \textcolor{preprocessor}{\#define MAKE\_J          0x24}}
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#define MAKE\_K          0x25}}
+\DoxyCodeLine{74 \textcolor{preprocessor}{\#define MAKE\_L          0x26}}
+\DoxyCodeLine{75 \textcolor{preprocessor}{\#define MAKE\_M          0x32}}
+\DoxyCodeLine{76 \textcolor{preprocessor}{\#define MAKE\_N          0x31}}
+\DoxyCodeLine{77 \textcolor{preprocessor}{\#define MAKE\_O          0x18}}
+\DoxyCodeLine{78 \textcolor{preprocessor}{\#define MAKE\_P          0x19}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#define MAKE\_Q          0x10}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#define MAKE\_R          0x13}}
+\DoxyCodeLine{81 \textcolor{preprocessor}{\#define MAKE\_S          0x1F}}
+\DoxyCodeLine{82 \textcolor{preprocessor}{\#define MAKE\_T          0x14}}
+\DoxyCodeLine{83 \textcolor{preprocessor}{\#define MAKE\_U          0x16}}
+\DoxyCodeLine{84 \textcolor{preprocessor}{\#define MAKE\_V          0x2F}}
+\DoxyCodeLine{85 \textcolor{preprocessor}{\#define MAKE\_W          0x11}}
+\DoxyCodeLine{86 \textcolor{preprocessor}{\#define MAKE\_X          0x2D}}
+\DoxyCodeLine{87 \textcolor{preprocessor}{\#define MAKE\_Y          0x15}}
+\DoxyCodeLine{88 \textcolor{preprocessor}{\#define MAKE\_Z          0x2C}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_LCOM\_I8042\_H\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

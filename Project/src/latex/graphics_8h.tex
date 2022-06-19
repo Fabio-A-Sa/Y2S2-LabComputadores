@@ -1,0 +1,597 @@
+\hypertarget{graphics_8h}{}\doxysection{controllers/video/graphics.h File Reference}
+\label{graphics_8h}\index{controllers/video/graphics.h@{controllers/video/graphics.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}VBE.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}BIOS\+\_\+\+MACROS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../video/\+COLORS.\+h\char`\"{}}\newline
+Include dependency graph for graphics.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{graphics_8h_a6091a4bd04596e6e8e39b7dee1e1b118}{draw\+Pixel}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function prints a pixels to the display. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_aa21ebb227a5fdea03a54ffa3cebec2ac}{draw\+Xpm}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function prints a xmp image to the display. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{graphics_8h_a3480b98d1433177188ec5ea322b8439c}{init\+\_\+graphics\+\_\+mode}} (uint16\+\_\+t mode)
+\begin{DoxyCompactList}\small\item\em This funtion initiates graphics mode (GUI instead of CLI) \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{graphics_8h_a55e91b63ad9b72a5144060d6282a2d85}{map\+\_\+vmem}} (uint16\+\_\+t mode)
+\begin{DoxyCompactList}\small\item\em This function allocates memomry necessary for the graphics and maps it in an array. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{graphics_8h_a08c498ffeb0a3962e3b7711b57397741}{vg\+\_\+draw\+\_\+pixel}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This functions sets the color of the pixel in the position given to the desired color, in which after it will be, changed on the screen. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{graphics_8h_a5e5b25bd525250f61f40b9e9f212d5e6}{vg\+\_\+draw\+\_\+hline}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint16\+\_\+t len, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function draws a line on the screen. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{graphics_8h_a99d2da2559e11200c6b40c469e9977ec}{vg\+\_\+draw\+\_\+rectangle}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint16\+\_\+t width, uint16\+\_\+t height, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function draws a rectagle (or square) of the desired size starting x and y as the top left corner. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{graphics_8h_a4a7701a7c35f0ff156dba3e5f9c9f48e}{print\+\_\+xpm}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function draws a xpm to the display. \end{DoxyCompactList}\item 
+uint32\+\_\+t() \mbox{\hyperlink{graphics_8h_a43b5f6680ebb5d6fd6941b58427c5a02}{R}} (uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function returns the red component of a color in RGB. \end{DoxyCompactList}\item 
+uint32\+\_\+t() \mbox{\hyperlink{graphics_8h_a8cf7ab48fe55701ff524e16c52c93a30}{G}} (uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function returns the green component of a color in RGB. \end{DoxyCompactList}\item 
+uint32\+\_\+t() \mbox{\hyperlink{graphics_8h_a5e443c045f476655cc4addb311c813d8}{B}} (uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function returns the blue component of a color in RGB. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{graphics_8h_aef6afec6ec4db03339ba38050ab30052}{draw\+To\+Canvas}} (uint16\+\_\+t xi, uint16\+\_\+t yi, uint16\+\_\+t xf, uint16\+\_\+t yf, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function draws a line between two points on the drawing canvas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{graphics_8h_ac5384a5742642a69b2f08ffaad875298}{draw\+Circle}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint16\+\_\+t radius, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function draws a circle on the drawing canvas. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{graphics_8h_a9796639951073aea987e7c43c6f5d6ff}{draw\+Pixel\+Canvas}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function draws a pixel on the drawing canvas. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_aafba6ba876cec1df98b8844761279971}{allocate\+Img\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function allocates the necessary memory to the image buffer (the secondary buffer) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a85e664ce05e3accd788788b1b314b1b2}{copy\+Buffer\+To\+Video}} ()
+\begin{DoxyCompactList}\small\item\em This function copies anything not transparent of the image buffer to the main buffer to be displayed. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a25f80f81655a0d6633f170d6c44fe84b}{clear\+Img\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function fills the buffer with the color white. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a75a954ca861ced588773fd0d66598997}{free\+Img\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function frees the memory of the image buffer (the secondary buffer) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_ac5b50766b61522cc3e96cd85c3a67ec7}{allocate\+Draw\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function allocates the necessary memory to the draw buffer (the tertiary buffer) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a4ab4d19eaa963077f2d4e42e8f46212d}{copy\+Drawing\+To\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function copies anything not transparent of the draw buffer to the image buffer. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_af17fcbf1be075a018f5b5e657275ec69}{clear\+Draw\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function fills the buffer with the color white. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a707235ac095ea3ae8d652bb8eeae0801}{free\+Draw\+Buffer}} ()
+\begin{DoxyCompactList}\small\item\em This function frees the memory of the drawing buffer (the tertiary buffer) \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_ab079675f195499a618d869414d0d5bb7}{header\+Compose}} ()
+\begin{DoxyCompactList}\small\item\em This function draws the top bar of the game in drawing and guessing modes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{graphics_8h_a0eb44dd3048885b5c6bdac8f78899487}{footer\+Compose}} ()
+\begin{DoxyCompactList}\small\item\em This function draws the bottom bar of the game in drawing and guessing modes. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a11c8e09efdeb8391158cdc8f1a55271a}{draw\+Header\+Footer\+Color}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}}, uint16\+\_\+t width, uint16\+\_\+t height, uint32\+\_\+t color)
+\begin{DoxyCompactList}\small\item\em This function draws the static components of the header and the footer in guess mode and draw mode. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{graphics_8h_a950e005de3296df88b0921ae17171cc4}{draw\+Xpm\+Draw\+Buffer}} (xpm\+\_\+map\+\_\+t xpm, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function loads a xpm image to the draw\+Buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+vbe\+\_\+mode\+\_\+info\+\_\+t \mbox{\hyperlink{graphics_8h_a0cb3d0ba34458283fd5bfe568bc6b2ac}{info}}
+\begin{DoxyCompactList}\small\item\em This is the struct that store the information about the video mode. \end{DoxyCompactList}\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{graphics_8h_a46a62496c36dd0208d39aeb1c0d58233}{v\+Addr\+\_\+base}}
+\begin{DoxyCompactList}\small\item\em This is the base addres (pointer) to the beggining of th array where display pixels are stored. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{graphics_8h_ac5b50766b61522cc3e96cd85c3a67ec7}\label{graphics_8h_ac5b50766b61522cc3e96cd85c3a67ec7}} 
+\index{graphics.h@{graphics.h}!allocateDrawBuffer@{allocateDrawBuffer}}
+\index{allocateDrawBuffer@{allocateDrawBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{allocateDrawBuffer()}{allocateDrawBuffer()}}
+{\footnotesize\ttfamily void allocate\+Draw\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function allocates the necessary memory to the draw buffer (the tertiary buffer) 
+
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{graphics_8h_aafba6ba876cec1df98b8844761279971}\label{graphics_8h_aafba6ba876cec1df98b8844761279971}} 
+\index{graphics.h@{graphics.h}!allocateImgBuffer@{allocateImgBuffer}}
+\index{allocateImgBuffer@{allocateImgBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{allocateImgBuffer()}{allocateImgBuffer()}}
+{\footnotesize\ttfamily void allocate\+Img\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function allocates the necessary memory to the image buffer (the secondary buffer) 
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{graphics_8h_a5e443c045f476655cc4addb311c813d8}\label{graphics_8h_a5e443c045f476655cc4addb311c813d8}} 
+\index{graphics.h@{graphics.h}!B@{B}}
+\index{B@{B}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{B()}{B()}}
+{\footnotesize\ttfamily uint32\+\_\+t() B (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function returns the blue component of a color in RGB. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & The original color \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The blue component of the original color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphics_8h_af17fcbf1be075a018f5b5e657275ec69}\label{graphics_8h_af17fcbf1be075a018f5b5e657275ec69}} 
+\index{graphics.h@{graphics.h}!clearDrawBuffer@{clearDrawBuffer}}
+\index{clearDrawBuffer@{clearDrawBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{clearDrawBuffer()}{clearDrawBuffer()}}
+{\footnotesize\ttfamily void clear\+Draw\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function fills the buffer with the color white. 
+
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{graphics_8h_a25f80f81655a0d6633f170d6c44fe84b}\label{graphics_8h_a25f80f81655a0d6633f170d6c44fe84b}} 
+\index{graphics.h@{graphics.h}!clearImgBuffer@{clearImgBuffer}}
+\index{clearImgBuffer@{clearImgBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{clearImgBuffer()}{clearImgBuffer()}}
+{\footnotesize\ttfamily void clear\+Img\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function fills the buffer with the color white. 
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{graphics_8h_a85e664ce05e3accd788788b1b314b1b2}\label{graphics_8h_a85e664ce05e3accd788788b1b314b1b2}} 
+\index{graphics.h@{graphics.h}!copyBufferToVideo@{copyBufferToVideo}}
+\index{copyBufferToVideo@{copyBufferToVideo}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{copyBufferToVideo()}{copyBufferToVideo()}}
+{\footnotesize\ttfamily void copy\+Buffer\+To\+Video (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function copies anything not transparent of the image buffer to the main buffer to be displayed. 
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{graphics_8h_a4ab4d19eaa963077f2d4e42e8f46212d}\label{graphics_8h_a4ab4d19eaa963077f2d4e42e8f46212d}} 
+\index{graphics.h@{graphics.h}!copyDrawingToBuffer@{copyDrawingToBuffer}}
+\index{copyDrawingToBuffer@{copyDrawingToBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{copyDrawingToBuffer()}{copyDrawingToBuffer()}}
+{\footnotesize\ttfamily void copy\+Drawing\+To\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function copies anything not transparent of the draw buffer to the image buffer. 
+
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{graphics_8h_ac5384a5742642a69b2f08ffaad875298}\label{graphics_8h_ac5384a5742642a69b2f08ffaad875298}} 
+\index{graphics.h@{graphics.h}!drawCircle@{drawCircle}}
+\index{drawCircle@{drawCircle}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawCircle()}{drawCircle()}}
+{\footnotesize\ttfamily int draw\+Circle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{radius,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function draws a circle on the drawing canvas. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & x position of the center \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & y position of the center \\
+\hline
+\mbox{\texttt{ in}}  & {\em radius} & Radius of the circle \\
+\hline
+\mbox{\texttt{ in}}  & {\em color} & Color of the circle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{graphics_8h_a11c8e09efdeb8391158cdc8f1a55271a}\label{graphics_8h_a11c8e09efdeb8391158cdc8f1a55271a}} 
+\index{graphics.h@{graphics.h}!drawHeaderFooterColor@{drawHeaderFooterColor}}
+\index{drawHeaderFooterColor@{drawHeaderFooterColor}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawHeaderFooterColor()}{drawHeaderFooterColor()}}
+{\footnotesize\ttfamily void draw\+Header\+Footer\+Color (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{width,  }\item[{uint16\+\_\+t}]{height,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function draws the static components of the header and the footer in guess mode and draw mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+ & {\em x} & x position of the top left corner of the component \\
+\hline
+ & {\em y} & y position of the top left corner of the component \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & the width of the component to be drawn \\
+\hline
+\mbox{\texttt{ in}}  & {\em height} & the height of the component to be drawn \\
+\hline
+ & {\em color} & Color to draw \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{graphics_8h_a6091a4bd04596e6e8e39b7dee1e1b118}\label{graphics_8h_a6091a4bd04596e6e8e39b7dee1e1b118}} 
+\index{graphics.h@{graphics.h}!drawPixel@{drawPixel}}
+\index{drawPixel@{drawPixel}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawPixel()}{drawPixel()}}
+{\footnotesize\ttfamily int draw\+Pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function prints a pixels to the display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & the x-\/axis position of the pixel\textquotesingle{}s position \\
+\hline
+{\em y} & the y-\/axis position of the pixel\textquotesingle{}s position \\
+\hline
+{\em color} & the color the pixel to be displayed will be \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphics_8h_a9796639951073aea987e7c43c6f5d6ff}\label{graphics_8h_a9796639951073aea987e7c43c6f5d6ff}} 
+\index{graphics.h@{graphics.h}!drawPixelCanvas@{drawPixelCanvas}}
+\index{drawPixelCanvas@{drawPixelCanvas}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawPixelCanvas()}{drawPixelCanvas()}}
+{\footnotesize\ttfamily int draw\+Pixel\+Canvas (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function draws a pixel on the drawing canvas. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & x position of pixel \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & y position of pixel \\
+\hline
+\mbox{\texttt{ in}}  & {\em color} & Color of the pixel \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{graphics_8h_aef6afec6ec4db03339ba38050ab30052}\label{graphics_8h_aef6afec6ec4db03339ba38050ab30052}} 
+\index{graphics.h@{graphics.h}!drawToCanvas@{drawToCanvas}}
+\index{drawToCanvas@{drawToCanvas}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawToCanvas()}{drawToCanvas()}}
+{\footnotesize\ttfamily int draw\+To\+Canvas (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{xi,  }\item[{uint16\+\_\+t}]{yi,  }\item[{uint16\+\_\+t}]{xf,  }\item[{uint16\+\_\+t}]{yf,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function draws a line between two points on the drawing canvas. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em xi} & x position of the start point \\
+\hline
+\mbox{\texttt{ in}}  & {\em yi} & y position of the start point \\
+\hline
+\mbox{\texttt{ in}}  & {\em xf} & x position of the end point \\
+\hline
+\mbox{\texttt{ in}}  & {\em yf} & y position of the end point \\
+\hline
+\mbox{\texttt{ in}}  & {\em color} & Color of the circle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\Hypertarget{graphics_8h_aa21ebb227a5fdea03a54ffa3cebec2ac}\label{graphics_8h_aa21ebb227a5fdea03a54ffa3cebec2ac}} 
+\index{graphics.h@{graphics.h}!drawXpm@{drawXpm}}
+\index{drawXpm@{drawXpm}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawXpm()}{drawXpm()}}
+{\footnotesize\ttfamily void draw\+Xpm (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function prints a xmp image to the display. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xpm} & The xpm image to be loaded to the display \\
+\hline
+{\em x} & the x-\/axis position of the top left pixel\textquotesingle{}s position of the xpm \\
+\hline
+{\em y} & the y-\/axis position of the top left pixel\textquotesingle{}s position of the xpm \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphics_8h_a950e005de3296df88b0921ae17171cc4}\label{graphics_8h_a950e005de3296df88b0921ae17171cc4}} 
+\index{graphics.h@{graphics.h}!drawXpmDrawBuffer@{drawXpmDrawBuffer}}
+\index{drawXpmDrawBuffer@{drawXpmDrawBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{drawXpmDrawBuffer()}{drawXpmDrawBuffer()}}
+{\footnotesize\ttfamily void draw\+Xpm\+Draw\+Buffer (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function loads a xpm image to the draw\+Buffer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em xmp} & The xmp image to be loaded \\
+\hline
+{\em x} & x position of the top left corner of the rectangle \\
+\hline
+{\em y} & y position of the top left corner of the rectangle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 14
+\mbox{\Hypertarget{graphics_8h_a0eb44dd3048885b5c6bdac8f78899487}\label{graphics_8h_a0eb44dd3048885b5c6bdac8f78899487}} 
+\index{graphics.h@{graphics.h}!footerCompose@{footerCompose}}
+\index{footerCompose@{footerCompose}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{footerCompose()}{footerCompose()}}
+{\footnotesize\ttfamily int footer\+Compose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function draws the bottom bar of the game in drawing and guessing modes. 
+
+Here is the call graph for this function\+:
+% FIG 15
+Here is the caller graph for this function\+:
+% FIG 16
+\mbox{\Hypertarget{graphics_8h_a707235ac095ea3ae8d652bb8eeae0801}\label{graphics_8h_a707235ac095ea3ae8d652bb8eeae0801}} 
+\index{graphics.h@{graphics.h}!freeDrawBuffer@{freeDrawBuffer}}
+\index{freeDrawBuffer@{freeDrawBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{freeDrawBuffer()}{freeDrawBuffer()}}
+{\footnotesize\ttfamily void free\+Draw\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function frees the memory of the drawing buffer (the tertiary buffer) 
+
+Here is the caller graph for this function\+:
+% FIG 17
+\mbox{\Hypertarget{graphics_8h_a75a954ca861ced588773fd0d66598997}\label{graphics_8h_a75a954ca861ced588773fd0d66598997}} 
+\index{graphics.h@{graphics.h}!freeImgBuffer@{freeImgBuffer}}
+\index{freeImgBuffer@{freeImgBuffer}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{freeImgBuffer()}{freeImgBuffer()}}
+{\footnotesize\ttfamily void free\+Img\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function frees the memory of the image buffer (the secondary buffer) 
+
+Here is the caller graph for this function\+:
+% FIG 18
+\mbox{\Hypertarget{graphics_8h_a8cf7ab48fe55701ff524e16c52c93a30}\label{graphics_8h_a8cf7ab48fe55701ff524e16c52c93a30}} 
+\index{graphics.h@{graphics.h}!G@{G}}
+\index{G@{G}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{G()}{G()}}
+{\footnotesize\ttfamily uint32\+\_\+t() G (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function returns the green component of a color in RGB. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & The original color \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The green component of the original color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphics_8h_ab079675f195499a618d869414d0d5bb7}\label{graphics_8h_ab079675f195499a618d869414d0d5bb7}} 
+\index{graphics.h@{graphics.h}!headerCompose@{headerCompose}}
+\index{headerCompose@{headerCompose}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{headerCompose()}{headerCompose()}}
+{\footnotesize\ttfamily void header\+Compose (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function draws the top bar of the game in drawing and guessing modes. 
+
+Here is the call graph for this function\+:
+% FIG 19
+Here is the caller graph for this function\+:
+% FIG 20
+\mbox{\Hypertarget{graphics_8h_a3480b98d1433177188ec5ea322b8439c}\label{graphics_8h_a3480b98d1433177188ec5ea322b8439c}} 
+\index{graphics.h@{graphics.h}!init\_graphics\_mode@{init\_graphics\_mode}}
+\index{init\_graphics\_mode@{init\_graphics\_mode}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{init\_graphics\_mode()}{init\_graphics\_mode()}}
+{\footnotesize\ttfamily int() init\+\_\+graphics\+\_\+mode (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+This funtion initiates graphics mode (GUI instead of CLI) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & The VBE mode in which the graphics will be configured \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 21
+\mbox{\Hypertarget{graphics_8h_a55e91b63ad9b72a5144060d6282a2d85}\label{graphics_8h_a55e91b63ad9b72a5144060d6282a2d85}} 
+\index{graphics.h@{graphics.h}!map\_vmem@{map\_vmem}}
+\index{map\_vmem@{map\_vmem}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{map\_vmem()}{map\_vmem()}}
+{\footnotesize\ttfamily int() map\+\_\+vmem (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{mode }\end{DoxyParamCaption})}
+
+
+
+This function allocates memomry necessary for the graphics and maps it in an array. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em mode} & The VBE mode in which the graphics will be configured \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 22
+\mbox{\Hypertarget{graphics_8h_a4a7701a7c35f0ff156dba3e5f9c9f48e}\label{graphics_8h_a4a7701a7c35f0ff156dba3e5f9c9f48e}} 
+\index{graphics.h@{graphics.h}!print\_xpm@{print\_xpm}}
+\index{print\_xpm@{print\_xpm}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{print\_xpm()}{print\_xpm()}}
+{\footnotesize\ttfamily int() print\+\_\+xpm (\begin{DoxyParamCaption}\item[{xpm\+\_\+map\+\_\+t}]{xpm,  }\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function draws a xpm to the display. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em xmp} & The xmp image to be drawn \\
+\hline
+\mbox{\texttt{ in}}  & {\em x} & x position of the top left corner of the rectangle \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & y position of the top left corner of the rectangle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 23
+Here is the caller graph for this function\+:
+% FIG 24
+\mbox{\Hypertarget{graphics_8h_a43b5f6680ebb5d6fd6941b58427c5a02}\label{graphics_8h_a43b5f6680ebb5d6fd6941b58427c5a02}} 
+\index{graphics.h@{graphics.h}!R@{R}}
+\index{R@{R}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{R()}{R()}}
+{\footnotesize\ttfamily uint32\+\_\+t() R (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function returns the red component of a color in RGB. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em color} & The original color \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The red component of the original color 
+\end{DoxyReturn}
+\mbox{\Hypertarget{graphics_8h_a5e5b25bd525250f61f40b9e9f212d5e6}\label{graphics_8h_a5e5b25bd525250f61f40b9e9f212d5e6}} 
+\index{graphics.h@{graphics.h}!vg\_draw\_hline@{vg\_draw\_hline}}
+\index{vg\_draw\_hline@{vg\_draw\_hline}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_hline()}{vg\_draw\_hline()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+hline (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{len,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function draws a line on the screen. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & x position of the start of the line \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & y position of the start of the line \\
+\hline
+\mbox{\texttt{ in}}  & {\em len} & Length of the line \\
+\hline
+\mbox{\texttt{ in}}  & {\em color} & Color of the line \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 25
+Here is the caller graph for this function\+:
+% FIG 26
+\mbox{\Hypertarget{graphics_8h_a08c498ffeb0a3962e3b7711b57397741}\label{graphics_8h_a08c498ffeb0a3962e3b7711b57397741}} 
+\index{graphics.h@{graphics.h}!vg\_draw\_pixel@{vg\_draw\_pixel}}
+\index{vg\_draw\_pixel@{vg\_draw\_pixel}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_pixel()}{vg\_draw\_pixel()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+pixel (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This functions sets the color of the pixel in the position given to the desired color, in which after it will be, changed on the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the desired pixel \\
+\hline
+{\em y} & y position if the desired pixel \\
+\hline
+{\em color} & The color the pixel will be changed to \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 27
+\mbox{\Hypertarget{graphics_8h_a99d2da2559e11200c6b40c469e9977ec}\label{graphics_8h_a99d2da2559e11200c6b40c469e9977ec}} 
+\index{graphics.h@{graphics.h}!vg\_draw\_rectangle@{vg\_draw\_rectangle}}
+\index{vg\_draw\_rectangle@{vg\_draw\_rectangle}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{vg\_draw\_rectangle()}{vg\_draw\_rectangle()}}
+{\footnotesize\ttfamily int() vg\+\_\+draw\+\_\+rectangle (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y,  }\item[{uint16\+\_\+t}]{width,  }\item[{uint16\+\_\+t}]{height,  }\item[{uint32\+\_\+t}]{color }\end{DoxyParamCaption})}
+
+
+
+This function draws a rectagle (or square) of the desired size starting x and y as the top left corner. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em x} & x position of the top left corner of the rectangle \\
+\hline
+\mbox{\texttt{ in}}  & {\em y} & y position of the top left corner of the rectangle \\
+\hline
+\mbox{\texttt{ in}}  & {\em width} & the width of the rectangle to be drawn \\
+\hline
+\mbox{\texttt{ in}}  & {\em height} & the height of the rectangle to be drawn \\
+\hline
+\mbox{\texttt{ in}}  & {\em color} & Color of the rectangle \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 28
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{graphics_8h_a0cb3d0ba34458283fd5bfe568bc6b2ac}\label{graphics_8h_a0cb3d0ba34458283fd5bfe568bc6b2ac}} 
+\index{graphics.h@{graphics.h}!info@{info}}
+\index{info@{info}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{info}{info}}
+{\footnotesize\ttfamily vbe\+\_\+mode\+\_\+info\+\_\+t info}
+
+
+
+This is the struct that store the information about the video mode. 
+
+\mbox{\Hypertarget{graphics_8h_a46a62496c36dd0208d39aeb1c0d58233}\label{graphics_8h_a46a62496c36dd0208d39aeb1c0d58233}} 
+\index{graphics.h@{graphics.h}!vAddr\_base@{vAddr\_base}}
+\index{vAddr\_base@{vAddr\_base}!graphics.h@{graphics.h}}
+\doxysubsubsection{\texorpdfstring{vAddr\_base}{vAddr\_base}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ v\+Addr\+\_\+base}
+
+
+
+This is the base addres (pointer) to the beggining of th array where display pixels are stored. 
+

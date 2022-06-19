@@ -1,0 +1,24 @@
+digraph "drawPixelCanvas"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="drawPixelCanvas",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function draws a pixel on the drawing canvas."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="drawCircle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#ac5384a5742642a69b2f08ffaad875298",tooltip="This function draws a circle on the drawing canvas."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="drawToCanvas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#aef6afec6ec4db03339ba38050ab30052",tooltip="This function draws a line between two points on the drawing canvas."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="processGamingLeftClick",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#a91a437d267e8f431fdc48f38020cd7d2",tooltip="This function process left clicks on the draw page, it verifeis where the player clicked and realizes..."];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="process_interrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a9c74859d9e32b26fca9274d294eff910",tooltip=" "];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node3 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="processGamingRightClick",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#a02386551bfca56575b414789cd774a08",tooltip="This function process right clicks on the draw page, it verifeis where the player clicked and realize..."];
+  Node7 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="processPlayingGuessSP",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a6a93d1d284d0c1558b521772388ef5fb",tooltip="This function determines what a given byte received from the serial port should be used for while pla..."];
+  Node8 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

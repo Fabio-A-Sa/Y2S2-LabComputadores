@@ -1,0 +1,163 @@
+\hypertarget{keyboard_8h}{}\doxysection{controllers/keyboard\+Mouse/keyboard.h File Reference}
+\label{keyboard_8h}\index{controllers/keyboardMouse/keyboard.h@{controllers/keyboardMouse/keyboard.h}}
+{\ttfamily \#include $<$minix/sysutil.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+Include dependency graph for keyboard.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{keyboard_8h_a6cadb7cb6407473cb67f74a4a840dd2c}{subscribe\+\_\+\+KBC\+\_\+interrupts}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em This function subscribes keyboard interrupts with policies REENABLE and EXCLUSIVE. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_ac2113e8bcc7a9857c2c193985178991a}{unsubscribe\+\_\+\+KBC\+\_\+interrupts}} ()
+\begin{DoxyCompactList}\small\item\em This function unsubscribes keyboard interrupts. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_ac024af91b156e4fc61ee3886b891de21}{read\+\_\+\+KBC\+\_\+status}} (uint8\+\_\+t $\ast$status)
+\begin{DoxyCompactList}\small\item\em This function reads the status of the KBC. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_a2a43cda4f3f1e4a217efa830e01d4e4d}{read\+\_\+\+KBC\+\_\+output}} (uint8\+\_\+t port, uint8\+\_\+t $\ast$output)
+\begin{DoxyCompactList}\small\item\em This function reads the content in the specified port. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_a34b653b3939fffe883c903cdadb36d3a}{write\+\_\+\+KBC\+\_\+command}} (uint8\+\_\+t port, uint8\+\_\+t command\+Byte)
+\begin{DoxyCompactList}\small\item\em This function writes a command to the specified port. \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{keyboard_8h_aea970a154161a35f6894898a092ed70a}{kbc\+\_\+ih}} ()
+\begin{DoxyCompactList}\small\item\em Keyboard\textquotesingle{}s interrupt handler. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{keyboard_8h_aadded535aadcef84a6ed404780215328}{kbc\+\_\+restore}} ()
+\begin{DoxyCompactList}\small\item\em Restore the KBC configuration to MINIX\textquotesingle{}s default. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{keyboard_8h_aea970a154161a35f6894898a092ed70a}\label{keyboard_8h_aea970a154161a35f6894898a092ed70a}} 
+\index{keyboard.h@{keyboard.h}!kbc\_ih@{kbc\_ih}}
+\index{kbc\_ih@{kbc\_ih}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbc\_ih()}{kbc\_ih()}}
+{\footnotesize\ttfamily void() kbc\+\_\+ih (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Keyboard\textquotesingle{}s interrupt handler. 
+
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{keyboard_8h_aadded535aadcef84a6ed404780215328}\label{keyboard_8h_aadded535aadcef84a6ed404780215328}} 
+\index{keyboard.h@{keyboard.h}!kbc\_restore@{kbc\_restore}}
+\index{kbc\_restore@{kbc\_restore}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{kbc\_restore()}{kbc\_restore()}}
+{\footnotesize\ttfamily int() kbc\+\_\+restore (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Restore the KBC configuration to MINIX\textquotesingle{}s default. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{keyboard_8h_a2a43cda4f3f1e4a217efa830e01d4e4d}\label{keyboard_8h_a2a43cda4f3f1e4a217efa830e01d4e4d}} 
+\index{keyboard.h@{keyboard.h}!read\_KBC\_output@{read\_KBC\_output}}
+\index{read\_KBC\_output@{read\_KBC\_output}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{read\_KBC\_output()}{read\_KBC\_output()}}
+{\footnotesize\ttfamily int() read\+\_\+\+KBC\+\_\+output (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{port,  }\item[{uint8\+\_\+t $\ast$}]{output }\end{DoxyParamCaption})}
+
+
+
+This function reads the content in the specified port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em port} & Port to read from \\
+\hline
+\mbox{\texttt{ out}}  & {\em output} & The data present in the given port \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{keyboard_8h_ac024af91b156e4fc61ee3886b891de21}\label{keyboard_8h_ac024af91b156e4fc61ee3886b891de21}} 
+\index{keyboard.h@{keyboard.h}!read\_KBC\_status@{read\_KBC\_status}}
+\index{read\_KBC\_status@{read\_KBC\_status}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{read\_KBC\_status()}{read\_KBC\_status()}}
+{\footnotesize\ttfamily int() read\+\_\+\+KBC\+\_\+status (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{status }\end{DoxyParamCaption})}
+
+
+
+This function reads the status of the KBC. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em status} & The current status of the KBC \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{keyboard_8h_a6cadb7cb6407473cb67f74a4a840dd2c}\label{keyboard_8h_a6cadb7cb6407473cb67f74a4a840dd2c}} 
+\index{keyboard.h@{keyboard.h}!subscribe\_KBC\_interrupts@{subscribe\_KBC\_interrupts}}
+\index{subscribe\_KBC\_interrupts@{subscribe\_KBC\_interrupts}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{subscribe\_KBC\_interrupts()}{subscribe\_KBC\_interrupts()}}
+{\footnotesize\ttfamily int() subscribe\+\_\+\+KBC\+\_\+interrupts (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+This function subscribes keyboard interrupts with policies REENABLE and EXCLUSIVE. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em bit\+\_\+no} & All zeros except for the bit position of the keyboard\textquotesingle{}s hook id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{keyboard_8h_ac2113e8bcc7a9857c2c193985178991a}\label{keyboard_8h_ac2113e8bcc7a9857c2c193985178991a}} 
+\index{keyboard.h@{keyboard.h}!unsubscribe\_KBC\_interrupts@{unsubscribe\_KBC\_interrupts}}
+\index{unsubscribe\_KBC\_interrupts@{unsubscribe\_KBC\_interrupts}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{unsubscribe\_KBC\_interrupts()}{unsubscribe\_KBC\_interrupts()}}
+{\footnotesize\ttfamily int() unsubscribe\+\_\+\+KBC\+\_\+interrupts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function unsubscribes keyboard interrupts. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{keyboard_8h_a34b653b3939fffe883c903cdadb36d3a}\label{keyboard_8h_a34b653b3939fffe883c903cdadb36d3a}} 
+\index{keyboard.h@{keyboard.h}!write\_KBC\_command@{write\_KBC\_command}}
+\index{write\_KBC\_command@{write\_KBC\_command}!keyboard.h@{keyboard.h}}
+\doxysubsubsection{\texorpdfstring{write\_KBC\_command()}{write\_KBC\_command()}}
+{\footnotesize\ttfamily int() write\+\_\+\+KBC\+\_\+command (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{port,  }\item[{uint8\+\_\+t}]{command\+Byte }\end{DoxyParamCaption})}
+
+
+
+This function writes a command to the specified port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em port} & Port to write to \\
+\hline
+\mbox{\texttt{ in}}  & {\em command\+Byte} & The command byte to write \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 11
+Here is the caller graph for this function\+:
+% FIG 12

@@ -1,0 +1,403 @@
+\hypertarget{serial_port_8c}{}\doxysection{controllers/serial\+Port/serial\+Port.c File Reference}
+\label{serial_port_8c}\index{controllers/serialPort/serialPort.c@{controllers/serialPort/serialPort.c}}
+{\ttfamily \#include \char`\"{}serial\+Port.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../video/graphics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../game/macros.\+h\char`\"{}}\newline
+Include dependency graph for serial\+Port.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{serial_port_8c_a91109afddc86957b554ce7ec799bd41b}{sp\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bitno)
+\begin{DoxyCompactList}\small\item\em This function subscribes serial port interrupts with policies REENABLE and EXCLUSIVE. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_ad9cfa399df9032ec99f760195d457e9a}{sp\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em This function unsubscribes serial port interrupts. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_a345aef3f6a10f62322b353279a08d690}{sp\+\_\+get\+\_\+status}} (uint8\+\_\+t $\ast$status)
+\begin{DoxyCompactList}\small\item\em This function reads the status of the serial port. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{serial_port_8c_a413c45b134b03a909b49aa3b5b2bd003}{sp\+\_\+init}} ()
+\begin{DoxyCompactList}\small\item\em This function initializes the serial port, enabling interrupts and creating the received data queue. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{serial_port_8c_aa760312b9a669254363ace4228c95441}{sp\+\_\+exit}} ()
+\begin{DoxyCompactList}\small\item\em This function exits the serial port by clearing the received data queue. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_af26804966e7098d673255be2b3985449}{send\+\_\+byte}} (uint8\+\_\+t \mbox{\hyperlink{mouse_8c_a56324bcf9340dda5c3623c9ba0ba0ad9}{byte}})
+\begin{DoxyCompactList}\small\item\em This function sends a byte through the serial port. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_a0f2fa0bd6d33cf6b49390a96ff0192e5}{read\+\_\+byte}} ()
+\begin{DoxyCompactList}\small\item\em This function reads a byte from the serial port and pushes it to the received data queue. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_queue}{Queue}} $\ast$ \mbox{\hyperlink{serial_port_8c_a395975f2e8822bbc842adbf64873623f}{get\+\_\+in\+Queue}} ()
+\begin{DoxyCompactList}\small\item\em This function is used to get the received data queue. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_aeaa3f7885cf1173c43a4f70f58c9abfd}{SP\+\_\+clear\+Interrupts}} ()
+\begin{DoxyCompactList}\small\item\em The function prepares the queue and FCR for the next interruptiom, it empties the queue to prevent errors in the next use. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{serial_port_8c_af6cc263493df7caac7bd7d0be6b50635}{sp\+\_\+ih}} ()
+\begin{DoxyCompactList}\small\item\em Serial ports\textquotesingle{}s interrupt handler. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_a2042007baf9a4bf12a65c04063e8229b}{process\+Waiting\+Draw\+SP}} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em This function determines what a given byte received from the serial port should be used for while waiting for the game to start in drawing mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_ae28c8fe14612092c9d38642386ff0300}{process\+Waiting\+Guess\+SP}} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em This function determines what a given byte received from the serial port should be used for while waiting for the game to start in guess mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_ae8c59fc149f2e1ba50dd1dc7c1f83e8a}{process\+Loading\+Guess\+SP}} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em This function determines what a given byte received from the serial port should be used for while loading in guess mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_a4c3c07104652a0094f311cd030933359}{process\+Playing\+Draw\+SP}} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em This function determines what a given byte received from the serial port should be used for while playing in draw mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{serial_port_8c_a6a93d1d284d0c1558b521772388ef5fb}{process\+Playing\+Guess\+SP}} (uint8\+\_\+t val)
+\begin{DoxyCompactList}\small\item\em This function determines what a given byte received from the serial port should be used for while playing in guess mode. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{serial_port_8c_a279e4c9a05cd63c43dd4c18c80c27483}{sp\+\_\+hook\+\_\+id}} = 7
+\item 
+int \mbox{\hyperlink{serial_port_8c_a27320da3e27801ff1ba94a8cb0859ea2}{drawing\+Size}}
+\item 
+int \mbox{\hyperlink{serial_port_8c_ad2087040af3d554a48e33058e756d26a}{drawing\+Color}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{serial_port_8c_af58f170b9069ee2e68d74a6605110867}{draw\+Packets}} \mbox{[}11\mbox{]}
+\item 
+int \mbox{\hyperlink{serial_port_8c_a1cf6347fec4266a7344358e1c1b8607f}{count\+Draw\+Packets}}
+\item 
+char \mbox{\hyperlink{serial_port_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}{word}} \mbox{[}24\mbox{]}
+\item 
+int \mbox{\hyperlink{serial_port_8c_ab7ad0796d84021de0fd46246b3d5096f}{game\+State}}
+\item 
+bool \mbox{\hyperlink{serial_port_8c_a122f137ffc0e785c8ac07d752021c1aa}{guess\+Started\+Hand\+Shake}}
+\item 
+int \mbox{\hyperlink{serial_port_8c_a3563de37669f4aa78c6f8b6ecfdfd246}{word\+Size}}
+\item 
+int \mbox{\hyperlink{serial_port_8c_a33127e2e90e8cc1de68f6e4d76298c82}{word\+Bytes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{serial_port_8c_a395975f2e8822bbc842adbf64873623f}\label{serial_port_8c_a395975f2e8822bbc842adbf64873623f}} 
+\index{serialPort.c@{serialPort.c}!get\_inQueue@{get\_inQueue}}
+\index{get\_inQueue@{get\_inQueue}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{get\_inQueue()}{get\_inQueue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_queue}{Queue}} $\ast$ get\+\_\+in\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function is used to get the received data queue. 
+
+\begin{DoxyReturn}{Returns}
+Pointer to the received data queue 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{serial_port_8c_ae8c59fc149f2e1ba50dd1dc7c1f83e8a}\label{serial_port_8c_ae8c59fc149f2e1ba50dd1dc7c1f83e8a}} 
+\index{serialPort.c@{serialPort.c}!processLoadingGuessSP@{processLoadingGuessSP}}
+\index{processLoadingGuessSP@{processLoadingGuessSP}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{processLoadingGuessSP()}{processLoadingGuessSP()}}
+{\footnotesize\ttfamily int process\+Loading\+Guess\+SP (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+This function determines what a given byte received from the serial port should be used for while loading in guess mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em val} & The received byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{serial_port_8c_a4c3c07104652a0094f311cd030933359}\label{serial_port_8c_a4c3c07104652a0094f311cd030933359}} 
+\index{serialPort.c@{serialPort.c}!processPlayingDrawSP@{processPlayingDrawSP}}
+\index{processPlayingDrawSP@{processPlayingDrawSP}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{processPlayingDrawSP()}{processPlayingDrawSP()}}
+{\footnotesize\ttfamily int process\+Playing\+Draw\+SP (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+This function determines what a given byte received from the serial port should be used for while playing in draw mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em val} & The received byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{serial_port_8c_a6a93d1d284d0c1558b521772388ef5fb}\label{serial_port_8c_a6a93d1d284d0c1558b521772388ef5fb}} 
+\index{serialPort.c@{serialPort.c}!processPlayingGuessSP@{processPlayingGuessSP}}
+\index{processPlayingGuessSP@{processPlayingGuessSP}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{processPlayingGuessSP()}{processPlayingGuessSP()}}
+{\footnotesize\ttfamily int process\+Playing\+Guess\+SP (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+This function determines what a given byte received from the serial port should be used for while playing in guess mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em val} & The received byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{serial_port_8c_a2042007baf9a4bf12a65c04063e8229b}\label{serial_port_8c_a2042007baf9a4bf12a65c04063e8229b}} 
+\index{serialPort.c@{serialPort.c}!processWaitingDrawSP@{processWaitingDrawSP}}
+\index{processWaitingDrawSP@{processWaitingDrawSP}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{processWaitingDrawSP()}{processWaitingDrawSP()}}
+{\footnotesize\ttfamily int process\+Waiting\+Draw\+SP (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+This function determines what a given byte received from the serial port should be used for while waiting for the game to start in drawing mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em val} & The received byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{serial_port_8c_ae28c8fe14612092c9d38642386ff0300}\label{serial_port_8c_ae28c8fe14612092c9d38642386ff0300}} 
+\index{serialPort.c@{serialPort.c}!processWaitingGuessSP@{processWaitingGuessSP}}
+\index{processWaitingGuessSP@{processWaitingGuessSP}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{processWaitingGuessSP()}{processWaitingGuessSP()}}
+{\footnotesize\ttfamily int process\+Waiting\+Guess\+SP (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+This function determines what a given byte received from the serial port should be used for while waiting for the game to start in guess mode. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em val} & The received byte \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 8
+Here is the caller graph for this function\+:
+% FIG 9
+\mbox{\Hypertarget{serial_port_8c_a0f2fa0bd6d33cf6b49390a96ff0192e5}\label{serial_port_8c_a0f2fa0bd6d33cf6b49390a96ff0192e5}} 
+\index{serialPort.c@{serialPort.c}!read\_byte@{read\_byte}}
+\index{read\_byte@{read\_byte}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{read\_byte()}{read\_byte()}}
+{\footnotesize\ttfamily int read\+\_\+byte (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function reads a byte from the serial port and pushes it to the received data queue. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 10
+Here is the caller graph for this function\+:
+% FIG 11
+\mbox{\Hypertarget{serial_port_8c_af26804966e7098d673255be2b3985449}\label{serial_port_8c_af26804966e7098d673255be2b3985449}} 
+\index{serialPort.c@{serialPort.c}!send\_byte@{send\_byte}}
+\index{send\_byte@{send\_byte}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{send\_byte()}{send\_byte()}}
+{\footnotesize\ttfamily int send\+\_\+byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})}
+
+
+
+This function sends a byte through the serial port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em byte} & The byte to send \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 12
+Here is the caller graph for this function\+:
+% FIG 13
+\mbox{\Hypertarget{serial_port_8c_aeaa3f7885cf1173c43a4f70f58c9abfd}\label{serial_port_8c_aeaa3f7885cf1173c43a4f70f58c9abfd}} 
+\index{serialPort.c@{serialPort.c}!SP\_clearInterrupts@{SP\_clearInterrupts}}
+\index{SP\_clearInterrupts@{SP\_clearInterrupts}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{SP\_clearInterrupts()}{SP\_clearInterrupts()}}
+{\footnotesize\ttfamily int SP\+\_\+clear\+Interrupts (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+The function prepares the queue and FCR for the next interruptiom, it empties the queue to prevent errors in the next use. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 14
+Here is the caller graph for this function\+:
+% FIG 15
+\mbox{\Hypertarget{serial_port_8c_aa760312b9a669254363ace4228c95441}\label{serial_port_8c_aa760312b9a669254363ace4228c95441}} 
+\index{serialPort.c@{serialPort.c}!sp\_exit@{sp\_exit}}
+\index{sp\_exit@{sp\_exit}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_exit()}{sp\_exit()}}
+{\footnotesize\ttfamily void sp\+\_\+exit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function exits the serial port by clearing the received data queue. 
+
+Here is the call graph for this function\+:
+% FIG 16
+\mbox{\Hypertarget{serial_port_8c_a345aef3f6a10f62322b353279a08d690}\label{serial_port_8c_a345aef3f6a10f62322b353279a08d690}} 
+\index{serialPort.c@{serialPort.c}!sp\_get\_status@{sp\_get\_status}}
+\index{sp\_get\_status@{sp\_get\_status}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_get\_status()}{sp\_get\_status()}}
+{\footnotesize\ttfamily int sp\+\_\+get\+\_\+status (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{status }\end{DoxyParamCaption})}
+
+
+
+This function reads the status of the serial port. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em status} & The current status of the serial port \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 17
+Here is the caller graph for this function\+:
+% FIG 18
+\mbox{\Hypertarget{serial_port_8c_af6cc263493df7caac7bd7d0be6b50635}\label{serial_port_8c_af6cc263493df7caac7bd7d0be6b50635}} 
+\index{serialPort.c@{serialPort.c}!sp\_ih@{sp\_ih}}
+\index{sp\_ih@{sp\_ih}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_ih()}{sp\_ih()}}
+{\footnotesize\ttfamily void sp\+\_\+ih (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Serial ports\textquotesingle{}s interrupt handler. 
+
+Here is the call graph for this function\+:
+% FIG 19
+Here is the caller graph for this function\+:
+% FIG 20
+\mbox{\Hypertarget{serial_port_8c_a413c45b134b03a909b49aa3b5b2bd003}\label{serial_port_8c_a413c45b134b03a909b49aa3b5b2bd003}} 
+\index{serialPort.c@{serialPort.c}!sp\_init@{sp\_init}}
+\index{sp\_init@{sp\_init}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_init()}{sp\_init()}}
+{\footnotesize\ttfamily void sp\+\_\+init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function initializes the serial port, enabling interrupts and creating the received data queue. 
+
+Here is the call graph for this function\+:
+% FIG 21
+Here is the caller graph for this function\+:
+% FIG 22
+\mbox{\Hypertarget{serial_port_8c_a91109afddc86957b554ce7ec799bd41b}\label{serial_port_8c_a91109afddc86957b554ce7ec799bd41b}} 
+\index{serialPort.c@{serialPort.c}!sp\_subscribe\_int@{sp\_subscribe\_int}}
+\index{sp\_subscribe\_int@{sp\_subscribe\_int}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_subscribe\_int()}{sp\_subscribe\_int()}}
+{\footnotesize\ttfamily int sp\+\_\+subscribe\+\_\+int (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bitno }\end{DoxyParamCaption})}
+
+
+
+This function subscribes serial port interrupts with policies REENABLE and EXCLUSIVE. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em bit\+\_\+no} & All zeros except for the bit position of the serial port\textquotesingle{}s hook id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 23
+\mbox{\Hypertarget{serial_port_8c_ad9cfa399df9032ec99f760195d457e9a}\label{serial_port_8c_ad9cfa399df9032ec99f760195d457e9a}} 
+\index{serialPort.c@{serialPort.c}!sp\_unsubscribe\_int@{sp\_unsubscribe\_int}}
+\index{sp\_unsubscribe\_int@{sp\_unsubscribe\_int}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_unsubscribe\_int()}{sp\_unsubscribe\_int()}}
+{\footnotesize\ttfamily int sp\+\_\+unsubscribe\+\_\+int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function unsubscribes serial port interrupts. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 24
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{serial_port_8c_a1cf6347fec4266a7344358e1c1b8607f}\label{serial_port_8c_a1cf6347fec4266a7344358e1c1b8607f}} 
+\index{serialPort.c@{serialPort.c}!countDrawPackets@{countDrawPackets}}
+\index{countDrawPackets@{countDrawPackets}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{countDrawPackets}{countDrawPackets}}
+{\footnotesize\ttfamily int count\+Draw\+Packets\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_ad2087040af3d554a48e33058e756d26a}\label{serial_port_8c_ad2087040af3d554a48e33058e756d26a}} 
+\index{serialPort.c@{serialPort.c}!drawingColor@{drawingColor}}
+\index{drawingColor@{drawingColor}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{drawingColor}{drawingColor}}
+{\footnotesize\ttfamily int drawing\+Color\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_a27320da3e27801ff1ba94a8cb0859ea2}\label{serial_port_8c_a27320da3e27801ff1ba94a8cb0859ea2}} 
+\index{serialPort.c@{serialPort.c}!drawingSize@{drawingSize}}
+\index{drawingSize@{drawingSize}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{drawingSize}{drawingSize}}
+{\footnotesize\ttfamily int drawing\+Size\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_af58f170b9069ee2e68d74a6605110867}\label{serial_port_8c_af58f170b9069ee2e68d74a6605110867}} 
+\index{serialPort.c@{serialPort.c}!drawPackets@{drawPackets}}
+\index{drawPackets@{drawPackets}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{drawPackets}{drawPackets}}
+{\footnotesize\ttfamily uint8\+\_\+t draw\+Packets\mbox{[}11\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_ab7ad0796d84021de0fd46246b3d5096f}\label{serial_port_8c_ab7ad0796d84021de0fd46246b3d5096f}} 
+\index{serialPort.c@{serialPort.c}!gameState@{gameState}}
+\index{gameState@{gameState}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{gameState}{gameState}}
+{\footnotesize\ttfamily int game\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_a122f137ffc0e785c8ac07d752021c1aa}\label{serial_port_8c_a122f137ffc0e785c8ac07d752021c1aa}} 
+\index{serialPort.c@{serialPort.c}!guessStartedHandShake@{guessStartedHandShake}}
+\index{guessStartedHandShake@{guessStartedHandShake}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{guessStartedHandShake}{guessStartedHandShake}}
+{\footnotesize\ttfamily bool guess\+Started\+Hand\+Shake\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_a279e4c9a05cd63c43dd4c18c80c27483}\label{serial_port_8c_a279e4c9a05cd63c43dd4c18c80c27483}} 
+\index{serialPort.c@{serialPort.c}!sp\_hook\_id@{sp\_hook\_id}}
+\index{sp\_hook\_id@{sp\_hook\_id}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{sp\_hook\_id}{sp\_hook\_id}}
+{\footnotesize\ttfamily int sp\+\_\+hook\+\_\+id = 7}
+
+\mbox{\Hypertarget{serial_port_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}\label{serial_port_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}} 
+\index{serialPort.c@{serialPort.c}!word@{word}}
+\index{word@{word}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{word}{word}}
+{\footnotesize\ttfamily char word\mbox{[}24\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_a33127e2e90e8cc1de68f6e4d76298c82}\label{serial_port_8c_a33127e2e90e8cc1de68f6e4d76298c82}} 
+\index{serialPort.c@{serialPort.c}!wordBytes@{wordBytes}}
+\index{wordBytes@{wordBytes}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{wordBytes}{wordBytes}}
+{\footnotesize\ttfamily int word\+Bytes\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{serial_port_8c_a3563de37669f4aa78c6f8b6ecfdfd246}\label{serial_port_8c_a3563de37669f4aa78c6f8b6ecfdfd246}} 
+\index{serialPort.c@{serialPort.c}!wordSize@{wordSize}}
+\index{wordSize@{wordSize}!serialPort.c@{serialPort.c}}
+\doxysubsubsection{\texorpdfstring{wordSize}{wordSize}}
+{\footnotesize\ttfamily int word\+Size\hspace{0.3cm}{\ttfamily [extern]}}
+

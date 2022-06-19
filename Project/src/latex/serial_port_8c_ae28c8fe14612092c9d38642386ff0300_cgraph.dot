@@ -1,0 +1,14 @@
+digraph "processWaitingGuessSP"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="processWaitingGuessSP",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function determines what a given byte received from the serial port should be used for while wai..."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="send_byte",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#af26804966e7098d673255be2b3985449",tooltip="This function sends a byte through the serial port."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="sp_get_status",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a345aef3f6a10f62322b353279a08d690",tooltip="This function reads the status of the serial port."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="util_sys_inb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a79a031a8611f5b2d6afa4158e92b0fb4",tooltip="This function reads from the specified port and transforms the recevied value into an 8 bit number;."];
+}

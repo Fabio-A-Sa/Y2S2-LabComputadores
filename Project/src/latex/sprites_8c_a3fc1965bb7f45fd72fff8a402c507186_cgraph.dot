@@ -1,0 +1,10 @@
+digraph "drawSprite"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="drawSprite",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Draws a loaded SPrite onto the screen, The x and y represents the top left corner of the Sprite."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="vg_draw_pixel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a08c498ffeb0a3962e3b7711b57397741",tooltip="This functions sets the color of the pixel in the position given to the desired color,..."];
+}

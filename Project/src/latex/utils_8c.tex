@@ -1,0 +1,84 @@
+\hypertarget{utils_8c}{}\doxysection{controllers/utils.c File Reference}
+\label{utils_8c}\index{controllers/utils.c@{controllers/utils.c}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for utils.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{utils_8c_a81621440b3d65680979425e39aa8c789}{util\+\_\+get\+\_\+\+LSB}} (uint16\+\_\+t val, uint8\+\_\+t $\ast$lsb)
+\begin{DoxyCompactList}\small\item\em This function sends the least significant bytes of a 16 bit number;. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{utils_8c_a6a880076cd2ec468834438b6e0c58836}{util\+\_\+get\+\_\+\+MSB}} (uint16\+\_\+t val, uint8\+\_\+t $\ast$msb)
+\begin{DoxyCompactList}\small\item\em This function sends the most significant bytes of a 16 bit number;. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{utils_8c_a79a031a8611f5b2d6afa4158e92b0fb4}{util\+\_\+sys\+\_\+inb}} (int port, uint8\+\_\+t $\ast$value)
+\begin{DoxyCompactList}\small\item\em This function reads from the specified port and transforms the recevied value into an 8 bit number;. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{utils_8c_a81621440b3d65680979425e39aa8c789}\label{utils_8c_a81621440b3d65680979425e39aa8c789}} 
+\index{utils.c@{utils.c}!util\_get\_LSB@{util\_get\_LSB}}
+\index{util\_get\_LSB@{util\_get\_LSB}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{util\_get\_LSB()}{util\_get\_LSB()}}
+{\footnotesize\ttfamily int() util\+\_\+get\+\_\+\+LSB (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{val,  }\item[{uint8\+\_\+t $\ast$}]{lsb }\end{DoxyParamCaption})}
+
+
+
+This function sends the least significant bytes of a 16 bit number;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & the number we want to send (not only the LSB) \\
+\hline
+{\em lsb} & the port where to send it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{utils_8c_a6a880076cd2ec468834438b6e0c58836}\label{utils_8c_a6a880076cd2ec468834438b6e0c58836}} 
+\index{utils.c@{utils.c}!util\_get\_MSB@{util\_get\_MSB}}
+\index{util\_get\_MSB@{util\_get\_MSB}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{util\_get\_MSB()}{util\_get\_MSB()}}
+{\footnotesize\ttfamily int() util\+\_\+get\+\_\+\+MSB (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{val,  }\item[{uint8\+\_\+t $\ast$}]{msb }\end{DoxyParamCaption})}
+
+
+
+This function sends the most significant bytes of a 16 bit number;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & the number we want to send (not only the MSB) \\
+\hline
+{\em lsb} & the port where to send it \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{utils_8c_a79a031a8611f5b2d6afa4158e92b0fb4}\label{utils_8c_a79a031a8611f5b2d6afa4158e92b0fb4}} 
+\index{utils.c@{utils.c}!util\_sys\_inb@{util\_sys\_inb}}
+\index{util\_sys\_inb@{util\_sys\_inb}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{util\_sys\_inb()}{util\_sys\_inb()}}
+{\footnotesize\ttfamily int() util\+\_\+sys\+\_\+inb (\begin{DoxyParamCaption}\item[{int}]{port,  }\item[{uint8\+\_\+t $\ast$}]{value }\end{DoxyParamCaption})}
+
+
+
+This function reads from the specified port and transforms the recevied value into an 8 bit number;. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & the port where to read from \\
+\hline
+{\em value} & the variable where to store the read value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 3

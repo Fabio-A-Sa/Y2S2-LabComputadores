@@ -1,0 +1,16 @@
+digraph "timer_set_frequency"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="timer_set_frequency",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="timer_get_conf",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$timer_8c.html#a703c60b40c8c49607d6ecb6fef82d27a",tooltip="this function reads from the timer given by input its status"];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="util_sys_inb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a79a031a8611f5b2d6afa4158e92b0fb4",tooltip="This function reads from the specified port and transforms the recevied value into an 8 bit number;."];
+  Node1 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="util_get_LSB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a81621440b3d65680979425e39aa8c789",tooltip="This function sends the least significant bytes of a 16 bit number;."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="util_get_MSB",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a6a880076cd2ec468834438b6e0c58836",tooltip="This function sends the most significant bytes of a 16 bit number;."];
+}

@@ -1,0 +1,40 @@
+digraph "sp_get_status"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="sp_get_status",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function reads the status of the serial port."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="read_byte",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a0f2fa0bd6d33cf6b49390a96ff0192e5",tooltip="This function reads a byte from the serial port and pushes it to the received data queue."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="sp_ih",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#af6cc263493df7caac7bd7d0be6b50635",tooltip="Serial ports's interrupt handler."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="process_interrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a9c74859d9e32b26fca9274d294eff910",tooltip=" "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node3 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="processPlayingGuessSP",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a6a93d1d284d0c1558b521772388ef5fb",tooltip="This function determines what a given byte received from the serial port should be used for while pla..."];
+  Node6 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="send_byte",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#af26804966e7098d673255be2b3985449",tooltip="This function sends a byte through the serial port."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="KB_DrawingControls",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#a01547608c10f80c48d70f71f41efb741",tooltip="This function process the pressing of jeys by the player and realizes the function correct action for..."];
+  Node8 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="KB_GuessingControls",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8c.html#a710678f0d413e61a96be3b39bf14838f",tooltip="This function process the pressing of jeys by the player and realizes the function correct action for..."];
+  Node9 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="processGamingLeftClick",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#a91a437d267e8f431fdc48f38020cd7d2",tooltip="This function process left clicks on the draw page, it verifeis where the player clicked and realizes..."];
+  Node10 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="processGamingRightClick",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#a02386551bfca56575b414789cd774a08",tooltip="This function process right clicks on the draw page, it verifeis where the player clicked and realize..."];
+  Node11 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="processWaitingDrawSP",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a2042007baf9a4bf12a65c04063e8229b",tooltip="This function determines what a given byte received from the serial port should be used for while wai..."];
+  Node12 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="processWaitingGuessSP",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#ae28c8fe14612092c9d38642386ff0300",tooltip="This function determines what a given byte received from the serial port should be used for while wai..."];
+  Node13 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

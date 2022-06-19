@@ -1,0 +1,20 @@
+digraph "KB_GuessingControls"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="KB_GuessingControls",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function process the pressing of jeys by the player and realizes the function correct action for..."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="compareGuess",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8c.html#a350187e0f82398f183349d13db7b0e2f",tooltip="This function is called to compare the input of the player and the word given. It checks id the guess..."];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="send_byte",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#af26804966e7098d673255be2b3985449",tooltip="This function sends a byte through the serial port."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="sp_get_status",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a345aef3f6a10f62322b353279a08d690",tooltip="This function reads the status of the serial port."];
+  Node4 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="util_sys_inb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a79a031a8611f5b2d6afa4158e92b0fb4",tooltip="This function reads from the specified port and transforms the recevied value into an 8 bit number;."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="SP_clearInterrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#aeaa3f7885cf1173c43a4f70f58c9abfd",tooltip="The function prepares the queue and FCR for the next interruptiom, it empties the queue to prevent er..."];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="isEmpty",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8c.html#a29cc47cb6982704e8c4045db0927b888",tooltip=" "];
+}

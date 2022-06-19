@@ -1,0 +1,47 @@
+digraph "vg_draw_pixel"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="vg_draw_pixel",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This functions sets the color of the pixel in the position given to the desired color,..."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="drawSprite",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sprites_8c.html#a3fc1965bb7f45fd72fff8a402c507186",tooltip="Draws a loaded SPrite onto the screen, The x and y represents the top left corner of the Sprite."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="drawMenu",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html#a252c3e287edc6236251be9dd8517334c",tooltip="This function loads the differents components of a frame into the secondary buffer."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="process_interrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a9c74859d9e32b26fca9274d294eff910",tooltip=" "];
+  Node4 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="printMouse",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#af764651554437af7a7e62cb5075b25fe",tooltip="This function prints the xpm of the mouse on the screen, it checks to see with mouse xpm it should us..."];
+  Node6 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="print_xpm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a4a7701a7c35f0ff156dba3e5f9c9f48e",tooltip="This function draws a xpm to the display."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="drawDrawingGame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#ade6f4eb2ec2071b4ad3b0cd6ed67d8fa",tooltip="This function loads the differents components of a frame into the secondary buffer."];
+  Node8 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="gamePlayCounterDraw",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#ac394319f787d76cd26e4b4c5f180cee9",tooltip="This funtion draws the in-game counter on the screen."];
+  Node9 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="drawGuessingGame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8c.html#a72a912df7f85b2c72f8e69c73c632f05",tooltip="This function loads the differents components of a frame into the secondary buffer."];
+  Node10 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="wordInterpreter",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html#af21d5e92b258d5834ab2d92883039e76",tooltip="This function reads the array of the word given to the draw user and prints the xpm of the letter at ..."];
+  Node11 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="processWord",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#a4119c1dbe665fcb4ee64800849b8b40f",tooltip="This funtion process the word selected for the gameplay and displays it to the screen when called."];
+  Node12 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="KB_MenuControls",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html#a0003deda87fcc4090e53c2775f163144",tooltip="This function process the pressing of jeys by the player and realizes the function correct action for..."];
+  Node13 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="processStartDrawButton",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html#a6a4c43846a973f849b2027363176dcb2",tooltip="This function detects it the player is pressing the draw button and if the press if valid...."];
+  Node14 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="vg_draw_hline",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a5e5b25bd525250f61f40b9e9f212d5e6",tooltip="This function draws a line on the screen."];
+  Node15 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="vg_draw_rectangle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a99d2da2559e11200c6b40c469e9977ec",tooltip="This function draws a rectagle (or square) of the desired size starting x and y as the top left corne..."];
+}

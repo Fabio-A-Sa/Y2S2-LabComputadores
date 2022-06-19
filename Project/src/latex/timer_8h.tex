@@ -1,0 +1,123 @@
+\hypertarget{timer_8h}{}\doxysection{controllers/timer/timer.h File Reference}
+\label{timer_8h}\index{controllers/timer/timer.h@{controllers/timer/timer.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$lcom/timer.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}i8254.\+h\char`\"{}}\newline
+Include dependency graph for timer.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int() \mbox{\hyperlink{timer_8h_af2c04fa8e97ffa748fd3f612886a92a7}{timer\+\_\+set\+\_\+frequency}} (uint8\+\_\+t timer, uint32\+\_\+t freq)
+\item 
+int() \mbox{\hyperlink{timer_8h_ac57a7e1140a7e00ad95ac5488d2a671b}{timer\+\_\+subscribe\+\_\+int}} (uint8\+\_\+t $\ast$bit\+\_\+no)
+\begin{DoxyCompactList}\small\item\em This function uses irq\+\_\+setpolicy to configure timer interrupts. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{timer_8h_afabd21de449be154dd65d5fdb2d8045d}{timer\+\_\+unsubscribe\+\_\+int}} ()
+\begin{DoxyCompactList}\small\item\em This function unsubscribes timer interrupts. \end{DoxyCompactList}\item 
+void() \mbox{\hyperlink{timer_8h_a91a2072306c68353712a6b771287dc2c}{timer\+\_\+int\+\_\+handler}} ()
+\begin{DoxyCompactList}\small\item\em Timer\textquotesingle{}s interrupt handler, increments the counter. \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{timer_8h_a703c60b40c8c49607d6ecb6fef82d27a}{timer\+\_\+get\+\_\+conf}} (uint8\+\_\+t timer, uint8\+\_\+t $\ast$st)
+\begin{DoxyCompactList}\small\item\em this function reads from the timer given by input its status \end{DoxyCompactList}\item 
+int() \mbox{\hyperlink{timer_8h_a140d8f092c0913cabdca949c4a1cc650}{timer\+\_\+display\+\_\+conf}} (uint8\+\_\+t timer, uint8\+\_\+t st, enum timer\+\_\+status\+\_\+field field)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{timer_8h_a140d8f092c0913cabdca949c4a1cc650}\label{timer_8h_a140d8f092c0913cabdca949c4a1cc650}} 
+\index{timer.h@{timer.h}!timer\_display\_conf@{timer\_display\_conf}}
+\index{timer\_display\_conf@{timer\_display\_conf}!timer.h@{timer.h}}
+\doxysubsubsection{\texorpdfstring{timer\_display\_conf()}{timer\_display\_conf()}}
+{\footnotesize\ttfamily int() timer\+\_\+display\+\_\+conf (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{timer,  }\item[{uint8\+\_\+t}]{st,  }\item[{enum timer\+\_\+status\+\_\+field}]{field }\end{DoxyParamCaption})}
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em timer} & \\
+\hline
+\mbox{\texttt{ in}}  & {\em st} & \\
+\hline
+\mbox{\texttt{ out}}  & {\em field} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 otherwise 
+\end{DoxyReturn}
+\mbox{\Hypertarget{timer_8h_a703c60b40c8c49607d6ecb6fef82d27a}\label{timer_8h_a703c60b40c8c49607d6ecb6fef82d27a}} 
+\index{timer.h@{timer.h}!timer\_get\_conf@{timer\_get\_conf}}
+\index{timer\_get\_conf@{timer\_get\_conf}!timer.h@{timer.h}}
+\doxysubsubsection{\texorpdfstring{timer\_get\_conf()}{timer\_get\_conf()}}
+{\footnotesize\ttfamily int() timer\+\_\+get\+\_\+conf (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{timer,  }\item[{uint8\+\_\+t $\ast$}]{st }\end{DoxyParamCaption})}
+
+
+
+this function reads from the timer given by input its status 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em timer} & specifies the timer used \\
+\hline
+\mbox{\texttt{ out}}  & {\em st} & variable where the information read will be stored \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of sucess, 1 otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{timer_8h_a91a2072306c68353712a6b771287dc2c}\label{timer_8h_a91a2072306c68353712a6b771287dc2c}} 
+\index{timer.h@{timer.h}!timer\_int\_handler@{timer\_int\_handler}}
+\index{timer\_int\_handler@{timer\_int\_handler}!timer.h@{timer.h}}
+\doxysubsubsection{\texorpdfstring{timer\_int\_handler()}{timer\_int\_handler()}}
+{\footnotesize\ttfamily void() timer\+\_\+int\+\_\+handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Timer\textquotesingle{}s interrupt handler, increments the counter. 
+
+\mbox{\Hypertarget{timer_8h_af2c04fa8e97ffa748fd3f612886a92a7}\label{timer_8h_af2c04fa8e97ffa748fd3f612886a92a7}} 
+\index{timer.h@{timer.h}!timer\_set\_frequency@{timer\_set\_frequency}}
+\index{timer\_set\_frequency@{timer\_set\_frequency}!timer.h@{timer.h}}
+\doxysubsubsection{\texorpdfstring{timer\_set\_frequency()}{timer\_set\_frequency()}}
+{\footnotesize\ttfamily int() timer\+\_\+set\+\_\+frequency (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{timer,  }\item[{uint32\+\_\+t}]{freq }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{timer_8h_ac57a7e1140a7e00ad95ac5488d2a671b}\label{timer_8h_ac57a7e1140a7e00ad95ac5488d2a671b}} 
+\index{timer.h@{timer.h}!timer\_subscribe\_int@{timer\_subscribe\_int}}
+\index{timer\_subscribe\_int@{timer\_subscribe\_int}!timer.h@{timer.h}}
+\doxysubsubsection{\texorpdfstring{timer\_subscribe\_int()}{timer\_subscribe\_int()}}
+{\footnotesize\ttfamily int() timer\+\_\+subscribe\+\_\+int (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{bit\+\_\+no }\end{DoxyParamCaption})}
+
+
+
+This function uses irq\+\_\+setpolicy to configure timer interrupts. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ out}}  & {\em bit\+\_\+no} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{timer_8h_afabd21de449be154dd65d5fdb2d8045d}\label{timer_8h_afabd21de449be154dd65d5fdb2d8045d}} 
+\index{timer.h@{timer.h}!timer\_unsubscribe\_int@{timer\_unsubscribe\_int}}
+\index{timer\_unsubscribe\_int@{timer\_unsubscribe\_int}!timer.h@{timer.h}}
+\doxysubsubsection{\texorpdfstring{timer\_unsubscribe\_int()}{timer\_unsubscribe\_int()}}
+{\footnotesize\ttfamily int() timer\+\_\+unsubscribe\+\_\+int (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function unsubscribes timer interrupts. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 in case of success, 1 if otherwise 
+\end{DoxyReturn}

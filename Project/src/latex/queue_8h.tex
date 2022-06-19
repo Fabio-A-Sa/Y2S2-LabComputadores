@@ -1,0 +1,122 @@
+\hypertarget{queue_8h}{}\doxysection{controllers/serial\+Port/queue.h File Reference}
+\label{queue_8h}\index{controllers/serialPort/queue.h@{controllers/serialPort/queue.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+Include dependency graph for queue.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_queue}{Queue}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{queue_8h_aace0c984578b7ab06e32662b4de52c16}{QUEUESIZE}}~100
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_queue}{Queue}} $\ast$ \mbox{\hyperlink{queue_8h_a839b722b6c4924b41f3afa1bfaa525ef}{create\+Queue}} ()
+\item 
+int \mbox{\hyperlink{queue_8h_a47a3ef042eb0784f33a07eeaae9bfe18}{queue\+Size}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\item 
+bool \mbox{\hyperlink{queue_8h_a25897dd8dc27d857546b0d3f81058d8c}{push}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue, uint8\+\_\+t element)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{queue_8h_ab0a7af1151628d3b2580f6da46706fce}{pop}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{queue_8h_af339653f1c1e891a7699b21c0a4c3d2c}{front}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{queue_8h_a192fd3b9c9d70c9316c8c94e1ffc99d5}{back}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\item 
+bool \mbox{\hyperlink{queue_8h_a29cc47cb6982704e8c4045db0927b888}{is\+Empty}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\item 
+bool \mbox{\hyperlink{queue_8h_a3f2350d97e2b928dece5642ebfc1d173}{is\+Full}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\item 
+void \mbox{\hyperlink{queue_8h_ac9c47c6bcc2955fed6349fc78d6e54a1}{clear}} (\mbox{\hyperlink{struct_queue}{Queue}} $\ast$queue)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{queue_8h_aace0c984578b7ab06e32662b4de52c16}\label{queue_8h_aace0c984578b7ab06e32662b4de52c16}} 
+\index{queue.h@{queue.h}!QUEUESIZE@{QUEUESIZE}}
+\index{QUEUESIZE@{QUEUESIZE}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{QUEUESIZE}{QUEUESIZE}}
+{\footnotesize\ttfamily \#define QUEUESIZE~100}
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{queue_8h_a192fd3b9c9d70c9316c8c94e1ffc99d5}\label{queue_8h_a192fd3b9c9d70c9316c8c94e1ffc99d5}} 
+\index{queue.h@{queue.h}!back@{back}}
+\index{back@{back}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{back()}{back()}}
+{\footnotesize\ttfamily uint8\+\_\+t back (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{queue_8h_ac9c47c6bcc2955fed6349fc78d6e54a1}\label{queue_8h_ac9c47c6bcc2955fed6349fc78d6e54a1}} 
+\index{queue.h@{queue.h}!clear@{clear}}
+\index{clear@{clear}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void clear (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{queue_8h_a839b722b6c4924b41f3afa1bfaa525ef}\label{queue_8h_a839b722b6c4924b41f3afa1bfaa525ef}} 
+\index{queue.h@{queue.h}!createQueue@{createQueue}}
+\index{createQueue@{createQueue}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{createQueue()}{createQueue()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_queue}{Queue}} $\ast$ create\+Queue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{queue_8h_af339653f1c1e891a7699b21c0a4c3d2c}\label{queue_8h_af339653f1c1e891a7699b21c0a4c3d2c}} 
+\index{queue.h@{queue.h}!front@{front}}
+\index{front@{front}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{front()}{front()}}
+{\footnotesize\ttfamily uint8\+\_\+t front (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{queue_8h_a29cc47cb6982704e8c4045db0927b888}\label{queue_8h_a29cc47cb6982704e8c4045db0927b888}} 
+\index{queue.h@{queue.h}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily bool is\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{queue_8h_a3f2350d97e2b928dece5642ebfc1d173}\label{queue_8h_a3f2350d97e2b928dece5642ebfc1d173}} 
+\index{queue.h@{queue.h}!isFull@{isFull}}
+\index{isFull@{isFull}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{isFull()}{isFull()}}
+{\footnotesize\ttfamily bool is\+Full (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+% FIG 6
+\mbox{\Hypertarget{queue_8h_ab0a7af1151628d3b2580f6da46706fce}\label{queue_8h_ab0a7af1151628d3b2580f6da46706fce}} 
+\index{queue.h@{queue.h}!pop@{pop}}
+\index{pop@{pop}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{pop()}{pop()}}
+{\footnotesize\ttfamily uint8\+\_\+t pop (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 7
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{queue_8h_a25897dd8dc27d857546b0d3f81058d8c}\label{queue_8h_a25897dd8dc27d857546b0d3f81058d8c}} 
+\index{queue.h@{queue.h}!push@{push}}
+\index{push@{push}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{push()}{push()}}
+{\footnotesize\ttfamily bool push (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue,  }\item[{uint8\+\_\+t}]{element }\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+% FIG 9
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{queue_8h_a47a3ef042eb0784f33a07eeaae9bfe18}\label{queue_8h_a47a3ef042eb0784f33a07eeaae9bfe18}} 
+\index{queue.h@{queue.h}!queueSize@{queueSize}}
+\index{queueSize@{queueSize}!queue.h@{queue.h}}
+\doxysubsubsection{\texorpdfstring{queueSize()}{queueSize()}}
+{\footnotesize\ttfamily int queue\+Size (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_queue}{Queue}} $\ast$}]{queue }\end{DoxyParamCaption})}
+

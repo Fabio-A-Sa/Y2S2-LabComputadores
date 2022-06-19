@@ -1,0 +1,97 @@
+\hypertarget{sprites_8h_source}{}\doxysection{sprites.\+h}
+\label{sprites_8h_source}\index{sprites/sprites.h@{sprites/sprites.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef \_SPRITES\_H\_}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define \_SPRITES\_H\_}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include "{}../controllers/video/graphics.h"{}}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}../imgs/title.xpm"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}../imgs/mice/mouseCursor.xpm"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}../imgs/mice/brushCursor.xpm"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}../imgs/mice/handCursor.xpm"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}../imgs/buttons/drawButton.xpm"{}}}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#include "{}../imgs/buttons/guessButton.xpm"{}}}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#include "{}../imgs/buttons/quitButton.xpm"{}}}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#include "{}../imgs/buttons/instButton.xpm"{}}}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#include "{}../imgs/buttons/drawButtonPressed.xpm"{}}}
+\DoxyCodeLine{23 \textcolor{preprocessor}{\#include "{}../imgs/buttons/guessButtonPressed.xpm"{}}}
+\DoxyCodeLine{24 \textcolor{preprocessor}{\#include "{}../imgs/buttons/quitButtonPressed.xpm"{}}}
+\DoxyCodeLine{25 \textcolor{preprocessor}{\#include "{}../imgs/buttons/instButtonPressed.xpm"{}}}
+\DoxyCodeLine{26 \textcolor{preprocessor}{\#include "{}../imgs/instPage.xpm"{}}}
+\DoxyCodeLine{27 \textcolor{preprocessor}{\#include "{}../imgs/brushPlus.xpm"{}}}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#include "{}../imgs/brushMinus.xpm"{}}}
+\DoxyCodeLine{29 }
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#include "{}../imgs/numbers/zero.xpm"{}}}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#include "{}../imgs/numbers/one.xpm"{}}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#include "{}../imgs/numbers/two.xpm"{}}}
+\DoxyCodeLine{33 \textcolor{preprocessor}{\#include "{}../imgs/numbers/three.xpm"{}}}
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#include "{}../imgs/numbers/four.xpm"{}}}
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#include "{}../imgs/numbers/five.xpm"{}}}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#include "{}../imgs/numbers/six.xpm"{}}}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#include "{}../imgs/numbers/seven.xpm"{}}}
+\DoxyCodeLine{38 \textcolor{preprocessor}{\#include "{}../imgs/numbers/eight.xpm"{}}}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#include "{}../imgs/numbers/nine.xpm"{}}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#include "{}../imgs/letters/a.xpm"{}}}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#include "{}../imgs/letters/b.xpm"{}}}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#include "{}../imgs/letters/c.xpm"{}}}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#include "{}../imgs/letters/d.xpm"{}}}
+\DoxyCodeLine{44 \textcolor{preprocessor}{\#include "{}../imgs/letters/e.xpm"{}}}
+\DoxyCodeLine{45 \textcolor{preprocessor}{\#include "{}../imgs/letters/f.xpm"{}}}
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#include "{}../imgs/letters/g.xpm"{}}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#include "{}../imgs/letters/h.xpm"{}}}
+\DoxyCodeLine{48 \textcolor{preprocessor}{\#include "{}../imgs/letters/i.xpm"{}}}
+\DoxyCodeLine{49 \textcolor{preprocessor}{\#include "{}../imgs/letters/j.xpm"{}}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#include "{}../imgs/letters/k.xpm"{}}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#include "{}../imgs/letters/l.xpm"{}}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#include "{}../imgs/letters/m.xpm"{}}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#include "{}../imgs/letters/n.xpm"{}}}
+\DoxyCodeLine{54 \textcolor{preprocessor}{\#include "{}../imgs/letters/o.xpm"{}}}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#include "{}../imgs/letters/p.xpm"{}}}
+\DoxyCodeLine{56 \textcolor{preprocessor}{\#include "{}../imgs/letters/q.xpm"{}}}
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#include "{}../imgs/letters/r.xpm"{}}}
+\DoxyCodeLine{58 \textcolor{preprocessor}{\#include "{}../imgs/letters/s.xpm"{}}}
+\DoxyCodeLine{59 \textcolor{preprocessor}{\#include "{}../imgs/letters/t.xpm"{}}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#include "{}../imgs/letters/u.xpm"{}}}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#include "{}../imgs/letters/v.xpm"{}}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#include "{}../imgs/letters/w.xpm"{}}}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#include "{}../imgs/letters/x.xpm"{}}}
+\DoxyCodeLine{64 \textcolor{preprocessor}{\#include "{}../imgs/letters/y.xpm"{}}}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#include "{}../imgs/letters/z.xpm"{}}}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#include "{}../imgs/symbols/plus.xpm"{}}}
+\DoxyCodeLine{68 \textcolor{preprocessor}{\#include "{}../imgs/symbols/minus.xpm"{}}}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70 \textcolor{preprocessor}{\#include "{}../controllers/video/COLORS.h"{}}}
+\DoxyCodeLine{71 \textcolor{preprocessor}{\#include "{}../game/UTILS.h"{}}}
+\DoxyCodeLine{72 }
+\DoxyCodeLine{73 \textcolor{preprocessor}{\#include "{}../game/reader.h"{}}}
+\DoxyCodeLine{74 }
+\DoxyCodeLine{82 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\mbox{\hyperlink{struct_sprite}{Sprite}}\{}
+\DoxyCodeLine{83     uint16\_t height, width;}
+\DoxyCodeLine{84     uint32\_t *colors;}
+\DoxyCodeLine{85 \} \mbox{\hyperlink{struct_sprite}{Sprite}}; }
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87 \mbox{\hyperlink{struct_sprite}{Sprite}} *gameTitle;}
+\DoxyCodeLine{88 \mbox{\hyperlink{struct_sprite}{Sprite}} *mouseCursor;}
+\DoxyCodeLine{89 \mbox{\hyperlink{struct_sprite}{Sprite}} *brushCursor;}
+\DoxyCodeLine{90 \mbox{\hyperlink{struct_sprite}{Sprite}} *handCursor;}
+\DoxyCodeLine{91 \mbox{\hyperlink{struct_sprite}{Sprite}} *drawButton;}
+\DoxyCodeLine{92 \mbox{\hyperlink{struct_sprite}{Sprite}} *guessButton;}
+\DoxyCodeLine{93 \mbox{\hyperlink{struct_sprite}{Sprite}} *quitButton;}
+\DoxyCodeLine{94 \mbox{\hyperlink{struct_sprite}{Sprite}} *instButton;}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{102 \mbox{\hyperlink{struct_sprite}{Sprite}} *createSprite(xpm\_map\_t sprite);}
+\DoxyCodeLine{103 }
+\DoxyCodeLine{112 \textcolor{keywordtype}{int} drawSprite(\mbox{\hyperlink{struct_sprite}{Sprite}} *sp, \textcolor{keywordtype}{int} x, \textcolor{keywordtype}{int} y);}
+\DoxyCodeLine{113 }
+\DoxyCodeLine{119 \textcolor{keywordtype}{void} destroy\_sprite(\mbox{\hyperlink{struct_sprite}{Sprite}} *sp);}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{125 \textcolor{keywordtype}{void} loadSprites();}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{131 \textcolor{keywordtype}{void} unloadSprites();}
+\DoxyCodeLine{132 }
+\DoxyCodeLine{133 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

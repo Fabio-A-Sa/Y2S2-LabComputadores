@@ -1,0 +1,12 @@
+digraph "wordInterpreter"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="wordInterpreter",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function reads the array of the word given to the draw user and prints the xpm of the letter at ..."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="print_xpm",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a4a7701a7c35f0ff156dba3e5f9c9f48e",tooltip="This function draws a xpm to the display."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="vg_draw_pixel",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a08c498ffeb0a3962e3b7711b57397741",tooltip="This functions sets the color of the pixel in the position given to the desired color,..."];
+}

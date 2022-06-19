@@ -1,0 +1,32 @@
+\hypertarget{queue_8h_source}{}\doxysection{queue.\+h}
+\label{queue_8h_source}\index{controllers/serialPort/queue.h@{controllers/serialPort/queue.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef \_\_QUEUE\_H\_}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define \_\_QUEUE\_H\_}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define QUEUESIZE 100}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{typedef} \textcolor{keyword}{struct }\{}
+\DoxyCodeLine{19     \textcolor{keywordtype}{int} front, back, size;}
+\DoxyCodeLine{20     \textcolor{keywordtype}{unsigned} capacity;}
+\DoxyCodeLine{21     \textcolor{keywordtype}{int}* values;}
+\DoxyCodeLine{22 \}\mbox{\hyperlink{struct_queue}{Queue}};}
+\DoxyCodeLine{23 }
+\DoxyCodeLine{24 \mbox{\hyperlink{struct_queue}{Queue}}* createQueue();}
+\DoxyCodeLine{25 \textcolor{keywordtype}{int} queueSize(\mbox{\hyperlink{struct_queue}{Queue}} *queue);}
+\DoxyCodeLine{26 \textcolor{keywordtype}{bool} push(\mbox{\hyperlink{struct_queue}{Queue}}* queue, uint8\_t element);}
+\DoxyCodeLine{27 uint8\_t pop(\mbox{\hyperlink{struct_queue}{Queue}}* queue);}
+\DoxyCodeLine{28 uint8\_t front(\mbox{\hyperlink{struct_queue}{Queue}}* queue);}
+\DoxyCodeLine{29 uint8\_t back(\mbox{\hyperlink{struct_queue}{Queue}}* queue);}
+\DoxyCodeLine{30 \textcolor{keywordtype}{bool} isEmpty(\mbox{\hyperlink{struct_queue}{Queue}}* queue);}
+\DoxyCodeLine{31 \textcolor{keywordtype}{bool} isFull(\mbox{\hyperlink{struct_queue}{Queue}}* queue);}
+\DoxyCodeLine{32 \textcolor{keywordtype}{void} clear(\mbox{\hyperlink{struct_queue}{Queue}}* queue);}
+\DoxyCodeLine{33 }
+\DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

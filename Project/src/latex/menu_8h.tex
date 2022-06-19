@@ -1,0 +1,158 @@
+\hypertarget{menu_8h}{}\doxysection{game/modes/menu.h File Reference}
+\label{menu_8h}\index{game/modes/menu.h@{game/modes/menu.h}}
+{\ttfamily \#include \char`\"{}../../controllers/video/\+COLORS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/video/graphics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}drawing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/keyboard\+Mouse/mouse.\+h\char`\"{}}\newline
+Include dependency graph for menu.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{menu_8h_a0003deda87fcc4090e53c2775f163144}{KB\+\_\+\+Menu\+Controls}} (uint8\+\_\+t \mbox{\hyperlink{main_8c_aa1de7a5557e9d96b83cf03f73c92163f}{scancode}})
+\begin{DoxyCompactList}\small\item\em This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8h_a6a4c43846a973f849b2027363176dcb2}{process\+Start\+Draw\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the draw button and if the press if valid. If it is, it starts draw mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8h_aad86b088b468df45161d1bb04697f5fa}{process\+Start\+Guess\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the guess button and if the press if valid. If it is, it starts guess mode. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8h_a5438949090fb276e9fe1bd1c7401490c}{process\+Quit\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the quit button and if the press if valid. If it is, it exits the game. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8h_ab859ac644122c981608478833cf4b7ee}{process\+Instr\+Button}} (uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a6150e0515f7202e2fb518f7206ed97dc}{x}}, uint16\+\_\+t \mbox{\hyperlink{sprites_8c_a0a2f84ed7838f07779ae24c5a9086d33}{y}})
+\begin{DoxyCompactList}\small\item\em This function detects it the player is pressing the instruction button and if the press if valid. If it is, it loads the instruction page. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{menu_8h_a252c3e287edc6236251be9dd8517334c}{draw\+Menu}} ()
+\begin{DoxyCompactList}\small\item\em This function loads the differents components of a frame into the secondary buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{menu_8h_a252c3e287edc6236251be9dd8517334c}\label{menu_8h_a252c3e287edc6236251be9dd8517334c}} 
+\index{menu.h@{menu.h}!drawMenu@{drawMenu}}
+\index{drawMenu@{drawMenu}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{drawMenu()}{drawMenu()}}
+{\footnotesize\ttfamily int draw\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function loads the differents components of a frame into the secondary buffer. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{menu_8h_a0003deda87fcc4090e53c2775f163144}\label{menu_8h_a0003deda87fcc4090e53c2775f163144}} 
+\index{menu.h@{menu.h}!KB\_MenuControls@{KB\_MenuControls}}
+\index{KB\_MenuControls@{KB\_MenuControls}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{KB\_MenuControls()}{KB\_MenuControls()}}
+{\footnotesize\ttfamily void KB\+\_\+\+Menu\+Controls (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scancode }\end{DoxyParamCaption})}
+
+
+
+This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & Code representing the key pressed by the player \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{menu_8h_ab859ac644122c981608478833cf4b7ee}\label{menu_8h_ab859ac644122c981608478833cf4b7ee}} 
+\index{menu.h@{menu.h}!processInstrButton@{processInstrButton}}
+\index{processInstrButton@{processInstrButton}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{processInstrButton()}{processInstrButton()}}
+{\footnotesize\ttfamily int process\+Instr\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the instruction button and if the press if valid. If it is, it loads the instruction page. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7
+\mbox{\Hypertarget{menu_8h_a5438949090fb276e9fe1bd1c7401490c}\label{menu_8h_a5438949090fb276e9fe1bd1c7401490c}} 
+\index{menu.h@{menu.h}!processQuitButton@{processQuitButton}}
+\index{processQuitButton@{processQuitButton}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{processQuitButton()}{processQuitButton()}}
+{\footnotesize\ttfamily int process\+Quit\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the quit button and if the press if valid. If it is, it exits the game. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 8
+\mbox{\Hypertarget{menu_8h_a6a4c43846a973f849b2027363176dcb2}\label{menu_8h_a6a4c43846a973f849b2027363176dcb2}} 
+\index{menu.h@{menu.h}!processStartDrawButton@{processStartDrawButton}}
+\index{processStartDrawButton@{processStartDrawButton}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{processStartDrawButton()}{processStartDrawButton()}}
+{\footnotesize\ttfamily int process\+Start\+Draw\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the draw button and if the press if valid. If it is, it starts draw mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 9
+Here is the caller graph for this function\+:
+% FIG 10
+\mbox{\Hypertarget{menu_8h_aad86b088b468df45161d1bb04697f5fa}\label{menu_8h_aad86b088b468df45161d1bb04697f5fa}} 
+\index{menu.h@{menu.h}!processStartGuessButton@{processStartGuessButton}}
+\index{processStartGuessButton@{processStartGuessButton}!menu.h@{menu.h}}
+\doxysubsubsection{\texorpdfstring{processStartGuessButton()}{processStartGuessButton()}}
+{\footnotesize\ttfamily int process\+Start\+Guess\+Button (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{x,  }\item[{uint16\+\_\+t}]{y }\end{DoxyParamCaption})}
+
+
+
+This function detects it the player is pressing the guess button and if the press if valid. If it is, it starts guess mode. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & x position of the mouse during the click \\
+\hline
+{\em y} & y position of the mouse during the click \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 11
+Here is the caller graph for this function\+:
+% FIG 12

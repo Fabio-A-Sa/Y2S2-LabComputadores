@@ -1,0 +1,56 @@
+\hypertarget{inst_8h}{}\doxysection{game/modes/inst.h File Reference}
+\label{inst_8h}\index{game/modes/inst.h@{game/modes/inst.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../controllers/keyboard\+Mouse/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/video/\+COLORS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/video/graphics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../sprites/sprites.\+h\char`\"{}}\newline
+Include dependency graph for inst.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{inst_8h_ae62e8fd281959f3dbecaef9893b17485}{KB\+\_\+\+Inst\+Controls}} (uint8\+\_\+t \mbox{\hyperlink{main_8c_aa1de7a5557e9d96b83cf03f73c92163f}{scancode}})
+\begin{DoxyCompactList}\small\item\em This function detects if the player pressed esc and exits the instruction page. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{inst_8h_a262ec4378d3e250b5ee8cdae9b40ba28}{draw\+Inst\+Page}} ()
+\begin{DoxyCompactList}\small\item\em This funtions load the instruciton page (a xpm) to the tertiaty buffer (or \char`\"{}static elements\char`\"{} buffer). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{inst_8h_a262ec4378d3e250b5ee8cdae9b40ba28}\label{inst_8h_a262ec4378d3e250b5ee8cdae9b40ba28}} 
+\index{inst.h@{inst.h}!drawInstPage@{drawInstPage}}
+\index{drawInstPage@{drawInstPage}!inst.h@{inst.h}}
+\doxysubsubsection{\texorpdfstring{drawInstPage()}{drawInstPage()}}
+{\footnotesize\ttfamily int draw\+Inst\+Page (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This funtions load the instruciton page (a xpm) to the tertiaty buffer (or \char`\"{}static elements\char`\"{} buffer). 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{inst_8h_ae62e8fd281959f3dbecaef9893b17485}\label{inst_8h_ae62e8fd281959f3dbecaef9893b17485}} 
+\index{inst.h@{inst.h}!KB\_InstControls@{KB\_InstControls}}
+\index{KB\_InstControls@{KB\_InstControls}!inst.h@{inst.h}}
+\doxysubsubsection{\texorpdfstring{KB\_InstControls()}{KB\_InstControls()}}
+{\footnotesize\ttfamily void KB\+\_\+\+Inst\+Controls (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scancode }\end{DoxyParamCaption})}
+
+
+
+This function detects if the player pressed esc and exits the instruction page. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & Scan code representing the key the player pressed \\
+\hline
+\end{DoxyParams}
+Here is the caller graph for this function\+:
+% FIG 4

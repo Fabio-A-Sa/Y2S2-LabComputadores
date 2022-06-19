@@ -1,0 +1,48 @@
+\hypertarget{i8254_8h_source}{}\doxysection{i8254.\+h}
+\label{i8254_8h_source}\index{controllers/timer/i8254.h@{controllers/timer/i8254.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef \_LCOM\_I8254\_H\_}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define \_LCOM\_I8254\_H\_}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{5 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define TIMER\_FREQ 1193182 }}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#define TIMER0\_IRQ 0 }}
+\DoxyCodeLine{15 \textcolor{comment}{/* I/O port addresses */}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#define TIMER\_0    0x40 }}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#define TIMER\_1    0x41 }}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#define TIMER\_2    0x42 }}
+\DoxyCodeLine{20 \textcolor{preprocessor}{\#define TIMER\_CTRL 0x43 }}
+\DoxyCodeLine{22 \textcolor{preprocessor}{\#define SPEAKER\_CTRL 0x61 }}
+\DoxyCodeLine{24 \textcolor{comment}{/* Timer control */}}
+\DoxyCodeLine{25 }
+\DoxyCodeLine{26 \textcolor{comment}{/* Timer selection: bits 7 and 6 */}}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#define TIMER\_SEL0   0x00              }}
+\DoxyCodeLine{29 \textcolor{preprocessor}{\#define TIMER\_SEL1   BIT(6)            }}
+\DoxyCodeLine{30 \textcolor{preprocessor}{\#define TIMER\_SEL2   BIT(7)            }}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#define TIMER\_RB\_CMD (BIT(7) | BIT(6)) }}
+\DoxyCodeLine{33 \textcolor{comment}{/* Register selection: bits 5 and 4 */}}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{35 \textcolor{preprocessor}{\#define TIMER\_LSB     BIT(4)                  }}
+\DoxyCodeLine{36 \textcolor{preprocessor}{\#define TIMER\_MSB     BIT(5)                  }}
+\DoxyCodeLine{37 \textcolor{preprocessor}{\#define TIMER\_LSB\_MSB (TIMER\_LSB | TIMER\_MSB) }}
+\DoxyCodeLine{39 \textcolor{comment}{/* Operating mode: bits 3, 2 and 1 */}}
+\DoxyCodeLine{40 }
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#define TIMER\_SQR\_WAVE (BIT(2) | BIT(1)) }}
+\DoxyCodeLine{42 \textcolor{preprocessor}{\#define TIMER\_RATE\_GEN BIT(2)            }}
+\DoxyCodeLine{44 \textcolor{comment}{/* Counting mode: bit 0 */}}
+\DoxyCodeLine{45 }
+\DoxyCodeLine{46 \textcolor{preprocessor}{\#define TIMER\_BCD 0x01 }}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#define TIMER\_BIN 0x00 }}
+\DoxyCodeLine{49 \textcolor{comment}{/* READ-\/BACK COMMAND FORMAT */}}
+\DoxyCodeLine{50 }
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#define TIMER\_RB\_COUNT\_  BIT(5)}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#define TIMER\_RB\_STATUS\_ BIT(4)}}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#define TIMER\_RB\_SEL(n)  BIT((n) + 1)}}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{57 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_LCOM\_I8254\_H */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,0 +1,77 @@
+\hypertarget{guessing_8h}{}\doxysection{game/modes/guessing.h File Reference}
+\label{guessing_8h}\index{game/modes/guessing.h@{game/modes/guessing.h}}
+{\ttfamily \#include $<$lcom/lcf.\+h$>$}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../../controllers/keyboard\+Mouse/i8042.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/video/\+COLORS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/video/graphics.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../sprites/sprites.\+h\char`\"{}}\newline
+Include dependency graph for guessing.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{guessing_8h_a710678f0d413e61a96be3b39bf14838f}{KB\+\_\+\+Guessing\+Controls}} (uint8\+\_\+t \mbox{\hyperlink{main_8c_aa1de7a5557e9d96b83cf03f73c92163f}{scancode}})
+\begin{DoxyCompactList}\small\item\em This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{guessing_8h_a350187e0f82398f183349d13db7b0e2f}{compare\+Guess}} ()
+\begin{DoxyCompactList}\small\item\em This function is called to compare the input of the player and the word given. It checks id the guess is correct or not. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{guessing_8h_a72a912df7f85b2c72f8e69c73c632f05}{draw\+Guessing\+Game}} ()
+\begin{DoxyCompactList}\small\item\em This function loads the differents components of a frame into the secondary buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{guessing_8h_a350187e0f82398f183349d13db7b0e2f}\label{guessing_8h_a350187e0f82398f183349d13db7b0e2f}} 
+\index{guessing.h@{guessing.h}!compareGuess@{compareGuess}}
+\index{compareGuess@{compareGuess}!guessing.h@{guessing.h}}
+\doxysubsubsection{\texorpdfstring{compareGuess()}{compareGuess()}}
+{\footnotesize\ttfamily int compare\+Guess (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function is called to compare the input of the player and the word given. It checks id the guess is correct or not. 
+
+\begin{DoxyReturn}{Returns}
+int 0 if the guess is correct, 0 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 2
+\mbox{\Hypertarget{guessing_8h_a72a912df7f85b2c72f8e69c73c632f05}\label{guessing_8h_a72a912df7f85b2c72f8e69c73c632f05}} 
+\index{guessing.h@{guessing.h}!drawGuessingGame@{drawGuessingGame}}
+\index{drawGuessingGame@{drawGuessingGame}!guessing.h@{guessing.h}}
+\doxysubsubsection{\texorpdfstring{drawGuessingGame()}{drawGuessingGame()}}
+{\footnotesize\ttfamily int draw\+Guessing\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function loads the differents components of a frame into the secondary buffer. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 3
+Here is the caller graph for this function\+:
+% FIG 4
+\mbox{\Hypertarget{guessing_8h_a710678f0d413e61a96be3b39bf14838f}\label{guessing_8h_a710678f0d413e61a96be3b39bf14838f}} 
+\index{guessing.h@{guessing.h}!KB\_GuessingControls@{KB\_GuessingControls}}
+\index{KB\_GuessingControls@{KB\_GuessingControls}!guessing.h@{guessing.h}}
+\doxysubsubsection{\texorpdfstring{KB\_GuessingControls()}{KB\_GuessingControls()}}
+{\footnotesize\ttfamily void KB\+\_\+\+Guessing\+Controls (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scancode }\end{DoxyParamCaption})}
+
+
+
+This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & Code representing the key pressed by the player \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 5
+Here is the caller graph for this function\+:
+% FIG 6

@@ -1,0 +1,48 @@
+digraph "controllers/video/VBE.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="controllers/video/VBE.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="controllers/video/graphics.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8h.html",tooltip=" "];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="controllers/serialPort\l/serialPort.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html",tooltip=" "];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="controllers/video/graphics.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html",tooltip=" "];
+  Node2 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="game/modes/drawing.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8h.html",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="game/modes/drawing.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html",tooltip=" "];
+  Node5 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="game/modes/menu.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8h.html",tooltip=" "];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="game/modes/menu.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$menu_8c.html",tooltip=" "];
+  Node7 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="main.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html",tooltip=" "];
+  Node5 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="game/modes/guessing.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8h.html",tooltip=" "];
+  Node10 -> Node11 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="game/modes/guessing.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8c.html",tooltip=" "];
+  Node10 -> Node12 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="game/modes/inst.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$inst_8c.html",tooltip=" "];
+  Node10 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="game/modes/inst.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$inst_8h.html",tooltip=" "];
+  Node13 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 -> Node14 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="sprites/sprites.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sprites_8h.html",tooltip=" "];
+  Node14 -> Node15 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node15 [label="game/game.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$game_8c.html",tooltip=" "];
+  Node14 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node13 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node14 -> Node16 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node16 [label="sprites/sprites.c",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$sprites_8c.html",tooltip=" "];
+  Node1 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

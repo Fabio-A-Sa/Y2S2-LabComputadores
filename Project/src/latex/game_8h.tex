@@ -1,0 +1,74 @@
+\hypertarget{game_8h}{}\doxysection{game/game.h File Reference}
+\label{game_8h}\index{game/game.h@{game/game.h}}
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+Include dependency graph for game.\+h\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void() \mbox{\hyperlink{game_8h_af764651554437af7a7e62cb5075b25fe}{print\+Mouse}} ()
+\begin{DoxyCompactList}\small\item\em This function prints the xpm of the mouse on the screen, it checks to see with mouse xpm it should use depending on its place on the screen. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{game_8h_af21d5e92b258d5834ab2d92883039e76}{word\+Interpreter}} (char $\ast$\mbox{\hyperlink{sprites_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}{word}}, int y\+Level)
+\begin{DoxyCompactList}\small\item\em This function reads the array of the word given to the draw user and prints the xpm of the letter at the appropiate place on the screen. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{game_8h_ac394319f787d76cd26e4b4c5f180cee9}{game\+Play\+Counter\+Draw}} ()
+\begin{DoxyCompactList}\small\item\em This funtion draws the in-\/game counter on the screen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{game_8h_ac394319f787d76cd26e4b4c5f180cee9}\label{game_8h_ac394319f787d76cd26e4b4c5f180cee9}} 
+\index{game.h@{game.h}!gamePlayCounterDraw@{gamePlayCounterDraw}}
+\index{gamePlayCounterDraw@{gamePlayCounterDraw}!game.h@{game.h}}
+\doxysubsubsection{\texorpdfstring{gamePlayCounterDraw()}{gamePlayCounterDraw()}}
+{\footnotesize\ttfamily int game\+Play\+Counter\+Draw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This funtion draws the in-\/game counter on the screen. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{game_8h_af764651554437af7a7e62cb5075b25fe}\label{game_8h_af764651554437af7a7e62cb5075b25fe}} 
+\index{game.h@{game.h}!printMouse@{printMouse}}
+\index{printMouse@{printMouse}!game.h@{game.h}}
+\doxysubsubsection{\texorpdfstring{printMouse()}{printMouse()}}
+{\footnotesize\ttfamily void() print\+Mouse (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function prints the xpm of the mouse on the screen, it checks to see with mouse xpm it should use depending on its place on the screen. 
+
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+\mbox{\Hypertarget{game_8h_af21d5e92b258d5834ab2d92883039e76}\label{game_8h_af21d5e92b258d5834ab2d92883039e76}} 
+\index{game.h@{game.h}!wordInterpreter@{wordInterpreter}}
+\index{wordInterpreter@{wordInterpreter}!game.h@{game.h}}
+\doxysubsubsection{\texorpdfstring{wordInterpreter()}{wordInterpreter()}}
+{\footnotesize\ttfamily int word\+Interpreter (\begin{DoxyParamCaption}\item[{char $\ast$}]{word,  }\item[{int}]{y\+Level }\end{DoxyParamCaption})}
+
+
+
+This function reads the array of the word given to the draw user and prints the xpm of the letter at the appropiate place on the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em word} & Text to bet written (printed) on the screen \\
+\hline
+{\em y\+Level} & The heigh at the screen where the text will be written \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 6
+Here is the caller graph for this function\+:
+% FIG 7

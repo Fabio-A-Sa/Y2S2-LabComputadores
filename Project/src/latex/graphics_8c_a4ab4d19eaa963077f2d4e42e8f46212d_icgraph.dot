@@ -1,0 +1,20 @@
+digraph "copyDrawingToBuffer"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="RL";
+  Node1 [label="copyDrawingToBuffer",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function copies anything not transparent of the draw buffer to the image buffer."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="drawDrawingGame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$drawing_8c.html#ade6f4eb2ec2071b4ad3b0cd6ed67d8fa",tooltip="This function loads the differents components of a frame into the secondary buffer."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="process_interrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a9c74859d9e32b26fca9274d294eff910",tooltip=" "];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="proj_main_loop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$main_8c.html#a2a16f651eccbd248e1ad3b3b924b143b",tooltip=" "];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="drawGuessingGame",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$guessing_8c.html#a72a912df7f85b2c72f8e69c73c632f05",tooltip="This function loads the differents components of a frame into the secondary buffer."];
+  Node5 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="drawInstPage",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$inst_8c.html#a262ec4378d3e250b5ee8cdae9b40ba28",tooltip="This funtions load the instruciton page (a xpm) to the tertiaty buffer (or \"static elements\" buffer)."];
+  Node6 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+}

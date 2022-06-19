@@ -1,0 +1,35 @@
+\hypertarget{mouse_8h_source}{}\doxysection{mouse.\+h}
+\label{mouse_8h_source}\index{controllers/keyboardMouse/mouse.h@{controllers/keyboardMouse/mouse.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#ifndef \_MOUSE\_}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#define \_MOUSE\_}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <minix/sysutil.h>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}i8042.h"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include <lcom/lcf.h>}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include <stdint.h>}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include <stdio.h>}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{25 int (mouse\_config)(uint8\_t controlWord);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{33 int (KBCWrite)(uint8\_t port, uint8\_t controlWord);}
+\DoxyCodeLine{34 }
+\DoxyCodeLine{41 int (KBCRead)(uint8\_t port, uint32\_t *output);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{48 int (mouse\_subscribe)(uint8\_t *bit\_no);}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{54 void (mouse\_ih)();}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{60 int (mouse\_unsubscribe)();}
+\DoxyCodeLine{61 }
+\DoxyCodeLine{66 int (mouseSync)();}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{72 int (mousePacket)();}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{77 \textcolor{keywordtype}{void} updateMouseLocation();}
+\DoxyCodeLine{78 }
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#endif }\textcolor{comment}{/* \_MOUSE\_ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

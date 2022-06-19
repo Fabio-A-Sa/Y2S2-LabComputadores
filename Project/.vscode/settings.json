@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "colors.h": "c",
+        "*.xpm": "c",
+        "graphics.h": "c"
+    }
+}

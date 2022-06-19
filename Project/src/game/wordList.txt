@@ -1,0 +1,9 @@
+8
+dog
+cat
+teacher
+lcom
+mouse
+keyboard
+computer
+pen

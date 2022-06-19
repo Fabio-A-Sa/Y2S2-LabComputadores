@@ -1,0 +1,37 @@
+digraph "processPlayingGuessSP"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node1 [label="processPlayingGuessSP",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This function determines what a given byte received from the serial port should be used for while pla..."];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="drawToCanvas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#aef6afec6ec4db03339ba38050ab30052",tooltip="This function draws a line between two points on the drawing canvas."];
+  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="drawCircle",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#ac5384a5742642a69b2f08ffaad875298",tooltip="This function draws a circle on the drawing canvas."];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="drawPixelCanvas",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$graphics_8c.html#a9796639951073aea987e7c43c6f5d6ff",tooltip="This function draws a pixel on the drawing canvas."];
+  Node1 -> Node5 [color="midnightblue",fontsize="10",style="solid"];
+  Node5 [label="get_inQueue",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a395975f2e8822bbc842adbf64873623f",tooltip="This function is used to get the received data queue."];
+  Node1 -> Node6 [color="midnightblue",fontsize="10",style="solid"];
+  Node6 [label="pop",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8c.html#ab0a7af1151628d3b2580f6da46706fce",tooltip=" "];
+  Node6 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node7 [label="isEmpty",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8c.html#a29cc47cb6982704e8c4045db0927b888",tooltip=" "];
+  Node1 -> Node8 [color="midnightblue",fontsize="10",style="solid"];
+  Node8 [label="SP_clearInterrupts",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#aeaa3f7885cf1173c43a4f70f58c9abfd",tooltip="The function prepares the queue and FCR for the next interruptiom, it empties the queue to prevent er..."];
+  Node8 -> Node7 [color="midnightblue",fontsize="10",style="solid"];
+  Node1 -> Node9 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 [label="sp_ih",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#af6cc263493df7caac7bd7d0be6b50635",tooltip="Serial ports's interrupt handler."];
+  Node9 -> Node10 [color="midnightblue",fontsize="10",style="solid"];
+  Node10 [label="read_byte",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a0f2fa0bd6d33cf6b49390a96ff0192e5",tooltip="This function reads a byte from the serial port and pushes it to the received data queue."];
+  Node10 -> Node11 [color="midnightblue",fontsize="10",style="solid"];
+  Node11 [label="push",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8c.html#a25897dd8dc27d857546b0d3f81058d8c",tooltip=" "];
+  Node11 -> Node12 [color="midnightblue",fontsize="10",style="solid"];
+  Node12 [label="isFull",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$queue_8c.html#a3f2350d97e2b928dece5642ebfc1d173",tooltip=" "];
+  Node10 -> Node13 [color="midnightblue",fontsize="10",style="solid"];
+  Node13 [label="sp_get_status",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$serial_port_8c.html#a345aef3f6a10f62322b353279a08d690",tooltip="This function reads the status of the serial port."];
+  Node13 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node14 [label="util_sys_inb",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$utils_8c.html#a79a031a8611f5b2d6afa4158e92b0fb4",tooltip="This function reads from the specified port and transforms the recevied value into an 8 bit number;."];
+  Node10 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+  Node9 -> Node14 [color="midnightblue",fontsize="10",style="solid"];
+}

@@ -1,0 +1,132 @@
+\hypertarget{guessing_8c}{}\doxysection{game/modes/guessing.c File Reference}
+\label{guessing_8c}\index{game/modes/guessing.c@{game/modes/guessing.c}}
+{\ttfamily \#include \char`\"{}guessing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../game.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../controllers/serial\+Port/serial\+Port.\+h\char`\"{}}\newline
+Include dependency graph for guessing.\+c\+:
+% FIG 0
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{guessing_8c_a710678f0d413e61a96be3b39bf14838f}{KB\+\_\+\+Guessing\+Controls}} (uint8\+\_\+t \mbox{\hyperlink{main_8c_aa1de7a5557e9d96b83cf03f73c92163f}{scancode}})
+\begin{DoxyCompactList}\small\item\em This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{guessing_8c_a350187e0f82398f183349d13db7b0e2f}{compare\+Guess}} ()
+\begin{DoxyCompactList}\small\item\em This function is called to compare the input of the player and the word given. It checks id the guess is correct or not. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{guessing_8c_a72a912df7f85b2c72f8e69c73c632f05}{draw\+Guessing\+Game}} ()
+\begin{DoxyCompactList}\small\item\em This function loads the differents components of a frame into the secondary buffer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{guessing_8c_aa535a3201e6b21c12dc05f4fa9a3e7c2}{game\+Mode}}
+\item 
+int \mbox{\hyperlink{guessing_8c_ab7ad0796d84021de0fd46246b3d5096f}{game\+State}}
+\item 
+int \mbox{\hyperlink{guessing_8c_a33127e2e90e8cc1de68f6e4d76298c82}{word\+Bytes}}
+\item 
+int \mbox{\hyperlink{guessing_8c_a3563de37669f4aa78c6f8b6ecfdfd246}{word\+Size}}
+\item 
+char \mbox{\hyperlink{guessing_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}{word}} \mbox{[}24\mbox{]}
+\item 
+char \mbox{\hyperlink{guessing_8c_ae08a46ead7421adf0ce8177fc1782dec}{input\+Word}} \mbox{[}24\mbox{]}
+\item 
+int \mbox{\hyperlink{guessing_8c_a0baf6ee0a75a7417751bb7b1e4bdc564}{input\+Word\+Counter}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{guessing_8c_a350187e0f82398f183349d13db7b0e2f}\label{guessing_8c_a350187e0f82398f183349d13db7b0e2f}} 
+\index{guessing.c@{guessing.c}!compareGuess@{compareGuess}}
+\index{compareGuess@{compareGuess}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{compareGuess()}{compareGuess()}}
+{\footnotesize\ttfamily int compare\+Guess (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function is called to compare the input of the player and the word given. It checks id the guess is correct or not. 
+
+\begin{DoxyReturn}{Returns}
+int 0 if the guess is correct, 0 if otherwise 
+\end{DoxyReturn}
+Here is the caller graph for this function\+:
+% FIG 1
+\mbox{\Hypertarget{guessing_8c_a72a912df7f85b2c72f8e69c73c632f05}\label{guessing_8c_a72a912df7f85b2c72f8e69c73c632f05}} 
+\index{guessing.c@{guessing.c}!drawGuessingGame@{drawGuessingGame}}
+\index{drawGuessingGame@{drawGuessingGame}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{drawGuessingGame()}{drawGuessingGame()}}
+{\footnotesize\ttfamily int draw\+Guessing\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+This function loads the differents components of a frame into the secondary buffer. 
+
+\begin{DoxyReturn}{Returns}
+Return 0 if there is no error, 1 if otherwise 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+% FIG 2
+Here is the caller graph for this function\+:
+% FIG 3
+\mbox{\Hypertarget{guessing_8c_a710678f0d413e61a96be3b39bf14838f}\label{guessing_8c_a710678f0d413e61a96be3b39bf14838f}} 
+\index{guessing.c@{guessing.c}!KB\_GuessingControls@{KB\_GuessingControls}}
+\index{KB\_GuessingControls@{KB\_GuessingControls}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{KB\_GuessingControls()}{KB\_GuessingControls()}}
+{\footnotesize\ttfamily void KB\+\_\+\+Guessing\+Controls (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{scancode }\end{DoxyParamCaption})}
+
+
+
+This function process the pressing of jeys by the player and realizes the function correct action for the key pressed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em scancode} & Code representing the key pressed by the player \\
+\hline
+\end{DoxyParams}
+Here is the call graph for this function\+:
+% FIG 4
+Here is the caller graph for this function\+:
+% FIG 5
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{guessing_8c_aa535a3201e6b21c12dc05f4fa9a3e7c2}\label{guessing_8c_aa535a3201e6b21c12dc05f4fa9a3e7c2}} 
+\index{guessing.c@{guessing.c}!gameMode@{gameMode}}
+\index{gameMode@{gameMode}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{gameMode}{gameMode}}
+{\footnotesize\ttfamily int game\+Mode\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{guessing_8c_ab7ad0796d84021de0fd46246b3d5096f}\label{guessing_8c_ab7ad0796d84021de0fd46246b3d5096f}} 
+\index{guessing.c@{guessing.c}!gameState@{gameState}}
+\index{gameState@{gameState}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{gameState}{gameState}}
+{\footnotesize\ttfamily int game\+State\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{guessing_8c_ae08a46ead7421adf0ce8177fc1782dec}\label{guessing_8c_ae08a46ead7421adf0ce8177fc1782dec}} 
+\index{guessing.c@{guessing.c}!inputWord@{inputWord}}
+\index{inputWord@{inputWord}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{inputWord}{inputWord}}
+{\footnotesize\ttfamily char input\+Word\mbox{[}24\mbox{]}}
+
+\mbox{\Hypertarget{guessing_8c_a0baf6ee0a75a7417751bb7b1e4bdc564}\label{guessing_8c_a0baf6ee0a75a7417751bb7b1e4bdc564}} 
+\index{guessing.c@{guessing.c}!inputWordCounter@{inputWordCounter}}
+\index{inputWordCounter@{inputWordCounter}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{inputWordCounter}{inputWordCounter}}
+{\footnotesize\ttfamily int input\+Word\+Counter = 0}
+
+\mbox{\Hypertarget{guessing_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}\label{guessing_8c_a2b5ef1dc34ed047ffcb38824e2ca5d6c}} 
+\index{guessing.c@{guessing.c}!word@{word}}
+\index{word@{word}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{word}{word}}
+{\footnotesize\ttfamily char word\mbox{[}24\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{guessing_8c_a33127e2e90e8cc1de68f6e4d76298c82}\label{guessing_8c_a33127e2e90e8cc1de68f6e4d76298c82}} 
+\index{guessing.c@{guessing.c}!wordBytes@{wordBytes}}
+\index{wordBytes@{wordBytes}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{wordBytes}{wordBytes}}
+{\footnotesize\ttfamily int word\+Bytes\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{guessing_8c_a3563de37669f4aa78c6f8b6ecfdfd246}\label{guessing_8c_a3563de37669f4aa78c6f8b6ecfdfd246}} 
+\index{guessing.c@{guessing.c}!wordSize@{wordSize}}
+\index{wordSize@{wordSize}!guessing.c@{guessing.c}}
+\doxysubsubsection{\texorpdfstring{wordSize}{wordSize}}
+{\footnotesize\ttfamily int word\+Size\hspace{0.3cm}{\ttfamily [extern]}}
+

@@ -1,0 +1,19 @@
+digraph "controllers"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_87b6ed4386158a4d6cd0ecd5fb5bd5c2 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,bold,", label="", fontname="Helvetica", fontsize="10", URL="dir_87b6ed4386158a4d6cd0ecd5fb5bd5c2.html"]
+    dir_87b6ed4386158a4d6cd0ecd5fb5bd5c2 [shape=plaintext, label="controllers"];
+  dir_9e85dcce946361281c4805cf9a6590ad [shape=box, label="keyboardMouse", style="filled,", fillcolor="#dae1ef", color="grey25", URL="dir_9e85dcce946361281c4805cf9a6590ad.html"];
+  dir_49413fbf842ab040d60b06b9851af279 [shape=box, label="serialPort", style="filled,", fillcolor="#dae1ef", color="grey25", URL="dir_49413fbf842ab040d60b06b9851af279.html"];
+  dir_e8dcd8da7cda59f2f0b538195609ea08 [shape=box, label="timer", style="filled,", fillcolor="#dae1ef", color="grey25", URL="dir_e8dcd8da7cda59f2f0b538195609ea08.html"];
+  dir_5032c9f7d5b4d268bec58cce60a3c073 [shape=box, label="video", style="filled,", fillcolor="#dae1ef", color="grey25", URL="dir_5032c9f7d5b4d268bec58cce60a3c073.html"];
+  }
+  dir_37c6514aeece95293041e34c0f2e0784 [shape=box, label="game", style="", fillcolor="#edf0f7", color="red", URL="dir_37c6514aeece95293041e34c0f2e0784.html"];
+  dir_49413fbf842ab040d60b06b9851af279->dir_37c6514aeece95293041e34c0f2e0784 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000001.html"];
+  dir_49413fbf842ab040d60b06b9851af279->dir_5032c9f7d5b4d268bec58cce60a3c073 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000007.html"];
+  dir_5032c9f7d5b4d268bec58cce60a3c073->dir_37c6514aeece95293041e34c0f2e0784 [headlabel="1", labeldistance=1.5 headhref="dir_000007_000001.html"];
+}

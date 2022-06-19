@@ -1,0 +1,15 @@
+digraph "game/modes"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  compound=true
+  subgraph clusterdir_37c6514aeece95293041e34c0f2e0784 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", style="filled,dashed,", label="game", fontname="Helvetica", fontsize="10", URL="dir_37c6514aeece95293041e34c0f2e0784.html"]
+  dir_09cf33106a30a6cedbfc340f40116b87 [shape=box, label="modes", style="filled,bold,", fillcolor="#edf0f7", color="grey25", URL="dir_09cf33106a30a6cedbfc340f40116b87.html"];
+  }
+  dir_08bb120665109797b5051b9ad871a2ef [shape=box, label="sprites", style="", fillcolor="#edf0f7", color="grey25", URL="dir_08bb120665109797b5051b9ad871a2ef.html"];
+  dir_87b6ed4386158a4d6cd0ecd5fb5bd5c2 [shape=box, label="controllers", style="", fillcolor="#edf0f7", color="red", URL="dir_87b6ed4386158a4d6cd0ecd5fb5bd5c2.html"];
+  dir_09cf33106a30a6cedbfc340f40116b87->dir_08bb120665109797b5051b9ad871a2ef [headlabel="3", labeldistance=1.5 headhref="dir_000003_000005.html"];
+  dir_09cf33106a30a6cedbfc340f40116b87->dir_87b6ed4386158a4d6cd0ecd5fb5bd5c2 [headlabel="16", labeldistance=1.5 headhref="dir_000003_000000.html"];
+}
