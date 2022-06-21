@@ -44,14 +44,13 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   return sys_outb(TIMER_CTRL, controlWord) | sys_outb(selectedTimer, LSB) | sys_outb(selectedTimer, MSB);
 }
 
-
 int (timer_subscribe_int)(uint8_t *bit_no) {
   if(bit_no == NULL)
     return 1;
   
   *bit_no = BIT(hook_id);
   
-  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE,&hook_id);
+  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id);
 }
 
 int (timer_unsubscribe_int)() {

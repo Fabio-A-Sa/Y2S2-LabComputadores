@@ -7,7 +7,7 @@
     "compilerPath": "",
     "cStandard": "c11",
     "defines": ["__minix", "_MINIX", "_NETBSD_SOURCE", "__i386__"],
-    "includePath": ["${workspaceFolder}", "${env:minix.include}"],
+    "includePath": ["${workspaceFolder}", "${env:minix.include}", "../.minix-src/include/"],
     "browse": {
       "path": ["${workspaceFolder}", "${env:minix.include}"],
       "limitSymbolsToIncludedHeaders": false,
