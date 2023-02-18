@@ -226,19 +226,129 @@ O CPU, num determinado momento, obteve o valor 5 na IRQ_LINE. Para descobrir os 
 uint8_t irq_line = 5; // 00000101
 ```
 
-Assim. Em termos de código em C é possível verificar as interrupções dos dispositivos através da
+Assim conclui-se que houve interrupções do timer (bit 0) e do teclado (bit 2). Em termos de código em C é possível verificar as interrupções dos dispositivos através de operações *bitwise*:
 
 ```c
-if () printf();
-if () printf();
-if () printf();
+if (irq_line & BIT(hook_id_timer)) printf("Timer interrupt!\n");
+if (irq_line & BIT(hook_id_mouse)) printf("Mouse interrupt!\n");
+if (irq_line & BIT(hook_id_keyboard)) printf("Keyboard interrupt!\n");
 ```
 
 ### Erro típico #4 - Tratamento incompleto das interrupções
 
+Na realidade o tratamento de interrupções em C é mais verboso. O ciclo base, que é também dado nos testes de LCOM, é o seguinte:
+
+```c
+#include <lcom/lcf.h>
+int ipc_status;
+message msg;
+while( 1 ) { /* You may want to use a different condition */
+    /* Get a request message. */
+    if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { /* received notification*/
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE: /* hardware interrupt notification */
+          if (msg.m_notify.interrupts & irq_set) {
+            /* process it */
+          }
+          break;
+        default:
+          break; /* no other notifications expected: do nothing */ 
+      }
+    } else { /* received a standard message, not a notification */ 
+        /* no standard messages expected: do nothing */
+    }
+}
+```
+
+Uma implementação **errada** do exercício anterior poderia ser esta:
+
+```c
+// Subscrição das interrupções
+timer_subscribe_int(&hook_id_timer);
+mouse_subscribe_int(&mouse_id_timer);
+keyboard_subscribe_int(&keyboard_id_timer);
+
+while(<CONDITION>) {
+    if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // Tratamento das interrupções
+
+          if (msg.m_notify.interrupts & hook_id_timer) {
+            printf("Timer interrupt!\n");
+          } else if (msg.m_notify.interrupts & hook_id_mouse) {
+            printf("Mouse interrupt!\n");
+          } else if (msg.m_notify.interrupts & hook_id_keyboard) {
+            printf("Keyboard interrupt!\n");
+          } else {
+            // Nothing
+          }
+
+          break;
+        default:
+          break;
+      }
+}
+
+// Desativação das interrupções
+timer_unsubscribe_int();
+mouse_unsubscribe_int();
+keyboard_unsubscribe_int();
+```
+
+Onde está o erro? Se forem geradas duas ou mais interrupções só a primeira será tratada (devido à condição **else if**). É por isso importante implementar as condições recorrendo sempre a **if**s:
+
+```c
+// Subscrição das interrupções
+timer_subscribe_int(&hook_id_timer);
+mouse_subscribe_int(&mouse_id_timer);
+keyboard_subscribe_int(&keyboard_id_timer);
+
+while(<CONDITION>) {
+    if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          // Tratamento das interrupções
+
+          if (msg.m_notify.interrupts & hook_id_timer) {
+            printf("Timer interrupt!\n");
+          }
+          if (msg.m_notify.interrupts & hook_id_mouse) {
+            printf("Mouse interrupt!\n");
+          }
+          if (msg.m_notify.interrupts & hook_id_keyboard) {
+            printf("Keyboard interrupt!\n");
+          }
+
+          break;
+        default:
+          break;
+      }
+}
+
+// Desativação das interrupções
+timer_unsubscribe_int();
+mouse_unsubscribe_int();
+keyboard_unsubscribe_int();
+```
+
 ### Exemplo 4:
 
-Queremos um programa que determine a quantidade de interrupções do teclado geradas em 10 segundos. Uma possível solução seria a seguinte:
+Para finalizar o módulo e aprendizagem do módulo `i8254` temos um exercício mais completo. Queremos um programa completo que determine a quantidade de interrupções do teclado geradas em 10 segundos. Uma possível solução seria a seguinte:
 
 ```c
 
