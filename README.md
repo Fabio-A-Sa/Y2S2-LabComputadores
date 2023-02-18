@@ -6,9 +6,7 @@ As a LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with 
 
 - [Lab0](/Labs/lab0/) - The C language
 - [Lab2](/Labs/lab2/) - i8254, the PC Timer
-
-
----
+- ... //TODO
 
 <br>
 <h2 align = "center" >Final Grade: 19/20</h2>
