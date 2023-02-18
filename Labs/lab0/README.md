@@ -287,12 +287,12 @@ int main(int argc, char *argv[])
 }
 ```
 
-O ficheiro `shift.c` contém um exemplo de código em C que calcula o deslocamento de N bits à direita de um valor val. <br>
+O ficheiro `shift.c` contém um exemplo de código em C que ativa o bit N de um valor val. <br>
 Para usá-lo basta no Minix3 correr os seguintes comandos:
 
 ```bash
 minix$ cc -Wall shift.c -o shift
-minix$ ./shift
+minix$ ./shift <VAL> <N>
 ```
 
 ---
