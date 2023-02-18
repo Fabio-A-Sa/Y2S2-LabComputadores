@@ -294,3 +294,8 @@ Para usá-lo basta no Minix3 correr os seguintes comandos:
 minix$ cc -Wall shift.c -o shift
 minix$ ./shift
 ```
+
+---
+
+@ Nuno Cardoso & Fábio Sá <br>
+@ Fevereiro de 2023
