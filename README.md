@@ -5,7 +5,7 @@ This repository contains all the exercises and assessments of the UC Laboratóri
 As a LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with Professor [Nuno Cardoso](https://sigarra.up.pt/feup/pt/func_geral.FormView?p_codigo=683234), I intend to update this repository according to new exercises and improve the available notes of theoretical classes.
 
 - [Lab0](/Labs/lab0/) - The C language
-- [Lab2](/Labs/lab2/) - i8254, the PC Timer
+- [Lab2](/Labs/lab2/) - i8254, the PC's Timer
 - ... //TODO
 
 <br>
