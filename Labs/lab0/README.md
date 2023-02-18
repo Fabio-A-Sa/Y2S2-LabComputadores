@@ -4,7 +4,7 @@
 
 - [Argumentos](#argumentos)
 - [Máscaras](#máscaras)
-- Macros
+- [Macros](#macros)
 - Shifts
 
 ## Argumentos
@@ -198,3 +198,39 @@ int is_odd_v2(const char number) {
     return number & 1;
 }
 ```
+
+## Macros
+
+De uma forma muito simples, as macros em linguagem C são basicamente substituições de strings. As Macros são tratadas (expandidas) pelo pré-processador e criadas em linguagem C através da diretiva #define. Normalmente, as macros são definidas em letras maiúsculas, desta forma é fácil identificar uma macro ao ler o código de um programa.
+
+```c
+#define TRUE    1
+#define FALSE   0
+
+int is_number(char c)
+{
+  if (c >= '0' && c <= '9')
+    return TRUE;
+  return FALSE;
+}
+```
+
+Quando o código for compilado, o pré-processador substitui cada uma das macros pelo seu valor. Neste caso, onde aparece TRUE será substituído por 1, e onde aparece FALSE, será substituído por 0. <br>
+Em LCOM ao longo do semestre iremos usar macros ao implementar device drivers para o sistema operativo MINIX. A mais conhecida e importante é a BIT:
+
+```c
+// BIT(0) = 0b00000001 = 1
+// BIT(1) = 0b00000010 = 2
+// BIT(2) = 0b00000100 = 4
+// ...
+#define BIT(N) (1 << (N))
+```
+
+O ficheiro `macros.c` contém um exemplo de código em C que calcula valores usando a macro anterior. <br>
+Para usá-lo basta no Minix3 correr os seguintes comandos:
+
+```bash
+minix$ cc -Wall macros.c -o macros
+minix$ ./macros
+```
+
