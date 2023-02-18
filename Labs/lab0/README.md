@@ -3,7 +3,7 @@
 ## Tópicos
 
 - [Argumentos](#argumentos)
-- Máscaras
+- [Máscaras](#máscaras)
 - Macros
 - Shifts
 
@@ -108,5 +108,93 @@ int valid(const char *arg) {
 if (!valid(argv[1]) || !valid(argv[2])) {
     printf("erro: sintaxe dos argumentos inválida!\n");
     return 1;
+}
+```
+
+## Máscaras
+
+Em linguagem C, o tamanho de dados mínimo que se pode alterar é um byte (8 bits):
+
+```c
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+  unsigned char c;
+
+  // definir o valor inicial de c
+  c = 95;  // 0b01011111
+  printf("c: %d (%c)\n", c, c);
+
+  // alterar o valor de c
+  c = 100; // 0b01100100
+  printf("c: %d (%c)\n", c, c);
+
+  return 0;
+}
+```
+
+Para alterar algum bit do valor original é necessário usar máscaras e operações de *bitwise*:
+
+### AND &
+
+Importante para desativar um determinado bit
+
+```note
+  0011 1000
+& 1010 1001
+-------------
+  0010 1000
+```
+
+### OR |
+
+Importante para ativar um determinado bit
+
+```note
+  0011 1000
+| 1010 1001
+-------------
+  1011 1001
+```
+
+### XOR ^
+
+Importante para inverter um determinado bit
+
+```note
+  0011 1000
+^ 1010 1001
+-------------
+  1001 0001
+```
+
+O ficheiro `masks.c` contém um exemplo de código em C que calcula valores usando estas três operações <br>
+Para usá-lo basta no Minix3 correr os seguintes comandos:
+
+```bash
+minix$ cc -Wall masks.c -o masks
+minix$ ./masks
+```
+
+### Curiosidade: paridade de números
+
+Estas operações de bitwise dão, por exemplo, para determinar se um número é par ou ímpar. Na sua versão tradicional o código podia ser implementado da seguinte maneira:
+
+```c
+// Return 0 -> number is even
+// Return 1 -> number is odd
+int is_odd_v1(const char number) {
+    return number % 2;
+}
+```
+
+Utilizando a operação AND é possível determinar se o número é ímpar simplesmente assim:
+
+```c
+// Se number = 0x???????1 (ímpar), então 0x???????1 & 0x00000001 = 1
+// Se number = 0x???????0 (par),   então 0x???????0 & 0x00000001 = 0
+int is_odd_v2(const char number) {
+    return number & 1;
 }
 ```
