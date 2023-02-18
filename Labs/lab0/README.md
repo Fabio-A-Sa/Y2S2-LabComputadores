@@ -5,7 +5,7 @@
 - [Argumentos](#argumentos)
 - [Máscaras](#máscaras)
 - [Macros](#macros)
-- Shifts
+- [Shifts](#shifts)
 
 ## Argumentos
 
@@ -21,7 +21,7 @@ int main(int argc, char *argv[])
 }
 ```
 
-`argc`  – valor inteiro que indica o número de argumentos que foram passados ao chamar o programa na linha de comandos;
+`argc`  – valor inteiro que indica o número de argumentos que foram passados ao chamar o programa na linha de comandos; <br>
 `argv` – array de apontadores para caracteres, que contém os argumentos, um para cada "palavra" passada na linha de comandos.
 
 Como o argv[0] armazena sempre o nome do programa que é executado na linha de comandos, o valor do argc é no mínimo igual a 1, porque existe sempre um argumento de entrada, o nome do programa (argv[0]).
@@ -234,3 +234,63 @@ minix$ cc -Wall macros.c -o macros
 minix$ ./macros
 ```
 
+## Shifts
+
+Tal como o nome sugere, os operadores de shifting / deslocamento efectuam o deslocamento de bits. Na linguagem C existem dois operadores de deslocamento:
+- deslocamento à esquerda: valor << n, que é constituído por dois operandos (valor e n) e um operador <<;
+- deslocamento à direita: valor >> n, que é constituído por dois operandos (valor e n) e um operador >>.
+
+Caso o deslocamento fosse de n bits para a esquerda, perder-se-iam os n bits mais significativos, sendo ainda acrescentados n bits a 0 como bits menos significativos.
+ 
+Quando efectuada sobre a representação binária de um número inteiro, a operação deslocamento para a esquerda em n bits produz um valor que corresponde à multiplicação por 2^n do valor inteiro original. Por exemplo, o deslocamento em um bit para a esquerda do valor original 00010010 que corresponde ao inteiro 18 em base decimal, é transformado no valor 00100100 que corresponde ao valor 36 em base decimal, isto é, ao dobro do valor original.
+
+O operador deslocamento para a direita funciona de forma análoga ao operador de deslocamento para a esquerda, alterando-se somente o sentido do deslocamento.
+Assim, na operação de deslocamento à direita de n bits, há lugar à deslocação de n bits para a direita.
+
+#### Deteção do estado do bit N
+
+```c
+int is_bit_um(int valor, int num_bit)
+{
+  int num_bits_int = sizeof(valor) * 8;
+  assert( num_bit < 32 );
+  int mascara_num_bit = (1 << num_bit);
+  return valor & mascara_num_bit;
+}
+```
+
+#### Ativação seletiva do bit N
+
+```c
+#define BIT(n)   (1 << (n))
+
+int main(int argc, char *argv[])
+{
+  char val;
+  int n;
+
+  printf("Insira o valor de val: ");
+  scanf("%c", &val);
+
+  printf("Insira o valor de n: ");
+  scanf("%d", &n);
+
+  if (n < 0 || n > 7) {
+    printf("error: valor de 'n' invalido [0..7]\n");
+    return 1;
+  }
+
+  val = val | BIT(n);
+  printf("O novo valor de 'val': 0x%8x\n", val);
+  
+  return 0;
+}
+```
+
+O ficheiro `shift.c` contém um exemplo de código em C que calcula o deslocamento de N bits à direita de um valor val. <br>
+Para usá-lo basta no Minix3 correr os seguintes comandos:
+
+```bash
+minix$ cc -Wall shift.c -o shift
+minix$ ./shift
+```
