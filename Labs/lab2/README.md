@@ -18,7 +18,7 @@
 
 ## i8254
 
-O temporizador do computador, também conhecido como i8254, é um dos mais básicos tipos de harware que podemos programar na linguagem C. Com ele cada computador tem a funcionalidade de medir um tempo preciso sem depender da rapidez do processador.
+O temporizador do computador, também conhecido como i8254, é um dos mais básicos tipos de hardware que podemos programar na linguagem C. Com ele cada computador tem a funcionalidade de medir um tempo preciso sem depender da rapidez do processador.
 
 O i8254 implementa internamente três contadores, cada um com 16 bits (*uint16_t*):
 - `Timer 0`, no registo 0x40; 
@@ -32,7 +32,10 @@ As duas *system calls* que vamos usar para este e outros dispositivos ao longo d
 - `sys_outb`, manda informação para o timer (como por exemplo uma nova configuração a ser seguida);
 - `sys_inb`, recebe informação do timer (como por exemplo a configuração atual);
 
-![Funcionamento do i8254](../../Images/Timer.png)
+<p align="center">
+  <img src="../../Images/Timer.png">
+  <p align="center">Funcionamento do i8254</p>
+</p>
 
 Na linguagem C as duas funções têm a seguinte estrutura:
 
@@ -52,7 +55,7 @@ int sys_inb(uint8_t port, uint32_t *value);
 
 ### Erro típico #1 - Tipo dos argumentos
 
-Note-se que o segundo argumento de `sys_inb` é um inteiro de 32 bits. No contexto de LCOM só serão necessários 8 bits (1 byte) e essa diferença muitas vezes leva a erros desnecessários. Aconselha-se por esse motivo à implementação e utilização de uma função auxiliar que funciona como uma interface entre os dois tipos:
+Note-se que o segundo argumento de `sys_inb` é um apontador para um inteiro de 32 bits. No contexto de LCOM só serão necessários 8 bits (1 byte) e essa diferença muitas vezes leva a erros desnecessários. Aconselha-se por esse motivo à implementação e utilização de uma função auxiliar que funciona como uma interface entre os dois tipos:
 
 ```c
 int util_sys_inb(int port, uint8_t *value) {
