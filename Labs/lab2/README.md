@@ -97,22 +97,89 @@ As informações enviadas ao i8254 através do registo 0x43 são muitas vezes co
 
 #### Exemplo
 
-Queremos ler a **configuração** do Timer 2. Assim, o comando a enviar será do modo:
+Queremos ler a **configuração** do Timer 2. O conjunto de instruções a tomar será o seguinte:
 
 ```c
 // BIT(7) e BIT(6) - Ativação da opção Read-Back, para podermos ler depois
 // BIT(5) - Desativação da leitura do contador. Só queremos ler a configuração.
 // BIT(3) - Como queremos ler o Timer 2, ativamos o BIT 3
-uint8_t command = BIT(7) | BIT(6) | BIT(5) | BIT(3); // 11101000
+uint8_t command = BIT(7) | BIT(6) | BIT(5) | BIT(3); // 11101000 = 0xE8
+sys_outb(0x43, 0xE8);             
+uint8_t configuration;
+util_sys_inb(0x42, &configuration);
+printf("A configuração atual do Timer2 é %02x\n", configuration);
 ```
 
 ### Para configurar o Timer -> Configuration Command
 
 <p align="center">
   <img src="../../Images/ControlWord.png">
-  <p align="center">Construção do Configuration Command. Considerar X = 0 por questões de compatibilidade.</p>
+  <p align="center">Construção do Configuration Command.</p>
 </p><br>
+
+Em LCOM seguiremos quase sempre estas configurações:
+- Counter initialization: 11, LSB followed by MSB;
+- BCD: 0, queremos o contador em modo binário de 16 bits;
+- Onde aplicável, X = 0, por questões de compatibilidade em versões posteriores de dispositivos Intel;
+- Counting Mode 3;
+
+Após a escrita do comando de configuração no registo de controlo, 0x43, é necessário injetar o valor inicial no contador pela porta correspondente (0x40, 0x41 ou 0x42).
+Cada contador interno do i8254 possui um valor interno que é decrementado a cada ciclo de relógio, ou seja no caso do Minix, 1193182 vezes por minuto. Sempre que o valor fica a 0 o dispositivo avisa o CPU (gera uma **interrupção**, algo a estudar em breve) e volta ao valor original.
+
+Para configurar a frequência do timer selecionado, de modo a conseguirmos por exemplo contar segundos (com uma frequência de 60Hz) através das interrupções geradas, devemos calcular o valor interno:
+
+```c
+#define TIMER_FREQUENCY 1193182
+uint16_t frequency = 60;
+uint16_t intern_value = TIMER_FREQUENCY / frequency;
+```
+
+Com o valor interno calculado podemos colocá-lo no timer. Como se trata tipicamente de um valor de 16 bits, então devemos separá-lo em dois valores (MSB e LSB) através de funções auxiliares e só depois enviar LSB seguido de MSB. Essas funções são definidas no ficheiro `util.c`:
+
+```c
+// LSB -> Less Significant Bits
+int util_get_LSB (uint16_t val, uint8_t *lsb) {
+  if (lsb == NULL) return 1; // O apontador deve ser válido
+  *lsb = 0xFF & val;         // Coloca no apontador os 8 bits menos significativos do valor
+  return 0;
+}
+
+// MSB -> Most Significant Bits
+int util_get_MSB (uint16_t val, uint8_t *msb) {
+  if (msb == NULL) return 1; // O apontador deve ser válido
+  *msb = (val >> 8) & 0xFF;  // Coloca no apontador os 8 bits mais significativos do valor
+  return 0;
+}
+```
 
 ### Erro típico #3 - Configurações incompletas
 
-Exemplo:
+Por segurança só devemos modificar as configurações que necessitamos mesmo, deixando os outros bits iguais aos que o Sistema Operativo decidiu. Uma forma simples de contornar a situação é consultar primeiro a configuração atual do dispositivo e só depois modificar o desejado.
+
+#### Exemplo:
+
+Queremos configurar o Timer 1 com frequência de 60Hz. O conjunto de instruções a tomar será o seguinte:
+
+```c
+// Consultar a configuração atual do Timer 1
+uint8_t readback_command = = BIT(7) | BIT(6) | BIT(5) | BIT(2); // 11100100 = 0xE4
+sys_outb(0x43, 0xE4);             
+uint8_t old_configuration, new_configuration;
+util_sys_inb(0x41, &old_configuration);
+
+// Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os restantes
+new_configuration = old_configuration | BIT (7) | BIT(6);
+
+// Cálculo do valor inicial do contador e partes mais e menos significativas
+uint16_t initial_value = TIMER_FREQUENCY / 60;
+uint8_t lsb, msb;
+util_get_lsb(initial_value, &lsb);
+util_get_msb(initial_value, &msb);
+
+// Avisamos o i8254 que vamos configurar o Timer 1
+sys_outb(0x43, new_configuration);
+
+// Injetamos o valor inicial do contador (lsb seguido de msb) diretamente no registo 0x41 (Timer 1)
+sys_outb(0x41, lsb);
+sys_outb(0x41, msb);
+```
