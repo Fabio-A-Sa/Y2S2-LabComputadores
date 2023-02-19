@@ -88,7 +88,7 @@ printf("A configuração atual do Timer1 é %02x\n", configuration);
 
 As informações enviadas ao i8254 através do registo 0x43 são muitas vezes comandos de controlo. Cada comando de controlo, chamado de `control word`, possui apenas 8 bits e têm uma construção bastante restritiva:
 
-### Para leitura da configuração de um Timer ou o valor do contador - Read-Back Command
+### Para leitura da configuração de um Timer ou o valor do contador -> Read-Back Command
 
 <p align="center">
   <img src="../../Images/ControlWord2.png">
@@ -102,11 +102,11 @@ Queremos ler a **configuração** do Timer 2. Assim, o comando a enviar será do
 ```c
 // BIT(7) e BIT(6) - Ativação da opção Read-Back, para podermos ler depois
 // BIT(5) - Desativação da leitura do contador. Só queremos ler a configuração.
-// BIT(1) - Como queremos ler o Timer 0, ativamos o BIT 1
-uint8_t command = BIT(7) | BIT(6) | BIT(5) | BIT(1); // 11100010
+// BIT(3) - Como queremos ler o Timer 2, ativamos o BIT 3
+uint8_t command = BIT(7) | BIT(6) | BIT(5) | BIT(3); // 11101000
 ```
 
-### Para configurar o Timer - Configuration Command
+### Para configurar o Timer -> Configuration Command
 
 <p align="center">
   <img src="../../Images/ControlWord.png">
