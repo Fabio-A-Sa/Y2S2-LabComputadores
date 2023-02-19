@@ -3,8 +3,7 @@
 ## Tópicos
 
 - [O que é o i8254](#i8254)
-- ControlWord
-- Visualizar as configurações atuais
+- [Control Word](#control-word)
 - Alteração da frequência do Timer
 - Interrupções
 - Compilação do código
@@ -51,7 +50,9 @@ int sys_outb(uint8_t port, uint8_t command);
 int sys_inb(uint8_t port, uint32_t *value);
 ```
 
-Note-se que o segundo argumento de `sys_inb` pode conter até 32 bits. No contexto de LCOM só serão necessários 8 bits, 1 byte, e essa diferença muitas vezes leva a erros desnecessários. Aconselha-se por esse motivo à implementação e utilização de uma função auxiliar que funciona como uma interface entre os dois tipos:
+### Erro típico #1 - Tipo dos argumentos
+
+Note-se que o segundo argumento de `sys_inb` é um inteiro de 32 bits. No contexto de LCOM só serão necessários 8 bits (1 byte) e essa diferença muitas vezes leva a erros desnecessários. Aconselha-se por esse motivo à implementação e utilização de uma função auxiliar que funciona como uma interface entre os dois tipos:
 
 ```c
 int util_sys_inb(int port, uint8_t *value) {
@@ -63,13 +64,13 @@ int util_sys_inb(int port, uint8_t *value) {
 }
 ```
 
-### Cuidado
+### Erro típico #2 - Leituras inválidas
 
 Sempre que quisermos algo do Timer (ler configurações, introduzir uma nova configuração, atualizar o contador interno) é preciso primeiro avisá-lo, escrevendo no registo de controlo (0x43) a ControlWord adequada. A leitura direta de qualquer um dos registos dos contadores (0x40, 0x41, 0x42) dá origem a erros e a valores errados. Assim, antes de qualquer operação de leitura `sys_inb()` é necessário uma escrita `sys_outb()`.
 
 Exemplo:
 
-Imagine-se que o comando `0b01001011`, ou `0x75` em hexadecimal, permite avisar o Timer 1 que vamos ler a sua configuração atual. O código correspondente dessa ação será:
+Imagine-se que o comando `0b01001011`, ou `0x75` em hexadecimal, permite avisar o Timer 1 (presente em `0x41`) que vamos ler a sua configuração atual. O código correspondente dessa ação será:
 
 ```c
 sys_outb(0x43, 0x75);
@@ -77,3 +78,13 @@ uint8_t configuration;
 util_sys_inb(0x41, &configuration);
 printf("A configuração atual do Timer1 é %02x\n", configuration);
 ```
+
+## Control Word
+
+As informações enviadas ao i8254 através do registo 0x43 são muitas vezes comandos de controlo. Cada comando de controlo, chamado de `control word`, possui apenas 8 bits e têm uma construção bastante restritiva:
+
+Bit 7 e 6: 
+
+### Erro típico #3 - Configurações incompletas
+
+Exemplo:
