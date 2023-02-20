@@ -76,7 +76,41 @@ int main() {
 
 ## Organização do código
 
-// TODO
+Um dos objetivos das atividades do laboratório é desenvolver os quatro componentes principais (timer, keyboard, mouse, video), de modo a construir módulos completamente testados e prontos a utilizar no projeto.
+
+Por atividade, é suposto programar em três ficheiros:
+
+- `i<DEVICE>.h`, usado para comportar as macros e constantes do dispositivo. Por exemplo i8254.h;
+- `<DEVICE>.h`, usado para comportar as funções e documentação associada a cada uma. Por exemplo timer.h;
+- `<DEVICE.c`, usado para programar as funções que interagem com as macros e as funções documentadas no anterior tópico. Por exemplo timer.c;
+- `labX.c`, usado para programar as funções de alto nível de cada aula. Esse código não será necessário importar para a pasta do projeto.
+
+O ficheiro `utils.c` possui as três funções principais, comuns e úteis a todos os dispositivos: util_get_MSB, util_get_LSB e util_sys_inb.
+
+Se o código for modular como descrito acima, a passagem para o projeto torna-se trivial. Por exemplo, basta copiar as pastas para o diretório `proj/controllers`, mudando-lhes o nome de acordo com o tema do código implementado. No final o diretório terá a seguite forma:
+
+```bash
+minix$ tree .
+.
+├── controllers
+│   ├── mouse
+│   │   ├── i8042.h
+│   │   ├── mouse.c
+│   │   └── mouse.h
+│   ├── keyboard
+│   │   ├── i8042.h
+│   │   ├── keyboard.c
+│   │   ├── keyboard.h
+│   ├── timer
+│   │   ├── i8254.h
+│   │   ├── timer.c
+│   │   └── timer.h
+│   ├── video
+│   │   ├── graphics.c
+│   │   ├── graphics.h
+│   │   └── VBE.h
+│   ├── utils.c
+```
 
 ---
 
