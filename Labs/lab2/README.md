@@ -124,7 +124,7 @@ Em LCOM seguiremos quase sempre estas configurações:
 Após a escrita do comando de configuração no registo de controlo, 0x43, é necessário injetar o valor inicial no contador pela porta correspondente (0x40, 0x41 ou 0x42).
 Cada timer do i8254 possui um valor interno que é decrementado, no caso do Minix, 1193182 vezes por segundo. Sempre que o valor fica a 0 o dispositivo avisa o CPU (gera uma **interrupção**, algo a estudar em breve) e volta ao valor original.
 
-Para configurar a frequência do timer selecionado, de modo a conseguirmos por exemplo contar segundos (com uma frequência de 60Hz) através das interrupções geradas, devemos calcular o valor interno:
+Para configurar a frequência do timer selecionado, de modo a conseguirmos por exemplo contar segundos (com uma frequência de 60Hz) através das interrupções geradas, devemos calcular o valor interno. Por questões de hardware o i8254 **não suporta frequências inferiores a 19**:
 
 ```c
 #define TIMER_FREQUENCY 1193182
@@ -165,8 +165,8 @@ sys_outb(0x43, 0xE4);
 uint8_t old_configuration, new_configuration;
 util_sys_inb(0x41, &old_configuration);
 
-// Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os restantes
-new_configuration = old_configuration | BIT (7) | BIT(6);
+// Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os 4 bits menos significativos
+new_configuration = (old_configuration & 0x0F) | BIT (7) | BIT(6);
 
 // Cálculo do valor inicial do contador e partes mais e menos significativas
 uint16_t initial_value = TIMER_FREQUENCY / 60;
@@ -363,8 +363,8 @@ int main() {
   uint8_t old_configuration, new_configuration;
   if (util_sys_inb(0x40, &old_configuration) != 0) return 1;
 
-  // Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os restantes
-  new_configuration = old_configuration | BIT (7) | BIT(6);
+  // Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os 4 bits menos significativos
+  new_configuration = (old_configuration & 0x0F) | BIT (7) | BIT(6);
 
   // Cálculo do valor inicial do contador e partes mais e menos significativas
   uint16_t initial_value = TIMER_FREQUENCY / frequency;
@@ -440,7 +440,19 @@ minix$ make       # compila o programa
 
 ## Testagem do código
 
-// TODO
+A biblioteca LCF (*LCOM Framework*) disponível nesta versão do Minix3 tem um conjunto de testes para cada função a implementar em `lab2.c`. Assim é simples verificar se o programa corre como esperado para depois ser usado sem problemas no projeto. Para saber o conjunto dos testes disponíveis basta consultar:
+
+```bash
+$minix$ lcom_run lab2
+```
+
+Neste caso em concreto estão disponíveis imensas combinações:
+
+```bash
+minix$ lcom_run lab2 "config <0,1,2> <all,init,mode,base> -t <0,1,2,3>"
+minix$ lcom_run lab2 "time <0,1,2> <frequency> -t 0"
+minix$ lcom_run lab2 "int <time> -t <0,1>"
+```
 
 ---
 
