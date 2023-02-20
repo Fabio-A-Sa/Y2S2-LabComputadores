@@ -4,17 +4,15 @@
 
 - [O que é o i8254](#i8254)
 - [Control Word](#control-word)
-- Alteração da frequência do Timer
-- Interrupções
+- [Interrupções](#interrupções)
 - Compilação do código
 - Testagem do código implementado
 
 ### Anexos
 
-- Modo binário vs. Modo BCD
-- MSB vs. LSB
 - Boas práticas de organização do código
 - Boas práticas de programação em C no contexto de LCOM
+- Validação de inputs
 
 ## i8254
 
@@ -95,7 +93,7 @@ As informações enviadas ao i8254 através do registo 0x43 são muitas vezes co
   <p align="center">Construção do Read-Back Command</p>
 </p>
 
-#### Exemplo
+#### Exemplo 1:
 
 Queremos ler a **configuração** do Timer 2. O conjunto de instruções a tomar será o seguinte:
 
@@ -124,7 +122,7 @@ Em LCOM seguiremos quase sempre estas configurações:
 - Counting Mode 3;
 
 Após a escrita do comando de configuração no registo de controlo, 0x43, é necessário injetar o valor inicial no contador pela porta correspondente (0x40, 0x41 ou 0x42).
-Cada contador interno do i8254 possui um valor interno que é decrementado a cada ciclo de relógio, ou seja no caso do Minix, 1193182 vezes por minuto. Sempre que o valor fica a 0 o dispositivo avisa o CPU (gera uma **interrupção**, algo a estudar em breve) e volta ao valor original.
+Cada timer do i8254 possui um valor interno que é decrementado, no caso do Minix, 1193182 vezes por segundo. Sempre que o valor fica a 0 o dispositivo avisa o CPU (gera uma **interrupção**, algo a estudar em breve) e volta ao valor original.
 
 Para configurar a frequência do timer selecionado, de modo a conseguirmos por exemplo contar segundos (com uma frequência de 60Hz) através das interrupções geradas, devemos calcular o valor interno:
 
@@ -156,7 +154,7 @@ int util_get_MSB (uint16_t val, uint8_t *msb) {
 
 Por segurança só devemos modificar as configurações que necessitamos mesmo, deixando os outros bits iguais aos que o Sistema Operativo decidiu. Uma forma simples de contornar a situação é consultar primeiro a configuração atual do dispositivo e só depois modificar o desejado.
 
-#### Exemplo:
+#### Exemplo 2:
 
 Queremos configurar o Timer 1 com frequência de 60Hz. O conjunto de instruções a tomar será o seguinte:
 
@@ -182,4 +180,66 @@ sys_outb(0x43, new_configuration);
 // Injetamos o valor inicial do contador (lsb seguido de msb) diretamente no registo 0x41 (Timer 1)
 sys_outb(0x41, lsb);
 sys_outb(0x41, msb);
+```
+
+## Interrupções
+
+A interação entre o CPU e os dispositovos I/O pode ser de duas formas:
+
+`Polling`: o CPU monitoriza o estado do dispositivo periodicamente e quando este tiver alguma informação útil ao sistema essa informação é tratada. Desvantagem: *busy waiting*, gasta muitos ciclos de relógio só na monitorização. É usado principalmente em dispositivos de baixa frequência de utilização.
+
+`Interrupções`: é o dispositivo que inicia a interação. Quando este tiver alguma informação útil ao sistema envia um sinal (um booleano por exemplo) através de uma interrupt request line específica, `IRQ_LINE`.
+
+Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada por 1 byte (8 bits). O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**<br>
+Para ativar as interrupções é necessário subscrevê-las através de uma *system call* e antes de acabar o programa deve-se desligar as interrupções usando outra, para garantir a reposição do estado inicial da máquina. Por norma o bit de interrupção é definido pelo módulo que gere o próprio dispositivo, para que seja independente do programa:
+
+```c
+uint8_t timer_hook_id = 0; // timer.c
+
+// subscribe interrupts
+int timer_subscribe_int (uint8_t *bit_no) {
+  if(bit_no == NULL) return 1;   // o apontador tem de ser válido
+  *bit_no = BIT(timer_hook_id);  // a função que chamou esta deve saber qual é a máscara a utilizar
+                                 // para detectar as interrupções geradas
+  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &timer_hook_id); // subscrição das interrupções
+}
+
+// unsubscribe interrupts
+int timer_unsubscribe_int () {
+  return sys_irqrmpolicy(&timer_hook_id); // desligar as interrupções
+}
+```
+
+### Exemplo 3:
+
+Imagine-se que um programa em LCOM utiliza três dispositivos: timer, rato e teclado. A descrição dos `hook_id` dos dispositivos usados é a seguinte:
+
+```c
+uint8_t hook_id_timer = 0;
+uint8_t hook_id_mouse = 1;
+uint8_t hook_id_keyboard = 2;
+```
+
+O CPU, num determinado momento, obteve o valor 5 na IRQ_LINE. Para descobrir os dispositivos que foram ativados é necessário olhar os bits constituintes:
+
+```c
+uint8_t irq_line = 5; // 00000101
+```
+
+Assim. Em termos de código em C é possível verificar as interrupções dos dispositivos através da
+
+```c
+if () printf();
+if () printf();
+if () printf();
+```
+
+### Erro típico #4 - Tratamento incompleto das interrupções
+
+### Exemplo 4:
+
+Queremos um programa que determine a quantidade de interrupções do teclado geradas em 10 segundos. Uma possível solução seria a seguinte:
+
+```c
+
 ```
