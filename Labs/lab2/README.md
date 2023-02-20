@@ -8,12 +8,6 @@
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
 
-### Anexos
-
-- Boas práticas de organização do código
-- Boas práticas de programação em C no contexto de LCOM
-- Validação de inputs
-
 ## i8254
 
 O temporizador do computador, também conhecido como i8254, é um dos mais básicos tipos de hardware que podemos programar na linguagem C. Com ele cada computador tem a funcionalidade de medir um tempo preciso sem depender da rapidez do processador.
@@ -443,7 +437,7 @@ minix$ make       # compila o programa
 A biblioteca LCF (*LCOM Framework*) disponível nesta versão do Minix3 tem um conjunto de testes para cada função a implementar em `lab2.c`. Assim é simples verificar se o programa corre como esperado para depois ser usado sem problemas no projeto. Para saber o conjunto dos testes disponíveis basta consultar:
 
 ```bash
-$minix$ lcom_run lab2
+minix$ lcom_run lab2
 ```
 
 Neste caso em concreto estão disponíveis imensas combinações:
