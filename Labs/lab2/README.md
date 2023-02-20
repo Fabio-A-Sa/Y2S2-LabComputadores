@@ -6,7 +6,7 @@
 - [Control Word](#control-word)
 - [Interrupções](#interrupções)
 - [Compilação do código](#compilação-do-código)
-- Testagem do código implementado
+- [Testagem do código](#testagem-do-código)
 
 ### Anexos
 
@@ -65,7 +65,7 @@ int util_sys_inb(int port, uint8_t *value) {
 }
 ```
 
-No caso de `sys_outb` esse problema já não acontece. De facto um comando de 8 bits (uint8_t) é equivalente a um comando de 32 bits (uint32_t) com os 24 bits mais significativos a 0, o que acontece quando declaramos a variável.
+No caso de `sys_outb` esse problema já não acontece. De facto um comando de 8 bits (uint8_t) é equivalente a um comando de 32 bits (uint32_t) com os 24 bits mais significativos a 0, o que acontece quando passamos a variável inicial para a função: a *system call* aloca 32 bits e depois copia o valor da variável para essa zona.
 
 ### Erro típico #2 - Leituras inválidas
 
@@ -358,7 +358,7 @@ int main() {
   uint8_t hook_id_timer, hook_id_keyboard, lsb, msb;
 
   // Consultar a configuração atual do Timer 0
-  uint8_t readback_command = = BIT(7) | BIT(6) | BIT(5) | BIT(1); // 11100010 = 0xE2
+  uint8_t readback_command = BIT(7) | BIT(6) | BIT(5) | BIT(1); // 11100010 = 0xE2
   if (sys_outb(0x43, 0xE2) != 0) return 1;             
   uint8_t old_configuration, new_configuration;
   if (util_sys_inb(0x40, &old_configuration) != 0) return 1;
@@ -401,7 +401,7 @@ int main() {
           }
 
           if (msg.m_notify.interrupts & hook_id_keyboard) {
-            keyboard_interrupts
+            keyboard_interrupts++;
           }
 
           break;
@@ -424,9 +424,25 @@ Porque é que o código verifica sempre os retornos das funções auxiliares e *
 
 ## Compilação do código
 
-//TODO
+Ao longo do Lab2 programamos em 4 ficheiros:
+
+- `i8254.h`, para constantes e definição de macros úteis;
+- `utils.c`, para as três funções úteis para este e para os outros labs: MSB, LSB e util_sys_inb;
+- `timer.c`, para implementação das funções do módulo i8254;
+- `lab2.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo;
+
+Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
+
+```bash
+minix$ make clean # apaga os binários temporários
+minix$ make       # compila o programa
+```
+
+## Testagem do código
+
+// TODO
 
 ---
 
-@ Fábio Sá
+@ Fábio Sá <br>
 @ Fevereiro de 2023
