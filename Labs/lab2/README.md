@@ -5,7 +5,7 @@
 - [O que é o i8254](#i8254)
 - [Control Word](#control-word)
 - [Interrupções](#interrupções)
-- Compilação do código
+- [Compilação do código](#compilação-do-código)
 - Testagem do código implementado
 
 ### Anexos
@@ -269,8 +269,8 @@ Uma implementação **errada** do exercício anterior poderia ser esta:
 ```c
 // Subscrição das interrupções
 timer_subscribe_int(&hook_id_timer);
-mouse_subscribe_int(&mouse_id_timer);
-keyboard_subscribe_int(&keyboard_id_timer);
+mouse_subscribe_int(&hook_id_mouse);
+keyboard_subscribe_int(&hook_id_keyboard);
 
 while(<CONDITION>) {
     if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
@@ -310,8 +310,8 @@ Onde está o erro? Se forem geradas duas ou mais interrupções só a primeira s
 ```c
 // Subscrição das interrupções
 timer_subscribe_int(&hook_id_timer);
-mouse_subscribe_int(&mouse_id_timer);
-keyboard_subscribe_int(&keyboard_id_timer);
+mouse_subscribe_int(&hook_id_mouse);
+keyboard_subscribe_int(&hook_id_keyboard);
 
 while(<CONDITION>) {
     if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
@@ -348,8 +348,85 @@ keyboard_unsubscribe_int();
 
 ### Exemplo 4:
 
-Para finalizar o módulo e aprendizagem do módulo `i8254` temos um exercício mais completo. Queremos um programa completo que determine a quantidade de interrupções do teclado geradas em 10 segundos. Uma possível solução seria a seguinte:
+Para finalizar o módulo `i8254` temos um exercício mais completo. Queremos um programa que determine a quantidade de interrupções do teclado geradas em 10 segundos. O Timer 0 deve ser usado para esta tarefa. Uma possível solução seria a seguinte:
 
 ```c
+int main() {
 
+  uint16_t frequency = 60;
+  uint16_t seconds = 10;
+  uint8_t hook_id_timer, hook_id_keyboard, lsb, msb;
+
+  // Consultar a configuração atual do Timer 0
+  uint8_t readback_command = = BIT(7) | BIT(6) | BIT(5) | BIT(1); // 11100010 = 0xE2
+  if (sys_outb(0x43, 0xE2) != 0) return 1;             
+  uint8_t old_configuration, new_configuration;
+  if (util_sys_inb(0x40, &old_configuration) != 0) return 1;
+
+  // Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os restantes
+  new_configuration = old_configuration | BIT (7) | BIT(6);
+
+  // Cálculo do valor inicial do contador e partes mais e menos significativas
+  uint16_t initial_value = TIMER_FREQUENCY / frequency;
+  if (util_get_lsb(initial_value, &lsb) != 0) return 1;
+  if (util_get_msb(initial_value, &msb) != 0) return 1;
+
+  // Avisamos o i8254 que vamos configurar o Timer 0
+  if (sys_outb(0x43, new_configuration) != 0) return 1;
+
+  // Injetamos o valor inicial do contador (lsb seguido de msb) diretamente no registo 0x40 (Timer 0)
+  if (sys_outb(0x40, lsb) != 0) return 1;
+  if (sys_outb(0x40, msb) != 0) return 1;
+
+  // Subscrição das interrupções dos dispositivos necessários
+  if (timer_subscribe_int(&hook_id_timer) != 0) return 1;
+  if (keyboard_subscribe_int(&hook_id_keyboard) != 0) return 1;
+
+  // Um timer a 60Hz (60 interrupções por segundo) durante 10 segundos equivale a 60*10 interrupções
+  uint8_t interrupt_limit = frequency * seconds; 
+  uint8_t keyboard_interrupts = 0;
+  uint8_t timer_interrupts = 0;
+
+  while(timer_interrupts <= interrupt_limit) {
+    if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
+      printf("driver_receive failed with: %d", r);
+      continue;
+    }
+    if (is_ipc_notify(ipc_status)) { 
+      switch (_ENDPOINT_P(msg.m_source)) {
+        case HARDWARE:
+
+          if (msg.m_notify.interrupts & hook_id_timer) {
+            timer_interrupts++;
+          }
+
+          if (msg.m_notify.interrupts & hook_id_keyboard) {
+            keyboard_interrupts
+          }
+
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  // Desativação das interrupções
+  if (timer_unsubscribe_int() != 0) return 1;
+  if (keyboard_unsubscribe_int() != 0) return 1;
+
+  printf("Foram detetadas %d interrupções do teclado\n", keyboard_interrupts);
+  return 0;
+}
 ```
+
+Porque é que o código verifica sempre os retornos das funções auxiliares e *system calls*? Ver apontamentos sobre as [boas práticas de programação em C no contexto de LCOM](../README.md).
+
+## Compilação do código
+
+//TODO
+
+---
+
+@ Fábio Sá
+@ Fevereiro de 2023
