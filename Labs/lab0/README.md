@@ -6,6 +6,7 @@
 - [Máscaras](#máscaras)
 - [Macros](#macros)
 - [Shifts](#shifts)
+- [Exercício](#exercício)
 
 ## Argumentos
 
@@ -294,6 +295,64 @@ Para usá-lo basta no Minix3 correr os seguintes comandos:
 minix$ cc -Wall shift.c -o shift
 minix$ ./shift <VAL> <N>
 ```
+
+## Exercício
+
+Escreva um programa em linguagem C, que recebe 3 argumentos na linha de comandos:
+
+1. O caracter que especifica a acção que se pretende realizar:
+
+  - `h` - testar se o valor de um determinado bit está a 1 (high)
+  - `l` - testar se o valor de um determinado bit está a 0 (low)
+  - `r` - colocar a 0 o valor de um determinado bit (reset)
+  - `s` - colocar a 1 o valor de um determinado bit (set)
+  - `t` - inverter o valor de um determinado bit (toggle)
+
+2. Um valor inteiro sem sinal, em hexadecimal, menor que 256;
+3. O índice do bit que se pretende aceder, de 0 a 7
+
+O programa deve:
+- a) Validar os argumentos de entrada e imprimir uma mensagem de erro apropriada, caso os valores não estejam correctos;
+- b) Imprimir os argumentos depois de estes serem validados (o segundo argumento deve ser imprimido em binário usando a função byte2bin);
+- c) Executar a acção pretendida (depois de imprimir o nome do programa);
+- d) Imprimir os valores de saída da operação realizada (usar a função byte2bin).
+
+Há parte do código que já é dado:
+
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdint.h>
+
+#define BIT(n) (1<<(n))
+
+char *byte2bin(uint8_t n, char *binstr) 
+{
+    // one element per bit (0/1)
+    uint8_t binary[8];
+
+    int i = 0;
+    for(i = 0; i < 8; i++) {
+        binary[i] = n % 2;
+        n = n / 2;
+    }
+
+    // printing binary array in reverse order
+    for (int j = 7, k= 0; j >= 0; j--, k++)
+        sprintf(binstr + k, "%d", binary[j]);
+        
+    return binstr;
+}
+
+void print_usage(char *name) {
+    printf("Usage: %s <action> <byte> <bit no>\n", name);
+    printf("\tWhere: <action> one of 'h'|'l'|'r'|'s'|'t'\n"
+        "\t\t <byte> 8-bit integer in hexadecimal\n"
+        "\t\t <bit no> of bit to operate on\n");
+}
+```
+
+Uma possível solução para o problema está implementada no ficheiro [exercise.c](../src/exercise.c).
 
 ---
 
