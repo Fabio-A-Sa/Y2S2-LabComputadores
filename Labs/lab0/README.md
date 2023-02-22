@@ -352,7 +352,7 @@ void print_usage(char *name) {
 }
 ```
 
-Uma possível solução para o problema está implementada no ficheiro [exercise.c](../src/exercise.c).
+Uma possível solução para o problema está implementada no ficheiro [exercise.c](src/exercise.c).
 
 ---
 
