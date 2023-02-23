@@ -220,11 +220,15 @@ A interação entre o CPU e os dispositivos I/O pode ser de duas formas:
   <p align="center">Polling vs. Interrupts</p>
 </p><br>
 
-Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada por vários bits. O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**<br>
+Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada por vários bits. O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**. <br>
 Para ativar as interrupções é necessário subscrevê-las através de uma *system call* e antes de acabar o programa deve-se desligar as interrupções usando outra, para garantir a reposição do estado inicial da máquina. Por norma o bit de interrupção é definido pelo módulo que gere o próprio dispositivo, para que seja independente do programa:
 
 ```c
-uint8_t timer_hook_id = 0; // timer.c
+/* ------ i8254.h ------ */
+#define TIMER0_IRQ 0;   
+
+/* ------ timer.c ------ */
+int timer_hook_id = 0;
 
 // subscribe interrupts
 int timer_subscribe_int (uint8_t *bit_no) {
@@ -240,14 +244,19 @@ int timer_unsubscribe_int () {
 }
 ```
 
+Para não haver enganos na função `sys_irqsetpolicy`:
+- o primeiro argumento descreve a IRQ_LINE a usar, o seu valor é sempre dado no enunciado e pode variar entre 0 e 15;
+- o segundo argumento é, para o caso de i8254, IRQ_REENABLE. É um tipo de política que permite recebermos sinais do tipo EOI (*End Of Interrupt*) e a partir deles tratar correctamente as interrupções;
+- o terceiro argumento é um apontador para um inteiro de valor arbitrário, à escolha do aluno, que pode variar entre 0 e 7. Entre dispositivos diferentes estes valores têm de ser também diferentes;
+
 ### Exemplo 3:
 
 Imagine-se que um programa em LCOM utiliza três dispositivos: timer, rato e teclado. A descrição dos `hook_id` dos dispositivos usados é a seguinte:
 
 ```c
-uint8_t hook_id_timer = 0;
-uint8_t hook_id_mouse = 1;
-uint8_t hook_id_keyboard = 2;
+int hook_id_timer = 0;
+int hook_id_mouse = 1;
+int hook_id_keyboard = 2;
 ```
 
 O CPU, num determinado momento, obteve o valor 5 na IRQ_LINE. Para descobrir os dispositivos que foram ativados é necessário olhar os bits constituintes:
@@ -264,7 +273,7 @@ if (irq_line & BIT(hook_id_mouse)) printf("Mouse interrupt!\n");
 if (irq_line & BIT(hook_id_keyboard)) printf("Keyboard interrupt!\n");
 ```
 
-### Erro típico #5 - Tratamento incompleto das interrupções
+### Erro típico #6 - Tratamento incompleto das interrupções
 
 Na realidade o tratamento de interrupções em C é mais verboso. O ciclo base, que é também dado nos testes de LCOM, é o seguinte:
 
