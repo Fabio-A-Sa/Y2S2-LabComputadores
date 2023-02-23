@@ -19,6 +19,7 @@ As a LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with 
 - [Lab0](/Labs/lab0/) - The C language
 - [Lab2](/Labs/lab2/) - i8254, the PC's Timer
 - [Lab3](/Labs/lab3/) - i8042, the PC's Keyboard
+- [Lab4](/Labs/lab4/) - i8043, the PC's Mouse
 - ... soon
 
 ## Project "Gertic--" (Grade: 18.8 / 20)
