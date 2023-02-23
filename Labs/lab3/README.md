@@ -226,7 +226,27 @@ minix$ make       # compila o programa
 
 ## Testagem do código
 
-// semelhante ao lab2
+A biblioteca LCF (*LCOM Framework*) disponível nesta versão do Minix3 tem um conjunto de testes para cada função a implementar em `lab3.c`. Assim é simples verificar se o programa corre como esperado para depois ser usado sem problemas no projeto. Para saber o conjunto dos testes disponíveis basta consultar:
+
+```bash
+minix$ lcom_run lab3
+```
+
+Neste caso em concreto estão disponíveis algumas combinações:
+
+```bash
+minix$ lcom_run lab3 "scan -t <0,1,2,3,4,5>"
+minix$ lcom_run lab3 "poll -t <0,1,2,3,4,5>"
+minix$ lcom_run lab3 "timed <time> -t <0,1,2,3,4,5>"
+```
+
+### Dica
+
+Para implementação do futuro projeto não temos disponível nenhuma tabela que relacione os scancodes às respetivas teclas do teclado. Aconselho por isso a correr livremente o comando seguinte e ir apontando os valores resultantes (makecodes preferencialmente) para todas as teclas que necessitem:
+
+```bash
+minix$ lcom_run lab3 "scan"
+```
 
 ---
 
