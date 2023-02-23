@@ -3,6 +3,7 @@
 ## Tópicos
 
 - [O que é o i8042](#i8042)
+- [MakeCode e BreakCode](#makecode-e-breakcode)
 - [Interrupções](#interrupções)
 - [Polling](#polling)
 - [Compilação do código](#compilação-do-código)
@@ -22,6 +23,10 @@ Desta vez temos a possibilidade de ler diretamente o status do dispositivo. Esse
 - Se ocorreu um erro de `timeout`, o bit 6 está ativo;
 - Se o buffer de entrada (*input buffer*) estiver cheio, o bit 1 está ativo;
 - Se o buffer de saída (*output buffer*) estiver cheio, o bit 0 está ativo;
+
+### Exemplo 1
+
+Queremos saber se num determinado momento o buffer de input está cheio. Uma possível implementação seria a seguinte:
 
 ```c
 uint8_t status;
@@ -45,7 +50,7 @@ int write_KBC_command(uint8_t port, uint8_t commandByte) {
 
     while (attemps) {
 
-        if (read_KBC_status(&status) != 0){
+        if (read_KBC_status(&status) != 0){             // lê o status
             printf("Error: Status not available!\n");
             return 1;
         }
@@ -57,12 +62,14 @@ int write_KBC_command(uint8_t port, uint8_t commandByte) {
             }
             return 0; // sucesso: comando inserido no i8042
         }
-        tickdelay(micros_to_ticks(20000));
+        tickdelay(micros_to_ticks(20000));              
         attemps--;
     }
     return 1; // se ultrapassar o número de tentativas lança um erro
 }
 ```
+
+A função `tickdelay()` assegura o intervalo correcto entre tentativas de acordo os *ticks* do processador. A função `micros_to_ticks()` traduz um número inteiro de microsseguros em *ticks*.
 
 Da mesma forma, dá para ler os caracteres pressionados no teclado graças ao buffer de saída. Note-se agora que a informação disponibilizada pelo i8042 é só fiável quando estiver completamente no buffer, ou seja, **só deve ser lida quando o output buffer estiver cheio**. O status indica se há algum erro ao nível da paridade ou de timeout. Nesse caso os bytes lidos devem ser descartados:
 
@@ -74,22 +81,22 @@ int read_KBC_output(uint8_t port, uint8_t *output) {
     
     while (attemps) {
 
-        if (read_KBC_status(&status) != 0) {
+        if (read_KBC_status(&status) != 0) {                // lê o status
             printf("Error: Status not available!\n");
             return 1;
         }
 
-        if ((status & BIT(0)) != 0) {
-            if(util_sys_inb(port, output) != 0){
-                printf("Error: Full buffer!\n");
+        if ((status & BIT(0)) != 0) {                       // o output buffer está cheio, posso ler
+            if(util_sys_inb(port, output) != 0){            // leitura do buffer de saída
+                printf("Error: Could not read output!\n");
                 return 1;
             }
-            if((status & BIT(7)) != 0){
-                printf("Error: Parity error!\n");
+            if((status & BIT(7)) != 0){                     // verifica erro de paridade
+                printf("Error: Parity error!\n");           // se existir, descarta
                 return 1;
             }
-            if((status & BIT(6)) != 0){
-                printf("Error: Timeout error!\n");
+            if((status & BIT(6)) != 0){                     // verifica erro de timeout
+                printf("Error: Timeout error!\n");          // se existir, descarta
                 return 1;
             }
             return 0; // sucesso: output lido sem erros de timeout ou de paridade
@@ -101,7 +108,7 @@ int read_KBC_output(uint8_t port, uint8_t *output) {
 }
 ```
 
-### SOON
+## MakeCode e BreakCode
 
 // scancode -> break and make codes
 // teclas que precisam de 2 bytes e como separar
