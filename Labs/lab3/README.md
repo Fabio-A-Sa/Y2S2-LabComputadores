@@ -195,15 +195,15 @@ int kbc_restore() {
     uint8_t commandWord;
 
     // Leitura da configuração atual
-    if (write_KBC_command(0x64, 0x20) != 0) return 1; // avisar o i8042 da leitura
-    if (read_KBC_command(0x60, &commandWord) != 0) return 1; // ler a configuração
+    if (write_KBC_command(0x64, 0x20) != 0) return 1;           // avisar o i8042 da leitura
+    if (read_KBC_command(0x60, &commandWord) != 0) return 1;    // ler a configuração
 
     // Ativar o bit das interrupções
     commandWord = commandWord | BIT(0);
 
     // Escrita da nova configuração
-    if (write_KBC_command(0x64, 0x60) != 0) return 1; // avisar o i8042 da escrita
-    if (write_KBC_command(0x60, commandWord) != 0) return 1; // escrever a configuração
+    if (write_KBC_command(0x64, 0x60) != 0) return 1;           // avisar o i8042 da escrita
+    if (write_KBC_command(0x60, commandWord) != 0) return 1;    // escrever a configuração
     return 0;
 }
 
@@ -211,7 +211,18 @@ int kbc_restore() {
 
 ## Compilação do código
 
-// semelhante ao lab2
+Ao longo do Lab3 programamos em 3 ficheiros:
+
+- `i8042.h`, para constantes e definição de macros úteis;
+- `kbc.c`, para implementação das funções do módulo i8042;
+- `lab3.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo;
+
+Ainda importamos o ficheiro `utils.c` do lab anterior. Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
+
+```bash
+minix$ make clean # apaga os binários temporários
+minix$ make       # compila o programa
+```
 
 ## Testagem do código
 
