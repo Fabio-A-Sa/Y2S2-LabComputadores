@@ -46,7 +46,7 @@ int(kbd_test_scan)() {
 
     if(subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
-    while(scancode != BREAK_ESC){
+    while(scancode != BREAK_ESC){ // a condição de paragem é obter um breakcode da tecla ESC
 
         if( driver_receive(ANY, &msg, &ipc_status) != 0 ){
             printf("Error");
@@ -57,7 +57,7 @@ int(kbd_test_scan)() {
             switch(_ENDPOINT_P(msg.m_source)){
                  case HARDWARE:
                     if (msg.m_notify.interrupts & irq_set) {
-                        kbc_ih();
+                        kbc_ih(); // aumenta o contador interno
                         kbd_print_scancode(!(scancode & MAKE_CODE), scancode == TWO_BYTES ? 2 : 1, &scancode);
                     }
             }
@@ -72,7 +72,7 @@ int(kbd_test_scan)() {
 
 int(kbd_test_poll)() {
   
-    while (scancode != BREAK_ESC) { // Run while ESC key isn't pressed
+    while (scancode != BREAK_ESC) { // a condição de paragem é obter um breakcode da tecla ESC
 
         if (read_KBC_output(KBC_OUT_CMD, &scancode) == 0) {
             kbd_print_scancode(!(scancode & MAKE_CODE), scancode == TWO_BYTES ? 2 : 1, &scancode);

@@ -98,7 +98,5 @@ int (kbc_restore)() {
     if (write_KBC_command(KBC_IN_CMD, KBC_WRITE_CMD) != 0) return 1;    
     if (write_KBC_command(KBC_WRITE_CMD, commandByte) != 0) return 1;
 
-   // if (kbd_print_no_sysinb(counter_KBC) != 0) return 1;
-
     return 0;
 }
