@@ -217,7 +217,7 @@ Ao longo do Lab3 programamos em 3 ficheiros:
 - `kbc.c`, para implementação das funções do módulo i8042;
 - `lab3.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo;
 
-Ainda importamos o ficheiro `utils.c` do lab anterior. Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
+Ainda importamos os ficheiros `utils.c`, `timer.c` e `i8254.h` do lab anterior. Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
 
 ```bash
 minix$ make clean # apaga os binários temporários
