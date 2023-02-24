@@ -13,9 +13,9 @@
 O temporizador do computador, também conhecido como i8254, é um dos mais básicos tipos de hardware que podemos programar na linguagem C. Com ele cada computador tem a funcionalidade de medir um tempo preciso sem depender da rapidez do processador.
 
 O i8254 implementa internamente três contadores, cada um com 16 bits (*uint16_t*):
-- `Timer 0`, no registo 0x40; 
-- `Timer 1`, no registo 0x41;
-- `Timer 2`, no registo 0x42; 
+- `Timer 0`, no registo 0x40, serve para providenciar uma base de tempo;
+- `Timer 1`, no registo 0x41, serve para refrescar a memória DRAM;
+- `Timer 2`, no registo 0x42, serve para gerar tons e frequências para os *speakers* do computador;
 
 O registo 0x43, conhecido como `control register`, é reservado à comunicação com o dispositivo através de *system calls*.
 
@@ -220,7 +220,7 @@ A interação entre o CPU e os dispositivos I/O pode ser de duas formas:
   <p align="center">Polling vs. Interrupts</p>
 </p><br>
 
-Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada vários bits. O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**<br>
+Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada por vários bits. O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**<br>
 Para ativar as interrupções é necessário subscrevê-las através de uma *system call* e antes de acabar o programa deve-se desligar as interrupções usando outra, para garantir a reposição do estado inicial da máquina. Por norma o bit de interrupção é definido pelo módulo que gere o próprio dispositivo, para que seja independente do programa:
 
 ```c
@@ -484,6 +484,8 @@ minix$ lcom_run lab2 "config <0,1,2> <all,init,mode,base> -t <0,1,2,3>"
 minix$ lcom_run lab2 "time <0,1,2> <frequency> -t 0"
 minix$ lcom_run lab2 "int <time> -t <0,1>"
 ```
+
+O terceiro teste, aquele das interrupções e medição de tempo, não requer indicação do Timer (0, 1, 2). O motivo é simples: como vimos no início, o Timer 0 é o único responsável por nos dar uma base de tempo. É esse que será usado internamente.
 
 ---
 

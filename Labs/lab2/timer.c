@@ -55,7 +55,7 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
   if( bit_no == NULL) return 1; // o apontador deve ser válido
-  *bit_no = BIT(hook_id);      // a função que chamou esta deve saber qual é a máscara a utilizar
+  *bit_no = BIT(hook_id);       // a função que chamou esta deve saber qual é a máscara a utilizar
   if (sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id) != 0) return 1; // subscrição das interrupções
   return 0;
 }
