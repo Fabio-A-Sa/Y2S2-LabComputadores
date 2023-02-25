@@ -159,8 +159,9 @@ sys_outb(0x43, 0xE4);
 uint8_t old_configuration, new_configuration;
 util_sys_inb(0x41, &old_configuration);
 
-// Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os 4 bits menos significativos
-new_configuration = (old_configuration & 0x0F) | BIT (7) | BIT(6);
+// Novo comando de configuração, mantemos os 4 bits menos significativos
+// ativamos os bits da zona 'LSB followed by MSB' e acionamos o BIT(6) que indica que vamos configurar o Timer 1
+new_configuration = (old_configuration & 0x0F) | BIT (5) | BIT(4) | BIT(6);
 
 // Cálculo do valor inicial do contador e partes mais e menos significativas
 uint16_t initial_value = TIMER_FREQUENCY / 60;
@@ -176,15 +177,50 @@ sys_outb(0x41, lsb);
 sys_outb(0x41, msb);
 ```
 
+### Erro típico #4 - Validação da Frequência
+
+Como vimos em cima é importante validar todos os inputs das funções a implementar. Vimos também que valor do contador interno de cada timer é dado pela expressão:
+
+```c
+uint16_t counter = TIMER_FREQ / freq
+```
+
+Para validarmos a frequência pedida (freq) temos duas coisas a ter em conta:
+- a frequência não pode ser superior a TIMER_FREQ
+- a frequência não pode ser inferior a 19
+
+Porque é que o limite é 19? Vamos fazer as contas ao contrário:
+
+- o valor do contador pode ser, no máximo, 2^16 = 65536
+- TIMER_FREQ para o minix é sempre 1193182
+- fazendo as contas ao contrário temos que freq = 1193182 / 65536 = 18.2
+
+Assim, o Minix não suporta frequências inferiores a 19 pois o contador a partir de um certo ponto dá **overflow**. Uma possível implementação desta validação é a seguinte:
+
+```c
+#define TIMER_FREQ 1193182
+
+int timer_set_frequency (uint8_t timer, uint32_t freq) {
+  if (freq > TIMER_FREQ || freq < 19) return 1;
+  //...
+  return 0;
+}
+```
+
 ## Interrupções
 
-A interação entre o CPU e os dispositovos I/O pode ser de duas formas:
+A interação entre o CPU e os dispositivos I/O pode ser de duas formas:
 
 `Polling`: o CPU monitoriza o estado do dispositivo periodicamente e quando este tiver alguma informação útil ao sistema essa informação é tratada. Desvantagem: *busy waiting*, gasta muitos ciclos de relógio só na monitorização. É usado principalmente em dispositivos de baixa frequência de utilização.
 
 `Interrupções`: é o dispositivo que inicia a interação. Quando este tiver alguma informação útil ao sistema envia um sinal (um booleano por exemplo) através de uma interrupt request line específica, `IRQ_LINE`.
 
-Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada por 1 byte (8 bits). O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**<br>
+<p align="center">
+  <img src="../../Images/PollingInterrupts.png">
+  <p align="center">Polling vs. Interrupts</p>
+</p><br>
+
+Em LCOM os dispositivos a implementar contêm a opção de interrupções com uma IRQ_LINE representada vários bits. O mais indicado é utilizar os bits menos significativos para os dispositivos de maior frequência e maior importância, como é o caso do i8254. **Nunca utilizar o mesmo bit para dois ou mais dispositivos**<br>
 Para ativar as interrupções é necessário subscrevê-las através de uma *system call* e antes de acabar o programa deve-se desligar as interrupções usando outra, para garantir a reposição do estado inicial da máquina. Por norma o bit de interrupção é definido pelo módulo que gere o próprio dispositivo, para que seja independente do programa:
 
 ```c
@@ -217,7 +253,7 @@ uint8_t hook_id_keyboard = 2;
 O CPU, num determinado momento, obteve o valor 5 na IRQ_LINE. Para descobrir os dispositivos que foram ativados é necessário olhar os bits constituintes:
 
 ```c
-uint8_t irq_line = 5; // 00000101
+irq_line = 5; // ...00000101
 ```
 
 Assim conclui-se que houve interrupções do timer (bit 0) e do teclado (bit 2). Em termos de código em C é possível verificar as interrupções dos dispositivos através de operações *bitwise*:
@@ -228,7 +264,7 @@ if (irq_line & BIT(hook_id_mouse)) printf("Mouse interrupt!\n");
 if (irq_line & BIT(hook_id_keyboard)) printf("Keyboard interrupt!\n");
 ```
 
-### Erro típico #4 - Tratamento incompleto das interrupções
+### Erro típico #5 - Tratamento incompleto das interrupções
 
 Na realidade o tratamento de interrupções em C é mais verboso. O ciclo base, que é também dado nos testes de LCOM, é o seguinte:
 
@@ -299,13 +335,13 @@ mouse_unsubscribe_int();
 keyboard_unsubscribe_int();
 ```
 
-Onde está o erro? Se forem geradas duas ou mais interrupções só a primeira será tratada (devido à condição **else if**). É por isso importante implementar as condições recorrendo sempre a **if**s:
+Onde está o erro? Se forem geradas duas ou mais interrupções só a primeira será tratada (devido à condição **else if**). É por isso importante implementar as condições recorrendo sempre a **if**s. Além disso, como subscrever e desativar as interrupções dos dispositivos é gerida por *system calls* convém testar sempre o retorno:
 
 ```c
 // Subscrição das interrupções
-timer_subscribe_int(&hook_id_timer);
-mouse_subscribe_int(&hook_id_mouse);
-keyboard_subscribe_int(&hook_id_keyboard);
+if (timer_subscribe_int(&hook_id_timer) != 0) return 1;
+if (mouse_subscribe_int(&hook_id_mouse) != 0) return 1;
+if (keyboard_subscribe_int(&hook_id_keyboard) != 0) return 1;
 
 while(<CONDITION>) {
     if( (r = driver_receive(ANY, &msg, &ipc_status)) != 0 ) {
@@ -335,9 +371,9 @@ while(<CONDITION>) {
 }
 
 // Desativação das interrupções
-timer_unsubscribe_int();
-mouse_unsubscribe_int();
-keyboard_unsubscribe_int();
+if (timer_unsubscribe_int() != 0) return 1;
+if (mouse_unsubscribe_int() != 0) return 1;
+if (keyboard_unsubscribe_int() != 0) return 1;
 ```
 
 ### Exemplo 4:
@@ -358,7 +394,8 @@ int main() {
   if (util_sys_inb(0x40, &old_configuration) != 0) return 1;
 
   // Novo comando de configuração, ativamos os bits da zona 'LSB followed by MSB' e mantemos os 4 bits menos significativos
-  new_configuration = (old_configuration & 0x0F) | BIT (7) | BIT(6);
+  // Como se trata da configuração do Timer 0 não ativamos mais nenhum bit (Bit 7 e Bit 6 ficam a 0).
+  new_configuration = (old_configuration & 0x0F) | BIT (5) | BIT(4);
 
   // Cálculo do valor inicial do contador e partes mais e menos significativas
   uint16_t initial_value = TIMER_FREQUENCY / frequency;
