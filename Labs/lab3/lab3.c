@@ -46,7 +46,7 @@ int(kbd_test_scan)() {
 
     if(subscribe_KBC_interrupts(&irq_set) != 0) return 1;
 
-    while( scancode != BREAK_ESC){
+    while(scancode != BREAK_ESC){
 
         if( driver_receive(ANY, &msg, &ipc_status) != 0 ){
             printf("Error");

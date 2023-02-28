@@ -116,14 +116,21 @@ Em LCOM seguiremos quase sempre estas configurações:
 - Counting Mode 3;
 
 Após a escrita do comando de configuração no registo de controlo, 0x43, é necessário injetar o valor inicial no contador pela porta correspondente (0x40, 0x41 ou 0x42).
-Cada timer do i8254 possui um valor interno que é decrementado, no caso do Minix, 1193182 vezes por segundo. Sempre que o valor fica a 0 o dispositivo avisa o CPU (gera uma **interrupção**, algo a estudar em breve) e volta ao valor original.
+Cada timer do i8254 possui um valor interno que é decrementado de acordo com a frequência do CPU. No caso do Minix é decrementado 1193182 vezes por segundo. Sempre que o valor do contador fica a 0 o dispositivo avisa o CPU (gera uma **interrupção**, algo a estudar em breve) e volta ao valor original. 
 
-Para configurar a frequência do timer selecionado, de modo a conseguirmos por exemplo contar segundos (com uma frequência de 60Hz) através das interrupções geradas, devemos calcular o valor interno. Por questões de hardware o i8254 **não suporta frequências inferiores a 19**:
+Por exemplo, para um CPU de frequência 100 Hz e um Timer de 4 Hz precisavamos de ter o contador com valor 25. Esquema ilustrativo:
+
+<p align="center">
+  <img src="../../Images/Counter.png">
+  <p align="center">Cálculo do valor do contador interno</p>
+</p><br>
+
+Para configurar a frequência do timer selecionado, de modo a conseguirmos por exemplo contar segundos (com uma frequência de 60Hz) através das interrupções geradas, devemos calcular o valor interno.
 
 ```c
 #define TIMER_FREQUENCY 1193182
-uint16_t frequency = 60;
-uint16_t intern_value = TIMER_FREQUENCY / frequency;
+uint16_t timer_frequency = 60;
+uint16_t counter = TIMER_FREQUENCY / timer_frequency;
 ```
 
 Com o valor interno calculado podemos colocá-lo no timer. Como se trata tipicamente de um valor de 16 bits, então devemos separá-lo em dois valores (MSB e LSB) através de funções auxiliares e só depois enviar LSB seguido de MSB. Essas funções são definidas no ficheiro `util.c`:
