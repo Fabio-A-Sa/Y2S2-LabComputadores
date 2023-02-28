@@ -162,7 +162,8 @@ int keyboard_subscribe_int (uint8_t *bit_no) {
   if(bit_no == NULL) return 1;   // o apontador tem de ser válido
   *bit_no = BIT(timer_hook_id);  // a função que chamou esta deve saber qual é a máscara a utilizar
                                  // para detectar as interrupções geradas
-  return sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id); // subscrição das interrupções em modo exclusivo
+  // subscrição das interrupções em modo exclusivo
+  return sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id);
 }
 
 // unsubscribe interrupts
@@ -173,10 +174,40 @@ int keyboard_unsubscribe_int () {
 
 Note-se a diferença no segundo argumento da *policy*. Como vimos em cima o i8042 controla o teclado e o rato. Como não queremos receber por este canal as interrupções que possam aparecer do rato, então declaramos estas interrupções como **exclusivas**, IRQ_EXCLUSIVE.
 
+Como detetar e trabalhar com interrupções de vários dispositivos ao mesmo tempo? Ver [apontamentos do lab anterior](../lab2/README.md#erro-típico-6---tratamento-incompleto-das-interrupções).
+
 ## Polling
 
-// com o teclado dá para polling com um simples ciclo while
-// para o teste da segunda função do lab3 o Minix3 desativa as interrupções, é necessário voltar a ativá-las antes de terminar, usando o kbc_restore()
+Neste atividade também teremos a oportunidade de trabalhar com o teclado em modo Polling. Como já vimos esta técnica é pouco eficiente pelo que aconselha-se a usar apenas na função `kbd_test_poll()` e não como solução a implementar no futuro projeto.
+
+Nesta função em específico para o Minix permitir o Polling desativa todas as suas interrupções internas. Assim, é de extrema relevância antes de terminar a execução da mesma ativar novamente tudo, caso contrário o teclado deixará de responder aos comandos seguintes e a única solução será voltar a abrir o Minix. A função que trata dessa parte será a `kbc_restore()`. <br>
+Tal como aconteceu no Timer, não queremos mexer em toda a configuração do teclado mas sim numa parte que faça ativar as interrupções. Dados relevantes a reter:
+
+- O comando para avisar o i8042 de uma leitura de commandWord é 0x20;
+- O comando para avisar o i8042 de uma escrita de commandWord é 0x60;
+- As interrupções estão ativas se a commandWord tiver o Bit 0 ativo;
+
+Uma possível implementação da função é a seguinte:
+
+```c
+int kbc_restore() {
+
+    uint8_t commandWord;
+
+    // Leitura da configuração atual
+    if (write_KBC_command(0x64, 0x20) != 0) return 1; // avisar o i8042 da leitura
+    if (read_KBC_command(0x60, &commandWord) != 0) return 1; // ler a configuração
+
+    // Ativar o bit das interrupções
+    commandWord = commandWord | BIT(0);
+
+    // Escrita da nova configuração
+    if (write_KBC_command(0x64, 0x60) != 0) return 1; // avisar o i8042 da escrita
+    if (write_KBC_command(0x60, commandWord) != 0) return 1; // escrever a configuração
+    return 0;
+}
+
+```
 
 ## Compilação do código
 
