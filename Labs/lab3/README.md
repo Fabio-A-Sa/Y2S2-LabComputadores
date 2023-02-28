@@ -2,16 +2,43 @@
 
 ## Tópicos
 
-- [O que é o i8042](#i8042)
-- [MakeCode e BreakCode](#makecode-e-breakcode)
+- [O teclado comum](#teclado)
+- [i8042 KBC](#i8042-kbc)
 - [Interrupções](#interrupções)
 - [Polling](#polling)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
 
-## i8042
+## Teclado
 
-Controlador do teclado do computador e do rato com dois botões. Neste lab focaremos apenas na funcionalidade do teclado. Este dispositivo funciona de forma parecida ao timer, havendo interação a partir da escrita e leitura de registos:
+Como vimos no capítulo anterior há sempre necessidade de generalizar o hardware para poder ser usado com diversas máquinas. O teclado comum não foge da regra. Desta vez o desafio é diferente: há no mundo imensos fabricantes de teclados, com diferentes teclas, diferentes línguas e constituições. Como é possível generalizar todas estas combinações?
+
+Quando pressionamos ou soltamos uma tecla geramos um `scancode`, que é um código geralmente de 8 bits (1 byte) que caracteriza não o significado da tecla mas sim a posição desta no teclado. Independentemente da língua, do fabricante ou do número de teclas, a mesma posição gera sempre o mesmo scancode. <br>
+Este código é depois processado pelo i8042/KBC e interpretado pelo CPU. Antes de mostrar o output o CPU consulta a linguagem escolhida no sistema para fazer a tradução. Assim, quando trocamos a língua do teclado com recurso a software estamos na realidade a trocar o `keymap` da língua, implementado recorrendo por exemplo a *hashmaps* com chaves de bytes e valores em ASCII:
+
+<p align="center">
+  <img src="../../Images/Teclado.png">
+  <p align="center">Tratamento do output do teclado</p>
+</p><br>
+
+Um scancode pode ter duas formas:
+- `makecode`: código gerado quando pressionamos a tecla;
+- `breakcode`: código gerado quando soltamos a tecla;
+
+Geralmente o makecode difere apenas no bit mais significativo do byte original. Esta diferença fica mais nítida no caso anterior:
+
+```c
+uint8_t A_makecode  = 0x1E // 00011110
+uint8_t A_breakcode = 0x9E // 10011110
+```
+
+
+
+Na versão a utilizar em LCOM o Minix contém a linguagem em Português.
+
+## i8042 KBC
+
+O i8042 ou KBC (*KeyBoard Controller*) é o controlador do teclado do computador e do rato com dois botões. Neste lab focaremos apenas na funcionalidade do teclado. Este dispositivo funciona de forma parecida ao timer, havendo interação a partir da escrita e leitura de registos:
 
 <p align="center">
   <img src="../../Images/i8042.png">
