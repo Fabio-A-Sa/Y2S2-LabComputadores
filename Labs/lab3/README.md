@@ -25,16 +25,27 @@ Um scancode pode ter duas formas:
 - `makecode`: código gerado quando pressionamos a tecla;
 - `breakcode`: código gerado quando soltamos a tecla;
 
-Geralmente o makecode difere apenas no bit mais significativo do byte original. Esta diferença fica mais nítida no caso anterior:
+Geralmente o breakcode difere apenas no bit mais significativo do makecode original. Esta diferença fica mais nítida no caso anterior:
 
 ```c
 uint8_t A_makecode  = 0x1E // 00011110
 uint8_t A_breakcode = 0x9E // 10011110
 ```
 
+Uma possível implementação de uma função que faz a distinção dos códigos:
 
+```c
+void evaluate_scancode(uint8_t scancode) {
+    if (scancode & BIT(7)) {
+        printf("%02x, breakcode!\n", scancode);
+    } else {
+        printf("%02x, makecode!\n", scancode);
+    }
+}
+```
 
-Na versão a utilizar em LCOM o Minix contém a linguagem em Português.
+Algumas teclas possuem scancode de 2 bytes. Nesse caso é quase certo que o primeiro byte recebido seja `0xE0`.
+Na versão que vamos utilizar em LCOM o Minix contém a linguagem portuguesa.
 
 ## i8042 KBC
 
@@ -98,7 +109,7 @@ int write_KBC_command(uint8_t port, uint8_t commandByte) {
 
 A função `tickdelay()` assegura o intervalo correcto entre tentativas de acordo os *ticks* do processador. A função `micros_to_ticks()` traduz um número inteiro de microsseguros em *ticks*.
 
-Da mesma forma, dá para ler os caracteres pressionados no teclado graças ao buffer de saída. Note-se agora que a informação disponibilizada pelo i8042 é só fiável quando estiver completamente no buffer, ou seja, **só deve ser lida quando o output buffer estiver cheio**. O status indica se há algum erro ao nível da paridade ou de timeout. Nesse caso os bytes lidos devem ser descartados:
+Da mesma forma, dá para ler os caracteres pressionados no teclado graças ao buffer de saída. Note-se agora que a informação disponibilizada pelo i8042 é só fiável quando estiver completamente no buffer, ou seja, **só deve ser lida quando o output buffer estiver cheio**. O status indica se há algum erro ao nível da paridade ou de timeout. Nesse caso os bytes devem ser lidos para sairem da fila/buffer mas serem descartados:
 
 ```c
 int read_KBC_output(uint8_t port, uint8_t *output) {
@@ -135,15 +146,32 @@ int read_KBC_output(uint8_t port, uint8_t *output) {
 }
 ```
 
-## MakeCode e BreakCode
-
-// scancode -> break and make codes
-// teclas que precisam de 2 bytes e como separar
-
 ## Interrupções
 
-// interrupções exclusivas por causa do teclado + rato
-// exemplo da policy
+O i8042 também dá origem a interrupções sempre que uma tecla é pressionada. O dispositivo está disponível na IRQ_LINE 1 e as interrupções são ativadas e eliminadas com comandos semelhantes ao Timer:
+
+```c
+/* ------ i8042.h ------ */
+#define KEYBOARD_IRQ 1;   
+
+/* ------ kbc.c ------ */
+int keyboard_hook_id = 1;
+
+// subscribe interrupts
+int keyboard_subscribe_int (uint8_t *bit_no) {
+  if(bit_no == NULL) return 1;   // o apontador tem de ser válido
+  *bit_no = BIT(timer_hook_id);  // a função que chamou esta deve saber qual é a máscara a utilizar
+                                 // para detectar as interrupções geradas
+  return sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id); // subscrição das interrupções em modo exclusivo
+}
+
+// unsubscribe interrupts
+int keyboard_unsubscribe_int () {
+  return sys_irqrmpolicy(&timer_hook_id); // desligar as interrupções
+}
+```
+
+Note-se a diferença no segundo argumento da *policy*. Como vimos em cima o i8042 controla o teclado e o rato. Como não queremos receber por este canal as interrupções que possam aparecer do rato, então declaramos estas interrupções como **exclusivas**, IRQ_EXCLUSIVE.
 
 ## Polling
 
