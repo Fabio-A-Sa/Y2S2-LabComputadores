@@ -251,10 +251,23 @@ int timer_unsubscribe_int () {
 }
 ```
 
+### Erro típico #5 - Subscrição de Interrupções
+
 Para não haver enganos na função `sys_irqsetpolicy`:
 - o primeiro argumento descreve a IRQ_LINE a usar, o seu valor é sempre dado no enunciado e pode variar entre 0 e 15;
 - o segundo argumento é, para o caso de i8254, IRQ_REENABLE. É um tipo de política que permite recebermos sinais do tipo EOI (*End Of Interrupt*) e a partir deles tratar correctamente as interrupções;
-- o terceiro argumento é um apontador para um inteiro de valor arbitrário, à escolha do aluno, que pode variar entre 0 e 7. Entre dispositivos diferentes estes valores têm de ser também diferentes;
+- o terceiro argumento é um apontador para um inteiro de valor arbitrário, à escolha do aluno, que pode variar entre 0 e 7. Entre dispositivos diferentes estes valores têm de ser também diferentes. Este valor deve ser declarado como inteiro e global no ficheiro da implementação do módulo.
+
+Repare-se também na ordem de implementação da função `timer_subscribe_int`:
+- validação do input;
+- construção da máscara;
+- invocação da *system call*;
+
+A troca da ordem das últimas instruções dá origem a **erro**, uma vez que o terceiro argumento da system call funciona de duas formas:
+- Input: indica ao hardware o bit a ativar na IRQ_LINE assim que ocorrer uma interrupção;
+- Output: recebe um identificador para ser usado ao desativar as interrupções;
+
+Assim é expectável que depois de invocarmos a *system call* o valor da variável `timer_hook_id` já não seja 0 e sim algo aleatório, e por isso não podemos depois construir a máscara.
 
 ### Exemplo 3:
 
