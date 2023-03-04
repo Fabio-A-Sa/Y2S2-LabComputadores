@@ -7,7 +7,7 @@
 - [Interrupções](#interrupções)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
-- [Desafio - Timer Overflow](#desafio)
+- [Desafio #1 - Timer Overflow](#desafio-1---timer-overflow)
 
 ## i8254
 
@@ -519,7 +519,7 @@ O terceiro teste, aquele das interrupções e medição de tempo, não requer in
 
 ## Desafio #1 - Timer Overflow
 
-Uma das prioridades nas funções de mais baixo nível é validar todos os inputs. No caso da função `timer_set_frequency` temos de garantir que a frequência dada não irá originar overflow no valor do contador. É sobre essa propriedade que este desafio está inserido. <br>
+Uma das prioridades nas funções de mais baixo nível é validar todos os inputs. No caso da função `timer_set_frequency` temos de garantir que a frequência dada não irá originar overflow no valor do contador. É sobre essa propriedade que este desafio está inserido. o grau de dificuldade do desafio é 1/10. <br>
 A ideia agora é generalizar a verificação para todos os pares de frequências: dado a frequência do sistema e a frequência pretendida no i8254, determinar se o valor do contador dará overflow nalgum momento:
 
 ```c
