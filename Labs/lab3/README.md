@@ -266,11 +266,73 @@ int spam(uint8_t time, uint8_t makecode, uint8_t record) {
 }
 ```
 
-A invocação da função resulta numa jogada onde pode ser batido o record anterior. Se não for batido o record a função deve retornar 0, caso contrário deve retornar o novo valor. A solução reune os conhecimentos obtidos nas aulas [Lab2](../lab2/) e [Lab3](.).
+A invocação da função resulta numa jogada onde pode ser batido o record anterior. Se não for batido o record a função deve retornar 0, caso contrário deve retornar o novo valor. A solução reune os conhecimentos obtidos nas aulas [Lab2](../lab2/) sobre o Timer e [Lab3](.) sobre o Teclado.
 
 ## Desafio #3 - Teclas Presas
 
-// soon
+O Sistema Operativo Windows contém uma ferramenta de acessibilidade chamada "Teclas Presas". Este recurso faz com que uma tecla modificadora fique ativa até que outra seja pressionada, permitindo aos utilizadores pressionarem uma tecla de cada vez para usar um atalho de teclado. Por exemplo, com esta opção ativa é possível tirar uma *screenshot* clicando nas teclas "Win", "Shift" e "S" sem ser ao mesmo tempo, desde que sejam cliques consecutivos.
+
+A função a desenvolver em ambiente Minix deve retornar apenas quando for interpretado o comando "LCOM":
+
+```c
+int read_lcom_command() {
+    // 
+    return 1;
+}
+```
+
+A solução reune os conhecimentos obtidos nas aula [Lab3](.) sobre o Teclado. Igualmente é necessário algum conhecimento prévio de Máquinas de Estado, por exemplo através da Unidade Curricular de Teoria da Computação, para simplificar o código.
+
+### Dica
+
+Um estado em C pode ser implementado recorrendo a enumerações:
+
+```c
+typedef enum {
+    START,
+    LETTER_L, LETTER_C, LETTER_O, LETTER_M,
+    END
+} CommandState;
+```
+
+Uma máquina de estado pode ser implementada por um ciclo que só acaba quando chegamos ao *estado terminal*. As transições correspondem a mudanças na variável que guarda o estado atual da máquina:
+
+```c
+CommandState state = START; // estado inicial
+
+while (state != END) {  // enquanto não chegar ao estado terminal
+
+    get_scancode(&scancode); // lê o próximo caracter do teclado
+
+    switch (state) {
+        case START:     
+            // se a tecla pressionada for "L" então avança de estado, senão continua no estado inicial
+            if (scancode == L_MAKECODE) { 
+                state = LETTER_L;
+            }
+            break;
+        
+        case LETTER_L:
+            if (scancode == L_MAKECODE || scancode == L_BREAKCODE) {
+                // se a tecla continuar a ser "L", continua neste estado
+                continue;
+            } else if (scancode == C_MAKECODE) {
+                // se a tecla for "C", avança de estado
+                state = LETTER_C;
+            } else {
+                // se não for "L" ou "C", então recomeça o comando, volta ao estado inicial
+                state = START;
+            }
+
+        // ...
+
+        case END:
+            break;
+    }
+}
+```
+
+A implementação de Máquinas de Estado em C será de extrema importância para a realização do Projeto final.
 
 ---
 
