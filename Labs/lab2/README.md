@@ -7,7 +7,7 @@
 - [Interrupções](#interrupções)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
-- [Desafio #1 - Timer Overflow](#desafio-1---timer-overflow)
+- [Desafio #1 - Timer Overflow](#desafio-1---timer-overflow), dificuldade 1/10
 
 ## i8254
 
