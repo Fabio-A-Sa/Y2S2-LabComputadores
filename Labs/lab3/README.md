@@ -8,6 +8,8 @@
 - [Polling](#polling)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
+- [Desafio #2 - Makecode SPAM](#desafio-2---makecode-spam), dificuldade 3/10
+- [Desafio #3 - Teclas Presas](#desafio-3---teclas-presas), dificuldade 7/10
 
 ## Teclado
 
@@ -247,6 +249,28 @@ Para implementação do futuro projeto não temos disponível nenhuma tabela que
 ```bash
 minix$ lcom_run lab3 "scan"
 ```
+
+## Desafio #2 - Makecode SPAM
+
+Este desafio foi inspirado num jogo da [Microsoft Arcade](https://arcade.makecode.com/88877-42759-87414-70617) e tem dificuldade 3/10. O jogo apresentado consiste em clicar numa tecla maior número de vezes durante um determinado tempo. O clique é considerado válido quando pressionamos e soltamos a tecla, ou seja, detectando um *makecode* seguido de um *breakcode*.
+
+A função a implementar tem três argumentos:
+- time: tempo em segundos da duração do jogo
+- makecode: o makecode da tecla a pressionar
+- record: o valor anterior do record obtido
+
+```c
+int spam(uint8_t time, uint8_t makecode, uint8_t record) {
+    // to implement
+    return 1;
+}
+```
+
+A invocação da função resulta numa jogada onde pode ser batido o record anterior. Se não for batido o record a função deve retornar 0, caso contrário deve retornar o novo valor. A solução reune os conhecimentos obtidos nas aulas [Lab2](../lab2/) e [Lab3](.).
+
+## Desafio #3 - Teclas Presas
+
+// soon
 
 ---
 
