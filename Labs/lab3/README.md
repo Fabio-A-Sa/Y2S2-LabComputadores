@@ -172,7 +172,7 @@ int keyboard_unsubscribe_int () {
 }
 ```
 
-Note-se a diferença no segundo argumento da *policy*. Como vimos em cima o i8042 controla o teclado e o rato. Como não queremos receber por este canal as interrupções que possam aparecer do rato, então declaramos estas interrupções como **exclusivas**, IRQ_EXCLUSIVE.
+Note-se a diferença no segundo argumento da *policy*. O Minix tem um controlador próprio que recebe primeiro do que a nossa função as interrupções do teclado. Como não queremos isso, ou seja, queremos que a IRQ_LINE seja exclusivamente tratada pela nossa função, então declaramos estas interrupções como **exclusivas**, com a flag IRQ_EXCLUSIVE.
 
 Como detetar e trabalhar com interrupções de vários dispositivos ao mesmo tempo? Ver [apontamentos do lab anterior](../lab2/README.md#erro-típico-6---tratamento-incompleto-das-interrupções).
 
