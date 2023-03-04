@@ -7,6 +7,7 @@
 - [Interrupções](#interrupções)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
+- [Desafio](#desafio)
 
 ## i8254
 
@@ -515,6 +516,44 @@ minix$ lcom_run lab2 "int <time> -t <0,1>"
 ```
 
 O terceiro teste, aquele das interrupções e medição de tempo, não requer indicação do Timer (0, 1, 2). O motivo é simples: como vimos no início, o Timer 0 é o único responsável por nos dar uma base de tempo. É esse que será usado internamente.
+
+## Desafio
+
+Uma das prioridades nas funções de mais baixo nível é validar todos os inputs. No caso da função `timer_set_frequency` temos de garantir que a frequência dada não irá originar overflow no valor do contador. É sobre essa propriedade que este desafio está inserido. <br>
+A ideia agora é generalizar a verificação para todos os pares de frequências: dado a frequência do sistema e a frequência pretendida no i8254, determinar se o valor do contador dará overflow nalgum momento:
+
+```c
+int overflow(uint32_t system_frequency, uint32_t timer_frequency) {
+  // to implement
+  return 1;
+}
+```
+
+A função terá o comportamento seguinte:
+
+```c
+overflow(1193182, 300);   // 0
+overflow(1193182, 15);    // 1
+overflow(52559800, 800);  // 1
+overflow(589820, 9);      // 0
+```
+
+No contexto da implementação da `timer_set_frequency`, a função poderá ser usada assim:
+
+```c
+int timer_set_frequency(uint8_t timer, uint32_t freq) {
+
+  if (overflow(1193182, freq)) {
+    printf("Overflow detected\n");
+    return 1;
+  }
+
+  uint16_t counter = 1193182 / freq;
+  //...
+}
+```
+
+A solução pode ser encontrada recorrendo a técnicas de manipulação de bits dadas na aula [Lab0](../lab0/).
 
 ---
 
