@@ -1,7 +1,7 @@
 #ifndef _LCOM_I8042_H_
 #define _LCOM_I8042_H_
 
-#define IRQ_KBC         1
+#define IRQ_KEYBOARD    1
 
 #define BREAK_ESC       0x81
 #define MAKE_CODE       BIT(7)

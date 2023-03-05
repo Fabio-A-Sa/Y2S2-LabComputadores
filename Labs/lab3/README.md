@@ -161,9 +161,9 @@ int keyboard_hook_id = 1;
 
 // subscribe interrupts
 int keyboard_subscribe_int (uint8_t *bit_no) {
-  if(bit_no == NULL) return 1;   // o apontador tem de ser válido
-  *bit_no = BIT(timer_hook_id);  // a função que chamou esta deve saber qual é a máscara a utilizar
-                                 // para detectar as interrupções geradas
+  if(bit_no == NULL) return 1;      // o apontador tem de ser válido
+  *bit_no = BIT(keyboard_hook_id);  // a função que chamou esta deve saber qual é a máscara a utilizar
+                                    // para detectar as interrupções geradas
   // subscrição das interrupções em modo exclusivo
   return sys_irqsetpolicy(KEYBOARD_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id);
 }
