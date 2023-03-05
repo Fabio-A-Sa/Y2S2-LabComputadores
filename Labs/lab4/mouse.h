@@ -1,12 +1,21 @@
-#ifndef _LCOM_I8042_H_
-#define _LCOM_I8042_H_
+#ifndef _LCOM_MOUSE_H_
+#define _LCOM_MOUSE_H_
 
 #include <minix/sysutil.h>
-#include "i8042.h"
 #include <lcom/lcf.h>
+#include "i8042.h"
+#include "KBC.h"
 
-int (mouse_subscribe)(uint8_t *bit_no);
+int (mouse_subscribe_int)(uint8_t *bit_no);
+
+int (mouse_unsubscribe_int)();
+
 void (mouse_ih)();
-int (mouse_unsubscribe)();
+
+void (mouse_sync_bytes)();
+
+void (mouse_bytes_to_packet)();
+
+int (mouse_config)(uint8_t controlWord);
 
 #endif

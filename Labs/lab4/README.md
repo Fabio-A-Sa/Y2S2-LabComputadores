@@ -20,6 +20,8 @@ O Sistema Operativo por padrão atribui umas coordenadas iniciais no ecrã ao cu
 
 Note-se o sentido dos eixos no ecrã. De P1 para P2 houve um deslocamento positivo nos dois eixos mas de P2 para P3 o deslocamento em Y foi negativo. O deslocamento do cursor para fora do quadrante positivo dos eixos não é permitido nem possível pois as variáveis que representam as coordenadas atuais são dois inteiros sem sinal.
 
+A resolução padrão do Mouse do Minix é 4 contagens por milímetro percorrido.
+
 ## i8042 Mouse
 
 O rato é controlado pelo mesmo dispositivo do teclado: o i8042. Vamos portanto usar as mesmas funções para ler, escrever e consultar o status do controlador:
