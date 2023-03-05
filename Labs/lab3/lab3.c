@@ -6,7 +6,8 @@
 
 #include "i8254.h"
 #include "i8042.h"
-#include "KBC.h"
+#include "keyboard.h"
+#include "KBC.c"
 #include "timer.c"
 
 extern uint32_t counter_KBC;
@@ -44,7 +45,7 @@ int(kbd_test_scan)() {
     uint8_t irq_set;
     message msg;
 
-    if(subscribe_KBC_interrupts(&irq_set) != 0) return 1;
+    if(keyboard_subscribe_interrupts(&irq_set) != 0) return 1;
 
     while(scancode != BREAK_ESC){ // a condição de paragem é obter um breakcode da tecla ESC
 
@@ -64,7 +65,7 @@ int(kbd_test_scan)() {
         }
     }
 
-  if (unsubscribe_KBC_interrupts() != 0) return 1;
+  if (keyboard_unsubscribe_interrupts() != 0) return 1;
   if (kbd_print_no_sysinb(counter_KBC) != 0) return 1;
 
   return 0;
@@ -80,7 +81,7 @@ int(kbd_test_poll)() {
     }
 
   // Restore interrupts
-  return kbc_restore();
+  return keyboard_restore();
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
@@ -92,7 +93,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
     int seconds = 0;  // timer seconds
 
     if (timer_subscribe_int(&irq_set_TIMER) != 0) return 1;
-    if (subscribe_KBC_interrupts(&irq_set_KBC) != 0) return 1;
+    if (keyboard_subscribe_interrupts(&irq_set_KBC) != 0) return 1;
 
     while (scancode != BREAK_ESC && seconds < n){
 
@@ -119,7 +120,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
     }
 
   if (timer_unsubscribe_int() != 0) return 1;
-  if (unsubscribe_KBC_interrupts() != 0) return 1;
+  if (keyboard_unsubscribe_interrupts() != 0) return 1;
   if (kbd_print_no_sysinb(counter_KBC) != 0) return 1;
 
   return 0;

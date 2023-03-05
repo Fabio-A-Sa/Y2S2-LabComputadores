@@ -156,7 +156,7 @@ O i8042 também dá origem a interrupções sempre que uma tecla é pressionada.
 /* ------ i8042.h ------ */
 #define KEYBOARD_IRQ 1;   
 
-/* ------ kbc.c ------ */
+/* ------ keyboard.c ------ */
 int keyboard_hook_id = 1;
 
 // subscribe interrupts
@@ -170,7 +170,7 @@ int keyboard_subscribe_int (uint8_t *bit_no) {
 
 // unsubscribe interrupts
 int keyboard_unsubscribe_int () {
-  return sys_irqrmpolicy(&timer_hook_id); // desligar as interrupções
+  return sys_irqrmpolicy(&keyboard_hook_id); // desligar as interrupções
 }
 ```
 
