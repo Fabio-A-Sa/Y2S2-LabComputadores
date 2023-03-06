@@ -33,6 +33,7 @@
 #define MOUSE_Y_OVERFLOW    BIT(7)
 #define DISABLE_DATA_REPORT 0xF5
 #define ENABLE_DATA_REPORT  0xF4
+#define MOUSE_READ_DATA     0xEB
 #define WRITE_BYTE_MOUSE    0xD4
 
 #define ACK 0xFA    

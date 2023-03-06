@@ -1,4 +1,3 @@
-// IMPORTANT: you must include the following line in all your C files
 #include <lcom/lcf.h>
 
 #include <stdint.h>
@@ -84,6 +83,33 @@ int (mouse_test_packet)(uint32_t cnt) {
   return 0;
 }
 
+int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
+    
+    // A LCF já lança o rato em REMOTE MODE / Polling
+
+    while (cnt) { // Só termina quando lermos @cnt pacotes
+
+        if (mouse_write(MOUSE_READ_DATA) != 0) return 1;  // Comando para lermos diretamente mais um byte
+        mouse_ih();                                       // Lemos mais um byte    
+        mouse_sync_bytes();                               // Sincronizamos esse byte no pacote respectivo      
+        if (byte_index == 3) {                            // Quando tivermos três bytes do mesmo pacote
+            mouse_bytes_to_packet();                      // Formamos o pacote
+            mouse_print_packet(&mouse_packet);            // Mostramos o pacote 
+            byte_index = 0;
+            cnt--;
+            tickdelay(micros_to_ticks(period * 1000));    // Esperamos @period microssegundos até ler o próximo pacote
+        }
+    }
+
+    // Desativar o report de dados do rato
+    if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
+  
+    // KBC volta ao estado normal, função já implementada pela LCF
+    if (minix_get_dflt_kbc_cmd_byte() != 0) return 1;
+  
+    return 0;
+}
+
 /*
 int (mouse_test_async)(uint8_t idle_time) {
     printf("%s(%u): under construction\n", __func__, idle_time);
@@ -95,8 +121,4 @@ int (mouse_test_gesture)() {
     return 1;
 }
 
-int (mouse_test_remote)(uint16_t period, uint8_t cnt) {
-    printf("%s(%u, %u): under construction\n", __func__, period, cnt);
-    return 1;
-}
 */
