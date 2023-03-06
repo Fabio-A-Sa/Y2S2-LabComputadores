@@ -16,8 +16,6 @@ void (mouse_sync_bytes)();
 
 void (mouse_bytes_to_packet)();
 
-int (mouse_config)(uint8_t controlWord);
-
-int (my_solution)(uint8_t command);
+int (mouse_write)(uint8_t command);
 
 #endif

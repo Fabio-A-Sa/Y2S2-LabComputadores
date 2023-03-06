@@ -31,18 +31,11 @@
 #define MOUSE_Y_SIGNAL      BIT(5)
 #define MOUSE_X_OVERFLOW    BIT(6)
 #define MOUSE_Y_OVERFLOW    BIT(7)
-
-// verificar estes
+#define DISABLE_DATA_REPORT 0xF5
+#define ENABLE_DATA_REPORT  0xF4
+#define WRITE_BYTE_MOUSE    0xD4
 
 #define ACK 0xFA    
 #define NACK 0xFE
-
-#define DISABLE_MOUSE 0xA7
-#define ENABLE_MOUSE 0xA8
-#define WRITE_BYTE_MOUSE 0xD4
-
-#define AUX BIT(5)  //1 if data from mouse
-#define INH BIT(4) //0 if keyboard is inhibited
-// fim da verificação
 
 #endif /* _LCOM_I8042_H_ */

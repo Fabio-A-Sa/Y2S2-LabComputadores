@@ -39,14 +39,18 @@ int (mouse_test_packet)(uint32_t cnt) {
    
   int ipc_status;
   message msg;
-  uint8_t mouse_mask;
+  uint8_t mouse_mask; // Para interpretar as interrupções
 
+  // Subscrição das interrupções do rato
   if (mouse_subscribe_int(&mouse_mask) != 0) return 1;
-  if (my_solution(0xEA) != 0) return 1; // set stream mode
-  if (my_solution(0xF4) != 0) return 1; // enable data report
-  //if (mouse_enable_data_reporting() != 0) return 1;
 
-  while (cnt){
+  // Ativar o report de dados do rato com
+  // A -> Função implementada de raíz
+  // B -> Função dada pelos professores
+  if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1; // A
+  //if (mouse_enable_data_reporting() != 0) return 1; // B
+
+  while (cnt) { // Só termina quando lermos @cnt pacotes
 
     if (driver_receive(ANY, &msg, &ipc_status) != 0){
       printf("Error");
@@ -56,12 +60,12 @@ int (mouse_test_packet)(uint32_t cnt) {
     if (is_ipc_notify(ipc_status)){
       switch(_ENDPOINT_P(msg.m_source)){
         case HARDWARE: 
-          if (msg.m_notify.interrupts & mouse_mask){
-            mouse_ih();
-            mouse_sync_bytes();
-            if (byte_index == 3) {
-              mouse_bytes_to_packet();
-              mouse_print_packet(&mouse_packet);
+          if (msg.m_notify.interrupts & mouse_mask){  // Se for uma interrupção do rato
+            mouse_ih();                               // Lemos mais um byte
+            mouse_sync_bytes();                       // Sincronizamos esse byte no pacote respectivo
+            if (byte_index == 3) {                    // Quando tivermos três bytes do mesmo pacote
+              mouse_bytes_to_packet();                // Formamos o pacote
+              mouse_print_packet(&mouse_packet);      // Mostramos o pacote
               byte_index = 0;
               cnt--;
             }
@@ -71,9 +75,12 @@ int (mouse_test_packet)(uint32_t cnt) {
     }
   }
   
+  // Desativar o report de dados do rato
+  if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
+
+  // Desativar as interrupções
   if (mouse_unsubscribe_int() != 0) return 1;
-  if (my_solution(0xFF) != 0) return 1; // rm stream mode
-  //if (my_solution(0xF5) != 0) return 1; // disable data report
+ 
   return 0;
 }
 
