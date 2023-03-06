@@ -51,7 +51,14 @@ Na versão que vamos utilizar em LCOM o Minix contém a linguagem portuguesa.
 
 ## i8042 KBC
 
-O i8042 ou KBC (*KeyBoard Controller*) é o controlador do teclado do computador e do rato com dois botões. Neste lab focaremos apenas na funcionalidade do teclado. Este dispositivo funciona de forma parecida ao timer, havendo interação a partir da escrita e leitura de registos:
+O i8042 ou KBC (*KeyBoard Controller*) é o controlador do teclado do computador e do rato com dois botões. Neste lab focaremos apenas na funcionalidade do teclado. É importante desde já termos uma boa estrutura e hierarquia de dependências entre os vários ficheiros para que o sistema seja modular e reutilizável para o lab seguinte:
+
+<p align="center">
+  <img src="../../Images/Code.png">
+  <p align="center">Estrutura do código esperada</p>
+</p><br>
+
+Este dispositivo funciona de forma parecida ao timer, havendo interação a partir da escrita e leitura de registos:
 
 <p align="center">
   <img src="../../Images/i8042.png">
@@ -213,11 +220,12 @@ int kbc_restore() {
 
 ## Compilação do código
 
-Ao longo do Lab3 programamos em 3 ficheiros:
+Ao longo do Lab3 programamos em 4 ficheiros:
 
-- `i8042.h`, para constantes e definição de macros úteis;
-- `kbc.c`, para implementação das funções do módulo i8042;
-- `lab3.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo;
+- `i8042.h`, para constantes e definição de macros úteis ao sistema;
+- `KBC.c`, para implementação das funções que contactam diretamente com o i8042 para leitura e escrita de comandos e leitura do status do dispositivo;
+- `keyboard.c`, para implementação das funções referentes a interrupções, leitura de scancodes e reestabelecimento das interrupções em modo manual;
+- `lab3.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo do *keyboard*;
 
 Ainda importamos os ficheiros `utils.c`, `timer.c` e `i8254.h` do lab anterior. Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
 
