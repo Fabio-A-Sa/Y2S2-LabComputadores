@@ -41,8 +41,10 @@ int (mouse_test_packet)(uint32_t cnt) {
   message msg;
   uint8_t mouse_mask;
 
-  if (mouse_enable_data_reporting() != 0) return 1;
   if (mouse_subscribe_int(&mouse_mask) != 0) return 1;
+  if (my_solution(0xEA) != 0) return 1; // set stream mode
+  if (my_solution(0xF4) != 0) return 1; // enable data report
+  //if (mouse_enable_data_reporting() != 0) return 1;
 
   while (cnt){
 
@@ -70,6 +72,8 @@ int (mouse_test_packet)(uint32_t cnt) {
   }
   
   if (mouse_unsubscribe_int() != 0) return 1;
+  if (my_solution(0xFF) != 0) return 1; // rm stream mode
+  //if (my_solution(0xF5) != 0) return 1; // disable data report
   return 0;
 }
 

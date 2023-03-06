@@ -30,7 +30,6 @@ void (mouse_sync_bytes)(){
     byte_index++;
   }
 }
-// fim da parte revista
 
 void (mouse_bytes_to_packet)(){
 
@@ -43,13 +42,13 @@ void (mouse_bytes_to_packet)(){
   mouse_packet.rb = mouse_bytes[0] & MOUSE_RB;
   mouse_packet.x_ov = mouse_bytes[0] & MOUSE_X_OVERFLOW;
   mouse_packet.y_ov = mouse_bytes[0] & MOUSE_Y_OVERFLOW;
-  mouse_packet.delta_x = (mouse_bytes[0] & MOUSE_X_SIGNAL) ? (0xff00 | mouse_bytes[0]) : mouse_bytes[0];
-  mouse_packet.delta_y = (mouse_bytes[0] & MOUSE_Y_SIGNAL) ? (0xff00 | mouse_bytes[0]) : mouse_bytes[0];
+  mouse_packet.delta_x = (mouse_bytes[0] & MOUSE_X_SIGNAL) ? (0xFF00 | mouse_bytes[1]) : mouse_bytes[1];
+  mouse_packet.delta_y = (mouse_bytes[0] & MOUSE_Y_SIGNAL) ? (0xFF00 | mouse_bytes[2]) : mouse_bytes[2];
 }
 
 // substituta da mouse_enable_data_reporting() da LCF
 int (mouse_config)(uint8_t controlWord){
-  uint8_t something = 0xff, something_else = 0xff;
+  uint8_t something = 0xff, something_else = 0xff; //???? -> rever esta coisa
   uint8_t mouseResponse;
   do{
     if(write_KBC_command(KBC_IN_CMD, something)) return 1;
@@ -57,5 +56,19 @@ int (mouse_config)(uint8_t controlWord){
     tickdelay(micros_to_ticks(20000));
     if(read_KBC_output(KBC_OUT_CMD, &mouseResponse)) return 1;
   } while (mouseResponse != something_else);
+  return 0;
+}
+
+// to enable stream mode
+int (my_solution)(uint8_t command) {
+  uint8_t attemps = 10;
+  uint8_t mouse_response;
+  do {
+    attemps--;
+    if (write_KBC_command(0x64, 0xD4)) return 1;
+    if (write_KBC_command(0x60, command)) return 1;
+    tickdelay(micros_to_ticks(WAIT_KBC));
+    if (read_KBC_output(0x60, &mouse_response)) return 1;
+  } while (mouse_response != ACK && attemps);
   return 0;
 }

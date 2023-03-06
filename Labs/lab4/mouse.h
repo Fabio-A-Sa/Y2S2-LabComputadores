@@ -18,4 +18,6 @@ void (mouse_bytes_to_packet)();
 
 int (mouse_config)(uint8_t controlWord);
 
+int (my_solution)(uint8_t command);
+
 #endif

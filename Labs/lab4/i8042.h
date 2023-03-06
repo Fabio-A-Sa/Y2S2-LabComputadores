@@ -33,6 +33,10 @@
 #define MOUSE_Y_OVERFLOW    BIT(7)
 
 // verificar estes
+
+#define ACK 0xFA    
+#define NACK 0xFE
+
 #define DISABLE_MOUSE 0xA7
 #define ENABLE_MOUSE 0xA8
 #define WRITE_BYTE_MOUSE 0xD4
