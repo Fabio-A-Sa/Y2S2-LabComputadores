@@ -10,7 +10,7 @@
 
 extern struct packet mouse_packet;
 extern uint8_t byte_index;
-extern uint8_t timer_counter;
+extern int timer_counter;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -122,7 +122,12 @@ int (mouse_test_async)(uint8_t idle_time) {
 
   int ipc_status;
   message msg;
-  uint8_t mouse_mask, timer_mask; // Para interpretar as interrupções
+  uint8_t seconds = 0;
+  uint8_t mouse_mask = 0, timer_mask = 0; // Para interpretar as interrupções
+
+  // Subscrição das interrupções
+  if (mouse_subscribe_int(&mouse_mask) != 0) return 1;
+  if (timer_subscribe_int(&timer_mask) != 0) return 1;
 
   // Ativar o report de dados do rato com
   // A -> Função implementada de raíz
@@ -130,14 +135,8 @@ int (mouse_test_async)(uint8_t idle_time) {
   if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1; // A
   //if (mouse_enable_data_reporting() != 0) return 1; // B
 
-  // Subscrição das interrupções
-  if (timer_subscribe_int(&timer_mask) != 0) return 1;
-  if (mouse_subscribe_int(&mouse_mask) != 0) return 1;
-
-  int seconds = 0;
-
   while (seconds < idle_time) { // Só termina quando passarmos @idle_time sem ler pacotes
-    
+
     if (driver_receive(ANY, &msg, &ipc_status) != 0){
       printf("Error");
       continue;
@@ -149,7 +148,7 @@ int (mouse_test_async)(uint8_t idle_time) {
 
           if (msg.m_notify.interrupts & timer_mask) { // Se for uma interrupão do timer
             timer_int_handler();
-            if (timer_counter % 60 == 0 && timer_counter > 0) seconds++;
+            if (timer_counter % 60 == 0) seconds++;
           }
 
           if (msg.m_notify.interrupts & mouse_mask){  // Se for uma interrupção do rato

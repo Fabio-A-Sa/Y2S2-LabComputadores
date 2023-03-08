@@ -32,11 +32,16 @@ int write_KBC_command(uint8_t port, uint8_t commandByte);
 int read_KBC_output(uint8_t port, uint8_t *output);
 ```
 
-// soon
+A estrutura do código será semelhante ao Lab anterior:
+
+<p align="center">
+  <img src="../../Images/Code.png">
+  <p align="center">Organização do código a implementar</p>
+</p><br>
 
 ## Interrupções
 
-O rato está presente na IRQ_LINE 12. As funções de subscrição e desistência das interrupções são muito semelhantes às anteriores. De igual forma temos que declarar as interrupões como exclusivas:
+O rato está presente na IRQ_LINE 12. As funções das interrupções são muito semelhantes às anteriores. De igual forma temos que declarar as interrupões como exclusivas:
 
 ```c
 /* ------ i8042.h ------ */
@@ -55,8 +60,8 @@ int mouse_subscribe_int (uint8_t *bit_no) {
 }
 
 // unsubscribe interrupts
-int keyboard_unsubscribe_int () {
-  return sys_irqrmpolicy(&timer_hook_id); // desligar as interrupções
+int mouse_unsubscribe_int () {
+  return sys_irqrmpolicy(&mouse_hook_id); // desligar as interrupções
 }
 ```
 
@@ -70,9 +75,22 @@ int keyboard_unsubscribe_int () {
 
 ## Testagem do código
 
-// soon
+A biblioteca LCF (*LCOM Framework*) disponível nesta versão do Minix3 tem um conjunto de testes para cada função a implementar em `lab4.c`. Assim é simples verificar se o programa corre como esperado para depois ser usado sem problemas no projeto. Para saber o conjunto dos testes disponíveis basta consultar:
+
+```bash
+minix$ lcom_run lab4
+```
+
+Neste caso em concreto estão disponíveis algumas combinações:
+
+```bash
+minix$ lcom_run lab4 "packet <NUMBER_PACKETS> -t <0,1,2,3,4,5>"
+minix$ lcom_run lab4 "async <TIME_SECONDS> -t <0,1,2,3,4,5>"
+minix$ lcom_run lab4 "remote <TIME_MILLISECONDS> -t <0,1,2,3,4,5>"
+minix$ lcom_run lab4 "gesture <X_LENGTH> <TOLERANCE> -t <0,1,2,3,4,5>"
+```
 
 ---
 
 @ Fábio Sá <br>
-@ Fevereiro de 2023
+@ Março de 2023
