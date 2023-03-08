@@ -15,8 +15,8 @@
 
 Como vimos no capítulo anterior há sempre necessidade de generalizar o hardware para poder ser usado com diversas máquinas. O teclado comum não foge da regra. Desta vez o desafio é diferente: há no mundo imensos fabricantes de teclados, com diferentes teclas, diferentes línguas e constituições. Como é possível generalizar todas estas combinações?
 
-Quando pressionamos ou soltamos uma tecla geramos um `scancode`, que é um código geralmente de 8 bits (1 byte) que caracteriza não o significado da tecla mas sim a posição desta no teclado. Independentemente da língua, do fabricante ou do número de teclas, a mesma posição gera sempre o mesmo scancode. <br>
-Este código é depois processado pelo i8042/KBC e interpretado pelo CPU. Antes de mostrar o output o CPU consulta a linguagem escolhida no sistema para fazer a tradução. Assim, quando trocamos a língua do teclado com recurso a software estamos na realidade a trocar o `keymap` da língua, implementado recorrendo por exemplo a *hashmaps* com chaves de bytes e valores em ASCII:
+Quando pressionamos ou soltamos uma tecla geramos um `scancode`, que é um código geralmente de 8 bits (1 byte) que caracteriza não o significado da tecla mas sim a posição desta no teclado. Independentemente do idioma, do fabricante ou do número de teclas, a mesma posição gera sempre o mesmo scancode. <br>
+Este código é depois processado pelo i8042/KBC e interpretado pelo CPU. Antes de mostrar o output o CPU consulta o idioma selecionado no sistema para fazer a tradução. Assim, quando trocamos o idioma do teclado com recurso a software estamos na realidade a trocar o `keymap` do idioma recorrendo por exemplo a *hashmaps* com chaves de bytes e valores em ASCII:
 
 <p align="center">
   <img src="../../Images/Teclado.png">
@@ -46,8 +46,8 @@ void evaluate_scancode(uint8_t scancode) {
 }
 ```
 
-Algumas teclas possuem scancode de 2 bytes. Nesse caso é quase certo que o primeiro byte recebido seja `0xE0`.
-Na versão que vamos utilizar em LCOM o Minix contém a linguagem portuguesa.
+Algumas teclas geram um scancode de 2 bytes. Nesse caso, é quase certo que o primeiro byte recebido seja `0xE0`.
+Na versão que se vai utilizar em LCOM o Minix está configurado com o idioma `Português`.
 
 ## i8042 KBC
 
@@ -73,7 +73,7 @@ Desta vez temos a possibilidade de ler diretamente o status do dispositivo. Esse
 
 ### Exemplo 1
 
-Queremos saber se num determinado momento o buffer de input está cheio. Uma possível implementação seria a seguinte:
+Pretende-se saber se num determinado momento, o buffer de input está cheio. Uma possível implementação seria a seguinte:
 
 ```c
 uint8_t status;
@@ -83,7 +83,7 @@ if (status & BIT(1)) {
 }
 ```
 
-Dá ainda para enviar comandos a partir do *input buffer* disponível em 0x64 mas de uma forma diferente do timer. Agora há dois problemas a ter em conta:
+Dá ainda para enviar comandos a partir do *input buffer* disponível no endereço 0x64 mas de uma forma diferente do timer. Neste caso, há dois problemas a ter em conta:
 - O buffer de entrada é finito, poderá estar cheio e nesse caso não é possível inserir um comando de controlo;
 - O KBC (*keyboard controller*) é um pouco lento, na ordem dos milissegundos, pelo que é indispensável tentar algumas vezes todas as operações efetuadas com este dispositivo;
 
@@ -118,7 +118,7 @@ int write_KBC_command(uint8_t port, uint8_t commandByte) {
 
 A função `tickdelay()` assegura o intervalo correcto entre tentativas de acordo os *ticks* do processador. A função `micros_to_ticks()` traduz um número inteiro de microsseguros em *ticks*.
 
-Da mesma forma, dá para ler os caracteres pressionados no teclado graças ao buffer de saída. Note-se agora que a informação disponibilizada pelo i8042 é só fiável quando estiver completamente no buffer, ou seja, **só deve ser lida quando o output buffer estiver cheio**. O status indica se há algum erro ao nível da paridade ou de timeout. Nesse caso os bytes devem ser lidos para sairem da fila/buffer mas serem descartados:
+Da mesma forma, dá para ler os caracteres pressionados no teclado graças ao buffer de saída. Neste caso a informação disponibilizada pelo i8042 é só fiável quando estiver completamente no buffer, ou seja, **só deve ser lida quando o output buffer estiver cheio**. O status indica se há algum erro ao nível da paridade ou de timeout. Nesse caso os bytes devem ser lidos para sairem da fila/buffer mas serem descartados:
 
 ```c
 int read_KBC_output(uint8_t port, uint8_t *output) {
