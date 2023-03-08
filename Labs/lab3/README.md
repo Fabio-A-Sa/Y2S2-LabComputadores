@@ -221,7 +221,6 @@ int kbc_restore() {
     if (write_KBC_command(0x60, commandWord) != 0) return 1;    // escrever a configuração
     return 0;
 }
-
 ```
 
 ## Compilação do código
