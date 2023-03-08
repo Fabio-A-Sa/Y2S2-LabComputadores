@@ -71,7 +71,17 @@ int mouse_unsubscribe_int () {
 
 ## Compilação do código
 
-// soon
+Ao longo do Lab4 programamos em 2 ficheiros:
+
+- `mouse.c`, para implementação das funções referentes a interrupções, sincronização de pacotes e comandos enviados diretamente ao rato;
+- `lab4.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo do *mouse*;
+
+Ainda importamos os ficheiros `utils.c`, `timer.c`, `i8254.h`, `i8042.h` e `KBC.c` do lab anterior. Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
+
+```bash
+minix$ make clean # apaga os binários temporários
+minix$ make       # compila o programa
+```
 
 ## Testagem do código
 
