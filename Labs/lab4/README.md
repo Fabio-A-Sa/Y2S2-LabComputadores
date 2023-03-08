@@ -85,17 +85,30 @@ A ideia é desenhar um símbolo AND (V invertido) com o rato garantindo várias 
 
 Este sistema tem demasiadas restrições para ser implementado com base em variáveis booleanas e cadeias de condições if-else. No entantanto podemos pensar no mesmo como um conjunto de estados:
 
-- Estado inicial
-- Linha ascendente
-- Vértice
-- Linha descendente
-- Estado final
+- Estado inicial, Start (S)
+- Linha ascendente, Up (U)
+- Vértice, Vertex (V)
+- Linha descendente, Down (D)
+- Estado final, End (E)
 
 A transição entre um estado e outro ocorre depois de cumprida uma determinada condição. Caso essa condição não seja cumprida o sistema ou permanece no mesmo estado ou deverá retornar ao estado inicial. De acordo com a matéria lecionada em Teoria da Computação o enunciado da função pode ser representado pela seguinte Máquina de Estados:
 
-// soon
+<p align="center">
+  <img src="../../Images/StateMachine.png">
+  <p align="center">Máquina de Estados que representa o fluxo do programa</p>
+</p><br>
 
-Em C um conjunto de estados pode ser programado com um
+Descrição das transições:
+
+- I: botão esquerdo é pressionado
+- II: o botão esquerdo está pressionado enquanto o movimento do rato é ascendente com declive superior a 1;
+- III: o botão esquerdo deixa de estar pressionado
+- IV: o botão direito é pressionado
+- V: o botão esquerdo está pressionado enquanto o movimento do rato é descendente com declive inferior a -1;
+- VI: o botão esquerdo deixa de estar pressionado e o deslocamento no eixo X foi superior a x_len;
+- F: corresponde à transição ELSE. Caso a condição atual não corresponda a uma manutenção do estado atual (*self-transition*) ou avanço para o seguinte estado, então o sistema deve voltar ao inicial.
+
+Em C um conjunto de estados pode ser programado usando uma enumeração:
 
 ```c
 typedef enum {
