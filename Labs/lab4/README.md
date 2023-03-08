@@ -22,6 +22,8 @@ Note-se o sentido dos eixos no ecrã. De P1 para P2 houve um deslocamento positi
 
 A resolução padrão do Mouse do Minix é 4 contagens por milímetro percorrido.
 
+// soon
+
 ## i8042 Mouse
 
 O rato é controlado pelo mesmo dispositivo do teclado: o i8042. Vamos portanto usar as mesmas funções para ler, escrever e consultar o status do controlador:
@@ -38,6 +40,8 @@ A estrutura do código será semelhante ao Lab anterior:
   <img src="../../Images/Code.png">
   <p align="center">Organização do código a implementar</p>
 </p><br>
+
+// soon
 
 ## Interrupções
 
@@ -66,6 +70,42 @@ int mouse_unsubscribe_int () {
 ```
 
 ## Máquinas de Estado em C
+
+A gestão das interrupções geradas pelos dispositivos estudados até aqui pode constituir um modo de `Event Driven Design`. Nesse caso o fluxo do programa é controlado pelo ambiente onde está inserido, ou seja, é reativo na resposta aos eventos (interrupções) que poderão ocorrer de forma assíncrona. No entanto, para o contexto do Projeto de LCOM este *design* de código não é suficiente para garantirmos um código robusto, modular e facilmente manipulável. A função do Lab4 `mouse_test_gesture(uint8_t x_len, uint8_t tolerance)` é um exemplo bom e complexo para explorar.
+
+A ideia é desenhar um símbolo AND (V invertido) com o rato garantindo várias restrições:
+- A primeira linha deve ser desenhada SÓ com o botão esquerdo pressionado;
+- A segunda linha deve ser desenhada SÓ com o botão direito pressionado;
+- No vértice o botão esquerdo tem de deixar de ser pressionado antes do botão direito ser;
+- O valor absoluto da inclinação em cada linha deve ser maior que 1;
+- O deslocamento em X não pode ser inferior a x_len; 
+- Há uma tolerância de algumas unidades, tolerance, em cada iteração para cada eixo;
+- O fim de cada linha é marcado pela libertação do botão;
+- Um erro na execução faz com que o sistema volte ao estado inicial;
+
+Este sistema tem demasiadas restrições para ser implementado com base em variáveis booleanas e cadeias de condições if-else. No entantanto podemos pensar no mesmo como um conjunto de estados:
+
+- Estado inicial
+- Linha ascendente
+- Vértice
+- Linha descendente
+- Estado final
+
+A transição entre um estado e outro ocorre depois de cumprida uma determinada condição. Caso essa condição não seja cumprida o sistema ou permanece no mesmo estado ou deverá retornar ao estado inicial. De acordo com a matéria lecionada em Teoria da Computação o enunciado da função pode ser representado pela seguinte Máquina de Estados:
+
+// soon
+
+Em C um conjunto de estados pode ser programado com um
+
+```c
+typedef enum {
+  START,
+  UP,
+  VERTEX,
+  DOWN,
+  END
+} SystemState;
+```
 
 // soon
 
