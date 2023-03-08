@@ -181,6 +181,12 @@ int keyboard_unsubscribe_int () {
 }
 ```
 
+<p align="center">
+  <img src="../../Images/Exclusive.png">
+  <p align="center">Modo exclusivo</p>
+</p><br>
+
+
 Note-se a diferença no segundo argumento da *policy*. O Minix tem um controlador próprio que recebe primeiro do que a nossa função as interrupções do teclado. Como não queremos isso, ou seja, queremos que a IRQ_LINE seja exclusivamente tratada pela nossa função, então declaramos estas interrupções como **exclusivas**, com a flag IRQ_EXCLUSIVE.
 
 Como detetar e trabalhar com interrupções de vários dispositivos ao mesmo tempo? Ver [apontamentos do lab anterior](../lab2/README.md#erro-típico-6---tratamento-incompleto-das-interrupções).
