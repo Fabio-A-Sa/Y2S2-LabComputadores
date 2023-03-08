@@ -104,8 +104,8 @@ Descrição das transições:
 - II: o botão esquerdo está pressionado enquanto o movimento do rato é ascendente com declive superior a 1;
 - III: o botão esquerdo deixa de estar pressionado
 - IV: o botão direito é pressionado
-- V: o botão esquerdo está pressionado enquanto o movimento do rato é descendente com declive inferior a -1;
-- VI: o botão esquerdo deixa de estar pressionado e o deslocamento no eixo X foi superior a x_len;
+- V: o botão direito está pressionado enquanto o movimento do rato é descendente com declive inferior a -1;
+- VI: o botão direito deixa de estar pressionado e o deslocamento no eixo X foi superior ou igual a x_len;
 - F: corresponde à transição ELSE. Caso a condição atual não corresponda a uma manutenção do estado atual (*self-transition*) ou avanço para o seguinte estado, então o sistema deve voltar ao inicial.
 
 Em C um conjunto de estados pode ser programado usando uma enumeração:
