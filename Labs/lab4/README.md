@@ -123,9 +123,40 @@ O conjunto destes três bytes de informação ordenados chama-se `packet` ou pac
 
 A principal questão é como saber onde começa e onde termina cada pacote de dados, já que o envio destes bytes é contínuo. Por simplicidade considera-se que o primeiro byte do pacote, o CONTROL, contém sempre o bit 3 ativo e assim é possível identificá-lo. É uma aproximação grosseira pois nada garante que os bytes seguintes (o deslocamento em X e o deslocamento em Y) também não possuam o mesmo bit ativo. No entanto para a LCF este truque funciona sempre.
 
-// sicronização de bytes
+Para controlar a sincronização dos bytes gerados precisamos de um conjunto de variáveis globais dentro do ficheiro `mouse.c`:
 
-// modos de consumo: interrupções e polling (remote e stream)
+```c
+uint8_t byte_index = 0;       // [0..2]
+uint8_t packet[3];            // pacote
+uint8_t current_byte;         // o byte mais recente lido
+```
+
+A invocação da função `mouse_ih()` quando ocorrer uma interrupção provoca uma atualização no byte lido, que pode ser o primeiro do pacote ou não:
+
+```c
+void mouse_ih() {
+  read_KBC_output(KBC_WRITE_CMD, &current_byte, 1);
+}
+```
+
+Para preenchermos o array `packet` corretamente podemos invocar em seguida a função `mouse_sync_bytes()`, que irá avaliar se estamos perante o byte CONTROL ou um byte de deslocamento, de acordo com o índice e o estado do terceiro bit:
+
+```c
+void mouse_sync_bytes() {
+  if (byte_index == 0 && (current_byte & BIT(3))) { // é o byte CONTROL, o bit 3 está ativo
+    mouse_bytes[byte_index]= current_byte;
+    byte_index++;
+  }
+  if (byte_index == 3) {                            // completou o pacote
+    do_something_with_packet(&packet);
+    byte_index = 0;
+  }
+  if (byte_index > 0) {                             // recebe os deslocamentos em X e Y
+    mouse_bytes[byte_index] = current_byte;
+    byte_index++;
+  }
+}
+```
 
 ## O comando 0xD4
 
