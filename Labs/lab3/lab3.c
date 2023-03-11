@@ -75,7 +75,7 @@ int(kbd_test_poll)() {
   
     while (scancode != BREAK_ESC) { // a condição de paragem é obter um breakcode da tecla ESC
 
-        if (read_KBC_output(KBC_OUT_CMD, &scancode) == 0) {
+        if (read_KBC_output(KBC_OUT_CMD, &scancode, 0) == 0) {
             kbd_print_scancode(!(scancode & MAKE_CODE), scancode == TWO_BYTES ? 2 : 1, &scancode);
         }   
     }
