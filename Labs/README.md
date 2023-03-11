@@ -96,11 +96,15 @@ minix$ tree .
 │   ├── mouse
 │   │   ├── i8042.h
 │   │   ├── mouse.c
-│   │   └── mouse.h
+│   │   ├── mouse.h
+│   │   ├── KBC.c
+│   │   └── KBC.h
 │   ├── keyboard
 │   │   ├── i8042.h
 │   │   ├── keyboard.c
 │   │   ├── keyboard.h
+│   │   ├── KBC.c
+│   │   └── KBC.h
 │   ├── timer
 │   │   ├── i8254.h
 │   │   ├── timer.c
