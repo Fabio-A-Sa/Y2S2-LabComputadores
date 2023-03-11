@@ -31,6 +31,13 @@ int update_coordinates(int16_t *x, int16_t *y, int16_t delta_x, int16_t delta_y)
 
 A resolução padrão do Mouse do Minix é 4 contagens por milímetro percorrido. Não é uma contagem muito precisa e depende também do rato usado, pelo que este parâmetro não é explorado em LCOM.
 
+A estrutura do código será semelhante ao Lab anterior:
+
+<p align="center">
+  <img src="../../Images/Code.png">
+  <p align="center">Organização do código a implementar</p>
+</p><br>
+
 ## i8042 Mouse
 
 O rato é controlado pelo mesmo dispositivo do teclado: o i8042. 
@@ -48,12 +55,59 @@ int write_KBC_command(uint8_t port, uint8_t commandByte);
 int read_KBC_output(uint8_t port, uint8_t *output);
 ```
 
-A estrutura do código será semelhante ao Lab anterior:
+No entanto precisamos de mais uma verificação quando estivermos a ler o output do i8042. De facto, o controlador i8042 garante a leitura de bytes de ambos os dispositivos: teclado e rato. Se houver interrupções dos dois ao mesmo tempo não sabemos a quem pertence o output. Uma possível solução é adicionar um argumento booleano à função que lê o output para que funcione de acordo com o dispositivo que estamos a tratar. **O bit 5 do status do KBC está a 1 quando o output é do rato e está a 0 quando o output é do teclado**:
 
-<p align="center">
-  <img src="../../Images/Code.png">
-  <p align="center">Organização do código a implementar</p>
-</p><br>
+```c
+int read_KBC_output(uint8_t port, uint8_t *output, uint8_t mouse) {
+
+    uint8_t status;
+    uint8_t attemps = 10;
+    
+    while (attemps) {
+
+        if (read_KBC_status(&status) != 0) {                // lê o status
+            printf("Error: Status not available!\n");
+            return 1;
+        }
+
+        if ((status & BIT(0)) != 0) {                       // o output buffer está cheio, posso ler
+            if(util_sys_inb(port, output) != 0){            // leitura do buffer de saída
+                printf("Error: Could not read output!\n");
+                return 1;
+            }
+            if((status & BIT(7)) != 0){                     // verifica erro de paridade
+                printf("Error: Parity error!\n");           // se existir, descarta
+                return 1;
+            }
+            if((status & BIT(6)) != 0){                     // verifica erro de timeout
+                printf("Error: Timeout error!\n");          // se existir, descarta
+                return 1;
+            }
+            if (mouse && !(status & BIT(5))) {              // está à espera do output do rato
+                printf("Error: Mouse output not found\n");  // mas o output não é do rato
+                return 1;
+            } 
+            if (!mouse && (status & BIT(5))) {                // está à espera do output do teclado
+                printf("Error: Keyboard output not found\n"); // mas o output não é do teclado
+                return 1;
+            } 
+            return 0; // sucesso: output correto lido sem erros de timeout ou de paridade
+        }
+        tickdelay(micros_to_ticks(20000));
+        attemps--;
+    }
+    return 1; // se ultrapassar o número de tentativas lança um erro
+}
+```
+
+Agora a leitura e validação do output durante as interrupções pode ser realizada em separado:
+
+```c
+if (msg.m_notify.interrupts & keyboard_mask)
+  read_KBC_output(0x64, &output, 0);
+if (msg.m_notify.interrupts & mouse_mask)
+  read_KBC_output(0x64, &output, 1);
+```
 
 Ao contrário do teclado, o rato em cada evento acaba por enviar **3 bytes** de informação:
 - `CONTROL`, 8 bits sem sinal, indica o sinal da componente X, da componente Y, se houve *overflow* nalguma dessas componentes e algum clique em cada um dos três botões disponíveis no rato;

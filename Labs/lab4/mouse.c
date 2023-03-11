@@ -22,7 +22,7 @@ int (mouse_unsubscribe_int)(){
 
 // Em cada chamada do IH (interrupt handler), lê um novo byte do rato
 void (mouse_ih)(){
-  if(read_KBC_output(KBC_WRITE_CMD, &current_byte)) printf("Error in reading byte from mouse\n");
+  if(read_KBC_output(KBC_WRITE_CMD, &current_byte, 1)) printf("Error in reading byte from mouse\n");
 }
 
 // Avalia a disposição dos bytes no array @mouse_bytes
@@ -66,7 +66,7 @@ int (mouse_write)(uint8_t command) {
     if (write_KBC_command(KBC_IN_CMD, WRITE_BYTE_MOUSE)) return 1;
     if (write_KBC_command(KBC_WRITE_CMD, command)) return 1;
     tickdelay(micros_to_ticks(WAIT_KBC));
-    if (read_KBC_output(KBC_OUT_CMD, &mouse_response)) return 1;
+    if (read_KBC_output(KBC_OUT_CMD, &mouse_response, 1)) return 1;
   } while (mouse_response != ACK && attemps);
 
   return 0;
