@@ -119,9 +119,9 @@ Ao contrário do teclado, o rato em cada evento acaba por enviar **3 bytes** de 
   <p align="center">Constituição do CONTROL</p>
 </p><br>
 
-O conjunto destes três bytes de informação ordenados chama-se `packet` ou pacote. No caso do sistema ser gerido por interrupções, lê-se sempre um byte por cada interrupção gerada. Se estiver em modo pollinig, lê-se um byte por cada iteração.
+O conjunto destes três bytes de informação ordenados chama-se `packet` ou pacote. No caso do sistema ser gerido por interrupções, lê-se sempre um byte por cada interrupção gerada. Se estiver em modo polling, lê-se um byte por cada iteração.
 
-A principal questão é como saber onde começa e onde termina cada pacote de dados, já que o envio destes bytes é contínuo. Por simplicidade considera-se que o primeiro byte do pacote, o CONTROL, contém sempre o bit 3 ativo e assim é possível identificá-lo. É uma aproximação grosseira pois nada garante que os bytes seguintes (o deslocamento em X e o deslocamento em Y) também não possuam o mesmo bit ativo. No entanto para a LCF este truque funciona sempre.
+A principal dificuldade é saber onde começa e onde termina cada pacote de dados, já que o envio destes bytes é contínuo. Por simplicidade considera-se que o primeiro byte do pacote, o CONTROL, contém sempre o bit 3 ativo e assim é possível identificá-lo. É uma aproximação grosseira pois nada garante que os bytes seguintes (o deslocamento em X e o deslocamento em Y) também não possuam o mesmo bit ativo. No entanto para a LCF este truque funciona sempre.
 
 Para controlar a sincronização dos bytes gerados precisamos de um conjunto de variáveis globais dentro do ficheiro `mouse.c`:
 
