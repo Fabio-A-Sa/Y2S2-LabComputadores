@@ -4,6 +4,7 @@
 
 - [Funcionamento do Rato](#rato)
 - [i8042 Mouse](#i8042-mouse)
+- [O comando 0xD4](#o-comando-0xd4)
 - [Interrupções](#interrupções)
 - [Máquinas de Estado em C](#maquinas-de-estado-em-c)
 - [Compilação do código](#compilação-do-código)
@@ -11,18 +12,24 @@
 
 ## Rato
 
-O Sistema Operativo por padrão atribui umas coordenadas iniciais no ecrã ao cursor, por esse motivo aparece sempre na mesma posição quando ligamos o computador. Depois disso o dispositivo emite bytes descrever o valor absoluto do deslocamento no eixo X, o valor absoluto do deslocamento no eixo Y e um byte extra a indicar o sinal das duas componentes e se houve algum botão (direito ou esquerdo) pressionado no processo. Todas as seguintes posições do rato são calculadas tendo por base a soma de vetores:
+O Sistema Operativo por padrão atribui umas coordenadas iniciais no ecrã ao cursor, por esse motivo aparece sempre na mesma posição quando ligamos o computador. Depois disso o dispositivo emite bytes descrever o valor deslocamento no eixo X, o valor do deslocamento no eixo Y e se houve algum botão pressionado no processo. Todas as seguintes posições do rato são calculadas tendo por base a soma de vetores:
 
 <p align="center">
   <img src="../../Images/Mouse.png">
   <p align="center">Interpretação da mudança das coordenadas do cursor</p>
 </p><br>
 
-Note-se o sentido dos eixos no ecrã. De P1 para P2 houve um deslocamento positivo nos dois eixos mas de P2 para P3 o deslocamento em Y foi negativo. O deslocamento do cursor para fora do quadrante positivo dos eixos não é permitido nem possível pois as variáveis que representam as coordenadas atuais são dois inteiros sem sinal.
+De P1 para P2 houve um deslocamento positivo nos dois eixos mas de P2 para P3 o deslocamento em Y foi negativo. O deslocamento do cursor para fora do quadrante positivo dos eixos não é permitido. Uma forma de controlar a situação é a seguinte:
 
-A resolução padrão do Mouse do Minix é 4 contagens por milímetro percorrido.
+```c
+int update_coordinates(int16_t *x, int16_t *y, int16_t delta_x, int16_t delta_y) {
+  *x = max(0, *x + delta_x);
+  *y = max(0, *y + delta_y);
+  return 0;
+}
+```
 
-// soon
+A resolução padrão do Mouse do Minix é 4 contagens por milímetro percorrido. Não é uma contagem muito precisa e depende também do rato usado, pelo que este parâmetro não é explorado em LCOM.
 
 ## i8042 Mouse
 
@@ -41,11 +48,23 @@ A estrutura do código será semelhante ao Lab anterior:
   <p align="center">Organização do código a implementar</p>
 </p><br>
 
-// soon
+// packet. só quando data_report está enable
+
+// sicronização de bytes
+
+// modos de consumo: interrupções e polling (remote e stream)
+
+## O comando 0xD4
+
+// para que é
+
+// função que o usa. ACK e NACK
+
+// Mudar de métodos
 
 ## Interrupções
 
-O rato está presente na IRQ_LINE 12. As funções das interrupções são muito semelhantes às anteriores. De igual forma temos que declarar as interrupões como exclusivas:
+O rato está presente na `IRQ_LINE 12`. As funções das interrupções são muito semelhantes às anteriores. De igual forma temos que declarar as interrupões como exclusivas:
 
 ```c
 /* ------ i8042.h ------ */
