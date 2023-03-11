@@ -33,7 +33,14 @@ A resolução padrão do Mouse do Minix é 4 contagens por milímetro percorrido
 
 ## i8042 Mouse
 
-O rato é controlado pelo mesmo dispositivo do teclado: o i8042. Vamos portanto usar as mesmas funções para ler, escrever e consultar o status do controlador:
+O rato é controlado pelo mesmo dispositivo do teclado: o i8042. 
+
+<p align="center">
+  <img src="../../Images/i8042.png">
+  <p align="center">Funcionamento do i8042</p>
+</p><br>
+
+Vamos portanto usar as mesmas funções para ler, escrever e consultar o status do controlador:
 
 ```c
 int read_KBC_status(uint8_t *status);
@@ -48,7 +55,19 @@ A estrutura do código será semelhante ao Lab anterior:
   <p align="center">Organização do código a implementar</p>
 </p><br>
 
-// packet. só quando data_report está enable
+Ao contrário do teclado, o rato em cada evento acaba por enviar **3 bytes** de informação:
+- `CONTROL`, 8 bits sem sinal, indica o sinal da componente X, da componente Y, se houve *overflow* nalguma dessas componentes e algum clique em cada um dos três botões disponíveis no rato;
+- `DELTA_X`, 8 bits sem sinal, indica o valor absoluto do deslocamento em X;
+- `DELTA_Y`, 8 bits sem sinal, indica o valor absoluto do deslocamento em Y;
+
+<p align="center">
+  <img src="../../Images/ControlByte.png">
+  <p align="center">Constituição do CONTROL</p>
+</p><br>
+
+O conjunto destes três bytes de informação ordenados chama-se `packet` ou pacote. No caso do sistema ser gerido por interrupções, lê-se sempre um byte por cada interrupção gerada. Se estiver em modo pollinig, lê-se um byte por cada iteração.
+
+A principal questão é como saber onde começa e onde termina cada pacote de dados, já que o envio destes bytes é contínuo. Por simplicidade considera-se que o primeiro byte do pacote, o CONTROL, contém sempre o bit 3 ativo e assim é possível identificá-lo. É uma aproximação grosseira pois nada garante que os bytes seguintes (o deslocamento em X e o deslocamento em Y) também não possuam o mesmo bit ativo. No entanto para a LCF este truque funciona sempre.
 
 // sicronização de bytes
 
