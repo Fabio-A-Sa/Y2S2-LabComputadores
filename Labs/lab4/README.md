@@ -160,11 +160,45 @@ void mouse_sync_bytes() {
 
 ## O comando 0xD4
 
-// para que é
+Apesar do i8042 também ser o controlador do rato, não permite contactar diretamente com o dispositivo. Todos os comandos enviados para o input buffer do i8042 são interpretados e, se for o caso, só enviados para o teclado. 
 
-// função que o usa. ACK e NACK
+A ideia agora é inibir essa interpretação para conseguirmos mudar as configurações do rato. Ao injetar o comando `0xD4` no i8042 o próximo comando será enviado diretamente ao rato sem qualquer interpretação. Em consequência, o rato enviará uma resposta ao controlador que pode ser lida através do output buffer, em 0x60. Essa resposta pode ter dois formatos:
+- `ACK`, byte 0xFA, quando o comando foi aceite;
+- `NACK`, byte 0xFE, quando ocorreu algum erro. Nesse caso todo o comando deve ser enviado novamente, esperando alguns milissegundos por causa do delay do controlador;
 
-// Mudar de métodos
+<p align="center">
+  <img src="../../Images/D4.png">
+  <p align="center">Funcionamento do comando 0xD4</p>
+</p><br>
+
+Uma possível implementação do método:
+
+```c
+int write_to_mouse(uint8_t command) {
+
+  uint8_t attemps = 10;
+  uint8_t mouse_response;
+
+  // Enquanto houver tentativas e a resposta não for satisfatória
+  do {
+    attemps--;
+    if (write_KBC_command(0x64, 0xD4)) return 1;              // Ativar do modo D4 do i8042
+    if (write_KBC_command(0x60, command)) return 1;           // O comando para o rato é escrito na porta 0x60
+    tickdelay(micros_to_ticks(20000));                        // Esperar alguns milissegundos
+    if (read_KBC_output(0x60, &mouse_response, 1)) return 1;  // Ler a resposta do rato pela porta 0x60
+  } while (mouse_response != 0xFA && attemps);       
+
+  return 0;
+}
+```
+
+O modo 0xD4 possui alguns comandos relevantes:
+- `0xF5`, desativa o *stream mode*;
+- `0xEA`, ativa o *stream mode*;
+- `0xF0`, ativa o *remote mode*;
+- `0xEB`, manda um *request* de novos dados;
+
+O `Stream Mode` é usado nas interrupções. O `Remote Mode` é usado no polling juntamente com o comando `0xEB` para pedir dados a cada iteração. 
 
 ## Interrupções
 

@@ -148,7 +148,7 @@ int (mouse_test_async)(uint8_t idle_time) {
 
           if (msg.m_notify.interrupts & timer_mask) { // Se for uma interrupão do timer
             timer_int_handler();
-            if (timer_counter % 60 == 0) seconds++;
+            if (timer_counter % sys_hz() == 0) seconds++;
           }
 
           if (msg.m_notify.interrupts & mouse_mask){  // Se for uma interrupção do rato
@@ -158,6 +158,7 @@ int (mouse_test_async)(uint8_t idle_time) {
               mouse_bytes_to_packet();                // Formamos o pacote
               mouse_print_packet(&mouse_packet);      // Mostramos o pacote
               byte_index = 0;
+              seconds = 0;
             }
             seconds = 0;
             timer_counter = 0;
