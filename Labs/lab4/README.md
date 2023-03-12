@@ -104,9 +104,9 @@ Agora a leitura e validação do output durante as interrupções pode ser reali
 
 ```c
 if (msg.m_notify.interrupts & keyboard_mask)
-  read_KBC_output(0x64, &output, 0);
+  read_KBC_output(0x60, &output, 0);
 if (msg.m_notify.interrupts & mouse_mask)
-  read_KBC_output(0x64, &output, 1);
+  read_KBC_output(0x60, &output, 1);
 ```
 
 Ao contrário do teclado, o rato em cada evento acaba por enviar **3 bytes** de informação:
