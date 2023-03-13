@@ -4,6 +4,7 @@
 
 - [Funcionamento do Rato](#rato)
 - [i8042 Mouse](#i8042-mouse)
+- [Descarte mútuo no i8042](#descarte-mútuo-no-i8042)
 - [O comando 0xD4](#o-comando-0xd4)
 - [Interrupções](#interrupções)
 - [Máquinas de Estado em C](#maquinas-de-estado-em-c)
@@ -100,14 +101,16 @@ int read_KBC_output(uint8_t port, uint8_t *output, uint8_t mouse) {
 }
 ```
 
-Agora a leitura e validação do output durante as interrupções pode ser realizada em separado:
+Agora a leitura e validação do output durante as interrupções pode ser realizada em separado.
 
 ```c
-if (msg.m_notify.interrupts & keyboard_mask)
-  read_KBC_output(0x60, &output, 0);
 if (msg.m_notify.interrupts & mouse_mask)
   read_KBC_output(0x60, &output, 1);
+if (msg.m_notify.interrupts & keyboard_mask)
+  read_KBC_output(0x60, &output, 0);
 ```
+
+Mas esta solução cria outro problema: ver [descarte mútuo no i8042](#descarte-mútuo-no-i8042).
 
 Ao contrário do teclado, o rato em cada evento acaba por enviar **3 bytes** de informação:
 - `CONTROL`, 8 bits sem sinal, indica o sinal da componente X, da componente Y, se houve *overflow* nalguma dessas componentes e algum clique em cada um dos três botões disponíveis no rato;
@@ -157,6 +160,67 @@ void mouse_sync_bytes() {
   }
 }
 ```
+
+## Descarte mútuo no i8042
+
+### 1. Situação
+
+Num sistema controlado por interrupções cada uma pode ser processada por uma cadeia que verifica a máscara atribuída durante a subscrição. Para ler os outputs de acordo com o dispositivo basta invocar a função criada no tópico anterior:
+
+```c
+if (msg.m_notify.interrupts & mouse_mask) 
+  // interrupção do rato
+  read_KBC_output(0x60, &output, 1);         // Instrução A
+if (msg.m_notify.interrupts & keyboard_mask) 
+  // interrupção do teclado
+  read_KBC_output(0x60, &output, 0);         // Instrução B
+```
+
+Num determinado instante pode haver interrupções por parte dos dois dispositivos controlados pelo i8042 ao mesmo tempo. O *output buffer*, que é na realidade uma fila (**FIFO**, *first in, first out*), pode ficar com o conteúdo seguinte:
+
+<p align="center">
+  <img src="../../Images/Output.png">
+  <p align="center">Situação descrita</p>
+</p><br>
+
+Assim é de prever que o byte 0x1E foi o primeiro a ser inserido na fila e portanto vai ser o primeiro a ser lido. O BIT 5 de cada *status byte* permite avaliar a proveniência dos dados:
+- 0x1E, bit 5 a zero, é um output do teclado;
+- 0xF8, bit 5 ativo, é um output do rato;
+
+### 2. Problema
+
+Como o código é sequencial, o sistema irá analisar e processar primeiro a interrupção do rato (Instrução A):
+- Lê o output do topo da fila (0x1E), mas como o status indica que o output é do teclado, então descarta o byte;
+
+Depois o sistema vai analisar e processar a interrupção do teclado (Instrução B):
+- Lê o output do topo da fila (0xF8), mas como o status indica que o output é do rato, então descarta o byte;
+
+De facto ocorreu um **descarte mútuo**, ou seja, cada um dos dispositivos invalidou os dados do outro. Este problema leva a comportamentos indesejados:
+- No rato, não interpreta um movimento e/ou um clique;
+- No teclado, não interpreta o valor da tecla pressionada;
+
+### 3. Solução
+
+A solução para o problema é simples: podemos inverter a ordem das instruções que captam as interrupções:
+
+```c
+if (msg.m_notify.interrupts & keyboard_mask) 
+  // interrupção do teclado
+  read_KBC_output(0x60, &output, 0);         // Instrução B
+if (msg.m_notify.interrupts & mouse_mask) 
+  // interrupção do rato
+  read_KBC_output(0x60, &output, 1);         // Instrução A
+```
+
+Mas será que esta solução é viável? Ou seja, funciona para todas as composições do output buffer? De acordo com a teoria sim:
+
+A IRQ_LINE tem índices de 0 a 15 que descrevem também a prioridade dos dispositivos entre si. Quanto menor o índice, maior prioridade.
+- timer, IRQ 0
+- keyboard, IRQ 1
+- mouse, IRQ 12
+
+Assim o teclado tem prioridade em relação ao rato. Quando ocorre uma interrupção, o output do teclado terá prioridade sob o output do rato, ficando em primeiro na fila de saída.
+Usando esta análise, e para não perder dados com verificações do status, é importante sempre avaliar as interrupções dos dispositivos por ordem de prioridade, que foi o que resolveu o problema descrito.
 
 ## O comando 0xD4
 
