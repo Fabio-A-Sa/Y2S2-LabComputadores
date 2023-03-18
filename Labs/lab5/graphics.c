@@ -2,22 +2,40 @@
 #include "graphics.h"
 #include <math.h>
 
-int (init_graphics_mode)(uint16_t mode){
-
-  reg86_t r;
-  memset(&r, 0, sizeof(r));
-
-  r.ax = VBE_MODE_SET;
-  r.bx = mode | VBE_LINEAR_FB;
-  r.intno = BIOS_VIDEOCARD_SERV;
-
-  if(sys_int86(&r) != OK){
-    printf("vg_exit(): sys_int86() failed \n");
-    return 1;
-  }
-
-  return 0;
+// Mudança do Minix para modo gráfico
+int (set_graphic_mode)(uint16_t submode) {
+    reg86_t reg86;
+    memset(&reg86, 0, sizeof(reg86)); // inicialização da estrutura com o valor 0 em todos os parâmetros
+    reg86.intno = 0x10;               // intno é sempre 0x10      
+    reg86.ah = 0x4F;                  // parte mais significativa de AX
+    reg86.al = 0x02;                  // parte menos significativa de AX. 0x02 no caso de modo gráfico
+    // reg86.ax = 0x4F02;             // equivamente às duas últimas instruções
+    reg86.bx = submode | BIT(14);     // determinação do submodo com memória linear
+    if (sys_int86(&reg86) != 0) {     // se houver algum erro, abortar a função
+        printf("Set graphic mode failed\n");
+        return 1;
+    }
+    return 0;
 }
+
+// Mudança do Minix para modo de texto
+// Implementação interna da função vg_exit() já dada pela LCF
+int (set_text_mode)() {
+    reg86_t reg86;                       
+    memset(&reg86, 0, sizeof(reg86));   // inicialização da estrutura com o valor 0 em todos os parâmetros
+    reg86.intno = 0x10;                 // intno é sempre 0x10 
+    reg86.ah = 0x00;                    // parte mais significativa de AX 
+    reg86.al = 0x03;                    // parte menos significativa de AX. 0x03 no caso de modo texto
+    // reg86.ax = 0x0003;               // equivamente às duas últimas instruções
+    reg86.bx = 0x0000;                  // não há submodo no modo de texto
+    if(sys_int86(&reg86) != 0) {        // se houver algum erro, abortar a função
+        printf("Set text mode failed\n");
+        return 1;
+    }
+    return 0;
+}
+
+// rever =========================== ->
 
 int (map_vmem)(uint16_t mode){
 

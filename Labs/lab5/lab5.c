@@ -8,8 +8,6 @@ extern uint8_t scancode;
 extern vbe_mode_info_t info;
 extern int counter;
 
-// Any header files included below this line should have been created by you
-
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -31,6 +29,33 @@ int main(int argc, char *argv[]) {
   // [must be the last statement before return]
   lcf_cleanup();
 
+  return 0;
+}
+
+int(video_test_init)(uint16_t mode, uint8_t delay) {
+
+  // Mudança para o modo gráfico
+  if (set_graphic_mode(mode) != 0) return 1;
+
+  // Espera @delay segundos
+  sleep(delay);
+
+  // Volta ao modo de texto antes de terminar
+  // vg_exit() é dada pela LCF. Ver set_text_mode() para consultar a implementação interna
+  if (vg_exit() != 0) return 1;
+
+  return 0;
+}
+
+int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
+                          uint16_t width, uint16_t height, uint32_t color) {
+  
+  if(map_vmem(mode)) return 1;
+  if(init_graphics_mode(mode)) return 1;
+  if(vg_draw_rectangle(x, y, width, height, color)) return 1;
+
+  if (waiting_ESC_key()) return 1;
+  if (vg_exit() != 0) return 1;
   return 0;
 }
 
@@ -59,25 +84,6 @@ int (waiting_ESC_key)() {
   }
 
   if (unsubscribe_KBC_interrupts() != 0) return 1;
-  return 0;
-}
-
-int(video_test_init)(uint16_t mode, uint8_t delay) {
-  if(init_graphics_mode(mode)) return 1;
-  sleep(delay);
-  if(vg_exit()) return 1;
-  return 0;
-}
-
-int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
-                          uint16_t width, uint16_t height, uint32_t color) {
-  
-  if(map_vmem(mode)) return 1;
-  if(init_graphics_mode(mode)) return 1;
-  if(vg_draw_rectangle(x, y, width, height, color)) return 1;
-
-  if (waiting_ESC_key()) return 1;
-  if (vg_exit() != 0) return 1;
   return 0;
 }
 

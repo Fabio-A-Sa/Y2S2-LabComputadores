@@ -8,7 +8,11 @@
 vbe_mode_info_t info;
 uint8_t* vAddr_base;
 
-int (init_graphics_mode)(uint16_t mode);
+// verif
+int (set_graphic_mode)(uint16_t submode);
+int (set_text_mode)();
+
+// por verif
 int (map_vmem)(uint16_t mode);
 int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color);
 int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color);
