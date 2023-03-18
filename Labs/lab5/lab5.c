@@ -92,7 +92,7 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   // Função que retorna apenas quando ESC é pressionado
   if (waiting_ESC_key() != 0) return 1;
 
-  // De regresso ao modo 
+  // De regresso ao modo texto
   if (vg_exit() != 0) return 1;
 
   return 0;
@@ -100,11 +100,15 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
 
 int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, uint8_t step) {
 
-  if (set_frame_buffer(mode)) return 1;
-  if (set_graphic_mode(mode)) return 1;
+  // Construção do frame buffer virtual e físico
+  if (set_frame_buffer(mode) != 0) return 1;
 
-  int vertical = mode_info.YResolution / no_rectangles;    // height
-  int horizontal = mode_info.XResolution / no_rectangles;  // width
+  // Mudança para o modo gráfico
+  if (set_graphic_mode(mode) != 0) return 1;
+
+  // Cálculo do número inteiro de rectângulos em cada eixo
+  int vertical = mode_info.YResolution / no_rectangles;
+  int horizontal = mode_info.XResolution / no_rectangles;
 
   for (int i = 0 ; i < no_rectangles ; i++) {
     for (int j = 0 ; j < no_rectangles ; j++) {
@@ -116,6 +120,7 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
         uint32_t G = Green(i, step, first);
         uint32_t B = Blue(j, i, step, first);
         color = direct_mode(R, G, B);
+
       } else {
         color = indexed_mode(j, i, step, first, no_rectangles);
       }
@@ -124,8 +129,12 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
     }
   }
   
+  // Função que retorna apenas quando ESC é pressionado
   if (waiting_ESC_key()) return 1;
+
+  // De regresso ao modo texto
   if (vg_exit() != 0) return 1;
+
   return 0;
 }
 
