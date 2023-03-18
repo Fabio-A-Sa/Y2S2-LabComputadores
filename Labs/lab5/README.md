@@ -79,7 +79,50 @@ int set_text_mode() {
 
 ## Mapeamento da Video RAM
 
-// soon
+A VRAM (*Video RAM*) é a memória que contém informação sobre a cor de cada píxel presente no ecrã. Antes de mudar o Minix para o modo gráfico é importante alocar memória suficiente de acordo com o submodo escolhido. Ao conjunto de memória alocada dá-se o nome de `frame buffer`.
+
+<p align="center">
+  <img src="../../Images/FrameBuffer.png">
+  <p align="center">Frame Buffer</p>
+</p><br>
+
+A VRAM no modo gráfico é sempre `linear` e contínua, ou seja, a matriz de cores é na realidade um array contínuo de bytes. O seu tamanho depende:
+- da resolução horizontal do modo;
+- da resolução vertical do modo;
+. do modelo de cores escolhido;
+- do número de bytes que representam a cor de cada píxel;
+
+| Mode  | Screen Resolution | Color Model  | Bits per pixel (R:G:B) |
+|-------|-------------------|--------------|------------------------|
+| 0x105 | 1024x768          | Indexed      | 8                      |
+| 0x110 | 640x480           | Direct color | 15((1:)5:5:5)          |
+| 0x115 | 800x600           | Direct color | 24 (8:8:8)             |
+| 0x11A | 1280x1024         | Direct color | 16 (5:6:5)             |
+| 0x14C | 1152x864          | Direct color | 32 ((8:)8:8:8)         |
+
+Conhecendo HRES (resolução horizontal) é possível encontrar o índice do píxel que corresponde às coordenadas 2D do frame buffer:
+
+```c
+int pixel_index(uint16_t x, uint16_t y) {
+    return y * HRES + x;
+}
+```
+
+As cores podem vir em dois formatos:
+- `Modelo direto`: a cor é um conjunto de bytes que representam cada uma das componentes RGB (red, green, blue) do píxel.
+- `Modelo indexado`: a cor é previamente mapeada numa paleta de cores do Minix e apenas é necessário o índice dessa cor;
+
+<p align="center">
+  <img src="../../Images/Paleta.png">
+  <p align="center">Paleta de cores indexadas do Minix</p>
+</p><br>
+
+Nesta versão do Minix estão disponíveis 64 cores indexadas. Sabendo as características de cada modo é simples calcular o número de bytes de memória a alocar. Por exemplo:
+
+```c
+unsigned int frame_0x105_bytes = 1024 x 768  x 1; // 8 bits = 1 byte
+unsigned int frame_0x11A_bytes = 1280 x 1024 x 2; // 16 bits = 2 bytes
+```
 
 ## Sprites
 
