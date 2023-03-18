@@ -1,7 +1,8 @@
 #ifndef _LCOM_I8042_H_
 #define _LCOM_I8042_H_
 
-#define IRQ_KBC         1
+#define IRQ_KEYBOARD    1
+#define IRQ_MOUSE       12
 
 #define BREAK_ESC       0x81
 #define MAKE_CODE       BIT(7)
@@ -21,5 +22,22 @@
 
 #define WAIT_KBC        20000
 #define MAX_ATTEMPS     10
+
+#define MOUSE_LB            BIT(0)
+#define MOUSE_RB            BIT(1)
+#define MOUSE_MB            BIT(2)
+#define FIRST_BYTE          BIT(3)
+#define MOUSE_X_SIGNAL      BIT(4)
+#define MOUSE_Y_SIGNAL      BIT(5)
+#define MOUSE_X_OVERFLOW    BIT(6)
+#define MOUSE_Y_OVERFLOW    BIT(7)
+#define DISABLE_DATA_REPORT 0xF5
+#define ENABLE_DATA_REPORT  0xF4
+#define ENABLE_STREAM_MODE  0xEA
+#define MOUSE_READ_DATA     0xEB
+#define WRITE_BYTE_MOUSE    0xD4
+
+#define ACK 0xFA    
+#define NACK 0xFE
 
 #endif /* _LCOM_I8042_H_ */

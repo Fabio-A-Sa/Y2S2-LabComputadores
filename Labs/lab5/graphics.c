@@ -35,6 +35,7 @@ int (set_text_mode)() {
     return 0;
 }
 
+// Construção do frame buffer virtual e físico
 int (set_frame_buffer)(uint16_t mode){
 
   // retirar informação sobre o @mode
@@ -58,41 +59,49 @@ int (set_frame_buffer)(uint16_t mode){
   // alocação virtual da memória necessária para o frame buffer
   frame_buffer = vm_map_phys(SELF, (void*) physic_addresses.mr_base, frame_size);
   if (frame_buffer == NULL) {
-    printf("couldn’t map video memory");
+    printf("Virtual memory allocation error\n");
     return 1;
   }
 
   return 0;
 }
 
-// rever =========================== ->
-
+// Atualização da cor de um pixel
 int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
 
+  // As coordenadas têm de ser válidas
   if(x >= mode_info.XResolution || y >= mode_info.YResolution) return 1;
   
-  unsigned bpp = (mode_info.BitsPerPixel + 7) / 8;
+  // Cálculo dos Bytes per pixel da cor escolhida. Arredondamento por excesso.
+  unsigned BytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
 
-  memcpy(&frame_buffer[(mode_info.XResolution*y + x) * bpp], &color, bpp);
+  // Índice (em bytes) da zona do píxel a colorir
+  unsigned int index = (mode_info.XResolution * y + x) * BytesPerPixel;
 
-  return 0;
-}
-
-int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color){
-  for(unsigned i = 0; i < len; i++)
-    if (vg_draw_pixel(x+i,y,color)) return 1;
+  // A partir da zona frame_buffer[index], copia @BytesPerPixel bytes da @color
+  memcpy(&frame_buffer[index], &color, BytesPerPixel);
 
   return 0;
 }
 
+// Desenha uma linha horizontal
+int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
+  for (unsigned i = 0 ; i < len ; i++)   
+    if (vg_draw_pixel(x+i, y, color) != 0) return 1;
+  return 0;
+}
+
+// Desenha um rectângulo
 int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
-  for(unsigned i = 0; i < height; i++)
-    if (vg_draw_hline(x,y+i,width,color) != 0) {
+  for(unsigned i = 0; i < height ; i++)
+    if (vg_draw_hline(x, y+i, width, color) != 0) {
       vg_exit();
       return 1;
     }
   return 0;
 }
+
+// rever =========================== ->
 
 uint32_t (direct_mode)(uint32_t R, uint32_t G, uint32_t B) {
   return (R << mode_info.RedFieldPosition) | (G << mode_info.GreenFieldPosition) | (B << mode_info.BlueFieldPosition);

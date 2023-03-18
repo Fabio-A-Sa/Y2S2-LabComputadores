@@ -5,8 +5,8 @@
 
 #include "i8254.h"
 
-int hook_id = 0;
-int counter = 0;
+int hook_id_TIMER = 0;
+int timer_counter = 0;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
@@ -24,7 +24,7 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   util_get_MSB(initialValue, &MSB);
   util_get_LSB(initialValue, &LSB);
 
-  uint8_t selectedTimer;                                                // vai conter a porta do timer selecionado
+  uint8_t selectedTimer; // vai conter a porta do timer selecionado
   switch (timer) {  
     case 0: 
       controlWord |= TIMER_SEL0;
@@ -44,21 +44,22 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   return sys_outb(TIMER_CTRL, controlWord) | sys_outb(selectedTimer, LSB) | sys_outb(selectedTimer, MSB);
 }
 
+
 int (timer_subscribe_int)(uint8_t *bit_no) {
   if(bit_no == NULL)
     return 1;
   
-  *bit_no = BIT(hook_id);
+  *bit_no = BIT(hook_id_TIMER);
   
-  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id);
+  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE,&hook_id_TIMER);
 }
 
 int (timer_unsubscribe_int)() {
-  return sys_irqrmpolicy(&hook_id);
+  return sys_irqrmpolicy(&hook_id_TIMER);
 }
 
 void (timer_int_handler)() {
-  counter++;
+  timer_counter++;
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {

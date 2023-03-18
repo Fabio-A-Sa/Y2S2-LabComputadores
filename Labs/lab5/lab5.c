@@ -1,7 +1,7 @@
 #include <lcom/lcf.h>
 
 #include "graphics.h"
-#include "KBC.h"
+#include "keyboard.h"
 #include "timer.c"
 
 extern vbe_mode_info_t mode_info;
@@ -37,9 +37,9 @@ int (waiting_ESC_key)() {
 
   int ipc_status;
   message msg;
-  uint8_t irq_set;
+  uint8_t keyboard_mask;
 
-  if (subscribe_KBC_interrupts(&irq_set) != 0) return 1;
+  if (keyboard_subscribe_interrupts(&keyboard_mask) != 0) return 1;
 
   while (scancode != BREAK_ESC){
     if (driver_receive(ANY, &msg, &ipc_status) != 0) { 
@@ -49,7 +49,8 @@ int (waiting_ESC_key)() {
     if (is_ipc_notify(ipc_status)) {
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: 
-          if (msg.m_notify.interrupts & irq_set) kbc_ih();
+          if (msg.m_notify.interrupts & keyboard_mask) 
+            kbc_ih();
             break;
         default:
           break; 
@@ -57,10 +58,9 @@ int (waiting_ESC_key)() {
     }
   }
 
-  if (unsubscribe_KBC_interrupts() != 0) return 1;
+  if (keyboard_unsubscribe_interrupts() != 0) return 1;
   return 0;
 }
-
 
 int(video_test_init)(uint16_t mode, uint8_t delay) {
 
@@ -79,14 +79,22 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
 
 int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
                           uint16_t width, uint16_t height, uint32_t color) {
-  
+
+  // Construção do frame buffer virtual e físico
   if (set_frame_buffer(mode) != 0) return 1;
+
+  // Mudança para o modo gráfico
   if (set_graphic_mode(mode) != 0) return 1;
 
+  // Desenha o rectângulo
   if (vg_draw_rectangle(x, y, width, height, color) != 0) return 1;
 
+  // Função que retorna apenas quando ESC é pressionado
   if (waiting_ESC_key() != 0) return 1;
+
+  // De regresso ao modo 
   if (vg_exit() != 0) return 1;
+
   return 0;
 }
 
@@ -138,7 +146,7 @@ int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
-  if(map_vmem(VBE_768p_INDEXED)) return 1;
+  if(set_frame_buffer(VBE_768p_INDEXED)) return 1;
   if(set_graphic_mode(VBE_768p_INDEXED)) return 1;
 
   // https://web.fe.up.pt/~pfs/aulas/lcom2122/labs/lab5/src/doc/group__xpm.html#ga069eaae77c9b41a9a04ea81666119493
@@ -157,10 +165,10 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
   uint8_t irq_set_TIMER, irq_set_KBC;
   message msg;
 
-  if(map_vmem(VBE_768p_INDEXED)) return 1;
+  if(set_frame_buffer(VBE_768p_INDEXED)) return 1;
   if(set_graphic_mode(VBE_768p_INDEXED)) return 1;
 
-  if (subscribe_KBC_interrupts(&irq_set_KBC) != 0) return 1;
+  if (keyboard_subscribe_interrupts(&irq_set_KBC) != 0) return 1;
   if (timer_subscribe_int(&irq_set_TIMER) != 0) return 1;
   if (timer_set_frequency(0, fr_rate) != 0) return 1;       // atualiza para a frame rate dada
 
@@ -193,7 +201,7 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
 
   if (vg_exit() != 0) return 1;
   if (timer_unsubscribe_int() != 0) return 1;
-  if (unsubscribe_KBC_interrupts() != 0) return 1;
+  if (keyboard_unsubscribe_interrupts() != 0) return 1;
 
   return 0;
 }
