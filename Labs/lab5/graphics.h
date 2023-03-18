@@ -5,12 +5,13 @@
 #include "VBE.h"
 #include "BIOS_MACROS.h"
 
-vbe_mode_info_t info;
-uint8_t* vAddr_base;
+vbe_mode_info_t mode_info;
+uint8_t* frame_buffer;
 
 // verif
 int (set_graphic_mode)(uint16_t submode);
 int (set_text_mode)();
+int (set_frame_buffer)(uint16_t mode);
 
 // por verif
 int (map_vmem)(uint16_t mode);

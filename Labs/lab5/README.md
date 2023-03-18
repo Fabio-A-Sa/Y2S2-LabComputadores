@@ -124,6 +124,69 @@ unsigned int frame_0x105_bytes = 1024 x 768  x 1; // 8 bits = 1 byte
 unsigned int frame_0x11A_bytes = 1280 x 1024 x 2; // 16 bits = 2 bytes
 ```
 
+A LCF (*LCOM Framework*) já possui uma função que retorna os dados de cada modo e uma estrutura que comporta toda essa informação:
+
+```c
+vbe_mode_info_t mode_info;                          // declaração da estrutura
+memset(&mode_info, 0, sizeof(mode_info));           // inicialmente todos os valores são 0
+if (vbe_get_mode_info(mode, &mode_info)) return 1;  // preenchimento dos valores
+```
+
+Os parâmetros importantes de vbe_mode_info_t são os seguintes:
+
+- `PhysBasePtr` - endereço físico do início do frame buffer;
+- `XResolution` - resolução horizontal, em píxeis;
+- `YResolution` - resolução vertical, em píxeis;
+- `BitsPerPixel` - número de bits por píxel;
+- `<COLOR>MaskSize` - número de bits da máscara de cores no modo direto. No modo 0x11A GreenMaskSize = 6;
+- `<COLOR>FieldPosition` - posição da máscara de cores. No modo 0x11A GreenFieldPosition = 5;
+
+Onde \<COLOR\> pode uma qualquer cor primária do sistema RGB: Red, Green ou Blue. 
+
+A LCF também possui uma estrutura `minix_mem_range` que suporta o endereço físico base e o endereço físico final do frame buffer a alocar e *system calls* que transformam esses endereços de memória física em memória virtual. De acordo com a unidade curricular de Sistemas Operativos um programa só deve lidar com endereços de memória virtual.
+
+```c
+/* variáveis globais no ficheiro graphic.c */
+
+// estrutura de dados que contém informação sobre o modo gráfico
+vbe_mode_info_t mode_info; 
+// apontador para o início da memória virtual 
+uint8_t *frame_buffer;
+
+/* função de mapeamento da VRAM */
+int set_frame_buffer(uint16_t mode){
+
+  // retirar informação sobre o @mode
+  memset(&mode_info, 0, sizeof(mode_info));
+  if(vbe_get_mode_info(mode, &mode_info)) return 1;
+
+  // cálculo do tamanho do frame buffer, em bytes
+  unsigned int frame_size = (mode_info.XResolution * mode_info.YResolution * mode_info.BitsPerPixel) / 8;
+  
+  // preenchimento dos endereços físicos
+  struct minix_mem_range physic_addresses;
+  physic_addresses.mr_base = mode_info.PhysBasePtr; // início físico do buffer
+  physic_addresses.mr_limit = physic_addresses.mr_base + frame_size; // fim físico do buffer
+  
+  // alocação física da memória necessária para o frame buffer
+  if (sys_privctl(SELF, SYS_PRIV_ADD_MEM, &physic_addresses)) {
+    printf("Physical memory allocation error\n");
+    return 1;
+  }
+
+  // alocação virtual da memória necessária para o frame buffer
+  frame_buffer = vm_map_phys(SELF, (void*) physic_addresses.mr_base, frame_size);
+  if (frame_buffer == NULL) {
+    printf("Virtual memory allocation error");
+    return 1;
+  }
+
+  return 0;
+}
+```
+
+// todo: colorir o frame buffer
+
 ## Sprites
 
 // soon

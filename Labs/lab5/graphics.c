@@ -35,45 +35,45 @@ int (set_text_mode)() {
     return 0;
 }
 
-// rever =========================== ->
+int (set_frame_buffer)(uint16_t mode){
 
-int (map_vmem)(uint16_t mode){
+  // retirar informação sobre o @mode
+  memset(&mode_info, 0, sizeof(mode_info));
+  if(vbe_get_mode_info(mode, &mode_info)) return 1;
 
-  memset(&info, 0, sizeof(info));
-  if(vbe_get_mode_info(mode,&info)) return 1;
-
-  int r;
-  uint8_t* video_mem;
-  struct minix_mem_range mr; /* physical memory range */
-  unsigned int vram_base = info.PhysBasePtr; /* VRAM’s physical address */
-  unsigned int vram_size = (info.XResolution * info.YResolution * info.BitsPerPixel) / 8; /* VRAM’s size, but you can use the frame-buffer size, instead */
-
-  /* Allow memory mapping */
-  mr.mr_base = (phys_bytes) vram_base;
-  mr.mr_limit = mr.mr_base + vram_size;
-  if( OK != (r = sys_privctl(SELF, SYS_PRIV_ADD_MEM, &mr))){
-    panic("sys_privctl (ADD_MEM) failed: %d\n", r);
+  // cálculo do tamanho do frame buffer, em bytes
+  unsigned int frame_size = (mode_info.XResolution * mode_info.YResolution * mode_info.BitsPerPixel) / 8;
+  
+  // preenchimento dos endereços físicos
+  struct minix_mem_range physic_addresses;
+  physic_addresses.mr_base = mode_info.PhysBasePtr; // início físico do buffer
+  physic_addresses.mr_limit = physic_addresses.mr_base + frame_size; // fim físico do buffer
+  
+  // alocação física da memória necessária para o frame buffer
+  if (sys_privctl(SELF, SYS_PRIV_ADD_MEM, &physic_addresses)) {
+    printf("Physical memory allocation error\n");
     return 1;
   }
 
-  /* Map memory */
-  video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
-  if(video_mem == MAP_FAILED){
-    panic("couldn’t map video memory");
+  // alocação virtual da memória necessária para o frame buffer
+  frame_buffer = vm_map_phys(SELF, (void*) physic_addresses.mr_base, frame_size);
+  if (frame_buffer == NULL) {
+    printf("couldn’t map video memory");
     return 1;
   }
 
-  vAddr_base = video_mem;
   return 0;
 }
 
+// rever =========================== ->
+
 int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
 
-  if(x >= info.XResolution || y >= info.YResolution) return 1;
+  if(x >= mode_info.XResolution || y >= mode_info.YResolution) return 1;
   
-  unsigned bpp = (info.BitsPerPixel + 7) / 8;
+  unsigned bpp = (mode_info.BitsPerPixel + 7) / 8;
 
-  memcpy(&vAddr_base[(info.XResolution*y + x) * bpp], &color, bpp);
+  memcpy(&frame_buffer[(mode_info.XResolution*y + x) * bpp], &color, bpp);
 
   return 0;
 }
@@ -95,35 +95,35 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 }
 
 uint32_t (direct_mode)(uint32_t R, uint32_t G, uint32_t B) {
-  return (R << info.RedFieldPosition) | (G << info.GreenFieldPosition) | (B << info.BlueFieldPosition);
+  return (R << mode_info.RedFieldPosition) | (G << mode_info.GreenFieldPosition) | (B << mode_info.BlueFieldPosition);
 }
 
 uint32_t (indexed_mode)(uint16_t col, uint16_t row, uint8_t step, uint32_t first, uint8_t n) {
-  return (first + (row * n + col) * step) % (1 << info.BitsPerPixel);
+  return (first + (row * n + col) * step) % (1 << mode_info.BitsPerPixel);
 }
 
 uint32_t (Red)(unsigned j, uint8_t step, uint32_t first) {
-  return (R(first) + j * step) % (1 << info.RedMaskSize);
+  return (R(first) + j * step) % (1 << mode_info.RedMaskSize);
 }
 
 uint32_t (Green)(unsigned i, uint8_t step, uint32_t first) {
-  return (G(first) + i * step) % (1 << info.GreenMaskSize);
+  return (G(first) + i * step) % (1 << mode_info.GreenMaskSize);
 }
 
 uint32_t (Blue)(unsigned j, unsigned i, uint8_t step, uint32_t first) {
-  return (B(first) + (i + j) * step) % (1 << info.BlueMaskSize);
+  return (B(first) + (i + j) * step) % (1 << mode_info.BlueMaskSize);
 }
 
 /* Funções auxiliares de cores */
 
 uint32_t (R)(uint32_t first){
-  return ((1 << info.RedMaskSize) - 1) & (first >> info.RedFieldPosition);
+  return ((1 << mode_info.RedMaskSize) - 1) & (first >> mode_info.RedFieldPosition);
 }
 
 uint32_t (G)(uint32_t first){
-  return ((1 << info.GreenMaskSize) - 1) & (first >> info.GreenFieldPosition);
+  return ((1 << mode_info.GreenMaskSize) - 1) & (first >> mode_info.GreenFieldPosition);
 }
 
 uint32_t (B)(uint32_t first){
-  return ((1 << info.BlueMaskSize) - 1) & (first >> info.BlueFieldPosition);
+  return ((1 << mode_info.BlueMaskSize) - 1) & (first >> mode_info.BlueFieldPosition);
 }
