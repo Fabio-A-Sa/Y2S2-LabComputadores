@@ -150,11 +150,11 @@ void mouse_sync_bytes() {
     mouse_bytes[byte_index]= current_byte;
     byte_index++;
   }
-  if (byte_index == 3) {                            // completou o pacote
+  else if (byte_index == 3) {                            // completou o pacote
     do_something_with_packet(&packet);
     byte_index = 0;
   }
-  if (byte_index > 0) {                             // recebe os deslocamentos em X e Y
+  else if (byte_index > 0) {                             // recebe os deslocamentos em X e Y
     mouse_bytes[byte_index] = current_byte;
     byte_index++;
   }
