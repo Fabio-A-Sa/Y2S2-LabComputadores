@@ -185,7 +185,26 @@ int set_frame_buffer(uint16_t mode){
 }
 ```
 
-// todo: colorir o frame buffer
+Com o frame buffer instanciado, podemos inserir qualquer cor em qualquer posição:
+
+```c
+int paint_pixel(uint16_t x, uint16_t y, uint32_t color) {
+
+  // As coordenadas têm de ser válidas
+  if(x >= mode_info.XResolution || y >= mode_info.YResolution) return 1;
+  
+  // Cálculo dos Bytes per pixel da cor escolhida. Arredondamento por excesso.
+  unsigned BytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
+
+  // Índice (em bytes) da zona do píxel a colorir
+  unsigned int index = (mode_info.XResolution * y + x) * BytesPerPixel;
+
+  // A partir da zona frame_buffer[index], copia @BytesPerPixel bytes da @color
+  memcpy(&frame_buffer[index], &color, BytesPerPixel);
+
+  return 0;
+}
+```
 
 ## Sprites
 
