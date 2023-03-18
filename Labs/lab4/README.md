@@ -341,7 +341,66 @@ typedef enum {
 } SystemState;
 ```
 
-// soon
+Tendo duas variáveis globais no ficheiro lab4.c podemos guardar o estado do sistema e o valor total percorrido em x:
+
+```c
+SystemState state = START;
+uint16_t x_len_total = 0;
+```
+
+A implementação em C da máquina de estados representada na figura anterior pode ser um switch-case, onde as condições internas atualizam o estado global da máquina:
+
+```c
+void update_state_machine(uint8_t tolerance) {
+
+    switch (state) {
+
+      case START:
+
+          // transição I
+          // se só o botão esquerdo estiver pressionado
+          if (mouse_packet.lb && !mouse_packet.rb && !mouse_packet.mb) {
+            state = UP;
+          }
+
+          break;
+
+      case UP:
+          //TODO: transições II, III e F
+          break;
+
+      case VERTEX:
+          //TODO: transições IV e F
+          break;
+
+      case DOWN:
+          //TODO: transições V, VI e F
+          break;
+
+      case END:
+          break;
+    }
+
+    // Atualização do valor percorrido em X
+    x_len_max = max(0, x_len_max + mouse_packet.delta_x);
+}
+```
+
+A função anterior pode ser chamada após receber um pacote completo, por exemplo:
+
+```c
+//...
+if (msg.m_notify.interrupts & mouse_mask){  // Se for uma interrupção do rato
+  mouse_ih();                               // Lemos mais um byte
+  mouse_sync_bytes();                       // Sincronizamos esse byte no pacote respectivo
+  if (byte_index == 3) {                    // Quando tivermos três bytes do mesmo pacote
+    mouse_bytes_to_packet();                // Formamos o pacote
+    update_state_machine(tolerance);        // Atualizamos a Máquina de Estados
+    byte_index = 0;
+  }
+}
+//...
+```
 
 ## Compilação do código
 
