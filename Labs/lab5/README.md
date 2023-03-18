@@ -37,23 +37,45 @@ A estrutura reg86_t possui alguns parâmetros de 16 bits cujo valor depende da c
 
 </p>
 
-AX pode ser interpretado como dois parâmetros de 8 bits: o AH (*higher bits*) e AL (*lower bits*), sendo AL responsável por determinar o modo de funcionamento (0x02 ou 0x03). BX representa o submodo de funcionamento no modo gráfico. BX também possui o BIT 14 ativo para tornar o mapeamento da memória `linear`.
+AX pode ser interpretado como dois parâmetros de 8 bits: o AH (*higher bits*) e AL (*lower bits*), sendo AL responsável por determinar o modo de funcionamento (0x02 ou 0x03). BX representa o submodo de funcionamento no modo gráfico. BX também possui o BIT 14 ativo para tornar o mapeamento da memória `linear`. O parâmetro "intno" é 0x10 nos dois casos.
+
+Dado um submodo de funcionamento, a mudança para o respectivo modo gráfico pode ser realizada recorrendo à seguinte implementação:
 
 ```c
-int vg_exit() {
+int set_graphic_mode(uint16_t submode) {
     reg86_t reg86;
-    reg86.intno = 0x10;
-    reg86.ah = 0x00;
-    reg86.al = 0x03;
-    if(sys_int86(&reg86) != 0) {
-        printf("vg_exit(): sys_int86() failed \n");
+    memset(&reg86, 0, sizeof(reg86)); // inicialização da estrutura com o valor 0 em todos os parâmetros
+    reg86.intno = 0x10;               // intno é sempre 0x10      
+    reg86.ah = 0x4F;                  // parte mais significativa de AX
+    reg86.al = 0x02;                  // parte menos significativa de AX. 0x02 no caso de modo gráfico
+    // reg86.ax = 0x4F02;             // equivamente às duas últimas instruções
+    reg86.bx = submode | BIT(14);     // determinação do submodo com memória linear
+    if (sys_int86(&reg86) != 0) {     // se houver algum erro, abortar a função
+        printf("Set graphic mode failed\n");
         return 1;
     }
     return 0;
 }
 ```
 
-// soon
+Tal como nos labs anteriores é importante deixar o Minix no mesmo estado por motivos de integridade do sistema. Assim é necessário voltar ao modo de texto antes de retornar qualquer função que use o modo gráfico. Uma possível solução:
+
+```c
+int set_text_mode() {
+    reg86_t reg86;                       
+    memset(&reg86, 0, sizeof(reg86));   // inicialização da estrutura com o valor 0 em todos os parâmetros
+    reg86.intno = 0x10;                 // intno é sempre 0x10 
+    reg86.ah = 0x00;                    // parte mais significativa de AX 
+    reg86.al = 0x03;                    // parte menos significativa de AX. 0x03 no caso de modo texto
+    // reg86.ax = 0x0003;               // equivamente às duas últimas instruções
+    reg86.bx = 0x0000;                  // não há submodo no modo de texto
+    if(sys_int86(&reg86) != 0) {        // se houver algum erro, abortar a função
+        printf("Set text mode failed\n");
+        return 1;
+    }
+    return 0;
+}
+```
 
 ## Mapeamento da Video RAM
 
