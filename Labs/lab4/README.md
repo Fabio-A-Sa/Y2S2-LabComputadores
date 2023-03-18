@@ -382,7 +382,7 @@ void update_state_machine(uint8_t tolerance) {
     }
 
     // Atualização do valor percorrido em X
-    x_len_max = max(0, x_len_max + mouse_packet.delta_x);
+    x_len_total = max(0, x_len_total + mouse_packet.delta_x);
 }
 ```
 
