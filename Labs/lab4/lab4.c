@@ -2,17 +2,19 @@
 
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "i8042.h"
 #include "i8254.h"
 #include "KBC.c"
 #include "mouse.h"
 #include "timer.c"
 
+/* para as três primeiras funções */
 extern struct packet mouse_packet;
 extern uint8_t byte_index;
 extern int timer_counter;
 
-// para a função mouse_test_gesture()
+/* para a função mouse_test_gesture() */
 typedef enum {
   START,
   UP,
@@ -20,6 +22,9 @@ typedef enum {
   DOWN,
   END
 } SystemState;
+
+SystemState state = START;
+uint16_t x_len_total = 0;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -185,9 +190,85 @@ int (mouse_test_async)(uint8_t idle_time) {
   return 0;
 }
 
-int 
+// Implementação em C da máquina descrita nos apontamentos
+void (update_state_machine)(uint8_t tolerance) {
+
+    switch (state) {
+
+      case START:
+
+          // transição I
+          // se só o left-button estiver pressionado
+          if (mouse_packet.lb && !mouse_packet.rb && !mouse_packet.mb) {
+            state = UP;
+          }
+
+          break;
+
+      case UP:
+          //TODO: transições II, III e F
+          break;
+
+      case VERTEX:
+          //TODO: transições IV e F
+          break;
+
+      case DOWN:
+          //TODO: transições V, VI e F
+          break;
+
+      case END:
+          break;
+    }
+
+    // Atualização do valor percorrido em X
+    // x_len_total = max(0, x_len_total + mouse_packet.delta_x);
+}
 
 int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
   
+  int ipc_status;
+  message msg;
+  uint8_t mouse_mask;
+
+  // Subscrição das interrupções
+  if (mouse_subscribe_int(&mouse_mask) != 0) return 1;
+
+  // Ativar o report de dados do rato com
+  // A -> Função implementada de raíz
+  // B -> Função dada pelos professores
+  if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1; // A
+  //if (mouse_enable_data_reporting() != 0) return 1; // B
+
+  while (state != END) { // enquanto não chegar ao estado final
+
+    if (driver_receive(ANY, &msg, &ipc_status) != 0){
+      printf("Error");
+      continue;
+    }
+
+    if (is_ipc_notify(ipc_status)){
+      switch(_ENDPOINT_P(msg.m_source)){
+        case HARDWARE: 
+
+          if (msg.m_notify.interrupts & mouse_mask){  // Se for uma interrupção do rato
+            mouse_ih();                               // Lemos mais um byte
+            mouse_sync_bytes();                       // Sincronizamos esse byte no pacote respectivo
+            if (byte_index == 3) {                    // Quando tivermos três bytes do mesmo pacote
+              mouse_bytes_to_packet();                // Formamos o pacote
+              update_state_machine(tolerance);        // Atualizamos a Máquina de Estados
+              byte_index = 0;
+            }
+          }
+      }
+    }
+  }
+
+  // Desativar o report de dados do rato
+  if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
+
+  // Desativar as interrupções
+  if (mouse_unsubscribe_int() != 0) return 1;
+
   return 0;
 }
