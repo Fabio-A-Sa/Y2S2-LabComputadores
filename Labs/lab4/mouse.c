@@ -27,12 +27,12 @@ void (mouse_ih)(){
 
 // Avalia a disposição dos bytes no array @mouse_bytes
 // O primeiro byte do pacote é sempre o que tem o BIT(3) ativo
-void (mouse_sync_bytes)(){
-  if(byte_index == 0 && (current_byte & FIRST_BYTE)){
+void mouse_sync_bytes() {
+  if (byte_index == 0 && (current_byte & FIRST_BYTE)) { // é o byte CONTROL, o bit 3 está ativo
     mouse_bytes[byte_index]= current_byte;
     byte_index++;
   }
-  else {
+  else if (byte_index > 0) {                            // recebe os deslocamentos em X e Y
     mouse_bytes[byte_index] = current_byte;
     byte_index++;
   }

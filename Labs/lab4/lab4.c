@@ -12,6 +12,15 @@ extern struct packet mouse_packet;
 extern uint8_t byte_index;
 extern int timer_counter;
 
+// para a função mouse_test_gesture()
+typedef enum {
+  START,
+  UP,
+  VERTEX,
+  DOWN,
+  END
+} SystemState;
+
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
   lcf_set_language("EN-US");
@@ -35,7 +44,6 @@ int main(int argc, char *argv[]) {
 
   return 0;
 }
-
 
 int (mouse_test_packet)(uint32_t cnt) {
    
@@ -124,6 +132,7 @@ int (mouse_test_async)(uint8_t idle_time) {
   message msg;
   uint8_t seconds = 0;
   uint8_t mouse_mask = 0, timer_mask = 0; // Para interpretar as interrupções
+  uint16_t timer_frequency = sys_hz();
 
   // Subscrição das interrupções
   if (mouse_subscribe_int(&mouse_mask) != 0) return 1;
@@ -148,7 +157,7 @@ int (mouse_test_async)(uint8_t idle_time) {
 
           if (msg.m_notify.interrupts & timer_mask) { // Se for uma interrupão do timer
             timer_int_handler();
-            if (timer_counter % sys_hz() == 0) seconds++;
+            if (timer_counter % timer_frequency == 0) seconds++;
           }
 
           if (msg.m_notify.interrupts & mouse_mask){  // Se for uma interrupção do rato
@@ -158,7 +167,6 @@ int (mouse_test_async)(uint8_t idle_time) {
               mouse_bytes_to_packet();                // Formamos o pacote
               mouse_print_packet(&mouse_packet);      // Mostramos o pacote
               byte_index = 0;
-              seconds = 0;
             }
             seconds = 0;
             timer_counter = 0;
@@ -177,10 +185,9 @@ int (mouse_test_async)(uint8_t idle_time) {
   return 0;
 }
 
-/*
-int (mouse_test_gesture)() {
-    printf("%s: under construction\n", __func__);
-    return 1;
-}
+int 
 
-*/
+int (mouse_test_gesture)(uint8_t x_len, uint8_t tolerance) {
+  
+  return 0;
+}
