@@ -140,6 +140,7 @@ Os parâmetros importantes de vbe_mode_info_t são os seguintes:
 - `BitsPerPixel` - número de bits por píxel;
 - `<COLOR>MaskSize` - número de bits da máscara de cores no modo direto. No modo 0x11A GreenMaskSize = 6;
 - `<COLOR>FieldPosition` - posição da máscara de cores. No modo 0x11A GreenFieldPosition = 5;
+- `MemoryModel` - 0x06 se for em modo direto, 0x105 se for em modo indexado;
 
 Onde \<COLOR\> pode uma qualquer cor primária do sistema RGB: Red, Green ou Blue. 
 
@@ -199,7 +200,7 @@ int paint_pixel(uint16_t x, uint16_t y, uint32_t color) {
   // Índice (em bytes) da zona do píxel a colorir
   unsigned int index = (mode_info.XResolution * y + x) * BytesPerPixel;
 
-  // A partir da zona frame_buffer[index], copia @BytesPerPixel bytes da @color
+  // A partir da zona de memória frame_buffer[index], copia @BytesPerPixel bytes da @color
   memcpy(&frame_buffer[index], &color, BytesPerPixel);
 
   return 0;
