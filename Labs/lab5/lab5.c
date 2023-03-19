@@ -138,32 +138,23 @@ int(video_test_pattern)(uint16_t mode, uint8_t no_rectangles, uint32_t first, ui
   return 0;
 }
 
-int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
-
-  xpm_image_t img;
-  uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
-  xpm_load(xpm, img.type, &img);
-
-  for (int h = 0 ; h < img.height ; h++) {
-    for (int w = 0 ; w < img.width ; w++) {
-      if (vg_draw_pixel(x + w, y + h, *colors) != 0) return 1;
-      colors++; // next color
-    }
-  }
-  return 0;
-}
-
 int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
+  // Construção do frame buffer virtual e físico (só permite modo indexado)
   if(set_frame_buffer(VBE_768p_INDEXED)) return 1;
+  
+  // Mudança para o modo gráfico (só permite modo indexado)
   if(set_graphic_mode(VBE_768p_INDEXED)) return 1;
 
-  // https://web.fe.up.pt/~pfs/aulas/lcom2122/labs/lab5/src/doc/group__xpm.html#ga069eaae77c9b41a9a04ea81666119493
+  // Imprime o XMP selecionado
+  if (print_xpm(xpm, x, y) != 0) return 1;
 
-  print_xpm(xpm, x, y);
-
+  // Função que retorna apenas quando ESC é pressionado
   if (waiting_ESC_key()) return 1;
+
+  // De regresso ao modo texto
   if (vg_exit() != 0) return 1;
+
   return 0;
 }
 

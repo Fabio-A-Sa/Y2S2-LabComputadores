@@ -101,6 +101,23 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
   return 0;
 }
 
+// Imprime uma imagem no formato XPM
+int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+
+  xpm_image_t img;
+
+  // retorna um apontador para um array de cores preenchido de acordo com o XPM
+  uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
+
+  for (int h = 0 ; h < img.height ; h++) {
+    for (int w = 0 ; w < img.width ; w++) {
+      if (vg_draw_pixel(x + w, y + h, *colors) != 0) return 1;
+      colors++; // avança para a próxima cor
+    }
+  }
+  return 0;
+}
+
 // Funções auxiliares da video_test_pattern()
 
 uint32_t (direct_mode)(uint32_t R, uint32_t G, uint32_t B) {
