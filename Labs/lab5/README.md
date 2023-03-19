@@ -4,7 +4,7 @@
 
 - [Video Modes](#video-modes)
 - [Mapeamento da Video RAM](#mapeamento-da-video-ram)
-- [Sprites](#sprites)
+- [XMP](#XMP)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
 
@@ -207,9 +207,69 @@ int paint_pixel(uint16_t x, uint16_t y, uint32_t color) {
 }
 ```
 
-## Sprites
+## XPM
 
-// soon
+X PixMap (XPM) é uma forma de representação de imagens. O ficheiro fornecido [pixmap.h](./pixmap.h) possui alguns exemplos no formato interpretado pelo Minix. Exemplo:
+
+```c
+static xpm_row_t const pic1[] = {
+  "32 13 4",
+  "  0",
+  "x 2",
+  "o 14",
+  "+ 4",
+  "                                ",
+  "              xxx               ",
+  "            xxxxxxx             ",
+  "         xxxxxx+xxxxxx          ",
+  "      xxxxxxx+++++xxxxxxx       ",
+  "    xxxxxxx+++++++++xxxxxxx     ",
+  "    xxxxxxx+++++++++xxxxxxx     ",
+  "      xxxxxxx+++++xxxxxxx       ",
+  "         xxxxxx+xxxxxx          ",
+  "          ooxxxxxxxoo           ",
+  "       ooo           ooo        ",
+  "     ooo               ooo      ",
+  "   ooo                   ooo    "};
+```
+
+A primeira linha revela, por ordem:
+- O número de colunas da imagem;
+- O número de linhas da imagem;
+- O número de cores que a imagem contém;
+- Opcional: o número de caracteres por píxel. Se omitido, este valor é 1;
+
+Em seguida há a descrição das cores. Cada linha possui dois ou três argumentos:
+- Se o número de argumentos da linha for dois (como no exemplo), o modo de cores é indexado;
+- Se o número de argumentos da linha for três, o modo de cores é direto e o terceiro argumento é a representação hexadecimal da cor em formato RGB;
+
+A LCF providencia funções e estruturas de dados para lidar com XPMs:
+
+```c
+uint8_t *xpm_load(xpm_map_t map, enum xpm_image_type type, xpm_image_t *img);
+```
+
+A descrição e tipo dos argumentos podem ser encontrados [aqui](https://paginas.fe.up.pt/~pfs/aulas/lcom2020/labs/lab5/src/doc/group__xpm.html#ga069eaae77c9b41a9a04ea81666119493). Assim é possível criar uma função que imprime em modo gráfico uma imagem XPM:
+
+```c
+int print_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
+
+  xpm_image_t img;
+
+  // retorna um apontador para um array de cores preenchido de acordo com o XPM
+  // atualiza @img com o valor do comprimento e altura da imagem
+  uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
+  if (colors == NULL) return 1;
+
+  for (int h = 0 ; h < img.height ; h++) {
+    for (int w = 0 ; w < img.width ; w++) {
+      if (vg_draw_pixel(x + w, y + h, *colors) != 0) return 1;
+      colors++; // avança para a próxima cor
+    }
+  }
+  return 0;
+}
+```
 
 ## Compilação do código
 
