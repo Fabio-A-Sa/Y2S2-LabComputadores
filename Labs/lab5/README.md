@@ -4,7 +4,7 @@
 
 - [Video Modes](#video-modes)
 - [Mapeamento da Video RAM](#mapeamento-da-video-ram)
-- [XMP](#XMP)
+- [XMP](#xmp)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
 
@@ -273,7 +273,17 @@ int print_xpm(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
 ## Compilação do código
 
-// soon
+Ao longo do Lab5 programamos em 2 ficheiros:
+
+- `graphics.c`, para implementação das funções referentes à manipulação da memória, cores e XPMs;
+- `lab5.c`, para implementação das funções de mais alto nível que usam as funções disponíveis no módulo do *graphics*;
+
+Ainda importamos os ficheiros `utils.c`, `timer.c`, `i8254.h`, `i8042.h`, `KBC.c` e `keyboard.c` dos labs anteriores. O ficheiro `pixmap.h` também foi adicionado. Em LCOM o processo de compilação é simples pois existe sempre um makefile que auxilia na tarefa. Para compilar basta correr os seguintes comandos:
+
+```bash
+minix$ make clean # apaga os binários temporários
+minix$ make       # compila o programa
+```
 
 ## Testagem do código
 
