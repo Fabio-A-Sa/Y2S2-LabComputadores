@@ -287,7 +287,21 @@ minix$ make       # compila o programa
 
 ## Testagem do código
 
-// soon
+A biblioteca LCF (*LCOM Framework*) disponível nesta versão do Minix3 tem um conjunto de testes para cada função a implementar em `lab5.c`. Assim é simples verificar se o programa corre como esperado para depois ser usado sem problemas no projeto. Para saber o conjunto dos testes disponíveis basta consultar:
+
+```bash
+minix$ lcom_run lab5
+```
+
+Neste caso em concreto estão disponíveis várias combinações:
+
+```bash
+minix$ lcom_run lab5 "init <105,110,115,11A,14C> <SECONDS> -t 1"
+minix$ lcom_run lab5 "rectangle <105,110,115,11A,14C> <X> <Y> <DELTA_X> <DELTA_Y> <COLOR_HEX> -t 1"
+minix$ lcom_run lab5 "pattern <105,110,115,11A,14C> <N_RECTANGLES> <COLOR_HEX> <STEP> -t 1"
+minix$ lcom_run lab5 "xpm <XPM_INDEX> <X> <Y> -t 1"
+minix$ lcom_run lab5 "move <XPM_INDEX> <XI>:<YI> <XF>:<YF> <SPEED>:<FPS> -t 1"
+```
 
 ---
 
