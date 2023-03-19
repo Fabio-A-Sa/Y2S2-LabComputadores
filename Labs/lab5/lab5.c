@@ -162,19 +162,32 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
                      int16_t speed, uint8_t fr_rate) {
 
   int ipc_status;
-  uint8_t irq_set_TIMER, irq_set_KBC;
   message msg;
+  uint8_t irq_set_TIMER, irq_set_KBC; // máscaras para as interrupções
 
-  if(set_frame_buffer(VBE_768p_INDEXED)) return 1;
-  if(set_graphic_mode(VBE_768p_INDEXED)) return 1;
+  // o movimento só pode ser horizontal ou vertical
+  uint8_t vertical_direction;
+  if (xi == xf && yi < yf) vertical_direction = 1;
+  else if (yi == yf && xi < xf) vertical_direction = 0;
+  else return 1;
 
+  // Subscrição das interrupções
   if (keyboard_subscribe_interrupts(&irq_set_KBC) != 0) return 1;
   if (timer_subscribe_int(&irq_set_TIMER) != 0) return 1;
-  if (timer_set_frequency(0, fr_rate) != 0) return 1;       // atualiza para a frame rate dada
 
-  print_xpm(xpm, xi, yi);
+  // Atualiza o sistema para a frame rate dada
+  if (timer_set_frequency(0, fr_rate) != 0) return 1;   
 
-  while (scancode != BREAK_ESC && xi < xf) {
+  // Construção do frame buffer virtual e físico (só permite modo indexado)
+  if(set_frame_buffer(VBE_768p_INDEXED)) return 1;
+
+  // Mudança para o modo gráfico (só permite modo indexado)
+  if(set_graphic_mode(VBE_768p_INDEXED)) return 1; 
+
+  // Imprime a imagem na posição inicial
+  if (print_xpm(xpm, xi, yi) != 0) return 1;
+
+  while (scancode != BREAK_ESC && (xi < xf || yi < yf)) {
 
       if( driver_receive(ANY, &msg, &ipc_status) != 0 ){
           printf("Error");
@@ -184,22 +197,38 @@ int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint1
       if(is_ipc_notify(ipc_status)) {
           switch(_ENDPOINT_P(msg.m_source)){
               case HARDWARE:
+
+                // interrupção do teclado
                 if (msg.m_notify.interrupts & irq_set_KBC) {
-                    kbc_ih();
+                    kbc_ih(); // atualiza o scancode
                 }
+
+                // interrupção do timer
                 if (msg.m_notify.interrupts & irq_set_TIMER) {
-                    vg_draw_rectangle(xi, yi, xi + speed, yi, 0xffffff);
-                    xi += speed;
-                    if (xi > xf) xi = xf;
-                    print_xpm(xpm, xi, yi);
-                } break;
-              default: 
-                break;
+
+                    // Apaga o desenho anterior para dar a sensação de movimetno
+                    if (vg_draw_rectangle(xi, yi, 100, 100, 0xFFFFFF) != 0) return 1;
+
+                    // Atualiza o valor da variável a incrementar
+                    if (vertical_direction) {
+                        yi += speed;
+                        if (yi > yf) yi = yf;
+                    } else {
+                        xi += speed;
+                        if (xi > xf) xi = xf;
+                    }
+
+                    // Imprime a nova imagem ligeiramente deslocada
+                    if (print_xpm(xpm, xi, yi) != 0) return 1;
+                }
           }
       }
   }
 
+  // De regresso ao modo texto
   if (vg_exit() != 0) return 1;
+
+  // Desativar as interrupções
   if (timer_unsubscribe_int() != 0) return 1;
   if (keyboard_unsubscribe_interrupts() != 0) return 1;
 
