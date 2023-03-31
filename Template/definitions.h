@@ -1,0 +1,3 @@
+
+#define GAME_FREQUENCY 30
+#define VIDEO_MODE 0x14C

@@ -8,7 +8,7 @@ PROG=proj
 .PATH: ${.CURDIR}/controllers/timer
 .PATH: ${.CURDIR}/controllers/video
 
-# Ficheiros ".c" a ser compilados. Têm de estar contidos nas pastas indicadas no passo anterior.
+# Ficheiros ".c" a compilar. Têm de estar contidos nas pastas indicadas no passo anterior.
 SRCS = 	main.c timer.c utils.c graphics.c KBC.c keyboard.c mouse.c
 
 # Flags de compilação

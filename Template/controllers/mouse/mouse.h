@@ -1,14 +1,16 @@
 #ifndef _LCOM_MOUSE_H_
 #define _LCOM_MOUSE_H_
 
+#define MOUSE_MASK BIT(2)
+
 #include <minix/sysutil.h>
 #include <lcom/lcf.h>
 #include "i8042.h"
 #include "KBC.h"
 
-int (mouse_subscribe_int)(uint8_t *bit_no);
+int (mouse_subscribe_interrupts)();
 
-int (mouse_unsubscribe_int)();
+int (mouse_unsubscribe_interrupts)();
 
 void (mouse_ih)();
 

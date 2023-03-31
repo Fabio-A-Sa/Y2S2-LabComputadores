@@ -3,9 +3,7 @@
 uint8_t scancode = 0;
 int keyboard_hook_id = 1;
 
-int (keyboard_subscribe_interrupts)(uint8_t *bit_no) {
-    if (bit_no == NULL) return 1;
-    *bit_no = BIT(keyboard_hook_id);
+int (keyboard_subscribe_interrupts)() {
     return sys_irqsetpolicy(IRQ_KEYBOARD, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id);
 }
 
