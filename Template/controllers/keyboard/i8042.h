@@ -1,5 +1,5 @@
-#ifndef _LCOM_I8042_H_
-#define _LCOM_I8042_H_
+#ifndef _LCOM_I8042_KEY_H_
+#define _LCOM_I8042_KEY_H_
 
 #define IRQ_KEYBOARD    1
 

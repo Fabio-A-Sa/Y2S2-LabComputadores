@@ -1,7 +1,6 @@
 #include <lcom/lcf.h>
-#include <lcom/timer.h>
 #include <stdint.h>
-#include "i8254.h"
+#include "timer.h"
 
 int hook_id = 0;
 int counter = 0;
@@ -65,10 +64,6 @@ int (timer_unsubscribe_int)() {
   return 0;
 }
 
-void (timer_int_handler)() {
-  counter++;
-}
-
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   if (st == NULL || timer > 2 || timer < 0) return 1; // validação de input
   uint8_t RBC = (TIMER_RB_CMD | TIMER_RB_COUNT_ | TIMER_RB_SEL(timer)); // construção do readback command
@@ -77,43 +72,3 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   return 0;
 }
 
-int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
-
-  union timer_status_field_val data;
-
-  switch (field) {
-
-    case tsf_all: 
-      data.byte = st; 
-      break;
-
-    case tsf_initial:                                       
-      st = (st >> 4) & 0x03;
-
-      if (st == 1) data.in_mode = LSB_only;
-      else if (st == 2) data.in_mode = MSB_only;
-      else if (st == 3) data.in_mode = MSB_after_LSB;
-      else data.in_mode = INVAL_val;
-      
-      break;
-
-    case tsf_mode:
-      st = (st >> 1) & 0x07;
-
-      if(st == 6) data.count_mode = 2;
-      else if(st == 7) data.count_mode = 3;
-      else data.count_mode = st;
-
-      break;
-    
-    case tsf_base:
-      data.bcd = st & TIMER_BCD;
-      break;        
-
-    default:
-      return 1;
-  }
-
-  if (timer_print_config(timer, field, data) != 0) return 1;
-  return 0;
-}
