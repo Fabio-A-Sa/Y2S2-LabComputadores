@@ -22,7 +22,11 @@ As a LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with 
 - [Lab4](/Labs/lab4/) - i8042, the PC's Mouse
 - [Lab5](/Labs/lab5/) - Video Card
 
-## Project "Gertic--" (Grade: 18.8 / 20)
+## Template
+
+A simple template for the final LCOM project. Under construction.
+
+## Gertic-- (Grade: 18.9 / 20)
 
 <p align = "center" >
   <img 
@@ -32,7 +36,7 @@ As a LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with 
        />
 </p>
 
-Gertic-- is inspired by the well-known game [Gartic](https://gartic.io) and implemented to contain all devices taught in LCOM
+Final project carried out in the year 2021/2022 at the time I was on the course as a student. Gertic-- is inspired by the well-known game [Gartic](https://gartic.io) and implemented to contain all devices taught in LCOM.
 
 <p align = "center" >
   <img 
