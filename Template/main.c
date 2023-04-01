@@ -3,7 +3,10 @@
 #include "controllers/video/graphics.h"
 #include "controllers/keyboard/keyboard.h"
 #include "controllers/mouse/mouse.h"
-#include "definitions.h"
+#include "states/states.h"
+#include "config.h"
+
+extern SystemState systemState;
 
 int (main)(int argc, char *argv[]) {
   lcf_set_language("EN-US");
@@ -27,7 +30,8 @@ int setup() {
   if (keyboard_subscribe_interrupts() != 0) return 1;
   if (mouse_subscribe_interrupts() != 0) return 1;
 
-  // Ativar o report de dados do rato
+  // Ativar stream-mode e report de dados do rato
+  if (mouse_write(ENABLE_STREAM_MODE) != 0) return 1;
   if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1;
 
   return 0;
@@ -51,15 +55,15 @@ int teardown() {
 
 int (proj_main_loop)(int argc, char *argv[]) {
 
-  if (setup() != 0) return 1;
+  // Setup do Minix
+  if (setup() != 0) return teardown();
 
-  int total = 10;
-
+  // Tratamento das Interrupções
   int ipc_status;
   message msg;
-  while (total) {
+  while (systemState == RUNNING) {
     
-    if (driver_receive(ANY, &msg, &ipc_status) != 0){
+    if (driver_receive(ANY, &msg, &ipc_status) != 0) {
       printf("Error");
       continue;
     }
@@ -67,22 +71,14 @@ int (proj_main_loop)(int argc, char *argv[]) {
     if (is_ipc_notify(ipc_status)) {
       switch(_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: 
-          if (msg.m_notify.interrupts & TIMER_MASK) {
-            printf("Interrupção do timer!\n");
-            total--;
-          }
-          if (msg.m_notify.interrupts & KEYBOARD_MASK) {
-            printf("Interrupção do keyboard!\n");
-            total--;
-          }
-          if (msg.m_notify.interrupts & MOUSE_MASK) {
-            printf("Interrupção do mouse!\n");
-            total--;
-          }
+          if (msg.m_notify.interrupts & TIMER_MASK)    update_timer_state();
+          if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard_state();
+          if (msg.m_notify.interrupts & MOUSE_MASK)    update_mouse_state();
         }
     }
   }
   
+  // Tear-down do Minix
   if (teardown() != 0) return 1;
 
   return 0;

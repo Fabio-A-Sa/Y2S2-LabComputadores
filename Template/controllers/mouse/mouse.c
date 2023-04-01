@@ -1,7 +1,7 @@
 #include "mouse.h"
 
 // Variáveis globais do módulo
-int hook_id_mouse = 3;        // um valor qualquer [0..7], desde que seja diferente do teclado e do timer
+int hook_id_mouse = 2;        // um valor qualquer [0..7], desde que seja diferente do teclado e do timer
 struct packet mouse_packet;   // pacote gerado
 uint8_t byte_index = 0;       // [0..2]
 uint8_t mouse_bytes[3];       // bytes apanhados
@@ -64,7 +64,7 @@ int (mouse_write)(uint8_t command) {
     if (write_KBC_command(KBC_IN_CMD, WRITE_BYTE_MOUSE)) return 1;
     if (write_KBC_command(KBC_OUT_CMD, command)) return 1;
     tickdelay(micros_to_ticks(WAIT_KBC));
-    if (read_KBC_output(KBC_OUT_CMD, &mouse_response, 1)) return 1;
+    if (util_sys_inb(KBC_OUT_CMD, &mouse_response)) return 1;
   } while (mouse_response != ACK && attemps);
 
   return 0;

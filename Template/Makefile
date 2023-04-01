@@ -7,9 +7,10 @@ PROG=proj
 .PATH: ${.CURDIR}/controllers/mouse
 .PATH: ${.CURDIR}/controllers/timer
 .PATH: ${.CURDIR}/controllers/video
+.PATH: ${.CURDIR}/states/
 
 # Ficheiros ".c" a compilar. Têm de estar contidos nas pastas indicadas no passo anterior.
-SRCS = 	main.c timer.c utils.c graphics.c KBC.c keyboard.c mouse.c
+SRCS = 	main.c timer.c utils.c graphics.c KBC.c keyboard.c mouse.c states.c
 
 # Flags de compilação
 CFLAGS += -pedantic -D_LCOM_OPTIMIZED_
