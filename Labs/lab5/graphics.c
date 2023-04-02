@@ -43,7 +43,8 @@ int (set_frame_buffer)(uint16_t mode){
   if(vbe_get_mode_info(mode, &mode_info)) return 1;
 
   // cálculo do tamanho do frame buffer, em bytes
-  unsigned int frame_size = (mode_info.XResolution * mode_info.YResolution * mode_info.BitsPerPixel) / 8;
+  unsigned int bytes_per_pixel = (mode_info.BitsPerPixel + 7) / 8;
+  unsigned int frame_size = mode_info.XResolution * mode_info.YResolution * bytes_per_pixel;
   
   // preenchimento dos endereços físicos
   struct minix_mem_range physic_addresses;
@@ -70,7 +71,7 @@ int (set_frame_buffer)(uint16_t mode){
 int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
 
   // As coordenadas têm de ser válidas
-  if(x >= mode_info.XResolution || y >= mode_info.YResolution) return 1;
+  if(x > mode_info.XResolution || y > mode_info.YResolution) return 1;
   
   // Cálculo dos Bytes per pixel da cor escolhida. Arredondamento por excesso.
   unsigned BytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
@@ -79,7 +80,7 @@ int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
   unsigned int index = (mode_info.XResolution * y + x) * BytesPerPixel;
 
   // A partir da zona frame_buffer[index], copia @BytesPerPixel bytes da @color
-  memcpy(&frame_buffer[index], &color, BytesPerPixel);
+  if (memcpy(&frame_buffer[index], &color, BytesPerPixel) == NULL) return 1;
 
   return 0;
 }

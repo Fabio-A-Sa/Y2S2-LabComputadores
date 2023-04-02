@@ -71,7 +71,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   sleep(delay);
 
   // Volta ao modo de texto antes de terminar
-  // vg_exit() é dada pela LCF. Ver set_text_mode() para consultar a implementação interna
+  // vg_exit() é dada pela LCF. Ver set_text_mode() para consultar a implementação interna.
   if (vg_exit() != 0) return 1;
 
   return 0;
