@@ -3,23 +3,32 @@
 #include "controllers/mouse/mouse.h"
 #include "drawing/menu.h"
 
-int timer_counter = 0;
 extern uint8_t scancode;
 extern uint8_t byte_index;
 extern struct packet mouse_packet;
 SystemState systemState = RUNNING;
+extern MenuState menuState;
 
 void update_timer_state() {
-    timer_counter++;
-    if (timer_counter % 30 == 0) { //GAME_FPS
-        draw_frame();
-    }
+    draw_frame();
 }
 
 void update_keyboard_state() {
     (kbc_ih)();
-    if (scancode == BREAK_ESC) {
-        systemState = EXIT;
+    switch (scancode) {
+        case Q_KEY:
+            systemState = EXIT;
+            break;
+        case S_KEY:
+            menuState = START;
+            break;
+        case G_KEY:
+            menuState = GAME;
+            break;
+        case E_KEY:
+            menuState = END;
+        default:
+            break;
     }
 }
 

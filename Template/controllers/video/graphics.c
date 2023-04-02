@@ -67,7 +67,7 @@ int (set_frame_buffer)(uint16_t mode, uint8_t** frame_buffer) {
 }
 
 // Atualização da cor de um pixel
-int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
+int (draw_pixel)(uint16_t x, uint16_t y, uint32_t color, uint8_t* frame_buffer) {
 
   // As coordenadas têm de ser válidas
   if(x >= mode_info.XResolution || y >= mode_info.YResolution) return 1;
@@ -85,16 +85,16 @@ int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
 }
 
 // Desenha uma linha horizontal
-int (vg_draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color) {
+int (draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color, uint8_t* frame_buffer) {
   for (unsigned i = 0 ; i < len ; i++)   
-    if (vg_draw_pixel(x+i, y, color) != 0) return 1;
+    if (draw_pixel(x+i, y, color, frame_buffer) != 0) return 1;
   return 0;
 }
 
 // Desenha um rectângulo
-int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
+int (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color, uint8_t* frame_buffer) {
   for(unsigned i = 0; i < height ; i++)
-    if (vg_draw_hline(x, y+i, width, color) != 0) {
+    if (draw_hline(x, y+i, width, color, frame_buffer) != 0) {
       vg_exit();
       return 1;
     }
@@ -102,7 +102,7 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 }
 
 // Imprime uma imagem no formato XPM
-int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y, uint8_t* frame_buffer) {
 
   xpm_image_t img;
 
@@ -111,7 +111,7 @@ int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 
   for (int h = 0 ; h < img.height ; h++) {
     for (int w = 0 ; w < img.width ; w++) {
-      if (vg_draw_pixel(x + w, y + h, *colors) != 0) return 1;
+      if (draw_pixel(x + w, y + h, *colors, frame_buffer) != 0) return 1;
       colors++; // avança para a próxima cor
     }
   }

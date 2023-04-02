@@ -22,4 +22,9 @@
 #define WAIT_KBC        20000
 #define MAX_ATTEMPS     10
 
+#define S_KEY           31
+#define G_KEY           34
+#define E_KEY           18
+#define Q_KEY           16
+
 #endif

@@ -1,10 +1,10 @@
 #include "menu.h"
 #include "controllers/video/graphics.h"
 
+extern vbe_mode_info_t mode_info;
 MenuState menuState = START;
 
 void draw_frame() {
-
     switch (menuState) {
         case START:
             draw_initial_menu();
@@ -16,20 +16,22 @@ void draw_frame() {
             draw_finish_menu();
             break;
     }
-
     swap_buffers();
 }
 
 void draw_initial_menu() {
-    printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
+    //printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
+    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0xff0000, frame_buffer_1);
 }
 
 void draw_game_menu() {
-    printf("Something 2\n");
+    //printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
+    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0x00ff00, frame_buffer_1);
 }
 
 void draw_finish_menu() {
-    printf("Something 3\n");
+    //printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
+    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0x0000ff, frame_buffer_1);
 }
 
 int set_frame_buffers(uint16_t mode) {
