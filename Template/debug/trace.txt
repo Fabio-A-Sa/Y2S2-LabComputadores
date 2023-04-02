@@ -1,0 +1,879 @@
+@lcflib.a:2019, lcf_start
+  proj_main_loop(argc, argv)
+> proj_main_loop(0, [NULL])
+  @main.c:23, setup
+    timer_set_frequency(0, GAME_FREQUENCY)
+  > timer_set_frequency(0, 30)
+    @/home/lcom/labs/Template/controllers/timer/timer.c:15, timer_set_frequency
+      timer_get_conf(timer, &controlWord)
+    > timer_get_conf(0, addr: 0xeffff65b)
+      @/home/lcom/labs/Template/controllers/timer/timer.c:67, timer_get_conf
+        sys_outb(TIMER_CTRL, RBC)
+      > sys_outb(0x43, 0xe2 = 0b11100010)
+      @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+        sys_inb(port, &val)
+      > sys_inb(0x40, addr: 0xeffff544)
+      < sys_inb(0x40, addr: 0xeffff544 [0xb6 = 0b10110110])
+    < timer_get_conf(0, addr: 0xeffff65b [0xb6 = 0b10110110]) -> (ret: 0)
+    @/home/lcom/labs/Template/controllers/timer/timer.c:23, timer_set_frequency
+      util_get_MSB(initialValue, &MSB)
+    > util_get_MSB(0x9b5c, addr: 0xeffff65a)
+    < util_get_MSB(0x9b5c, addr: 0xeffff65a [0x9b]) -> (ret: 0)
+    @/home/lcom/labs/Template/controllers/timer/timer.c:24, timer_set_frequency
+      util_get_LSB(initialValue, &LSB)
+    > util_get_LSB(0x9b5c, addr: 0xeffff659)
+    < util_get_LSB(0x9b5c, addr: 0xeffff659 [0x5c]) -> (ret: 0)
+    @/home/lcom/labs/Template/controllers/timer/timer.c:47, timer_set_frequency
+      sys_outb(TIMER_CTRL, controlWord)
+    > sys_outb(0x43, 0x36 = 0b00110110)
+    @/home/lcom/labs/Template/controllers/timer/timer.c:50, timer_set_frequency
+      sys_outb(selectedTimer, LSB)
+    > sys_outb(0x40, 0x5c = 0b01011100)
+    @/home/lcom/labs/Template/controllers/timer/timer.c:51, timer_set_frequency
+      sys_outb(selectedTimer, MSB)
+    > sys_outb(0x40, 0x9b = 0b10011011)
+  < timer_set_frequency(0, 30) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/video/graphics.c:14, set_graphic_mode
+    sys_int86(&reg86)
+  > sys_int86(addr: 0xeffff6e0 [AX: 4f02, BX: 414c, CX: 0000, DX: 0000, ES: 0000, DI: 0000])
+  < sys_int86(addr: 0xeffff6e0 [AX: 004f, BX: 414c, CX: 0000, DX: 0000, ES: 0000, DI: 0000]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/timer/timer.c:56, timer_subscribe_interrupts
+    sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &hook_id)
+  > sys_irqsetpolicy(0, 1, addr: 0x822f198 [0])
+  < sys_irqsetpolicy(0, 1, addr: 0x822f198 [10]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/keyboard/keyboard.c:7, keyboard_subscribe_interrupts
+    sys_irqsetpolicy(IRQ_KEYBOARD, IRQ_REENABLE | IRQ_EXCLUSIVE, &keyboard_hook_id)
+  > sys_irqsetpolicy(1, 3, addr: 0x822e520 [1])
+  < sys_irqsetpolicy(1, 3, addr: 0x822e520 [11]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:13, mouse_subscribe_interrupts
+    sys_irqsetpolicy(IRQ_MOUSE, IRQ_REENABLE | IRQ_EXCLUSIVE, &hook_id_mouse)
+  > sys_irqsetpolicy(12, 3, addr: 0x822e524 [2])
+  < sys_irqsetpolicy(12, 3, addr: 0x822e524 [12]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6b4)
+  < sys_inb(0x64, addr: 0xeffff6b4 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:62, write_KBC_command
+    sys_outb(port, commandByte)
+  > sys_outb(0x64, 0xd4 = 0b11010100)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6b4)
+  < sys_inb(0x64, addr: 0xeffff6b4 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:62, write_KBC_command
+    sys_outb(port, commandByte)
+  > sys_outb(0x60, 0xea = 0b11101010)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:66, mouse_write
+    micros_to_ticks(WAIT_KBC)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:66, mouse_write
+    tickdelay(micros_to_ticks(WAIT_KBC))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6e0)
+  < sys_inb(0x60, addr: 0xeffff6e0 [0xfa = 0b11111010])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6b4)
+  < sys_inb(0x64, addr: 0xeffff6b4 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:62, write_KBC_command
+    sys_outb(port, commandByte)
+  > sys_outb(0x64, 0xd4 = 0b11010100)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6b4)
+  < sys_inb(0x64, addr: 0xeffff6b4 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:62, write_KBC_command
+    sys_outb(port, commandByte)
+  > sys_outb(0x60, 0xf4 = 0b11110100)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:66, mouse_write
+    micros_to_ticks(WAIT_KBC)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:66, mouse_write
+    tickdelay(micros_to_ticks(WAIT_KBC))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6e0)
+  < sys_inb(0x60, addr: 0xeffff6e0 [0xfa = 0b11111010])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000101]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1d = 0b00011101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x9c = 0b10011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:33, read_KBC_output
+    printf("Error: Mouse output not found\n")
+    "Error: Mouse output not found"
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:23, mouse_ih
+    printf("Error in reading byte from mouse\n")
+    "Error in reading byte from mouse"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000011]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    micros_to_ticks(20000)
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:42, read_KBC_output
+    tickdelay(micros_to_ticks(20000))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:37, read_KBC_output
+    printf("Error: Keyboard output not found\n")
+    "Error: Keyboard output not found"
+  @/home/lcom/labs/Template/controllers/keyboard/keyboard.c:15, kbc_ih
+    printf("Error: Could not read scancode!\n")
+    "Error: Could not read scancode!"
+  @/home/lcom/labs/Template/states//states.c:21, update_keyboard_state
+    printf("Keyboard up with scancode = %d\n", scancode)
+    "Keyboard up with scancode = 24"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000101]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xeb = 0b11101011])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x01 = 0b00000001])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -21"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xdc = 0b11011100])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x04 = 0b00000100])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -36"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xe7 = 0b11100111])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x00 = 0b00000000])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -25"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xf0 = 0b11110000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x00 = 0b00000000])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -16"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xdd = 0b11011101])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x01 = 0b00000001])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -35"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xe8 = 0b11101000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x03 = 0b00000011])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -24"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xd9 = 0b11011001])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x03 = 0b00000011])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -39"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xe4 = 0b11100100])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x03 = 0b00000011])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -28"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xd7 = 0b11010111])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x03 = 0b00000011])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -41"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xe4 = 0b11100100])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x00 = 0b00000000])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -28"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xda = 0b11011010])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x00 = 0b00000000])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -38"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xe4 = 0b11100100])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x00 = 0b00000000])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -28"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x18 = 0b00011000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xf4 = 0b11110100])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x00 = 0b00000000])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -12"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0x38 = 0b00111000])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000100]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xe1 = 0b11100001])
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000101]>)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6c8)
+  < sys_inb(0x64, addr: 0xeffff6c8 [0x3d = 0b00111101])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff6c8)
+  < sys_inb(0x60, addr: 0xeffff6c8 [0xfd = 0b11111101])
+  @/home/lcom/labs/Template/states//states.c:30, update_mouse_state
+    printf("Mouse up with delta_x = %d\n", mouse_packet.delta_x)
+    "Mouse up with delta_x = -31"
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @main.c:66, proj_main_loop
+    driver_receive(ANY, &msg, &ipc_status)
+  > driver_receive(ANY, addr: 0xeffff760, addr: 0xeffff7a8)
+  < driver_receive(<[HARDWARE: 0b0000000000000000000000000000000000000000000000000000000000000001]>)
+  @/home/lcom/labs/Template/states//states.c:14, update_timer_state
+    printf("Timer up\n")
+    "Timer up"
+  @main.c:43, teardown
+    vg_exit()
+  < vg_exit() -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/timer/timer.c:60, timer_unsubscribe_interrupts
+    sys_irqrmpolicy(&hook_id)
+  > sys_irqrmpolicy(addr: 0x822f198 [10])
+  < sys_irqrmpolicy(addr: 0x822f198 [10]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/keyboard/keyboard.c:11, keyboard_unsubscribe_interrupts
+    sys_irqrmpolicy(&keyboard_hook_id)
+  > sys_irqrmpolicy(addr: 0x822e520 [11])
+  < sys_irqrmpolicy(addr: 0x822e520 [11]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:18, mouse_unsubscribe_interrupts
+    sys_irqrmpolicy(&hook_id_mouse)
+  > sys_irqrmpolicy(addr: 0x822e524 [12])
+  < sys_irqrmpolicy(addr: 0x822e524 [12]) -> (ret: 0)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6d8)
+  < sys_inb(0x64, addr: 0xeffff6d8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:62, write_KBC_command
+    sys_outb(port, commandByte)
+  > sys_outb(0x64, 0xd4 = 0b11010100)
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x64, addr: 0xeffff6d8)
+  < sys_inb(0x64, addr: 0xeffff6d8 [0x1c = 0b00011100])
+  @/home/lcom/labs/Template/controllers/keyboard/KBC.c:62, write_KBC_command
+    sys_outb(port, commandByte)
+  > sys_outb(0x60, 0xf5 = 0b11110101)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:66, mouse_write
+    micros_to_ticks(WAIT_KBC)
+  @/home/lcom/labs/Template/controllers/mouse/mouse.c:66, mouse_write
+    tickdelay(micros_to_ticks(WAIT_KBC))
+  > tickdelay(1 [16.7 ms])
+  @/home/lcom/labs/Template/controllers//utils.c:22, util_sys_inb
+    sys_inb(port, &val)
+  > sys_inb(0x60, addr: 0xeffff704)
+  < sys_inb(0x60, addr: 0xeffff704 [0xfa = 0b11111010])
+< proj_main_loop(0, [NULL]) -> (ret: 0)
