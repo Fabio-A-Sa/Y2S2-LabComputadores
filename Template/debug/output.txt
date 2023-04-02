@@ -1,20 +1,17 @@
 Error: Mouse output not found
 Error in reading byte from mouse
-Error: Keyboard output not found
 Error: Could not read scancode!
-Keyboard up with scancode = 24
-Mouse up with delta_x = -21
-Mouse up with delta_x = -36
-Mouse up with delta_x = -25
-Mouse up with delta_x = -16
-Mouse up with delta_x = -35
-Mouse up with delta_x = -24
-Mouse up with delta_x = -39
-Mouse up with delta_x = -28
-Mouse up with delta_x = -41
-Mouse up with delta_x = -28
-Mouse up with delta_x = -38
-Mouse up with delta_x = -28
+Drawing initial menu, with fb1 = 0xef62f000 and fb2 = 0xef262000
+Mouse up with delta_x = -232
+Mouse up with delta_x = -10
 Mouse up with delta_x = -12
-Mouse up with delta_x = -31
-Timer up
+Mouse up with delta_x = -8
+Mouse up with delta_x = -18
+Mouse up with delta_x = -8
+Mouse up with delta_x = -20
+Mouse up with delta_x = -3
+Mouse up with delta_x = 3
+Mouse up with delta_x = 6
+Mouse up with delta_x = 6
+Drawing initial menu, with fb1 = 0xef262000 and fb2 = 0xef62f000
+Drawing initial menu, with fb1 = 0xef62f000 and fb2 = 0xef262000

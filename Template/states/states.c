@@ -1,6 +1,7 @@
 #include "states.h"
 #include "controllers/keyboard/KBC.h"
 #include "controllers/mouse/mouse.h"
+#include "drawing/menu.h"
 
 int timer_counter = 0;
 extern uint8_t scancode;
@@ -10,15 +11,16 @@ SystemState systemState = RUNNING;
 
 void update_timer_state() {
     timer_counter++;
-    if (timer_counter % 30 == 0) {
-        printf("Timer up\n");
-        systemState = EXIT;
+    if (timer_counter % 30 == 0) { //GAME_FPS
+        draw_frame();
     }
 }
 
 void update_keyboard_state() {
     (kbc_ih)();
-    printf("Keyboard up with scancode = %d\n", scancode);
+    if (scancode == BREAK_ESC) {
+        systemState = EXIT;
+    }
 }
 
 void update_mouse_state() {

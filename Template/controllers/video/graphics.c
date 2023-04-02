@@ -36,7 +36,7 @@ int (set_text_mode)() {
 }
 
 // Construção do frame buffer virtual e físico
-int (set_frame_buffer)(uint16_t mode){
+int (set_frame_buffer)(uint16_t mode, uint8_t** frame_buffer) {
 
   // retirar informação sobre o @mode
   memset(&mode_info, 0, sizeof(mode_info));
@@ -57,7 +57,7 @@ int (set_frame_buffer)(uint16_t mode){
   }
 
   // alocação virtual da memória necessária para o frame buffer
-  frame_buffer = vm_map_phys(SELF, (void*) physic_addresses.mr_base, frame_size);
+  *frame_buffer = vm_map_phys(SELF, (void*) physic_addresses.mr_base, frame_size);
   if (frame_buffer == NULL) {
     printf("Virtual memory allocation error\n");
     return 1;

@@ -4,6 +4,7 @@
 #include "controllers/keyboard/keyboard.h"
 #include "controllers/mouse/mouse.h"
 #include "states/states.h"
+#include "drawing/menu.h"
 #include "config.h"
 
 extern SystemState systemState;
@@ -21,6 +22,9 @@ int setup() {
 
   // Atualização da frequência
   if (timer_set_frequency(0, GAME_FREQUENCY) != 0) return 1;
+
+  // Inicialização dos buffers de vídeo (double buffering)
+  if (set_frame_buffers(VIDEO_MODE) != 0) return 1;
 
   // Inicialização do modo gráfico
   if (set_graphic_mode(VIDEO_MODE) != 0) return 1;
