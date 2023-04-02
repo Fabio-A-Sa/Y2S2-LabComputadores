@@ -2,10 +2,11 @@
 
 // Variáveis globais do módulo
 int hook_id_mouse = 2;        // um valor qualquer [0..7], desde que seja diferente do teclado e do timer
-struct packet mouse_packet;   // pacote gerado
 uint8_t byte_index = 0;       // [0..2]
 uint8_t mouse_bytes[3];       // bytes apanhados
 uint8_t current_byte;         // o byte mais recente lido
+MouseInfo mouse_info = {0, 0, 100, 100};
+extern vbe_mode_info_t mode_info;
 
 // Subscrição das interrupções
 // Modo REENABLE e modo EXCLUSIVE
@@ -36,20 +37,20 @@ void mouse_sync_bytes() {
   }
 }
 
-// Transforma o array de bytes numa struct definida de acordo com a documentação
-void (mouse_bytes_to_packet)(){
+// Transforma o array de bytes numa struct definida de acordo com as necessidades da aplicação
+void (mouse_sync_info)(){
 
-  for (int i = 0 ; i < 3 ; i++) {
-    mouse_packet.bytes[i] = mouse_bytes[i];
-  }
+  mouse_info.right_click = mouse_bytes[0] & MOUSE_RB;
+  mouse_info.left_click = mouse_bytes[0] & MOUSE_LB;
 
-  mouse_packet.lb = mouse_bytes[0] & MOUSE_LB;
-  mouse_packet.mb = mouse_bytes[0] & MOUSE_MB;
-  mouse_packet.rb = mouse_bytes[0] & MOUSE_RB;
-  mouse_packet.x_ov = mouse_bytes[0] & MOUSE_X_OVERFLOW;
-  mouse_packet.y_ov = mouse_bytes[0] & MOUSE_Y_OVERFLOW;
-  mouse_packet.delta_x = (mouse_bytes[0] & MOUSE_X_SIGNAL) ? (0xFF00 | mouse_bytes[1]) : mouse_bytes[1];
-  mouse_packet.delta_y = (mouse_bytes[0] & MOUSE_Y_SIGNAL) ? (0xFF00 | mouse_bytes[2]) : mouse_bytes[2];
+  if (mouse_bytes[0] & MOUSE_X_OVERFLOW || mouse_bytes[0] & MOUSE_Y_OVERFLOW) return;
+
+  int16_t delta_x = mouse_info.x + ((mouse_bytes[0] & MOUSE_X_SIGNAL) ? (0xFF00 | mouse_bytes[1]) : mouse_bytes[1]);
+  int16_t delta_y = mouse_info.y - ((mouse_bytes[0] & MOUSE_Y_SIGNAL) ? (0xFF00 | mouse_bytes[2]) : mouse_bytes[2]);
+
+  if (delta_x < 0 || delta_x > mode_info.XResolution || delta_y < 0 || delta_y > mode_info.YResolution) return;
+  mouse_info.x = delta_x;
+  mouse_info.y = delta_y;
 }
 
 // A escrita para o rato tem de ser feita de forma mais controlada do que no keyboard

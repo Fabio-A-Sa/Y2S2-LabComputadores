@@ -95,8 +95,7 @@ int (draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color, uint8_t* 
 int (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color, uint8_t* frame_buffer) {
   for(unsigned i = 0; i < height ; i++)
     if (draw_hline(x, y+i, width, color, frame_buffer) != 0) {
-      vg_exit();
-      return 1;
+      continue;
     }
   return 0;
 }

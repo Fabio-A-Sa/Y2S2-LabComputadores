@@ -10,13 +10,11 @@ typedef enum {
     END
 } MenuState;
 
-uint8_t *frame_buffer_1;
-uint8_t *frame_buffer_2;
-
 void draw_frame();
 void draw_initial_menu();
 void draw_game_menu();
 void draw_finish_menu();
+void draw_mouse();
 
 int set_frame_buffers(uint16_t mode);
 void swap_buffers();

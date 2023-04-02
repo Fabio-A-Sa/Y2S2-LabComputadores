@@ -1,7 +1,11 @@
 #include "menu.h"
 #include "controllers/video/graphics.h"
+#include "controllers/mouse/mouse.h"
 
+uint8_t *frame_buffer_1;
+uint8_t *frame_buffer_2;
 extern vbe_mode_info_t mode_info;
+extern MouseInfo mouse_info;
 MenuState menuState = START;
 
 void draw_frame() {
@@ -16,22 +20,27 @@ void draw_frame() {
             draw_finish_menu();
             break;
     }
+    draw_mouse();
     swap_buffers();
 }
 
 void draw_initial_menu() {
-    //printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
     draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0xff0000, frame_buffer_1);
 }
 
 void draw_game_menu() {
-    //printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
-    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0x00ff00, frame_buffer_1);
+    draw_rectangle(0, 0, mode_info.XResolution/2, mode_info.YResolution/2, 0xF01919, frame_buffer_1);
+    draw_rectangle(mode_info.XResolution/2, 0, mode_info.XResolution/2, mode_info.YResolution/2, 0x19DBF0, frame_buffer_1);
+    draw_rectangle(0, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, 0x2FF019, frame_buffer_1);
+    draw_rectangle(mode_info.XResolution/2, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, 0xF5DA2A, frame_buffer_1);
 }
 
 void draw_finish_menu() {
-    //printf("Drawing initial menu, with fb1 = %p and fb2 = %p\n", frame_buffer_1, frame_buffer_2);
     draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0x0000ff, frame_buffer_1);
+}
+
+void draw_mouse() {
+    draw_rectangle(mouse_info.x, mouse_info.y, 20, 20, 0, frame_buffer_1);
 }
 
 int set_frame_buffers(uint16_t mode) {

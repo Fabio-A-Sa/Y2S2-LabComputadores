@@ -7,6 +7,14 @@
 #include <lcom/lcf.h>
 #include "i8042.h"
 #include "KBC.h"
+#include "controllers/video/graphics.h"
+
+typedef struct {
+    uint8_t right_click;
+    uint8_t left_click;
+    int16_t x;
+    int16_t y;
+} MouseInfo;   
 
 int (mouse_subscribe_interrupts)();
 
@@ -16,7 +24,7 @@ void (mouse_ih)();
 
 void (mouse_sync_bytes)();
 
-void (mouse_bytes_to_packet)();
+void (mouse_sync_info)();
 
 int (mouse_write)(uint8_t command);
 

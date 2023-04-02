@@ -1,9 +1,1 @@
-Error: Mouse output not found
 Error in reading byte from mouse
-Error: Could not read scancode!
-scancode da tecla 0
-scancode da tecla 31
-scancode da tecla 34
-scancode da tecla 18
-scancode da tecla 1
-scancode da tecla 16
