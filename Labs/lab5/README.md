@@ -77,6 +77,8 @@ int set_text_mode() {
 }
 ```
 
+A LCF já possui uma implementação interna desta função: `vg_exit()`.
+
 ## Mapeamento da Video RAM
 
 A VRAM (*Video RAM*) é a memória que contém informação sobre a cor de cada píxel presente no ecrã. Antes de mudar o Minix para o modo gráfico é importante alocar memória suficiente de acordo com o submodo escolhido. Ao conjunto de memória alocada dá-se o nome de `frame buffer`.
@@ -89,7 +91,7 @@ A VRAM (*Video RAM*) é a memória que contém informação sobre a cor de cada 
 A VRAM no modo gráfico é sempre `linear` e contínua, ou seja, a matriz de cores é na realidade um array contínuo de bytes. O seu tamanho depende:
 - da resolução horizontal do modo;
 - da resolução vertical do modo;
-. do modelo de cores escolhido;
+- do modelo de cores escolhido;
 - do número de bytes que representam a cor de cada píxel;
 
 | Mode  | Screen Resolution | Color Model  | Bits per pixel (R:G:B) |
@@ -100,16 +102,25 @@ A VRAM no modo gráfico é sempre `linear` e contínua, ou seja, a matriz de cor
 | 0x11A | 1280x1024         | Direct color | 16 (5:6:5)             |
 | 0x14C | 1152x864          | Direct color | 32 ((8:)8:8:8)         |
 
-Conhecendo HRES (resolução horizontal) é possível encontrar o índice do píxel que corresponde às coordenadas 2D do frame buffer:
+Conhecendo `HRES` (resolução horizontal) é possível encontrar o índice do píxel que corresponde às coordenadas 2D do frame buffer:
 
 ```c
-int pixel_index(uint16_t x, uint16_t y) {
+uint32_t pixel_index(uint16_t x, uint16_t y) {
     return y * HRES + x;
 }
 ```
 
+Conhecendo `BitsPerPixel` (bits por pixel de cada cor, valor que varia com o modo) é possível encontrar a zona de memória a modificar. Como os *offsets* na memória são sempre em bytes precisamos primeiro de converter o número de bits em bytes usando um arredondamento por excesso. Por exemplo, no modo 0x110 precisa de 15 bits, que equivale na realidade a 2 bytes, por muito que não sejam totalmente preenchidos:
+
+```c
+uint32_t frame_buffer_index(uint16_t x, uint16_t y) {
+    uint8_t bytes_per_pixel = (BitsPerPixel + 7) / 8; // Arredondamento por excesso
+    return pixel_index(x, y) * bytes_per_pixel;       // Zona de memória onde começa o pixel (x, y)   
+}
+```
+
 As cores podem vir em dois formatos:
-- `Modelo direto`: a cor é um conjunto de bytes que representam cada uma das componentes RGB (red, green, blue) do píxel.
+- `Modelo direto`: a cor é um conjunto de bytes que representam cada uma das componentes RGB (red, green, blue) do pixel.
 - `Modelo indexado`: a cor é previamente mapeada numa paleta de cores do Minix e apenas é necessário o índice dessa cor;
 
 <p align="center">
@@ -120,7 +131,7 @@ As cores podem vir em dois formatos:
 Nesta versão do Minix estão disponíveis 64 cores indexadas. Sabendo as características de cada modo é simples calcular o número de bytes de memória a alocar. Por exemplo:
 
 ```c
-unsigned int frame_0x105_bytes = 1024 x 768  x 1; // 8 bits = 1 byte
+unsigned int frame_0x105_bytes = 1024 x 768  x 1; // 8  bits = 1 byte
 unsigned int frame_0x11A_bytes = 1280 x 1024 x 2; // 16 bits = 2 bytes
 ```
 
@@ -162,7 +173,8 @@ int set_frame_buffer(uint16_t mode){
   if(vbe_get_mode_info(mode, &mode_info)) return 1;
 
   // cálculo do tamanho do frame buffer, em bytes
-  unsigned int frame_size = (mode_info.XResolution * mode_info.YResolution * mode_info.BitsPerPixel) / 8;
+  uint8_t bytes_per_pixel = (BitsPerPixel + 7) / 8;
+  unsigned int frame_size = mode_info.XResolution * mode_info.YResolution * bytes_per_pixel;
   
   // preenchimento dos endereços físicos
   struct minix_mem_range physic_addresses;
@@ -201,7 +213,7 @@ int paint_pixel(uint16_t x, uint16_t y, uint32_t color) {
   unsigned int index = (mode_info.XResolution * y + x) * BytesPerPixel;
 
   // A partir da zona de memória frame_buffer[index], copia @BytesPerPixel bytes da @color
-  memcpy(&frame_buffer[index], &color, BytesPerPixel);
+  if (memcpy(&frame_buffer[index], &color, BytesPerPixel) == NULL) return 1;
 
   return 0;
 }
