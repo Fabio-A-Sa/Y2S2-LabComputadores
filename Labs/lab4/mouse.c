@@ -66,8 +66,9 @@ int (mouse_write)(uint8_t command) {
     if (write_KBC_command(KBC_IN_CMD, WRITE_BYTE_MOUSE)) return 1;
     if (write_KBC_command(KBC_OUT_CMD, command)) return 1;
     tickdelay(micros_to_ticks(WAIT_KBC));
-    if (read_KBC_output(KBC_OUT_CMD, &mouse_response, 1)) return 1;
+    if (util_sys_inb(KBC_OUT_CMD, &mouse_response)) return 1;
+    if (mouse_response == ACK) return 0;
   } while (mouse_response != ACK && attemps);
 
-  return 0;
+  return 1;
 }

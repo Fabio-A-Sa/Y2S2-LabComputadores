@@ -249,10 +249,11 @@ int write_to_mouse(uint8_t command) {
     if (write_KBC_command(0x64, 0xD4)) return 1;              // Ativar do modo D4 do i8042
     if (write_KBC_command(0x60, command)) return 1;           // O comando para o rato é escrito na porta 0x60
     tickdelay(micros_to_ticks(20000));                        // Esperar alguns milissegundos
-    if (read_KBC_output(0x60, &mouse_response, 1)) return 1;  // Ler a resposta do rato pela porta 0x60
+    if (util_sys_inb(0x60, &mouse_response)) return 1;        // Ler a resposta da porta do output buffer
+    if (mouse_response == ACK) return 0;                      // Se a resposta for ACK, interromper o ciclo
   } while (mouse_response != 0xFA && attemps);       
 
-  return 0;
+  return 1;
 }
 ```
 
