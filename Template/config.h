@@ -1,2 +1,0 @@
-#define GAME_FREQUENCY 120
-#define VIDEO_MODE 0x115

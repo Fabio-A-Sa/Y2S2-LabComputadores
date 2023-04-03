@@ -5,7 +5,6 @@
 #include "controllers/mouse/mouse.h"
 #include "states/states.h"
 #include "drawing/menu.h"
-#include "config.h"
 
 extern SystemState systemState;
 
@@ -21,13 +20,13 @@ int (main)(int argc, char *argv[]) {
 int setup() {
 
   // Atualização da frequência
-  if (timer_set_frequency(0, GAME_FREQUENCY) != 0) return 1;
+  if (timer_set_frequency(TIMER, GAME_FREQUENCY) != 0) return 1;
 
   // Inicialização dos buffers de vídeo (double buffering)
-  if (set_frame_buffers(VIDEO_MODE) != 0) return 1;
+  if (set_frame_buffers(VBE_600p_DC) != 0) return 1;
 
   // Inicialização do modo gráfico
-  if (set_graphic_mode(VIDEO_MODE) != 0) return 1;
+  if (set_graphic_mode(VBE_600p_DC) != 0) return 1;
 
   // Ativação das interrupções dos dispositivos
   if (timer_subscribe_interrupts() != 0) return 1;
@@ -62,7 +61,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
   // Setup do Minix
   if (setup() != 0) return teardown();
 
-  // Tratamento das Interrupções
+  // Tratamento das interrupções
   int ipc_status;
   message msg;
   while (systemState == RUNNING) {

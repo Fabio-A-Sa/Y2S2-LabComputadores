@@ -12,7 +12,7 @@ int (keyboard_unsubscribe_interrupts)() {
 }
 
 void (kbc_ih)() {
-    if (read_KBC_output(KBC_OUT_CMD, &scancode, 0) != 0) printf("Error: Could not read scancode!\n");
+    read_KBC_output(KBC_OUT_CMD, &scancode, 0);
 }
 
 int (keyboard_restore)() {

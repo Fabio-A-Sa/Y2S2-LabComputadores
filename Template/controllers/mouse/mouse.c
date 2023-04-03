@@ -21,7 +21,7 @@ int (mouse_unsubscribe_interrupts)(){
 
 // Em cada chamada do IH (interrupt handler), lê um novo byte do rato
 void (mouse_ih)(){
-  if(read_KBC_output(KBC_WRITE_CMD, &current_byte, 1)) printf("Error in reading byte from mouse\n");
+  read_KBC_output(KBC_WRITE_CMD, &current_byte, 1);
 }
 
 // Avalia a disposição dos bytes no array @mouse_bytes

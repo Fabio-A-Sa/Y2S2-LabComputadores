@@ -18,23 +18,6 @@ int (set_graphic_mode)(uint16_t submode) {
     return 0;
 }
 
-// Mudança do Minix para modo de texto
-// Implementação interna da função vg_exit() já dada pela LCF
-int (set_text_mode)() {
-    reg86_t reg86;                       
-    memset(&reg86, 0, sizeof(reg86));   // inicialização da estrutura com o valor 0 em todos os parâmetros
-    reg86.intno = 0x10;                 // intno é sempre 0x10 
-    reg86.ah = 0x00;                    // parte mais significativa de AX 
-    reg86.al = 0x03;                    // parte menos significativa de AX. 0x03 no caso de modo texto
-    // reg86.ax = 0x0003;               // equivamente às duas últimas instruções
-    reg86.bx = 0x0000;                  // não há submodo no modo de texto
-    if(sys_int86(&reg86) != 0) {        // se houver algum erro, abortar a função
-        printf("Set text mode failed\n");
-        return 1;
-    }
-    return 0;
-}
-
 // Construção do frame buffer virtual e físico
 int (set_frame_buffer)(uint16_t mode, uint8_t** frame_buffer) {
 
@@ -85,7 +68,7 @@ int (draw_pixel)(uint16_t x, uint16_t y, uint32_t color, uint8_t* frame_buffer) 
 }
 
 // Desenha uma linha horizontal
-int (draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color, uint8_t* frame_buffer) {
+int (draw_line)(uint16_t x, uint16_t y, uint16_t len, uint32_t color, uint8_t* frame_buffer) {
   for (unsigned i = 0 ; i < len ; i++)   
     if (draw_pixel(x+i, y, color, frame_buffer) != 0) return 1;
   return 0;
@@ -94,7 +77,7 @@ int (draw_hline)(uint16_t x, uint16_t y, uint16_t len, uint32_t color, uint8_t* 
 // Desenha um rectângulo
 int (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color, uint8_t* frame_buffer) {
   for(unsigned i = 0; i < height ; i++)
-    if (draw_hline(x, y+i, width, color, frame_buffer) != 0) {
+    if (draw_line(x, y+i, width, color, frame_buffer) != 0) {
       continue;
     }
   return 0;
@@ -115,38 +98,4 @@ int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y, uint8_t* frame_buffer) {
     }
   }
   return 0;
-}
-
-// Funções auxiliares da video_test_pattern()
-
-uint32_t (direct_mode)(uint32_t R, uint32_t G, uint32_t B) {
-  return (R << mode_info.RedFieldPosition) | (G << mode_info.GreenFieldPosition) | (B << mode_info.BlueFieldPosition);
-}
-
-uint32_t (indexed_mode)(uint16_t col, uint16_t row, uint8_t step, uint32_t first, uint8_t n) {
-  return (first + (row * n + col) * step) % (1 << mode_info.BitsPerPixel);
-}
-
-uint32_t (Red)(unsigned j, uint8_t step, uint32_t first) {
-  return (R(first) + j * step) % (1 << mode_info.RedMaskSize);
-}
-
-uint32_t (Green)(unsigned i, uint8_t step, uint32_t first) {
-  return (G(first) + i * step) % (1 << mode_info.GreenMaskSize);
-}
-
-uint32_t (Blue)(unsigned j, unsigned i, uint8_t step, uint32_t first) {
-  return (B(first) + (i + j) * step) % (1 << mode_info.BlueMaskSize);
-}
-
-uint32_t (R)(uint32_t first){
-  return ((1 << mode_info.RedMaskSize) - 1) & (first >> mode_info.RedFieldPosition);
-}
-
-uint32_t (G)(uint32_t first){
-  return ((1 << mode_info.GreenMaskSize) - 1) & (first >> mode_info.GreenFieldPosition);
-}
-
-uint32_t (B)(uint32_t first){
-  return ((1 << mode_info.BlueMaskSize) - 1) & (first >> mode_info.BlueFieldPosition);
 }
