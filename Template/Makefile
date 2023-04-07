@@ -2,19 +2,19 @@
 PROG=proj
 
 # Indicar o caminho para todos os ficheiros a compilar.
-.PATH: ${.CURDIR}/controllers/
-.PATH: ${.CURDIR}/controllers/keyboard
-.PATH: ${.CURDIR}/controllers/mouse
-.PATH: ${.CURDIR}/controllers/timer
-.PATH: ${.CURDIR}/controllers/video
-.PATH: ${.CURDIR}/states/
-.PATH: ${.CURDIR}/drawing/
+.PATH: ${.CURDIR}/controller/
+.PATH: ${.CURDIR}/controller/keyboard
+.PATH: ${.CURDIR}/controller/mouse
+.PATH: ${.CURDIR}/controller/timer
+.PATH: ${.CURDIR}/controller/video
+.PATH: ${.CURDIR}/model/
+.PATH: ${.CURDIR}/view/
 
 # Ficheiros ".c" a compilar. Têm de estar contidos nas pastas indicadas no passo anterior.
-SRCS = 	main.c timer.c utils.c graphics.c KBC.c keyboard.c mouse.c states.c menu.c
+SRCS = 	main.c timer.c utils.c graphics.c KBC.c keyboard.c mouse.c model.c view.c
 
 # Flags de compilação
-CFLAGS += -pedantic -D_LCOM_OPTIMIZED_
+CFLAGS += -pedantic -D_LCOM_OPTIMIZED_ -O2
 
 # Dependências
 DPADD += ${LIBLCF}

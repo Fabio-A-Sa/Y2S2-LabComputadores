@@ -1,10 +1,11 @@
 #include <lcom/lcf.h>
-#include "controllers/timer/timer.h"
-#include "controllers/video/graphics.h"
-#include "controllers/keyboard/keyboard.h"
-#include "controllers/mouse/mouse.h"
-#include "states/states.h"
-#include "drawing/menu.h"
+#include "controller/timer/timer.h"
+#include "controller/video/graphics.h"
+#include "controller/keyboard/keyboard.h"
+#include "controller/mouse/mouse.h"
+#include "model/model.h"
+#include "view/view.h"
+#include "config.h"
 
 extern SystemState systemState;
 
@@ -23,10 +24,13 @@ int setup() {
   if (timer_set_frequency(TIMER, GAME_FREQUENCY) != 0) return 1;
 
   // Inicialização dos buffers de vídeo (double buffering)
-  if (set_frame_buffers(VBE_600p_DC) != 0) return 1;
+  if (set_frame_buffers(VIDEO_MODE) != 0) return 1;
 
   // Inicialização do modo gráfico
-  if (set_graphic_mode(VBE_600p_DC) != 0) return 1;
+  if (set_graphic_mode(VIDEO_MODE) != 0) return 1;
+
+  // Inicialização dos objetos
+  if (setup_sprites() != 0) return 1;
 
   // Ativação das interrupções dos dispositivos
   if (timer_subscribe_interrupts() != 0) return 1;
@@ -60,6 +64,9 @@ int (proj_main_loop)(int argc, char *argv[]) {
 
   // Setup do Minix
   if (setup() != 0) return teardown();
+
+  // Desenha a primeira frame
+  draw_new_frame();
 
   // Tratamento das interrupções
   int ipc_status;
