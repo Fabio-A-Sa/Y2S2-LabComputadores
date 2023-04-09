@@ -8,7 +8,7 @@ extern vbe_mode_info_t mode_info;
 extern MouseInfo mouse_info;
 MenuState menuState = START;
 
-void draw_frame() {
+void draw_new_frame() {
     switch (menuState) {
         case START:
             draw_initial_menu();
@@ -21,7 +21,6 @@ void draw_frame() {
             break;
     }
     draw_mouse();
-    swap_buffers();
 }
 
 void draw_initial_menu() {
@@ -45,15 +44,15 @@ void draw_mouse() {
 
 int set_frame_buffers(uint16_t mode) {
     if (set_frame_buffer(mode, &frame_buffer_1)) return 1;
-    if (set_frame_buffer(mode, &frame_buffer_2)) return 1;
-    //frame_buffer_2 = (uint8_t *) malloc(mode_info.XResolution * mode_info.YResolution * ((mode_info.BitsPerPixel + 7) / 8));
+    //if (set_frame_buffer(mode, &frame_buffer_2)) return 1;
+    frame_buffer_2 = (uint8_t *) malloc(mode_info.XResolution * mode_info.YResolution * ((mode_info.BitsPerPixel + 7) / 8));
     return 0;
 }
 
 void swap_buffers() {
-    uint8_t *temp = frame_buffer_1;
-    frame_buffer_1 = frame_buffer_2;
-    frame_buffer_2 = temp;
-    //memcpy(frame_buffer_1, frame_buffer_2, sizeof(mode_info.XResolution * mode_info.YResolution * ((mode_info.BitsPerPixel + 7) / 8)));
-    //memset(&frame_buffer_2, 0, sizeof(frame_buffer_2));
+    //uint8_t *temp = frame_buffer_1;
+    //frame_buffer_1 = frame_buffer_2;
+    //frame_buffer_2 = temp;
+    memcpy(frame_buffer_1, frame_buffer_2, (uint32_t) mode_info.XResolution * mode_info.YResolution);
+    printf("cópia bem sucedida\n");
 }

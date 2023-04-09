@@ -7,13 +7,9 @@ extern uint8_t scancode;
 extern uint8_t byte_index;
 SystemState systemState = RUNNING;
 extern MenuState menuState;
-uint8_t new_frame = 0;
 
 void update_timer_state() {
-    if (new_frame) {
-        draw_frame();
-        new_frame = 0;
-    }
+    swap_buffers();
 }
 
 void update_keyboard_state() {
@@ -33,7 +29,7 @@ void update_keyboard_state() {
         default:
             break;
     }
-    new_frame = 1;
+    draw_new_frame();
 }
 
 void update_mouse_state() {
@@ -42,6 +38,6 @@ void update_mouse_state() {
     if (byte_index == 3) {
         mouse_sync_info();
         byte_index = 0;
-        new_frame = 1;
+        draw_new_frame();
     }
 }
