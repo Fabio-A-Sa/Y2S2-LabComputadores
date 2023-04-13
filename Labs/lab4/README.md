@@ -7,7 +7,7 @@
 - [Descarte mútuo no i8042](#descarte-mútuo-no-i8042)
 - [O comando 0xD4](#o-comando-0xd4)
 - [Interrupções](#interrupções)
-- [Máquinas de Estado em C](#maquinas-de-estado-em-c)
+- [Máquinas de Estado em C](#máquinas-de-estado-em-c)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
 

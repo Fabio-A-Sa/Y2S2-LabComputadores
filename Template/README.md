@@ -16,6 +16,7 @@ Este template reune aspetos relevantes para o projeto final de LCOM, como dicas,
     - Flags de compilação
     - Double Buffering
     - Operações frequentes
+- Debug
 
 ## Setup
 
@@ -85,12 +86,63 @@ Módulo que trata da representação visual do modelo sempre que há uma interru
 
 ## Orientação a Objetos em C
 
-O objeto Sprite é formado
+O objeto Sprite, usado para criar e manipular os elementos do cenário, é na realidade uma struct:
 
+```c
+typedef struct {
+    uint16_t height;    // altura, em pixeis
+    uint16_t width;     // largura, em pixeis
+    uint32_t *colors;   // array de cores, se for criado a partir de um XPM
+    uint32_t color;     // cor única, se for um rectângulo simples como o botão
+    uint8_t pressed;    // indica se o objeto foi pressionado pelo rato
+} Sprite; 
+```
 
-É útil manipular sprites
+Por motivos de eficiência nem sempre são criados com XPM. Por exemplo, no caso do botões que têm cor única, é aconselhável usar apenas o parâmetro *color* e não preencher o array *colors*:
+
+```c
+#include "xpm/mouse.xpm"
+
+Sprite *mouse;
+Sprite *button1;
+
+void setup_sprites() {
+    mouse = create_sprite_xpm((xpm_map_t) mouse_xpm);
+    button1 = create_sprite_button(mode_info.XResolution/2, mode_info.YResolution/2, ORANGE);
+}
+
+Sprite *create_sprite_xpm(xpm_map_t sprite);
+Sprite *create_sprite_button(uint16_t width, uint16_t height, uint32_t color);
+```
+
+Ao lidar com apontadores e alocação dinâmica de memória é possível tratar a estrutura como se fosse um objeto em C++:
+
+```c
+void update_buttons_state() {
+    if (mouse_info.left_click) {
+        if (mouse_info.x < mode_info.XResolution/2 && mouse_info.y < mode_info.YResolution/2)
+            button1->pressed = 1;
+        //...
+    }
+}
+```
+
+É boa prática antes de acabar o programa libertar a memória alocada:
+
+```c
+void destroy_sprite(Sprite *sprite) {
+    if (sprite == NULL) return;
+    if (sprite->colors) free(sprite->colors);
+    free(sprite);
+    sprite = NULL;
+}
+```
 
 ## Máquinas de Estado em C
+
+
+
+[Aqui](../Labs/lab4/README.md#máquinas-de-estado-em-c) há um exemplo mais complexo.
 
 ## XPM em modo direto
 
@@ -105,6 +157,10 @@ O objeto Sprite é formado
 ### Double Buffering
 
 ### Operações frequentes
+
+## Debug
+
+
 
 ---
 
