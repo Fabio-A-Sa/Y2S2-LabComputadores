@@ -66,7 +66,14 @@ void draw_finish_menu() {
 }
 
 void draw_mouse() {
-    draw_sprite_xpm(mouse, mouse_info.x, mouse_info.y);
+    switch (menuState) {
+        case START: case END:
+            draw_sprite_xpm(mouse, mouse_info.x, mouse_info.y);
+            break;
+        case GAME:
+            draw_sprite_xpm(hand, mouse_info.x, mouse_info.y);
+            break;
+    }
 }
 
 int draw_sprite_xpm(Sprite *sprite, int x, int y) { 
