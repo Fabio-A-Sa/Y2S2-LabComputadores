@@ -4,6 +4,7 @@ extern uint8_t scancode;
 extern uint8_t byte_index;
 SystemState systemState = RUNNING;
 extern MenuState menuState;
+extern MouseInfo mouse_info;
 extern vbe_mode_info_t mode_info;
 
 Sprite *mouse;
@@ -60,6 +61,31 @@ void update_mouse_state() {
     mouse_sync_bytes();
     if (byte_index == 3) {
         mouse_sync_info();
+        update_buttons_state();
         byte_index = 0;
+    }
+}
+
+void update_buttons_state() {
+
+    if (mouse_info.left_click) {
+
+        if (mouse_info.x < mode_info.XResolution/2 && mouse_info.y < mode_info.YResolution/2)
+            button1->pressed = 1;
+
+        if (mouse_info.x >= mode_info.XResolution/2 && mouse_info.y <= mode_info.YResolution/2)
+            button2->pressed = 1;
+
+        if (mouse_info.x < mode_info.XResolution/2 && mouse_info.y >= mode_info.YResolution/2)
+            button3->pressed = 1;
+
+        if (mouse_info.x >= mode_info.XResolution/2 && mouse_info.y > mode_info.YResolution/2)
+            button4->pressed = 1;
+
+    } else {
+        button1->pressed = 0;
+        button2->pressed = 0;
+        button3->pressed = 0;
+        button4->pressed = 0;
     }
 }
