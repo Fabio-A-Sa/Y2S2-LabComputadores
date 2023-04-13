@@ -14,6 +14,10 @@ MenuState menuState = START;
 
 extern Sprite *mouse;
 extern Sprite *hand;
+extern Sprite *button1;
+extern Sprite *button2;
+extern Sprite *button3;
+extern Sprite *button4;
 
 int set_frame_buffers(uint16_t mode) {
     if (set_frame_buffer(mode, &main_frame_buffer)) return 1;
@@ -51,10 +55,10 @@ void draw_initial_menu() {
 }
 
 void draw_game_menu() {
-    draw_rectangle(0, 0, mode_info.XResolution/2, mode_info.YResolution/2, ORANGE, drawing_frame_buffer);
-    draw_rectangle(mode_info.XResolution/2, 0, mode_info.XResolution/2, mode_info.YResolution/2, BLUE, drawing_frame_buffer);
-    draw_rectangle(0, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, GREEN, drawing_frame_buffer);
-    draw_rectangle(mode_info.XResolution/2, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, YELLOW, drawing_frame_buffer);
+    draw_sprite_button(button1, 0, 0);
+    draw_sprite_button(button2, mode_info.XResolution/2, 0);
+    draw_sprite_button(button3, 0, mode_info.YResolution/2);
+    draw_sprite_button(button4, mode_info.XResolution/2, mode_info.YResolution/2);
 }
 
 void draw_finish_menu() {
@@ -62,10 +66,10 @@ void draw_finish_menu() {
 }
 
 void draw_mouse() {
-    draw_sprite(mouse, mouse_info.x, mouse_info.y);
+    draw_sprite_xpm(mouse, mouse_info.x, mouse_info.y);
 }
 
-int draw_sprite(Sprite *sprite, int x, int y) { 
+int draw_sprite_xpm(Sprite *sprite, int x, int y) { 
     uint16_t height = sprite->height;
     uint16_t width = sprite->width;
     uint32_t current_color;
@@ -74,6 +78,18 @@ int draw_sprite(Sprite *sprite, int x, int y) {
         current_color = sprite->colors[w + h*width];
         if (current_color == 0xFFFFFE) continue;
         if (draw_pixel(x + w, y + h, current_color, drawing_frame_buffer) != 0) return 1;
+      }
+    }
+    return 0; 
+}
+
+int draw_sprite_button(Sprite *sprite, int x, int y) { 
+    uint16_t height = sprite->height;
+    uint16_t width = sprite->width;
+    uint32_t color = sprite->pressed ? PRESSED : sprite->color;
+    for (int h = 0 ; h < height ; h++) {
+      for (int w = 0 ; w < width ; w++) {
+        if (draw_pixel(x + w, y + h, color, drawing_frame_buffer) != 0) return 1;
       }
     }
     return 0; 

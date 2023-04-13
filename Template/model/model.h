@@ -5,6 +5,7 @@
 #include <lcom/lcf.h>
 #include "controller/keyboard/KBC.h"
 #include "controller/mouse/mouse.h"
+#include "controller/video/graphics.h"
 #include "xpm/hand.xpm"
 #include "xpm/mouse.xpm"
 #include "view/view.h"
