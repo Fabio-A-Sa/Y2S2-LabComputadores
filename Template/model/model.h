@@ -1,5 +1,5 @@
-#ifndef _LCOM_STATES_H_
-#define _LCOM_STATES_H_
+#ifndef _LCOM_MODEL_H_
+#define _LCOM_MODEL_H_
 
 #include <minix/sysutil.h>
 #include <lcom/lcf.h>

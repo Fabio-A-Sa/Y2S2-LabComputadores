@@ -24,5 +24,6 @@
 #define YELLOW 0xF5DA2A
 #define DARKBLUE 0x0000ff
 #define PRESSED 0x333FFF
+#define TRANSPARENT 0xFFFFFE
 
 #endif

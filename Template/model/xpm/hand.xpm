@@ -1,3 +1,7 @@
+// XPM em modo de cores direto a representar um cursor
+// Normalmente escolhe-se uma cor não usada (#FFFFFE, no caso), para servir de transparência
+// A função que imprime a figura irá ignorar a cor #FFFFFE, não mudando o fundo do ecrã
+
 static char *hand_xpm[] = {
     "16 16 5 1",
     " 	c #FFFFFE",

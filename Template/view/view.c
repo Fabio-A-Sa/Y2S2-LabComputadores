@@ -83,7 +83,7 @@ int draw_sprite_xpm(Sprite *sprite, int x, int y) {
     for (int h = 0 ; h < height ; h++) {
       for (int w = 0 ; w < width ; w++) {
         current_color = sprite->colors[w + h*width];
-        if (current_color == 0xFFFFFE) continue;
+        if (current_color == TRANSPARENT) continue;
         if (draw_pixel(x + w, y + h, current_color, drawing_frame_buffer) != 0) return 1;
       }
     }
