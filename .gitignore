@@ -1,5 +1,6 @@
 .DS_Store
 a.out
 a.exe
-.idea.vscode
+.idea
+.vscode
 *.o
