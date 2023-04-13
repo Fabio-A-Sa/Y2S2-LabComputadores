@@ -29,8 +29,8 @@ int setup() {
   // Inicialização do modo gráfico
   if (set_graphic_mode(VIDEO_MODE) != 0) return 1;
 
-  // Inicialização dos objetos
-  if (setup_sprites() != 0) return 1;
+  // Inicialização dos sprites
+  setup_sprites();
 
   // Ativação das interrupções dos dispositivos
   if (timer_subscribe_interrupts() != 0) return 1;
@@ -48,6 +48,9 @@ int teardown() {
 
   // Volta ao modo de texto
   if (vg_exit() != 0) return 1;
+
+  // Destruição dos sprites
+  destroy_sprites();
 
   // Desativa todas as interrupções
   if (timer_unsubscribe_interrupts() != 0) return 1;

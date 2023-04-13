@@ -1,4 +1,4 @@
-static char * handCursor_xpm[] = {
+static char *hand_xpm[] = {
     "16 16 5 1",
     " 	c #FFFFFE",
     ".	c #000000",

@@ -82,20 +82,3 @@ int (draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height, ui
     }
   return 0;
 }
-
-// Imprime uma imagem no formato XPM
-int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y, uint8_t* frame_buffer) {
-
-  xpm_image_t img;
-
-  // retorna um apontador para um array de cores preenchido de acordo com o XPM
-  uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
-
-  for (int h = 0 ; h < img.height ; h++) {
-    for (int w = 0 ; w < img.width ; w++) {
-      if (draw_pixel(x + w, y + h, *colors, frame_buffer) != 0) return 1;
-      colors++; // avança para a próxima cor
-    }
-  }
-  return 0;
-}
