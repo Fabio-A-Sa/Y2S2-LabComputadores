@@ -12,8 +12,16 @@
 
 #define DIRECT_COLOR 0x06
 #define INDEXED_COLOR 0x105
-
 #define BIOS_SET_VIDEOMODE 0x00
 #define BIOS_VIDEOCARD_SERV 0x10
+
+// Colors
+
+#define RED 0xff0000
+#define ORANGE 0xd17b4f
+#define BLUE 0x19DBF0
+#define GREEN 0x2FF019
+#define YELLOW 0xF5DA2A
+#define DARKBLUE 0x0000ff
 
 #endif

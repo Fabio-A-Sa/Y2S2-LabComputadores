@@ -43,18 +43,18 @@ void draw_new_frame() {
 }
 
 void draw_initial_menu() {
-    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0xff0000, drawing_frame_buffer);
+    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, RED, drawing_frame_buffer);
 }
 
 void draw_game_menu() {
-    draw_rectangle(0, 0, mode_info.XResolution/2, mode_info.YResolution/2, 0xF01919, drawing_frame_buffer);
-    draw_rectangle(mode_info.XResolution/2, 0, mode_info.XResolution/2, mode_info.YResolution/2, 0x19DBF0, drawing_frame_buffer);
-    draw_rectangle(0, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, 0x2FF019, drawing_frame_buffer);
-    draw_rectangle(mode_info.XResolution/2, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, 0xF5DA2A, drawing_frame_buffer);
+    draw_rectangle(0, 0, mode_info.XResolution/2, mode_info.YResolution/2, ORANGE, drawing_frame_buffer);
+    draw_rectangle(mode_info.XResolution/2, 0, mode_info.XResolution/2, mode_info.YResolution/2, BLUE, drawing_frame_buffer);
+    draw_rectangle(0, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, GREEN, drawing_frame_buffer);
+    draw_rectangle(mode_info.XResolution/2, mode_info.YResolution/2, mode_info.XResolution/2, mode_info.YResolution/2, YELLOW, drawing_frame_buffer);
 }
 
 void draw_finish_menu() {
-    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, 0x0000ff, drawing_frame_buffer);
+    draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, DARKBLUE, drawing_frame_buffer);
 }
 
 void draw_mouse() {
