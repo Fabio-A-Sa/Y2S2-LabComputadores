@@ -7,8 +7,8 @@ Este template reune aspetos relevantes para o projeto final de LCOM, como dicas,
 - [Setup](#setup)
 - [Funcionalidades implementadas](#funcionalidades-implementadas)
 - [Estrutura MVC](#estrutura-mvc)
-- Orientação a Objetos em C
-- Máquinas de Estado em C
+- [Orientação a Objetos em C](#orientação-a-objetos-em-c)
+- [Máquinas de Estado em C](#maquinas-de-estado-em-c)
 - XPM em modo direto
     - Construção
     - Utilização
@@ -61,17 +61,50 @@ No menu `G` é possível clicar num de quatro botões, alterando a cor do quadra
 
 ## Estrutura MVC
 
+Baseado nos [slides](https://web.fe.up.pt/~arestivo/slides/?s=patterns#58) do André Restivo.
+
+<p align="center">
+  <img src="../Images/TemplateMVC.png">
+  <p align="center">MVC</p>
+</p><br>
+
 #### Model
+
+O modelo conhece os objetos do programa, como Botões, o Cursor, Sprites, o estado do Menu, o estado do Sistema. As interrupções tratadas no controlador afetam diretamente o modelo e as interações entre os objetos através de [máquinas de estado](#máquinas-de-estado-em-c).
 
 #### Controller
 
+Contém todos os controladores dos dispositivos implementados durante as aulas práticas. Todas as funções de alto nível, nomeadamente as presentes em ficheiros labX.c, foram eliminadas. De igual forma partes do código foram modificadas para uma melhor modularidade. Por exemplo:
+- Agora a [subscrição das interrupções](./controller/timer/timer.h) é realizadas sem passagem da máscara como argumento;
+- A estrura mouse_info_t foi substituida por [MouseInfo](./controller/mouse/mouse.h), que é mais compacta e adaptada às necessidades da aplicação; 
+- [VBE.h](./controller/video/VBE.h) agora também contém as cores manipuladas pela VRAM;
+
 #### View
 
-Contém todos os controladores dos dispositivos.
+Módulo que trata da representação visual do modelo sempre que há uma interrupção por parte do timer.
 
-Baseado nos [slides](https://web.fe.up.pt/~arestivo/slides/?s=patterns#58) do André Restivo:
+## Orientação a Objetos em C
+
+O objeto Sprite é formado
 
 
+É útil manipular sprites
+
+## Máquinas de Estado em C
+
+## XPM em modo direto
+
+### Construção
+
+### Utilização
+
+## Otimizações
+
+### Flags de compilação
+
+### Double Buffering
+
+### Operações frequentes
 
 ---
 
