@@ -11,7 +11,7 @@ uint8_t *drawing_frame_buffer;
 uint32_t frame_buffer_size;
 extern vbe_mode_info_t mode_info;
 extern MouseInfo mouse_info;
-MenuState menuState = START;
+extern MenuState menuState;
 
 // Objetos
 extern Sprite *mouse;

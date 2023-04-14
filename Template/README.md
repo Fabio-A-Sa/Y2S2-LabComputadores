@@ -8,7 +8,7 @@ Este template reune aspetos relevantes para o projeto final de LCOM, como dicas,
 - [Funcionalidades implementadas](#funcionalidades-implementadas)
 - [Estrutura MVC](#estrutura-mvc)
 - [Orientação a Objetos em C](#orientação-a-objetos-em-c)
-- [Máquinas de Estado em C](#maquinas-de-estado-em-c)
+- [Máquinas de Estado em C](#máquinas-de-estado-em-c)
 - XPM em modo direto
     - Construção
     - Utilização
@@ -29,7 +29,7 @@ $ make clean && make
 $ lcom_run proj
 ```
 
-O programa depende das configurações colocadas em `config.h`. É possível mudar a frequências tamanhos de ecrã, modos de cores e verificar a importância da otimização [double buffering](#double-buffering).
+O programa depende das configurações colocadas em `config.h`. É possível mudar a frequência, tamanhos de ecrã, modos de cores e verificar a importância da otimização [double buffering](#double-buffering).
 
 ```c
 #define GAME_FREQUENCY      60     // 30
@@ -54,7 +54,7 @@ O template tem três menus:
 Em qualquer momento, a tecla `Q` permite terminar a execução. Em todos os menus o cursor está presente e funcional.
 
 <p align="center">
-  <img src="../Images/Template1.png" width=300 height=250>
+  <img src="../Images/Template1.png" width=600 height=500>
   <p align="center">Menu G</p>
 </p><br>
 
@@ -67,7 +67,7 @@ Baseado nos [slides](https://web.fe.up.pt/~arestivo/slides/?s=patterns#58) do An
 <p align="center">
   <img src="../Images/TemplateMVC.png">
   <p align="center">MVC</p>
-</p><br>
+</p>
 
 #### Model
 
@@ -189,7 +189,7 @@ void update_keyboard_state() {
 }
 ```
 
-A atualização do estado tem consequências imediatas. Do lado do módulo View, o estado do Model é consultado e a partir daí é escolhido o menu:
+A atualização do estado tem consequências imediatas. Do lado do módulo View, o estado é consultado e a partir daí é escolhido o menu a desenhar no novo frame:
 
 ```c
 extern MenuState menuState;
@@ -209,6 +209,8 @@ void draw_new_frame() {
     draw_mouse();
 }
 ```
+
+A ordem da pintura é importante. Segundo o [Algoritmo do Pintor](https://pt.wikipedia.org/wiki/Algoritmo_do_pintor), por questões de visibilidade pinta-se primeiro os píxeis mais afastados (o fundo da tela, o menu), sobrepondo os píxeis de objetos mais próximos (o cursor, os botões). 
 
 ## XPM em modo direto
 

@@ -17,6 +17,12 @@ typedef enum {
     EXIT,
 } SystemState;
 
+typedef enum {
+    START,
+    GAME,
+    END
+} MenuState;
+
 void update_timer_state();
 void update_keyboard_state();
 void update_mouse_state();

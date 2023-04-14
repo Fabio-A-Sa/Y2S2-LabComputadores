@@ -5,12 +5,6 @@
 #include "model/sprite.h"
 #include <lcom/lcf.h>
 
-typedef enum {
-    START,
-    GAME,
-    END
-} MenuState;
-
 void draw_new_frame();
 void draw_initial_menu();
 void draw_game_menu();
