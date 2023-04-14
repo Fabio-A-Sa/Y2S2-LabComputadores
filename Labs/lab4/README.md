@@ -258,7 +258,8 @@ int write_to_mouse(uint8_t command) {
 ```
 
 O modo 0xD4 possui alguns comandos relevantes:
-- `0xF5`, desativa o *stream mode*;
+- `0xF4`, ativa o *data report*;
+- `0xF5`, desativa o *data report*;
 - `0xEA`, ativa o *stream mode*;
 - `0xF0`, ativa o *remote mode*;
 - `0xEB`, manda um *request* de novos dados;
