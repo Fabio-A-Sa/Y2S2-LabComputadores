@@ -140,9 +140,75 @@ void destroy_sprite(Sprite *sprite) {
 
 ## Máquinas de Estado em C
 
+A gestão das interrupções geradas pelos dispositivos estudados até aqui pode constituir um modo de `Event Driven Design`. Nesse caso o fluxo do programa é controlado pelo ambiente onde está inserido, ou seja, é reativo na resposta aos eventos (interrupções) que poderão ocorrer de forma assíncrona. No entanto, para o contexto do Projeto de LCOM este *design* de código não é suficiente para garantirmos um código robusto, modular e facilmente manipulável. [Aqui](../Labs/lab4/README.md#máquinas-de-estado-em-c) há um exemplo mais complexo do que o apresentado de seguida.
 
+A transição entre menus é semelhante a transições numa máquina de estados:
 
-[Aqui](../Labs/lab4/README.md#máquinas-de-estado-em-c) há um exemplo mais complexo.
+<p align="center">
+  <img src="../Images/TemplateMachine.png">
+  <p align="center">Máquina de Estados para Menus</p>
+</p><br>
+
+Em C um conjunto de estados pode ser programado usando uma enumeração e as transições com recurso a switch-case:
+
+```c
+typedef enum {
+    RUNNING,
+    EXIT,
+} SystemState;
+
+typedef enum {
+    START,
+    GAME,
+    END
+} MenuState;
+
+// condições iniciais
+SystemState systemState = RUNNING;
+MenuState menuState = START;
+
+// a máquina de estados é atualizada de acordo com 
+// o valor do scancode lido em cada interrupção
+void update_keyboard_state() {
+    (kbc_ih)();
+    switch (scancode) {
+        case Q_KEY:
+            systemState = EXIT;
+            break;
+        case S_KEY:
+            menuState = START;
+            break;
+        case G_KEY:
+            menuState = GAME;
+            break;
+        case E_KEY:
+            menuState = END;
+        default:
+            break;
+    }
+}
+```
+
+A atualização do estado tem consequências imediatas. Do lado do módulo View, o estado do Model é consultado e a partir daí é escolhido o menu:
+
+```c
+extern MenuState menuState;
+
+void draw_new_frame() {
+    switch (menuState) {
+        case START:
+            draw_initial_menu();
+            break;
+        case GAME:
+            draw_game_menu();
+            break;
+        case END:
+            draw_finish_menu();
+            break;
+    }
+    draw_mouse();
+}
+```
 
 ## XPM em modo direto
 
