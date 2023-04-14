@@ -39,11 +39,8 @@ void destroy_sprites() {
     destroy_sprite(button4);
 }
 
-// O timer é responsável por desenhar o novo frame de acordo com o estado do modelo
-// na altura da interrupção
-// Se implementarmos o método Double Buffering também troca os buffers
+// Na altura da interrupção há troca dos buffers
 void update_timer_state() {
-    draw_new_frame();
     if (DOUBLE_BUFFER) swap_buffers();
 }
 
@@ -68,6 +65,7 @@ void update_keyboard_state() {
         default:
             break;
     }
+    draw_new_frame();
 }
 
 // Sempre que há um novo pacote completo do rato
@@ -79,6 +77,7 @@ void update_mouse_state() {
     if (byte_index == 3) {
         mouse_sync_info();
         update_buttons_state();
+        draw_new_frame();
         byte_index = 0;
     }
 }

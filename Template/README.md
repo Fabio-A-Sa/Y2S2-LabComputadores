@@ -12,11 +12,11 @@ Este template reune aspetos relevantes para o projeto final de LCOM, como dicas,
 - [XPM em modo direto](#xpm-em-modo-direto)
     - [Gerar XPMs](#gerar-xpms)
     - [Desenhar XPMs](#desenhar-xpms)
-- Otimizações
-    - Flags de compilação
-    - Double Buffering
-    - Operações frequentes
-- Debug
+- [Otimizações](#otimizações)
+    - [Flags de compilação](#flags-de-compilação)
+    - [Double Buffering](#flags-de-compilação)
+    - [Operações frequentes](#operações-frequentes)
+- [Debug](#debug)
 
 ## Setup
 
@@ -301,9 +301,92 @@ int draw_sprite_xpm(Sprite *sprite, int x, int y) {
 
 ### Flags de compilação
 
+As flags de compilação `-O2` e `-D_LCOM_OPTIMIZED_` ajudam o compilador a otimizar o código para o Minix. É importante utilizá-las para garantir uma execução mais fluída. No makefile:
+
+```makefile
+CFLAGS += -pedantic -D_LCOM_OPTIMIZED_ -O2
+```
+
 ### Double Buffering
 
+É a principal e mais importante otimização a usar no projeto. Em `config.h`, ao desativar a flag `DOUBLE_BUFFER` é possível notar que o ecrã do template fica muito mais travado. O fenómeno é chamado de [Flicker Screen](https://en.wikipedia.org/wiki/Flicker_(screen)) e ocorre porque o mesmo frame buffer é usado, simultaneamente, para:
+- suportar qualquer mudança de posição ou cor dos objetos do ecrã;
+- imprimir o ecrã píxel a píxel;
+
+Assim, mesmo com uma frequência baixa é muito provável que a consulta de um pixel seja acompanhada por uma atualização do frame todo, causando um delay não desejado.
+
+A solução clássica usada na Computação Gráfica é termos com dois buffers:
+
+- O primeiro buffer, o buffer principal que é o único que tem tradução física na VRAM, apenas é atualizado quando ocorre uma interrupção do timer. A atualização é uma cópia integral do conteúdo do segundo buffer para este;
+- O segundo buffer, o buffer secundário, é atualizado sempre que haja alguma mudança de estado dos objetos que compõem o ecrã;
+
+```c
+uint8_t *main_frame_buffer;
+uint8_t *secondary_frame_buffer;
+uint32_t frame_buffer_size;
+
+// Tratamento da interrupção do timer
+void update_timer_state() {
+    swap_buffers();
+}
+
+// Tratamento da interrupção do Mouse
+void update_mouse_state() {
+    (mouse_ih)();
+    mouse_sync_bytes();
+    if (byte_index == 3) {
+        mouse_sync_info();
+        update_buttons_state();
+        draw_new_frame(); // Desenha a atualização no frame buffer secundário
+        byte_index = 0;
+    }
+}
+
+// Cópia de todo o conteúdo do buffer secundário para o primário
+void swap_buffers() {
+    memcpy(main_frame_buffer, secondary_frame_buffer, frame_buffer_size);
+}
+```
+
+#### Vantagens
+
+- O fenómeno Flicker Screen deixa de ser visível;
+- Solução simples de implementar;
+
+#### Desvantagens
+
+- Gasta o dobro da memória;
+- A cópia da memória do buffer secundário para o principal tem complexidade temporal O(N), linear com o tamanho do buffer;
+- Há um delay entre uma interrupção de um dispositivo e a mudança visual do estado afetado por essa interrupção. Esse delay é de no máximo (1/frequência) segundos;
+
 ### Operações frequentes
+
+Devemos evitar fazer a mesma operação binária várias vezes. Por exemplo, uma implementação *naive* da função `swap_buffers()` anterior poderia ser a seguinte:
+
+```c
+void swap_buffers() {
+    memcpy(main_frame_buffer, secondary_frame_buffer, 
+                mode_info.XResolution * mode_info.YResolution * ((mode_info.BitsPerPixel + 7) / 8));
+}
+```
+
+Por cada interrupção do Timer ocorrem duas multiplicações, uma soma e uma divisão. Se considerarmos um funcionamento normal de 60 Hz, 60 interrupções por segundo portanto, ocorrem 60*(2+1+1)=240 operações por segundo só neste passo. Uma possível solução para ser mais eficiente:
+
+```c
+uint32_t frame_buffer_size;
+
+int set_frame_buffers(uint16_t mode) {
+    //...
+    frame_buffer_size = mode_info.XResolution * mode_info.YResolution * ((mode_info.BitsPerPixel + 7) / 8);
+    //...
+}
+
+void swap_buffers() {
+    memcpy(main_frame_buffer, secondary_frame_buffer, frame_buffer_size);
+}
+```
+
+Com este pequeno truque poupamos milhares e milhares de operações aritméticas ao processador durante a execução do projeto. O Minix agracede.
 
 ## Debug
 
