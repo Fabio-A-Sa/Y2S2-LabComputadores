@@ -2,8 +2,12 @@
 #define _LCOM_MENU_H_
 
 #include <minix/sysutil.h>
-#include "model/sprite.h"
 #include <lcom/lcf.h>
+#include "config.h"
+#include "controller/video/graphics.h"
+#include "controller/mouse/mouse.h"
+#include "model/sprite.h"
+#include "model/model.h"
 
 void draw_new_frame();
 void draw_initial_menu();

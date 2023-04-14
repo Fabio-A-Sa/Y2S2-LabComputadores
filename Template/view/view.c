@@ -1,8 +1,4 @@
 #include "view.h"
-#include "config.h"
-#include "controller/video/graphics.h"
-#include "controller/mouse/mouse.h"
-#include "model/model.h"
 
 // Variáveis externas importantes à visualização do modelo e dos seus estados
 uint8_t *main_frame_buffer;
