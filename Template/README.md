@@ -390,7 +390,28 @@ Com este pequeno truque poupamos milhares e milhares de operações aritméticas
 
 ## Debug
 
+A LCF (*LCOM Framework*) proporciona uma ferramenta de debug que escreve em dois ficheiros:
+- `output.txt`, contém todos os outputs da última execução do projeto;
+- `trace.txt`, contém a ordem das chamadas das funções, os tipos e valores de retorno de cada uma delas;
 
+O path do ficheiro a ser escrito na função **main** depende da configuração de cada máquina virtual. Para descobrir a string correcta, dentro da pasta desejada na consola do Minix executa-se o comando:
+
+```bash
+$ pwd # /home/lcom/labs/Template/debug
+```
+
+No meu caso direcionei os ficheiros escritos para o diretório `/debug` para ficarem mais organizados.
+
+```c
+int (main)(int argc, char *argv[]) {
+  lcf_set_language("EN-US");
+  lcf_trace_calls("/home/lcom/labs/Template/debug/trace.txt");
+  lcf_log_output("/home/lcom/labs/Template/debug/output.txt");
+  if (lcf_start(argc, argv)) return 1;
+  lcf_cleanup();
+  return 0;
+}
+```
 
 ---
 
