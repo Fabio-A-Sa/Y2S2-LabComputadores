@@ -9,9 +9,9 @@ Este template reune aspetos relevantes para o projeto final de LCOM, como dicas,
 - [Estrutura MVC](#estrutura-mvc)
 - [Orientação a Objetos em C](#orientação-a-objetos-em-c)
 - [Máquinas de Estado em C](#máquinas-de-estado-em-c)
-- XPM em modo direto
-    - Construção
-    - Utilização
+- [XPM em modo direto](#xpm-em-modo-direto)
+    - [Gerar XPMs](#gerar-xpms)
+    - [Desenhar XPMs](#desenhar-xpms)
 - Otimizações
     - Flags de compilação
     - Double Buffering
@@ -214,9 +214,88 @@ A ordem da pintura é importante. Segundo o [Algoritmo do Pintor](https://pt.wik
 
 ## XPM em modo direto
 
-### Construção
+X PixMap (XPM) é uma forma de representação de imagens. O ficheiro fornecido no [lab5](../Labs/lab5/pixmap.h) possuia alguns exemplos de XPMs com cores no formato indexado. Para o projeto convém utilizar XPMs em modo direto e em princípio é possível gerar qualquer imagem XPM a partir de uma imagem JPG ou PNG. Sugere-se usar imagens com cor de fundo constante e não muito grandes.
 
-### Utilização
+### Gerar XPMs
+
+O software gratuito que permite gerar XPMs de forma mais simples é o [GIMP](https://www.gimp.org/). Ao abrir uma imagem qualquer:
+
+<p align="center">
+  <img src="../Images/GIMP1.png">
+  <p align="center">Abrir uma imagem</p>
+</p><br>
+
+Em "File > Export As.." dá para renomear a imagem de output e escolher o formato XPM:
+
+<p align="center">
+  <img src="../Images/GIMP2.png">
+  <p align="center">Exportar para formato XPM</p>
+</p><br>
+
+O ficheiro gerado é [este](./model/xpm/smile.xpm):
+
+```c
+static char * smile_xpm[] = {
+    "200 200 621 2",
+    "  	c #FFFFFE",  // Cor transparente
+    ". 	c #000000",
+    "+ 	c #060606",
+//...
+```
+
+### Desenhar XPMs
+
+A forma de lidar com XPMs de cor direta é diferente da indicada nos Labs. Primeiro temos de garantir que a cor de fundo é uma cor conhecida para poder ser ignorada na altura de alterar os pixeis do frame buffer. Por exemplo, no caso do template foi escolhida a cor 0xFFFFFE, que só difere 1 bit do valor máximo permitido em RGB, logo será pouco provável que apareça como uma cor relevante na imagem. Essa será a cor transparente.
+
+```c
+#define TRANSPARENTE 0xFFFFFE
+
+#include "xpm/smile.xpm"
+Sprite *smile;
+
+void setup_sprites() {
+    smile = create_sprite_xpm((xpm_map_t) smile_xpm);
+}
+```
+
+A função `create_sprite_xpm` constroi um array de cores de acordo com a estrutura do XMP dado como parâmetro:
+
+```c
+Sprite *create_sprite_xpm(xpm_map_t sprite){
+
+  Sprite *sp = (Sprite *) malloc (sizeof(Sprite));
+  if( sp == NULL ) return NULL;
+
+  xpm_image_t img;
+  sp->colors = (uint32_t *) xpm_load(sprite, XPM_8_8_8_8, &img);
+  sp->height = img.height;
+  sp->width = img.width;
+
+  if( sp->colors == NULL ) {
+    free(sp);
+    return NULL;
+  }
+  return sp;
+}
+```
+
+A imagem é processada pixel a pixel, com consulta da cor dos pixeis no array do sprite. Se a cor consultada for igual à transparente não ocorre nenhuma cópia. Assim há garantias de transparência desta parte do frame:
+
+```c
+int draw_sprite_xpm(Sprite *sprite, int x, int y) { 
+    uint16_t height = sprite->height;
+    uint16_t width = sprite->width;
+    uint32_t current_color;
+    for (int h = 0 ; h < height ; h++) {
+      for (int w = 0 ; w < width ; w++) {
+        current_color = sprite->colors[w + h*width];
+        if (current_color == TRANSPARENTE) continue;
+        if (draw_pixel(x + w, y + h, current_color, drawing_frame_buffer) != 0) return 1;
+      }
+    }
+    return 0; 
+}
+```
 
 ## Otimizações
 

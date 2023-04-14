@@ -16,6 +16,7 @@ extern MenuState menuState;
 // Objetos
 extern Sprite *mouse;
 extern Sprite *hand;
+extern Sprite *smile;
 extern Sprite *button1;
 extern Sprite *button2;
 extern Sprite *button3;
@@ -67,9 +68,10 @@ void draw_new_frame() {
     draw_mouse();
 }
 
-// O menu inicial é apenas um retângulo com tamanho máximo
+// O menu inicial é apenas um retângulo com tamanho máximo, com um smile ao centro
 void draw_initial_menu() {
     draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, RED, drawing_frame_buffer);
+    draw_sprite_xpm(smile, mode_info.XResolution/2 - 100, mode_info.YResolution/2 - 100);
 }
 
 // O menu do jogo é constituído por quatro botões
@@ -80,9 +82,10 @@ void draw_game_menu() {
     draw_sprite_button(button4, mode_info.XResolution/2, mode_info.YResolution/2);
 }
 
-// O menu final é apenas um retângulo com tamanho máximo
+// O menu final é apenas um retângulo com tamanho máximo, com um smile ao centro
 void draw_finish_menu() {
     draw_rectangle(0, 0, mode_info.XResolution, mode_info.YResolution, DARKBLUE, drawing_frame_buffer);
+    draw_sprite_xpm(smile, mode_info.XResolution/2 - 100, mode_info.YResolution/2 - 100);
 }
 
 // O cursor mode ter dois estados:

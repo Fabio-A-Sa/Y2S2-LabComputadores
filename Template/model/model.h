@@ -8,6 +8,7 @@
 #include "controller/video/graphics.h"
 #include "xpm/hand.xpm"
 #include "xpm/mouse.xpm"
+#include "xpm/smile.xpm"
 #include "view/view.h"
 #include "model/sprite.h"
 #include "config.h"
