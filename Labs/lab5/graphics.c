@@ -125,7 +125,11 @@ int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 // Modo 0x110 -> BitsPerPixel = 15
 // Máscara = BIT(15) - 1 = 0b1000000000000000 - 1 = 0b0111111111111111
 int normalize_color(uint32_t color, uint32_t *new_color) {
-  *new_color = color & (BIT(mode_info.BitsPerPixel) - 1);
+  if (mode_info.BitsPerPixel == 32) {
+    *new_color = color;
+  } else {
+    *new_color = color & (BIT(mode_info.BitsPerPixel) - 1);
+  }
   return 0;
 }
 
