@@ -119,6 +119,16 @@ int (print_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return 0;
 }
 
+// Em modos de cores com bytes incompletos (por exemplo 0x110 - 5:5:5) os bits extra
+// são colocados a 0. A máscara usada é constuída pelo número de bits por pixel do modo.
+// Exemplo:
+// Modo 0x110 -> BitsPerPixel = 15
+// Máscara = BIT(15) - 1 = 0b1000000000000000 - 1 = 0b0111111111111111
+int normalize_color(uint32_t color, uint32_t *new_color) {
+  *new_color = color & (BIT(mode_info.BitsPerPixel) - 1);
+  return 0;
+}
+
 // Funções auxiliares da video_test_pattern()
 
 uint32_t (direct_mode)(uint32_t R, uint32_t G, uint32_t B) {

@@ -15,11 +15,11 @@ int main(int argc, char *argv[]) {
 
   // enables to log function invocations that are being "wrapped" by LCF
   // [comment this out if you don't want/need it]
-  lcf_trace_calls("/home/lcom/labs/lab5/trace.txt");
+  lcf_trace_calls("/home/lcom/labs/Labs/lab5/trace.txt");
 
   // enables to save the output of printf function calls on a file
   // [comment this out if you don't want/need it]
-  lcf_log_output("/home/lcom/labs/lab5/output.txt");
+  lcf_log_output("/home/lcom/labs/Labs/lab5/output.txt");
 
   // handles control over to LCF
   // [LCF handles command line arguments and invokes the right function]
@@ -86,8 +86,12 @@ int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
   // Mudança para o modo gráfico
   if (set_graphic_mode(mode) != 0) return 1;
 
+  // Normalizar a cor dependendo do modo
+  uint32_t new_color;
+  if (normalize_color(color, &new_color) != 0) return 1;
+
   // Desenha o rectângulo
-  if (vg_draw_rectangle(x, y, width, height, color) != 0) return 1;
+  if (vg_draw_rectangle(x, y, width, height, new_color) != 0) return 1;
 
   // Função que retorna apenas quando ESC é pressionado
   if (waiting_ESC_key() != 0) return 1;
