@@ -4,7 +4,7 @@
 
 - [Video Modes](#video-modes)
 - [Mapeamento da Video RAM](#mapeamento-da-video-ram)
-- [XMP](#xmp)
+- [XPM](#xpm)
 - [Compilação do código](#compilação-do-código)
 - [Testagem do código](#testagem-do-código)
 
