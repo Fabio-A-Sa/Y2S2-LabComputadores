@@ -76,7 +76,7 @@ O RTC também funciona com base em interrupções e estas podem ser ativadas e d
 
 ```c
 #define IRQ_RTC 8;
-int rtc_hook_id = 5;
+int rtc_hook_id = 5; // qualquer valor [0..7] que não tenha sido usado pelos outros dispositivos
 
 int rtc_subscribe_interrupts(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
@@ -108,7 +108,30 @@ void update_rtc() {
 
 ## BCD vs Binário
 
+Os contadores internos podem estar a ser incrementados em dois modos: modo binário ou modo BCD. Para descobrir o modo podemos consultar o `counting status` através do comando 11. É binário se o BIT 2 estiver ativo:
 
+```c
+int rtc_is_binary() {
+    uint8_t status;
+    if (rtc_output(11, &status)) return 1;
+	return status & BIT(2);
+}
+```
+
+No caso dos contadores estarem em modo BCD é necessário fazer a conversão.
+
+```note
+0011 1000 // Binário = 2^3 + 2^4 + 2^5 = 56
+   3    8 // BCD = (0011) * 10^1 + (1000) * 10^0 = 38
+```
+
+Em C a tradução pode ser implementada da seguinte forma:
+
+```c
+uint8_t to_binary(uint8_t bcd_number) {
+    return ((bcd_number >> 4) * 10) + (bcd_number & 0xF);
+}
+```
 
 ---
 
