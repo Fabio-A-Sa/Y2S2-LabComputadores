@@ -28,7 +28,7 @@ Sempre que quisermos ler algo do RTC (ler configurações ou ler os contadores i
 ```c
 int rtc_output(uint8_t command, uint8_t *output) {
     if (sys_outb(0x70, command) != 0) return 1;
-	if (util_sys_inb(0x71, output) != 0) return 1;
+    if (util_sys_inb(0x71, output) != 0) return 1;
     return 0;
 }
 ```
@@ -46,7 +46,7 @@ A tabela seguinte mostra os comandos relevantes para LCOM:
 | 10      | Update status. Se o BIT 7 estiver ativo o RTC está a atualizar algum dos contadores internos. internos                            |
 | 11      | Counting status. Se o BIT 2 estiver ativo o RTC possui os contadores em binário, caso contrário conta em formato BCD |
 
-Antes de qualquer leitura de um dos seis contadores internos é necessário confirmar que o RTC não está a atualizar. 
+Antes de qualquer leitura de um dos seis contadores internos é necessário confirmar que o RTC não está a atualizar valores. Qualquer leitura durante uma atualização poderá dar resultados errados. Uma forma de verificar é com a seguinte função booleana: 
 
 ```c
 int rtc_is_updating() {
@@ -56,15 +56,59 @@ int rtc_is_updating() {
 }
 ```
 
-Por exemplo, para atualizar o valor dos segundos:
+Agora sim dá para ler os valores com segurança. Exemplo: atualização do valor das horas:
 
 ```c
+int rtc_update_time(uint8_t *hours) {
+    
+    // Se o RTC estiver ocupado a atualizar os contadores não devemos ler dados
+    if (rtc_is_updating() != 0) return 1;
 
+    // Leitura das horas -> comando 4
+    if (rtc_output(4, hours) != 0) return 1;
+    return 0;
+}
 ```
 
 ## Interrupções
 
+O RTC também funciona com base em interrupções e estas podem ser ativadas e desativadas de forma semelhante aos outros dispositivos. O IRQ_LINE a usar é 8.
+
+```c
+#define IRQ_RTC 8;
+int rtc_hook_id = 5;
+
+int rtc_subscribe_interrupts(uint8_t *bit_no) {
+    if (bit_no == NULL) return 1;
+    return sys_irqsetpolicy(IRQ_RTC, IRQ_REENABLE, &rtc_hook_id);
+}
+
+int rtc_unsubscribe_interrupts() {
+    return sys_irqrmpolicy(&rtc_hook_id);
+}
+```
+
+É natural que o RTC crie várias interrupções por segundo devido ao seu funcionamento interno. Como o processo de leitura de todos os seis contadores internos é um processo mais complexo, é necessário fazer algumas **otimizações** para que não torne o programa lento.
+
+Por exemplo, podemos atualizar os dados (reler os contadores internos) apenas quando o número de segundos muda. Uma forma possível de implementar o sistema é usar este dispositivo juntamente com o Timer. Admitindo uma frequência de 60Hz, o número de segundos muda quando o número de interrupções do timer for múltiplo de 60 (timer_interrupts % 60 == 0):
+
+```c
+int timer_interrupts = 0; // Contador de interrupções do timer
+
+// Função chamada sempre que há interrupção do timer
+void update_timer() {
+    timer_interrupts++:
+}
+
+// Função chamada sempre que há interrupção do RTC
+void update_rtc() {
+    if (timer_interrupts % 60 == 0) update_timer_info();
+}
+```
+
 ## BCD vs Binário
+
+
 
 ---
 
