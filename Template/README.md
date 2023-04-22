@@ -320,6 +320,11 @@ A solução clássica usada na Computação Gráfica é termos com dois buffers:
 - O primeiro buffer, o buffer principal que é o único que tem tradução física na VRAM, apenas é atualizado quando ocorre uma interrupção do timer. A atualização é uma cópia integral do conteúdo do segundo buffer para este;
 - O segundo buffer, o buffer secundário, é atualizado sempre que haja alguma mudança de estado dos objetos que compõem o ecrã;
 
+<p align="center">
+  <img src="../Images/DoubleBuffering.png">
+  <p align="center">Double Buffering</p>
+</p><br>
+
 ```c
 uint8_t *main_frame_buffer;
 uint8_t *secondary_frame_buffer;
