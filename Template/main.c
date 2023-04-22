@@ -33,9 +33,6 @@ int setup() {
   // Inicialização dos sprites
   setup_sprites();
 
-  // Setup do Real Time Clock
-  rtc_setup();
-
   // Ativação das interrupções dos dispositivos
   if (timer_subscribe_interrupts() != 0) return 1;
   if (keyboard_subscribe_interrupts() != 0) return 1;
@@ -45,6 +42,9 @@ int setup() {
   // Ativar stream-mode e report de dados do rato
   if (mouse_write(ENABLE_STREAM_MODE) != 0) return 1;
   if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1;
+
+  // Setup do Real Time Clock
+  rtc_setup();
 
   return 0;
 }

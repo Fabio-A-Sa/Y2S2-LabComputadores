@@ -7,6 +7,7 @@ uint8_t *drawing_frame_buffer;
 uint32_t frame_buffer_size;
 extern vbe_mode_info_t mode_info;
 extern MouseInfo mouse_info;
+extern real_time_info time_info;
 extern MenuState menuState;
 
 // Objetos
@@ -62,6 +63,7 @@ void draw_new_frame() {
             break;
     }
     draw_mouse();
+    display_real_time();
 }
 
 // O menu inicial é apenas um retângulo com tamanho máximo, com um smile ao centro
@@ -128,4 +130,8 @@ int draw_sprite_button(Sprite *sprite, int x, int y) {
       }
     }
     return 0; 
+}
+
+void display_real_time() {
+    printf("year = %d, month = %d, day = %d, hours = %d, minutes = %d, seconds = %d\n", time_info.year, time_info.month, time_info.day, time_info.hours, time_info.minutes, time_info.seconds);
 }

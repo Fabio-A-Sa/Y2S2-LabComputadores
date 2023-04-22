@@ -39,7 +39,7 @@ int rtc_is_bcd() {
 }
 
 uint8_t to_binary(uint8_t bcd_number) {
-    return (bcd_number >> 4) * 10 + bcd_number & 0xF;
+    return ((bcd_number >> 4) * 10) + (bcd_number & 0xF);
 }
 
 int rtc_update_time() {

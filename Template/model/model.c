@@ -18,6 +18,9 @@ Sprite *button2;
 Sprite *button3;
 Sprite *button4;
 
+// Contador de interrupções do timer
+int timer_counter = 0;
+
 // Criação dos objetos via XPM e via comum
 void setup_sprites() {
     mouse = create_sprite_xpm((xpm_map_t) mouse_xpm);
@@ -43,11 +46,11 @@ void destroy_sprites() {
 // Na altura da interrupção há troca dos buffers
 void update_timer_state() {
     if (DOUBLE_BUFFER) swap_buffers();
+    timer_counter++;
 }
 
 void update_rtc_state() {
-    if (rtc_update_time() == 0)
-        printf("year = %d, month = %d, day = %d, hours = %d, minutes = %d, seconds = %d\n", time_info.year, time_info.month, time_info.day, time_info.hours, time_info.minutes, time_info.seconds);
+    if (timer_counter % GAME_FREQUENCY == 0) rtc_update_time();
 }
 
 // Sempre que uma nova tecla é pressionada há avaliação do scancode.
