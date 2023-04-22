@@ -5,6 +5,7 @@ uint8_t *main_frame_buffer;
 uint8_t *secondary_frame_buffer;
 uint8_t *drawing_frame_buffer;
 uint32_t frame_buffer_size;
+extern int timer_interrupts;
 extern vbe_mode_info_t mode_info;
 extern MouseInfo mouse_info;
 extern real_time_info time_info;
@@ -37,12 +38,14 @@ int set_frame_buffers(uint16_t mode) {
 
 // Double buffering
 // Cópia para o frame buffer principal do frame construído desde a última atualização
-// Otimização: 
-// como o swap é uma operação muito frequente, é melhor não estar  a calcular frame_buffer_size sempre. 
+// Otimizaçṍes: 
+// A) como o swap é uma operação muito frequente, é melhor não estar  a calcular frame_buffer_size sempre. 
 // Assim opta-se por uma variável global, que é constante ao longo da execução e calculada 1 vez na linha 30.
 // Poupa-se (frequência * (2 multiplicações + 1 soma + 1 divisão)) operações por cada segundo.
+// B) só vale a pena dar display do RTC quando passa um segundo
 void swap_buffers() {
     memcpy(main_frame_buffer, secondary_frame_buffer, frame_buffer_size);
+    if (timer_interrupts % GAME_FREQUENCY == 0) display_real_time();
 }
 
 // A construção de um novo frame é baseado:
@@ -63,7 +66,6 @@ void draw_new_frame() {
             break;
     }
     draw_mouse();
-    display_real_time();
 }
 
 // O menu inicial é apenas um retângulo com tamanho máximo, com um smile ao centro
@@ -132,6 +134,9 @@ int draw_sprite_button(Sprite *sprite, int x, int y) {
     return 0; 
 }
 
+// Faz o display do tempo real num formato amigável
+// No caso do Template esta função apenas retorna uma string para o ficheiro output.txt
+// Em projetos pode ser mudada para invocar sprites que coloquem no ecrã os respetivos dígitos
 void display_real_time() {
-    printf("year = %d, month = %d, day = %d, hours = %d, minutes = %d, seconds = %d\n", time_info.year, time_info.month, time_info.day, time_info.hours, time_info.minutes, time_info.seconds);
+    printf("NOW: %d/%d/%d @%d:%d:%d\n", 2000 + time_info.year, time_info.month, time_info.day, time_info.hours, time_info.minutes, time_info.seconds);
 }

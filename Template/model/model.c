@@ -19,7 +19,7 @@ Sprite *button3;
 Sprite *button4;
 
 // Contador de interrupções do timer
-int timer_counter = 0;
+int timer_interrupts = 0;
 
 // Criação dos objetos via XPM e via comum
 void setup_sprites() {
@@ -43,14 +43,16 @@ void destroy_sprites() {
     destroy_sprite(button4);
 }
 
-// Na altura da interrupção há troca dos buffers
+// Na altura da interrupção há troca dos buffers e incremento do contador
 void update_timer_state() {
     if (DOUBLE_BUFFER) swap_buffers();
-    timer_counter++;
+    timer_interrupts++;
 }
 
+// Como o Real Time Clock é um módulo mais pesado, 
+// devemos só atualizar os valores quando passa um segundo
 void update_rtc_state() {
-    if (timer_counter % GAME_FREQUENCY == 0) rtc_update_time();
+    if (timer_interrupts % GAME_FREQUENCY == 0) rtc_update_time();
 }
 
 // Sempre que uma nova tecla é pressionada há avaliação do scancode.

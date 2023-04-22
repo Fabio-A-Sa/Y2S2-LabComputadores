@@ -23,7 +23,7 @@
 #define BINARY              BIT(2)
 #define UPDATING            BIT(7)
 
-// Datastructure
+// Estrutura que reune todos os dados importantes
 typedef struct {
     uint8_t year;
     uint8_t month;
