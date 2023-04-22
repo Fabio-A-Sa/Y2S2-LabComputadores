@@ -7,6 +7,7 @@ SystemState systemState = RUNNING;
 MenuState menuState = START;
 extern MouseInfo mouse_info;
 extern vbe_mode_info_t mode_info;
+extern real_time_info time_info;
 
 // Objetos a construir e manipular com a mudança de estados
 Sprite *mouse;
@@ -42,6 +43,8 @@ void destroy_sprites() {
 // Na altura da interrupção há troca dos buffers
 void update_timer_state() {
     if (DOUBLE_BUFFER) swap_buffers();
+    if (rtc_update_time() == 0)
+        printf("year = %d, month = %d, day = %d, hours = %d, minutes = %d, seconds = %d\n", time_info.year, time_info.month, time_info.day, time_info.hours, time_info.minutes, time_info.seconds);
 }
 
 // Sempre que uma nova tecla é pressionada há avaliação do scancode.

@@ -6,6 +6,7 @@
 #include "controller/keyboard/KBC.h"
 #include "controller/mouse/mouse.h"
 #include "controller/video/graphics.h"
+#include "controller/rtc/rtc.h"
 #include "xpm/hand.xpm"
 #include "xpm/mouse.xpm"
 #include "xpm/smile.xpm"
