@@ -19,7 +19,7 @@ typedef struct {
     int front, back, size;
     unsigned capacity;
     int* values;
-}Queue;
+} Queue;
 
 Queue* createQueue();
 int queueSize(Queue *queue);
