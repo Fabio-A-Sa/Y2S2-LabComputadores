@@ -3,6 +3,7 @@
 #include "controller/video/graphics.h"
 #include "controller/keyboard/keyboard.h"
 #include "controller/mouse/mouse.h"
+#include "controller/rtc/rtc.h"
 #include "model/model.h"
 #include "view/view.h"
 #include "config.h"
@@ -32,10 +33,14 @@ int setup() {
   // Inicialização dos sprites
   setup_sprites();
 
+  // Setup do Real Time Clock
+  rtc_setup();
+
   // Ativação das interrupções dos dispositivos
   if (timer_subscribe_interrupts() != 0) return 1;
   if (keyboard_subscribe_interrupts() != 0) return 1;
   if (mouse_subscribe_interrupts() != 0) return 1;
+  if (rtc_subscribe_interrupts() != 0) return 1;
 
   // Ativar stream-mode e report de dados do rato
   if (mouse_write(ENABLE_STREAM_MODE) != 0) return 1;
@@ -56,6 +61,7 @@ int teardown() {
   if (timer_unsubscribe_interrupts() != 0) return 1;
   if (keyboard_unsubscribe_interrupts() != 0) return 1;
   if (mouse_unsubscribe_interrupts() != 0) return 1;
+  if (rtc_unsubscribe_interrupts() != 0) return 1;
 
   // Desativar o report de dados do rato
   if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
@@ -87,6 +93,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
           if (msg.m_notify.interrupts & TIMER_MASK)    update_timer_state();
           if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard_state();
           if (msg.m_notify.interrupts & MOUSE_MASK)    update_mouse_state();
+          if (msg.m_notify.interrupts & RTC_MASK)      update_rtc_state();
         }
     }
   }

@@ -5,6 +5,8 @@
 #include <lcom/lcf.h>
 
 // Macros
+#define RTC_MASK            5
+#define IRQ_RTC             8
 #define REGISTER_INPUT      0x70
 #define REGISTER_OUTPUT     0x71
 
@@ -32,8 +34,14 @@ typedef struct {
 } real_time_info;
 
 // Functions
+void rtc_setup();
+int rtc_subscribe_interrupts();
+int rtc_unsubscribe_interrupts();
 int rtc_output(uint8_t command, uint8_t *output);
 int rtc_is_updating();
+int rtc_is_binary();
+int rtc_is_bcd();
 int rtc_update_time();
+uint8_t to_binary(uint8_t bcd_number);
 
 #endif
