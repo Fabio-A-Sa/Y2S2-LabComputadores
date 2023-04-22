@@ -15,16 +15,17 @@ This repository contains all the exercises and assessments of the UC Laboratóri
 
 As a LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with Professor [Nuno Cardoso](https://sigarra.up.pt/feup/pt/func_geral.FormView?p_codigo=683234), I intend to update this repository according to new exercises and improve the available notes of theoretical classes. The most up-to-date notes are available here:
 
-- [Recomendações gerais](/Labs/)
+- [Recommendations](/Labs/)
 - [Lab0](/Labs/lab0/) - The C language
 - [Lab2](/Labs/lab2/) - i8254, the PC's Timer
 - [Lab3](/Labs/lab3/) - i8042, the PC's Keyboard
 - [Lab4](/Labs/lab4/) - i8042, the PC's Mouse
 - [Lab5](/Labs/lab5/) - Video Card
+- [Extra](/Labs/lab6/) - Real Time Clock
 
 ## Template
 
-A simple template for the final LCOM project. Under construction.
+A simple template for the final LCOM project. Brings together relevant aspects for the final LCOM project, such as tips, algorithms, guidelines on code structure, possible optimizations, among others.
 
 ## Gertic-- (Grade: 18.9 / 20)
 

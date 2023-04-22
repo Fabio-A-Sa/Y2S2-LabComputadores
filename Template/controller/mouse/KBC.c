@@ -29,12 +29,12 @@ int read_KBC_output(uint8_t port, uint8_t *output, uint8_t mouse) {
                 printf("Error: Timeout error!\n");          // se existir, descarta
                 return 1;
             }
-            if (mouse && !(status & BIT(5))) {              // está à espera do output do rato
-                printf("Error: Mouse output not found\n");  // mas o output não é do rato
-                return 1;
-            } 
             if (!mouse && (status & BIT(5))) {                 // está à espera do output do teclado
                 printf("Error: Keyboard output not found\n"); // mas o output não é do teclado
+                return 1;
+            } 
+            if (mouse && !(status & BIT(5))) {              // está à espera do output do rato
+                printf("Error: Mouse output not found\n");  // mas o output não é do rato
                 return 1;
             } 
             return 0; // sucesso: output correto lido sem erros de timeout ou de paridade
