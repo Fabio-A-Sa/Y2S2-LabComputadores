@@ -10,6 +10,12 @@ Queue* create_queue() {
     return queue;
 }
 
+int destroy_queue(Queue *queue) {
+    free(queue->values);
+    free(queue);
+    return 0;
+}
+
 int is_full(Queue *queue) {
     return queue->size == queue->capacity;
 }

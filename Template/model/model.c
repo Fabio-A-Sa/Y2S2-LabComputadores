@@ -119,3 +119,7 @@ void update_buttons_state() {
         button4->pressed = 0;
     }
 }
+
+void update_serial_state() {
+    printf("Interrupção da serial port!\n");
+}

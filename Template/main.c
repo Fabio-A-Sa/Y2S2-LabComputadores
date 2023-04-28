@@ -4,6 +4,8 @@
 #include "controller/keyboard/keyboard.h"
 #include "controller/mouse/mouse.h"
 #include "controller/rtc/rtc.h"
+#include "controller/serial/protocol.h"
+#include "controller/serial/port.h"
 #include "model/model.h"
 #include "view/view.h"
 #include "config.h"
@@ -38,6 +40,7 @@ int setup() {
   if (keyboard_subscribe_interrupts() != 0) return 1;
   if (mouse_subscribe_interrupts() != 0) return 1;
   if (rtc_subscribe_interrupts() != 0) return 1;
+  if (serial_subscribe_interrupts() != 0) return 1;
 
   // Ativar stream-mode e report de dados do rato
   if (mouse_write(ENABLE_STREAM_MODE) != 0) return 1;
@@ -45,6 +48,9 @@ int setup() {
 
   // Setup do Real Time Clock
   rtc_setup();
+
+  // Inicialização do Protocolo de ligação de dados
+  if (init_protocol() != 0) return 1;
 
   return 0;
 }
@@ -62,9 +68,13 @@ int teardown() {
   if (keyboard_unsubscribe_interrupts() != 0) return 1;
   if (mouse_unsubscribe_interrupts() != 0) return 1;
   if (rtc_unsubscribe_interrupts() != 0) return 1;
+  if (serial_unsubscribe_interrupts() != 0) return 1;
 
   // Desativar o report de dados do rato
   if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
+
+  // Término do Protocolo de ligação de dados
+  if (exit_protocol() != 0) return 1;
 
   return 0;
 }
@@ -94,6 +104,7 @@ int (proj_main_loop)(int argc, char *argv[]) {
           if (msg.m_notify.interrupts & KEYBOARD_MASK) update_keyboard_state();
           if (msg.m_notify.interrupts & MOUSE_MASK)    update_mouse_state();
           if (msg.m_notify.interrupts & RTC_MASK)      update_rtc_state();
+          //if (msg.m_notify.interrupts & SERIAL_MASK)   update_serial_state();
         }
     }
   }

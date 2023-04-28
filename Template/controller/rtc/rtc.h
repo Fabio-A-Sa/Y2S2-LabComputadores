@@ -5,7 +5,7 @@
 #include <lcom/lcf.h>
 
 // Macros
-#define RTC_MASK            5
+#define RTC_MASK            BIT(3)
 #define IRQ_RTC             8
 #define REGISTER_INPUT      0x70
 #define REGISTER_OUTPUT     0x71

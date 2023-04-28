@@ -15,6 +15,7 @@ typedef struct {
 
 // Functions
 Queue* create_queue();
+int destroy_queue(Queue *queue);
 int is_empty(Queue* queue);
 int is_full(Queue* queue);
 int queue_size(Queue *queue, uint8_t *size);

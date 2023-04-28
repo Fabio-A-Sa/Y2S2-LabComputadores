@@ -1,7 +1,7 @@
 #include "rtc.h"
 
 // Variáveis globais
-int rtc_hook_id = RTC_MASK; // Máscara constante = 5
+int rtc_hook_id = 3;        // Máscara constante, ativa o bit 3 da IRQ_LINE
 real_time_info time_info;   // Estrutura que irá conter toda a informação
 uint8_t binary_mode;        // Modo de contagem, variável booleana
 
