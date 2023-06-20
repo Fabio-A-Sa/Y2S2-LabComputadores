@@ -162,7 +162,7 @@ Queremos configurar o Timer 1 com frequência de 60Hz. O conjunto de instruçõe
 
 ```c
 // Consultar a configuração atual do Timer 1
-uint8_t readback_command = = BIT(7) | BIT(6) | BIT(5) | BIT(2); // 11100100 = 0xE4
+uint8_t readback_command = BIT(7) | BIT(6) | BIT(5) | BIT(2); // 11100100 = 0xE4
 sys_outb(0x43, 0xE4);             
 uint8_t old_configuration, new_configuration;
 util_sys_inb(0x41, &old_configuration);
