@@ -4,6 +4,12 @@
 
 - [Programação em C no contexto de LCOM](#programação-em-c-no-contexto-de-lcom)
 - [Organização do código](#organização-do-código)
+- [Lab0](./lab0/README.md) - The C language
+- [Lab2](./lab2/) - i8254, the PC's Timer
+- [Lab3](./lab3/) - i8042, the PC's Keyboard
+- [Lab4](./lab4/) - i8042, the PC's Mouse
+- [Lab5](./lab5/) - Video Card
+- [Lab6](./lab6/) - Real Time Clock
 
 ## Programação em C no contexto de LCOM
 
