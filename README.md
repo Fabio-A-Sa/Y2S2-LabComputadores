@@ -21,23 +21,23 @@ All schematics, illustrations, texts, code snippets, and resolutions are my own.
 
 ### Labs
 
-In [recommendations](/Labs/), you can find the ideal structure of the labs to be developed in practical classes, as well as some notes on the best way to program in LCOM. In [Lab0](/Labs/lab0/) you can find relevant aspects of Language C in the context of this Curricular Unit. Handling arguments, masks, macros, and shifts is a big step toward success here.
+In [recommendations](./Labs/README.md), you can find the ideal structure of the labs to be developed in practical classes, as well as some notes on the best way to program in LCOM. In [Lab0](./Labs/lab0/) you can find relevant aspects of Language C in the context of this Curricular Unit. Handling arguments, masks, macros, and shifts is a big step toward success here.
 
 Each lab activity is accompanied by a detailed explanation of the theory as well as the implementation of the corresponding device, with commented and documented code. I didn't hide any details, I gave importance to the really important parts, topics referring to the main problems/faults and their solutions. Likewise, the explanation is sequential, without jumps, so that knowledge is more easily obtained. All the tricks to success can be found here:
 
-- [Recommendations](/Labs/)
-- [Lab0](/Labs/lab0/) - The C language
-- [Lab2](/Labs/lab2/) - i8254, the PC's Timer
-- [Lab3](/Labs/lab3/) - i8042, the PC's Keyboard
-- [Lab4](/Labs/lab4/) - i8042, the PC's Mouse
-- [Lab5](/Labs/lab5/) - Video Card
-- [Extra](/Labs/lab6/) - Real Time Clock
+- [Recommendations](./Labs/)
+- [Lab0](./Labs/lab0/README.md) - The C language
+- [Lab2](./Labs/lab2/) - i8254, the PC's Timer
+- [Lab3](./Labs/lab3/) - i8042, the PC's Keyboard
+- [Lab4](./Labs/lab4/) - i8042, the PC's Mouse
+- [Lab5](./Labs/lab5/) - Video Card
+- [Extra](./Labs/lab6/) - Real Time Clock
 
 ### Template
 
 A simple template for the final LCOM project. Brings together relevant aspects for the final LCOM project, such as tips, algorithms, guidelines on code structure, and possible optimizations, among others.
 
-- [Code](/Template/)
+- [Code](./Template/)
 
 Seeing things working in practice is much better than in theory, and this Template was useful for the student's first interaction with the learned devices, as well as for understanding the importance of Minix optimizations. Feel free to clone, run, modify and change what you find relevant.
 
