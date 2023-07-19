@@ -11,7 +11,7 @@ This repository contains all the exercises and assessments of the UC Laboratóri
        />
 </p>
 
-## LCOM Documentation <a href="www.google.com">></a>
+## LCOM Documentation. <a href="https://fabio-a-sa.github.io/Y2S2-LabComputadores/">Website Version</a>
 
 I was LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with Professor [Nuno Cardoso](https://sigarra.up.pt/feup/pt/func_geral.FormView?p_codigo=683234). Initially, I started to build this repository to be able to explain the subject in a simple but complete way during the practical classes, making them dynamic, fun, and attractive. But in a short time, I ended up extending the notes to the entire subject of the curricular unit. 
 
