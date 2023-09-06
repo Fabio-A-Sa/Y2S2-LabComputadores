@@ -17,7 +17,7 @@ I was LCOM monitor in the year 2022/2023 of the classes 2LEIC06 and 2LEIC10 with
 
 Thus, except for the serial port module, this documentation covers all devices given in lectures, exercises, and notes also for the final project. It doesn't hurt to help students understand the subject better. It was a pleasure together with Professor Nuno to be able to captivate the students and in the end, when we received all the positive feedback, we realized that we made the right choices.
 
-All schematics, illustrations, texts, code snippets, and resolutions are my own. Any doubts or questions can contact me through my email, up202007658@edu.fe.up.pt. I would be very happy to help.
+All schematics, illustrations, texts, code snippets, and resolutions are my own. Any doubts or questions can contact me through my email, up202007658@up.pt. I would be very happy to help.
 
 ### Labs
 
