@@ -1,5 +1,13 @@
 # Laboratório de Computadores (LC) - Year 2, Semester 2 (Y2S2)
 
+:warning: Note regarding LCOM 23/24 edition :warning:
+
+Although I am no longer officialy involved in this course unit, I will continue to collaborate to improve teaching by maintaining this repository, all explanations and code. Therefore, I ask that if you see any errors or find parts that are not well-explained, please contact me. Let's all collaborate for better education.
+
+And now, the repository:
+
+----
+
 This repository contains all the exercises and assessments of the UC Laboratório de Computadores, taught by [Pedro Ferreira Souto](https://sigarra.up.pt/feup/pt/func_geral.formview?p_codigo=238172) and [Pedro Brandão](https://sigarra.up.pt/feup/pt/func_geral.formview?p_codigo=246574) at [Integrated Master in Informatics and Computing Engineering](https://sigarra.up.pt/feup/pt/cur_geral.cur_view?pv_curso_id=742) [MIEIC] at the [Faculty of Engineering of the University of Porto](https://sigarra.up.pt/feup/pt/web_page.Inicial) [FEUP]. <br>
 
 <h2 align = "center" >Final Grade: 19/20</h2>
