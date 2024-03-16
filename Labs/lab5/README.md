@@ -219,6 +219,12 @@ int paint_pixel(uint16_t x, uint16_t y, uint32_t color) {
 }
 ```
 
+Confesso que às vezes os cálculos, arredondamentos e offsets podem ser confusos. Em 2023 criei uma forma mais interativa de ver o que acontece, que está dispoível [aqui](https://docs.google.com/spreadsheets/d/1aaTiOUk965avtSCn7fpoqJcOiJpvunK_QaXHsfLqf9M/edit?usp=sharing).
+
+![Interactive Frame Buffer](../../Images/FB.png)
+
+Uma vez que esta folha é read-only, podem inspecionar as fórmulas, assim como copiar e colar para um sítio que possam editar.
+
 ## XPM
 
 X PixMap (XPM) é uma forma de representação de imagens. O ficheiro fornecido [pixmap.h](./pixmap.h) possui alguns exemplos no formato interpretado pelo Minix. Exemplo:

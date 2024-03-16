@@ -4,7 +4,7 @@
 
 Although I am no longer officially involved in this course unit, I will continue to collaborate to improve teaching by maintaining this repository, all explanations and code. Therefore, I ask that if you see any errors or find parts that are not well-explained, please contact me. Let's all collaborate for better education.
 
-And now, the repository:
+-----
 
 This repository contains all the exercises and assessments of the UC Laboratório de Computadores, taught by [Pedro Ferreira Souto](https://sigarra.up.pt/feup/pt/func_geral.formview?p_codigo=238172) and [Pedro Brandão](https://sigarra.up.pt/feup/pt/func_geral.formview?p_codigo=246574) at [Integrated Master in Informatics and Computing Engineering](https://sigarra.up.pt/feup/pt/cur_geral.cur_view?pv_curso_id=742) [MIEIC] at the [Faculty of Engineering of the University of Porto](https://sigarra.up.pt/feup/pt/web_page.Inicial) [FEUP]. <br>
 
@@ -25,7 +25,7 @@ Thus, except for the serial port module, this documentation covers all devices g
 
 All schematics, illustrations, texts, code snippets, and resolutions are my own. Any doubts or questions can contact me through my email, up202007658@up.pt. I would be very happy to help.
 
-### Labs
+### 1. Labs
 
 In [recommendations](./Labs/README.md), you can find the ideal structure of the labs to be developed in practical classes, as well as some notes on the best way to program in LCOM. In [Lab0](./Labs/lab0/) you can find relevant aspects of Language C in the context of this Curricular Unit. Handling arguments, masks, macros, and shifts is a big step toward success here.
 
@@ -39,7 +39,15 @@ Each lab activity is accompanied by a detailed explanation of the theory as well
 - [Lab5](./Labs/lab5/) - Video Card
 - [Extra](./Labs/lab6/) - Real Time Clock
 
-### Template
+### 2. Interactive Frame Buffer
+
+Resource for Lab 5, Video Card. Sometimes the calculations and offsets may not be very clear. In 2023, I created an Excel sheet that helps visualize them. It's available [here](https://docs.google.com/spreadsheets/d/1aaTiOUk965avtSCn7fpoqJcOiJpvunK_QaXHsfLqf9M/edit?usp=sharing).
+
+![Interactive Frame Buffer](./Images/FB.png)
+
+Since the shared sheet is read-only, feel free to inspect all formulas, copy and paste them to a sheet where it can be edited. Learning by doing, rather than just in theory, is much better.
+
+### 3. Template
 
 A simple template for the final LCOM project. Brings together relevant aspects for the final LCOM project, such as tips, algorithms, guidelines on code structure, and possible optimizations, among others.
 
