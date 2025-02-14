@@ -1,6 +1,6 @@
 # Laboratório de Computadores (LC) - Year 2, Semester 2 (Y2S2)
 
-## :warning: Note regarding LCOM 23/24 edition :warning:
+## :warning: Note regarding LCOM 24/25 edition :warning:
 
 Although I am no longer officially involved in this course unit, I will continue to collaborate to improve teaching by maintaining this repository, all explanations and code. Therefore, I ask that if you see any errors or find parts that are not well-explained, please contact me. Let's all collaborate for better education.
 
