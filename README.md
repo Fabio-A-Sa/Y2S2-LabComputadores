@@ -55,6 +55,16 @@ A simple template for the final LCOM project. Brings together relevant aspects f
 
 Seeing things working in practice is much better than in theory, and this Template was useful for the student's first interaction with the learned devices, as well as for understanding the importance of Minix optimizations. Feel free to clone, run, modify and change what you find relevant.
 
+### 4. PP
+
+Given that two years have passed and this edition (24/25) will certainly bring updates to the Curricular Unit, I decided to create this folder containing the (possible) solutions for the practical parts. Please note that:
+
+- The test instructions ("enunciados") have always been circulating around;
+- The pseudo-solutions have also always been circulating, they just weren’t available here and were often incorrect or incomplete;
+- Obviously, each of the `pp_X.c` files does not work individually in Minix and cannot be run or compiled. The test LCF version, which is only available during assessments, is always required;
+
+Enjoy!
+
 ## Gertic-- (Grade: 18.9 / 20)
 
 <p align = "center" >
@@ -82,4 +92,4 @@ Members:
 - [x] Marcos Pinto, up201800177
 
 **@ Fábio Araújo de Sá** <br>
-**2021/2022/2023**
+**2021/2022/2023/2024/2025**
