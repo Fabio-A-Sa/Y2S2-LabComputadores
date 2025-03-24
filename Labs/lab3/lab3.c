@@ -11,7 +11,7 @@
 #include "timer.c"
 
 extern uint32_t counter_KBC;
-extern int counter_TIMER;
+extern uint32_t counter_TIMER;
 extern uint8_t scancode;
 
 int main(int argc, char *argv[]) {

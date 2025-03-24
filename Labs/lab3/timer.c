@@ -6,7 +6,7 @@
 #include "i8254.h"
 
 int hook_id_TIMER = 0;
-int counter_TIMER = 0;
+uint32_t counter_TIMER = 0;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
@@ -59,6 +59,7 @@ int (timer_unsubscribe_int)() {
 }
 
 void (timer_int_handler)() {
+  if (counter_TIMER == UINT32_MAX){counter_TIMER = UINT32_MAX % 60;} // "esvazia" o counter para evitar overflow e preserva a lógica do módulo para o lab
   counter_TIMER++;
 }
 

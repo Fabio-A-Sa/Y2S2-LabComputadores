@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-extern int counter;
+extern uint32_t counter;
 
 int main(int argc, char *argv[]) {
 
