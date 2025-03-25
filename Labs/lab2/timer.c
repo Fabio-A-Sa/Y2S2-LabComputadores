@@ -66,7 +66,6 @@ int (timer_unsubscribe_int)() {
 }
 
 void (timer_int_handler)() {
-  if (counter == UINT32_MAX){counter = UINT32_MAX % 60;} // "esvazia" o counter para evitar overflow e preserva a lógica do módulo para o lab
   counter++;
 }
 

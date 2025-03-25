@@ -113,6 +113,7 @@ int(kbd_test_timed_scan)(uint8_t n) {
                     }
                     if (msg.m_notify.interrupts & irq_set_TIMER) {
                         timer_int_handler();
+                        //if (counter_TIMER == (UINT32_MAX - (UINT32_MAX % 60)) ) { counter_TIMER = 0; }  // "esvazia" o counter para evitar overflow e preserva a lógica do módulo para o lab
                         if (counter_TIMER % 60 == 0) seconds++;
                     }
             }

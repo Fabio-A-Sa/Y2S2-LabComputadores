@@ -63,6 +63,7 @@ int(timer_test_int)(uint8_t time) {
             case HARDWARE: /* hardware interrupt notification */                
                 if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
                    timer_int_handler(); 
+                   //if (counter == (UINT32_MAX - (UINT32_MAX % 60)) ) { counter = 0; }  // "esvazia" o counter para evitar overflow e preserva a lógica do módulo para o lab
                    if(counter%60==0){
                       timer_print_elapsed_time();
                       time--;
